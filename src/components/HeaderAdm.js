@@ -1,9 +1,10 @@
 import React from "react";
 import { HeaderWrap } from "../styles/HeaderStyle";
-import { Layout } from "antd";
+import { Breadcrumb, Layout } from "antd";
 import { Link } from "react-router-dom";
 
-const HeaderAdm = () => {
+const HeaderAdm = ({ breadCrumbLnbTitle, breadcrumbItems }) => {
+  console.log("header", breadCrumbLnbTitle);
   const { Header } = Layout;
 
   const handleClick = () => {
@@ -18,10 +19,11 @@ const HeaderAdm = () => {
           }}
         >
           <HeaderWrap>
-            <div>
-              <Link to="/home" onClick={handleClick}>
-                <h3>Admin</h3>
-              </Link>
+            {/* 상단 네비게이션 메뉴 */}
+            <div className="breadcrumb-wrap">
+              {breadCrumbLnbTitle !== "" && (
+                <Breadcrumb items={breadcrumbItems} />
+              )}
             </div>
           </HeaderWrap>
         </Header>

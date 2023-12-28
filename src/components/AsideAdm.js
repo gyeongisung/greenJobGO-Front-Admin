@@ -57,9 +57,11 @@ const AsideAdm = () => {
   return (
     <SideMenuWrap>
       <Sider
-        style={{
-          height: "100vh",
-        }}
+        style={
+          {
+            // height: "calc(100vh - 140px)",
+          }
+        }
       >
         <div className="sidemenu-logo-div">
           <Link to="/home">logo 위치</Link>
@@ -84,8 +86,8 @@ const AsideAdm = () => {
             </SubMenu>
           ))}
         </Menu>
-        <div className="end-menu"></div>
       </Sider>
+        {/* <div className="end-menu"></div> */}
     </SideMenuWrap>
   );
 };

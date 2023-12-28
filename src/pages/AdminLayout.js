@@ -13,15 +13,22 @@ const AdminLayout = () => {
 
   const { pathname } = useLocation();
   // const { iproduct } = useParams();
-  // pathname에서 /admin/ 는 제외처리
-  // const listPathName = pathname.slice(7);
+
+  const listPathName = pathname.substring(1);
+  console.log("pathname", pathname);
 
   // 네비게이션 gnb state
-  // const [breadCrumbGnb, setBreadCrumbGnb] = useState("");
+  const [breadCrumbGnb, setBreadCrumbGnb] = useState("");
+  console.log("breadCrumbGnb", breadCrumbGnb);
+
   // 네비게이션 lnb title state
-  // const [breadCrumbLnbTitle, setBreadCrumbLnbTitle] = useState("");
+  const [breadCrumbLnbTitle, setBreadCrumbLnbTitle] = useState("");
+  console.log("breadCrumbLnbTitle", breadCrumbLnbTitle);
+
   // 네비게이션 lnb path state
-  // const [breadCrumbLnbPath, setBreadCrumbLnbPath] = useState("");
+  const [breadCrumbLnbPath, setBreadCrumbLnbPath] = useState("");
+  console.log("breadCrumbLnbPath", breadCrumbLnbPath);
+
   // 관리자페이지 - lnb 데이터
   const lnbData = [
     {
@@ -47,71 +54,61 @@ const AdminLayout = () => {
   ];
 
   // 관리자페이지 - 네비게이션 데이터
-  // const breadcrumbItems = [
-  //   {
-  //     title: <Link to="/home">Home</Link>,
-  //   },
-  //   {
-  //     title: breadCrumbGnb,
-  //   },
-  //   {
-  //     title: breadCrumbLnbTitle,
-  //   },
-  // ];
-  // const findPath = lnbData.find(item => item.path === listPathName);
-  // useEffect(() => {
-  //   findPath;
-  //   // gnb 데이터 갱신
-  //   if (pathname.includes("member")) {
-  //     setBreadCrumbGnb("회원관리");
-  //   } else if (pathname.includes("store")) {
-  //     setBreadCrumbGnb("매장관리");
-  //   } else if (pathname.includes("order")) {
-  //     // console.log("order 포함되었어요");
-  //     setBreadCrumbGnb("주문관리");
-  //   } else if (pathname.includes("product")) {
-  //     // console.log("product 포함되었어요");
-  //     setBreadCrumbGnb("상품관리");
-  //   } else {
-  //     // console.log("메인이에요");
-  //     setBreadCrumbGnb("");
-  //   }
-  //   // lnb 데이터 갱신
-  //   if (findPath) {
-  //     setBreadCrumbLnbTitle(findPath.title);
-  //     setBreadCrumbLnbPath(findPath.path);
-  //     // console.log("제목", breadCrumbLnbTitle);
-  //     // console.log("path이름", breadCrumbLnbPath);
-  //   } else {
-  //     setBreadCrumbLnbTitle("");
-  //   }
-  // }, [pathname]);
+  const breadcrumbItems = [
+    {
+      title: <Link to="/home">Home</Link>,
+    },
+    {
+      title: breadCrumbGnb,
+    },
+    {
+      title: breadCrumbLnbTitle,
+    },
+  ];
+  const findPath = lnbData.find(item => item.path === listPathName);
+  useEffect(() => {
+    findPath;
+    // gnb 데이터 갱신
+    if (pathname.includes("class")) {
+      setBreadCrumbGnb("과정 관리");
+    } else if (pathname.includes("jobmanager")) {
+      setBreadCrumbGnb("과정 관리");
+    } else if (pathname.includes("student")) {
+      setBreadCrumbGnb("수강생 관리");
+    } else if (pathname.includes("portfolio")) {
+      setBreadCrumbGnb("수강생 관리");
+    } else if (pathname.includes("company")) {
+      setBreadCrumbGnb("기업 관리");
+    } else {
+      setBreadCrumbGnb("");
+    }
+    // lnb 데이터 갱신
+    if (findPath) {
+      setBreadCrumbLnbTitle(findPath.title);
+      setBreadCrumbLnbPath(findPath.path);
+    } else {
+      setBreadCrumbLnbTitle("");
+    }
+  }, [pathname]);
   return (
     <>
       <Layout>
         {/* 관리자페이지 - 사이드메뉴 */}
         <AsideAdm />
-        {/* 관리자페이지 - 네비게이션 */}
-        {/* <div className="breadcrumb-wrap">
-            {breadCrumbLnbTitle !== "" && (
-              <Breadcrumb items={breadcrumbItems} />
-              )}
-            </div> */}
-        {/* <div className="layout-box"> */}
-        {/* 관리자페이지 - 페이지 이름 표시 */}
-        {/* {breadCrumbLnbTitle !== "" && ( */}
-        {/* <div className="pg-title"> */}
-        {/* <h2>{breadCrumbLnbTitle}</h2> */}
-        {/* </div> */}
-        {/* )} */}
-        <ContentWrap>
-          <Layout>
-            <HeaderAdm />
+
+        <Layout>
+          <ContentWrap>
+            <HeaderAdm
+              breadCrumbLnbTitle={breadCrumbLnbTitle}
+              breadcrumbItems={breadcrumbItems}
+            />
             <Content>
-              <Outlet />
+              <div className="contents-box">
+                <Outlet />
+              </div>
             </Content>
-          </Layout>
-        </ContentWrap>
+          </ContentWrap>
+        </Layout>
       </Layout>
     </>
   );

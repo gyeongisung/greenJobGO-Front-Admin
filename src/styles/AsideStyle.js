@@ -1,17 +1,17 @@
 import styled from "@emotion/styled";
 
 export const SideMenuWrap = styled.div`
-  position: relative;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 0px);
 
   .sidemenu-logo-div {
-    /* width: 100%; */
+    width: 100%;
     height: 64px;
     background: #d9d9d9;
   }
 
   .ant-menu {
-    height: calc(100% - 60px);
+    /* height: calc(100% - 64px); */
+    height: 100%;
   }
   .ant-menu-sub.ant-menu-inline {
     background: #ffffff !important;
@@ -29,6 +29,5 @@ export const SideMenuWrap = styled.div`
     background: #d9d9d9;
     width: 200px;
     height: 140px;
-    z-index: 999;
   }
 `;
