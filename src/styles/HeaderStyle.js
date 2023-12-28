@@ -1,12 +1,7 @@
 import styled from "@emotion/styled";
 
 export const HeaderWrap = styled.div`
-  background: cyan;
+  background: #ffffff;
+  width: 100vw;
   height: 60px;
-  > div {
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
 `;
