@@ -8,7 +8,6 @@ import StudentMgmt from "./pages/StudentMgmt";
 import CompanyMgmt from "./pages/CompanyMgmt";
 import NotFound from "./pages/NotFound";
 import PortfolioMgmt from "./pages/PortfolioMgmt";
-import CompanyAuth from "./pages/CompanyAuth";
 import Register from "./pages/Register";
 
 function App() {
@@ -23,7 +22,6 @@ function App() {
           <Route path="/student" element={<StudentMgmt />} />
           <Route path="/portfolio" element={<PortfolioMgmt />} />
           <Route path="/company" element={<CompanyMgmt />} />
-          <Route path="/companyauth" element={<CompanyAuth />} />
         </Route>
         <Route path="*" elemen={<NotFound />} />
       </Routes>
