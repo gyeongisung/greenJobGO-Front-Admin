@@ -8,7 +8,6 @@ import StudentMgmt from "./pages/StudentMgmt";
 import CompanyMgmt from "./pages/CompanyMgmt";
 import NotFound from "./pages/NotFound";
 import PortfolioMgmt from "./pages/PortfolioMgmt";
-import CompanyAuth from "./pages/CompanyAuth";
 import Register from "./pages/Register";
 import JobManager from "./pages/JobManager";
 
@@ -33,8 +32,6 @@ function App() {
           <Route path="/portfolio" element={<PortfolioMgmt />} />
           {/* 기업 관리 */}
           <Route path="/company" element={<CompanyMgmt />} />
-          {/* 기업 권한 */}
-          <Route path="/companyauth" element={<CompanyAuth />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
