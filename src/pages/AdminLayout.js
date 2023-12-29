@@ -15,19 +15,15 @@ const AdminLayout = () => {
   // const { iproduct } = useParams();
 
   const listPathName = pathname.substring(1);
-  console.log("pathname", pathname);
 
   // 네비게이션 gnb state
   const [breadCrumbGnb, setBreadCrumbGnb] = useState("");
-  console.log("breadCrumbGnb", breadCrumbGnb);
 
   // 네비게이션 lnb title state
   const [breadCrumbLnbTitle, setBreadCrumbLnbTitle] = useState("");
-  console.log("breadCrumbLnbTitle", breadCrumbLnbTitle);
 
   // 네비게이션 lnb path state
   const [breadCrumbLnbPath, setBreadCrumbLnbPath] = useState("");
-  console.log("breadCrumbLnbPath", breadCrumbLnbPath);
 
   // 관리자페이지 - lnb 데이터
   const lnbData = [

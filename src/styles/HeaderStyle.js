@@ -6,6 +6,9 @@ export const HeaderWrap = styled.div`
   height: 60px;
 
   .breadcrumb-wrap {
+    position: absolute;
+    top: 3px;
+    left: 200px;
     height: 60px;
     padding: 1%;
     cursor: pointer;

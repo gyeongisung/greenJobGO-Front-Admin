@@ -5,7 +5,7 @@ export const SideMenuWrap = styled.div`
 
   .sidemenu-logo-div {
     width: 100%;
-    height: 64px;
+    height: 60px;
     background: #d9d9d9;
   }
 

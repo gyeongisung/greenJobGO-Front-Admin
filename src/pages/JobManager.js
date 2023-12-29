@@ -5,7 +5,7 @@ import { JobManagerWrap } from "../styles/JobmanagerStyle";
 // 더미데이터
 const managers = [
   {
-    img: "https://via.placeholder.com/200",
+    img: "https://via.placeholder.com/170x230",
     shortword: "여러분의 도전을 응원합니다111",
     name: "김아트",
     call: "053-422-2091",
@@ -13,7 +13,7 @@ const managers = [
     email: "green123@gmail.com",
   },
   {
-    img: "https://via.placeholder.com/200",
+    img: "https://via.placeholder.com/170x230",
     shortword: "여러분의 도전을 응원합니다222",
     name: "김그린",
     call: "053-422-2091",
@@ -21,7 +21,7 @@ const managers = [
     email: "green123@gmail.com",
   },
   {
-    img: "https://via.placeholder.com/200",
+    img: "https://via.placeholder.com/170x230",
     shortword: "여러분의 도전을 응원합니다333",
     name: "김학원",
     call: "053-422-2091",

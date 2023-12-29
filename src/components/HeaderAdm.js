@@ -4,7 +4,6 @@ import { Breadcrumb, Layout } from "antd";
 import { Link } from "react-router-dom";
 
 const HeaderAdm = ({ breadCrumbLnbTitle, breadcrumbItems }) => {
-  console.log("header", breadCrumbLnbTitle);
   const { Header } = Layout;
 
   const handleClick = () => {
