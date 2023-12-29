@@ -5,7 +5,7 @@ import {
   CompanyTable,
 } from "../styles/CompanyMgmtStyle";
 import Pagination from "../components/Paging";
-import { CompanyMgmtModal } from "../components/InputModal";
+import { CompanyMgmtModal } from "../components/Modal";
 
 const CompanyMgmt = () => {
   const [listData, setListData] = useState([]);

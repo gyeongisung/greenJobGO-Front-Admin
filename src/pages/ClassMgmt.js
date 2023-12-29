@@ -5,7 +5,7 @@ import {
   ClassTable,
 } from "../styles/ClassMgmtStyle";
 import Pagination from "../components/Paging";
-import { ClassMgmtModal } from "../components/InputModal";
+import { ClassMgmtModal } from "../components/Modal";
 
 const ClassMgmt = () => {
   const [listData, setListData] = useState([]);

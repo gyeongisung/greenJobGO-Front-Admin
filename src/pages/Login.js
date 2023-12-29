@@ -4,8 +4,8 @@ import { fetchLogin } from "../api/client";
 import { useNavigate } from "react-router";
 
 const Login = () => {
-  const [adminId, setAdmminId] = useState("");
-  const [password, setPassword] = useState("");
+  const [adminId, setAdmminId] = useState("greendg100");
+  const [password, setPassword] = useState("green1234");
   const [errmsg, setErrMsg] = useState(false);
   const navigate = useNavigate();
 
