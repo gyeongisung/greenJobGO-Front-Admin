@@ -6,84 +6,53 @@ import SubMenu from "antd/es/menu/SubMenu";
 import { Link } from "react-router-dom";
 
 const AsideAdm = () => {
-  const menuItems = [
-    {
-      key: "home",
-      // icon: <ShoppingOutlined />,
-      title: "홈",
-      items: [{ key: "1", link: "/home", label: "홈" }],
-    },
-    {
-      key: "sub1",
-      // icon: <UserOutlined />,
-      title: "과정관리",
-      items: [
-        {
-          key: "2",
-          link: "/class",
-          label: "과정등록 • 관리",
-        },
-        {
-          key: "3",
-          link: "/jobmanager",
-          label: "취업 담당자 관리",
-        },
-      ],
-    },
-    {
-      key: "sub2",
-      // icon: <ShopOutlined />,
-      title: "수강생 관리",
-      items: [
-        {
-          key: "5",
-          link: "/student",
-          label: "수강생 등록 • 관리",
-        },
-        {
-          key: "6",
-          link: "/portfolio",
-          label: "포트폴리오 관리",
-        },
-      ],
-    },
-    {
-      key: "sub3",
-      // icon: <LaptopOutlined />,
-      title: "기업등록 • 관리",
-      items: [{ key: "8", link: "/company", label: "기업등록 • 관리" }],
-    },
+  function getItem(label, key, icon, children) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    };
+  }
+  const menuItems2 = [
+    // getItem("홈", "1", null),
+    getItem(<Link to="/home">홈</Link>, "1", null),
+    getItem("과정관리", "sub1", null, [
+      getItem(<Link to="/class">과정등록 • 관리</Link>, "3"),
+      getItem(<Link to="/jobmanager">취업 담당자 관리</Link>, "4"),
+    ]),
+    getItem("수강생 관리", "sub2", null, [
+      getItem(<Link to="/student">수강생 등록 • 관리</Link>, "7"),
+      getItem(<Link to="/portfolio">포트폴리오 관리</Link>, "8"),
+    ]),
+    getItem(<Link to="/company">기업등록 • 관리</Link>, "9", null),
   ];
+
   return (
     <SideMenuWrap>
       <Sider
-        style={{
-          // height: "calc(100vh - 140px)",
-        }}
+        style={
+          {
+            // height: "calc(100vh - 140px)",
+          }
+        }
       >
-        <div className="sidemenu-logo-div">
-          <Link to="/home">logo 위치</Link>
-        </div>
+        <Link to="/home">
+          <div className="sidemenu-logo-div">
+            <img src={`../../assets/LoginTitle.png`} alt="greenlogo" />
+          </div>
+        </Link>
         <Menu
-          mode="inline"
-          collapsed="true"
-          // defaultSelectedKeys={[defaultSide]}
-          defaultOpenKeys={menuItems.map(item => item.key)}
-        >
-          {menuItems.map(menuItem => (
-            <SubMenu
-              key={menuItem.key}
-              icon={menuItem.icon}
-              title={menuItem.title}
-            >
-              {menuItem.items.map(item => (
-                <Menu.Item key={item.key}>
-                  <Link to={item.link}>{item.label}</Link>
-                </Menu.Item>
-              ))}
-            </SubMenu>
-          ))}
-        </Menu>
+          style={{
+            width: 200,
+            background: "#ffffff",
+          }}
+          defaultSelectedKeys={["1"]}
+          defaultOpenKeys={["sub1"]}
+          mode={"inline"}
+          theme={"light"}
+          items={menuItems2}
+        />
       </Sider>
       {/* <div className="end-menu"></div> */}
     </SideMenuWrap>
