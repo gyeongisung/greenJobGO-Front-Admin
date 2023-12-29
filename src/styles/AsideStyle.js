@@ -10,6 +10,7 @@ export const SideMenuWrap = styled.div`
     width: 100%;
     height: 60px;
     background: ${Maincolor.white};
+    cursor: pointer;
     img {
       width: 180px;
       object-fit: contain;

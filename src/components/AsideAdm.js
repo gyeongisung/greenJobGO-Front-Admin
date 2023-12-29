@@ -37,11 +37,11 @@ const AsideAdm = () => {
           }
         }
       >
-        <div className="sidemenu-logo-div">
-          <Link to="/home">
+        <Link to="/home">
+          <div className="sidemenu-logo-div">
             <img src={`../../assets/LoginTitle.png`} alt="greenlogo" />
-          </Link>
-        </div>
+          </div>
+        </Link>
         <Menu
           style={{
             width: 200,
