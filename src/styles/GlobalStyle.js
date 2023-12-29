@@ -21,7 +21,7 @@ export const ellipsis = {
   },
 };
 
-//모달스타일
+//공통)입력 모달스타일
 export const ModalWarp = styled.div`
   .modal {
     display: none;
@@ -32,12 +32,6 @@ export const ModalWarp = styled.div`
     left: 0;
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.6);
-
-    button {
-      outline: none;
-      cursor: pointer;
-      border: 0;
-    }
   }
   .modal-wrapper {
     width: 684px;

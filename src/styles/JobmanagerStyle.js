@@ -17,6 +17,7 @@ export const JobManagerWrap = styled.div`
         border: 0;
         border-radius: 4px;
         cursor: pointer;
+        margin-bottom: 2%;
       }
     }
   }
