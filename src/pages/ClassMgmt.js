@@ -4,8 +4,8 @@ import {
   ClassMgmtWrap,
   ClassTable,
 } from "../styles/ClassMgmtStyle";
-import { useNavigate } from "react-router";
 import Pagination from "../components/Paging";
+import { Modal } from "../components/Modal";
 
 const ClassMgmt = () => {
   const [listData, setListData] = useState([]);
@@ -14,7 +14,8 @@ const ClassMgmt = () => {
   const [count, setCount] = useState(0);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [accept, setAccept] = useState(false);
 
   let resultIdArray = saveCheckBox;
 
@@ -54,9 +55,20 @@ const ClassMgmt = () => {
     setSaveCheckBox([]);
   }, [listData]);
 
+  useEffect(() => {
+    setAccept(false);
+    setModalOpen(false);
+  }, [accept]);
+
   const handleCategoryFiiter = e => {
     setCategory(e.target.value);
     setPage(1);
+  };
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+    document.body.style.overflow = "hidden";
+    console.log(modalOpen);
   };
 
   return (
@@ -72,19 +84,19 @@ const ClassMgmt = () => {
               name="category-state"
               onChange={handleCategoryFiiter}
             >
-              <option name="category-state" value="">
+              <option name="category-state" value="선택">
                 선택
               </option>
-              <option name="category-state" value="">
+              <option name="category-state" value="카테고리1">
                 카테고리1
               </option>
-              <option name="category-state" value="">
+              <option name="category-state" value="카테고리2">
                 카테고리2
               </option>
-              <option name="category-state" value="">
+              <option name="category-state" value="카테고리3">
                 카테고리3
               </option>
-              <option name="category-state" value="">
+              <option name="category-state" value="카테고리4">
                 카테고리4
               </option>
             </select>
@@ -105,7 +117,14 @@ const ClassMgmt = () => {
           </li>
         </ul>
         <div className="class-buttons">
-          <button>과정등록</button>
+          {modalOpen && (
+            <Modal
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpen}
+              setAccept={setAccept}
+            />
+          )}
+          <button onClick={() => handleModalOpen()}>과정등록</button>
           <button>수정</button>
           <button>삭제</button>
         </div>
