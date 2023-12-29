@@ -37,6 +37,9 @@ const JobManager = () => {
       <div>
         <ManagerBox mngProflieData={mngProflieData} />
       </div>
+      <div className="maganer-add">
+        <button>담당자 등록</button>
+      </div>
     </JobManagerWrap>
   );
 };

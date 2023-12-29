@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
+import { Maincolor } from "./GlobalStyle";
 
 export const SideMenuWrap = styled.div`
   height: calc(100vh - 0px);
+  background: ${Maincolor.white};
 
   .sidemenu-logo-div {
     width: 100%;
     height: 60px;
-    background: #d9d9d9;
+    background: ${Maincolor.grayLight2};
   }
 
   .ant-menu {
@@ -14,7 +16,7 @@ export const SideMenuWrap = styled.div`
     height: 100%;
   }
   .ant-menu-sub.ant-menu-inline {
-    background: #ffffff !important;
+    background: ${Maincolor.white} !important;
   }
   .ant-menu .ant-menu-item {
     border-radius: 0;
@@ -26,7 +28,7 @@ export const SideMenuWrap = styled.div`
     position: fixed;
     bottom: 0;
     left: 0;
-    background: #d9d9d9;
+    background: ${Maincolor.grayLight2};
     width: 200px;
     height: 140px;
   }

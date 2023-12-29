@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
+import { Maincolor } from "./GlobalStyle";
 
 export const ContentWrap = styled.div`
   height: calc(100vh - 60px);
   min-height: 600px;
   min-width: 1400px;
-  background: #ffffff !important;
+  background: ${Maincolor.white} !important;
   .ant-layout-header {
     height: 60px;
     line-height: 60px;
@@ -17,8 +18,8 @@ export const ContentWrap = styled.div`
     min-width: 1400px;
     margin: 0 auto;
     /* height: 100vh; */
-    background: #ffffff;
-    border: 10px #dfdfdf solid;
+    background: ${Maincolor.white};
+    border: 10px ${Maincolor.grayLight} solid;
     /* box-shadow: inset 0px -2px 20px black; */
   }
   .contents-box {
