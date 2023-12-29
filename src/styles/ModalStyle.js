@@ -83,7 +83,7 @@ export const ModalInner = styled.div`
     }
   }
   .modal-ok {
-    margin-top: 50px;
+    margin-top: 30px;
     button {
       color: #fff;
       background: #6d6d6d;

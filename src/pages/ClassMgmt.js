@@ -5,7 +5,7 @@ import {
   ClassTable,
 } from "../styles/ClassMgmtStyle";
 import Pagination from "../components/Paging";
-import { Modal } from "../components/Modal";
+import { ClassMgmtModal } from "../components/InputModal";
 
 const ClassMgmt = () => {
   const [listData, setListData] = useState([]);
@@ -118,7 +118,7 @@ const ClassMgmt = () => {
         </ul>
         <div className="class-buttons">
           {modalOpen && (
-            <Modal
+            <ClassMgmtModal
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
               setAccept={setAccept}
@@ -140,7 +140,8 @@ const ClassMgmt = () => {
                     className="all-checkbox-btn"
                   />
                 </li>
-                <li className="class-table-th">순번</li>
+                <li className="class-table-th">번호</li>
+                <li className="class-table-th">대분류</li>
                 <li className="class-table-th">과정명</li>
                 <li className="class-table-th">수강기간</li>
                 <li className="class-table-th">강사명</li>
@@ -161,6 +162,7 @@ const ClassMgmt = () => {
                       />
                     </li>
                     <li>{(page - 1) * 16 + index + 1}</li>
+                    <li>{item.nm}</li>
                     <li>{item.nm}</li>
                     <li>{item.birth}</li>
                     <li>{item.phone}</li>

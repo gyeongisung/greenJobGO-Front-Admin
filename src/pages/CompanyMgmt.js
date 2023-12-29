@@ -4,8 +4,8 @@ import {
   CompanyMgmtWrap,
   CompanyTable,
 } from "../styles/CompanyMgmtStyle";
-import { useNavigate } from "react-router";
 import Pagination from "../components/Paging";
+import { CompanyMgmtModal } from "../components/InputModal";
 
 const CompanyMgmt = () => {
   const [listData, setListData] = useState([]);
@@ -14,7 +14,8 @@ const CompanyMgmt = () => {
   const [count, setCount] = useState(0);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [accept, setAccept] = useState(false);
 
   let resultIdArray = saveCheckBox;
 
@@ -57,6 +58,12 @@ const CompanyMgmt = () => {
   const handleCategoryFiiter = e => {
     setCategory(e.target.value);
     setPage(1);
+  };
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+    document.body.style.overflow = "hidden";
+    console.log(modalOpen);
   };
 
   return (
@@ -105,7 +112,14 @@ const CompanyMgmt = () => {
           </li>
         </ul>
         <div className="company-buttons">
-          <button>기업등록</button>
+          {modalOpen && (
+            <CompanyMgmtModal
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpen}
+              setAccept={setAccept}
+            />
+          )}
+          <button onClick={() => handleModalOpen()}>기업등록</button>
           <button>수정</button>
           <button>삭제</button>
         </div>
@@ -121,9 +135,9 @@ const CompanyMgmt = () => {
                     className="all-checkbox-btn"
                   />
                 </li>
-                <li className="company-table-th">순번</li>
-                <li className="company-table-th">기업명</li>
+                <li className="company-table-th">번호</li>
                 <li className="company-table-th">지역</li>
+                <li className="company-table-th">기업명</li>
                 <li className="company-table-th">채용분야</li>
                 <li className="company-table-th">대표명</li>
                 <li className="company-table-th">담당자</li>
