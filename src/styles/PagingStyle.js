@@ -5,7 +5,7 @@ export const PagiWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 8px;
+    padding-top: 23px;
     li {
       display: inline-block;
       width: 30px;
@@ -14,12 +14,12 @@ export const PagiWrap = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 18px;
+      font-size: 20px;
       cursor: pointer;
       a {
         text-decoration: none;
         color: #176b87;
-        font-size: 18px;
+        font-size: 20px;
         line-height: 18px;
       }
     }

@@ -7,14 +7,14 @@ export const CompanyMgmtWrap = styled.div`
   justify-content: center;
   flex-direction: column;
   .company-title {
-    width: 1300px;
+    width: 82%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     height: 80px;
     h3 {
       font-size: 24px;
-      padding: 10px 0 10px 10px;
+      padding-left: 10px;
     }
   }
 `;
@@ -24,8 +24,8 @@ export const CompanyMgmtInner = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1300px;
-    height: 80px;
+    width: 1340px;
+    height: 95px;
     border-radius: 5px;
     background: #a4a4a4;
     gap: 10px;
@@ -65,7 +65,7 @@ export const CompanyMgmtInner = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 80px;
+    height: 90px;
     gap: 5px;
     button {
       color: #fff;
@@ -86,8 +86,8 @@ export const CompanyMgmtInner = styled.div`
 `;
 export const CompanyTable = styled.div`
   position: relative;
-  width: 1300px;
-  height: 60vh;
+  width: 100%;
+  height: 52vh;
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -96,7 +96,7 @@ export const CompanyTable = styled.div`
   box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   > ul {
-    height: 100%;
+    height: 1340px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(17, 42px);
@@ -114,7 +114,7 @@ export const CompanyTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.2fr 0.3fr 0.5fr 0.7fr 0.7fr 1.1fr 0.6fr 0.6fr 0.6fr;
+        grid-template-columns: 0.15fr 0.25fr 0.5fr 0.7fr 1.2fr 0.45fr 0.45fr 0.55fr 0.55fr;
         > li {
           :not(:last-of-type) {
             border-right: 1px solid #ccc;

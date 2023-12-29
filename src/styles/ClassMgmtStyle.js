@@ -7,7 +7,7 @@ export const ClassMgmtWrap = styled.div`
   justify-content: center;
   flex-direction: column;
   .class-title {
-    width: 87%;
+    width: 82%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -24,8 +24,8 @@ export const ClassMgmtInner = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1300px;
-    height: 80px;
+    width: 1340px;
+    height: 95px;
     border-radius: 5px;
     background: #a4a4a4;
     gap: 10px;
@@ -65,7 +65,7 @@ export const ClassMgmtInner = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 80px;
+    height: 90px;
     gap: 5px;
     button {
       color: #fff;
@@ -86,8 +86,8 @@ export const ClassMgmtInner = styled.div`
 `;
 export const ClassTable = styled.div`
   position: relative;
-  width: 1300px;
-  height: 56vh;
+  width: 100%;
+  height: 52vh;
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -96,6 +96,7 @@ export const ClassTable = styled.div`
   box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   > ul {
+    width: 1340px;
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -114,7 +115,7 @@ export const ClassTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.2fr 0.3fr 0.5fr 0.7fr 0.7fr 1.1fr;
+        grid-template-columns: 0.15fr 0.2fr 0.4fr 1.5fr 0.8fr 0.4fr 0.4fr;
         > li {
           :not(:last-of-type) {
             border-right: 1px solid #ccc;
