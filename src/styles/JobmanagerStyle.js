@@ -4,16 +4,20 @@ import { Maincolor } from "./GlobalStyle";
 export const JobManagerWrap = styled.div`
   margin: 0 auto;
   padding: 1%;
-  /* 담당자 등록 버튼 */
-  .maganer-add {
-    float: right;
-    & > button {
-      width: 160px;
-      height: 40px;
-      border: 0;
-      border-radius: 4px;
+  .job-content-wrap {
+    width: 100%;
+    margin: 0 auto;
+    /* 담당자 등록 버튼 */
+    .maganer-add {
+      float: right;
       margin: 40px 20px;
-      cursor: pointer;
+      & > button {
+        width: 160px;
+        height: 40px;
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+      }
     }
   }
 `;

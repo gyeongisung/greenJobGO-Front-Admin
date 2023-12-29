@@ -9,7 +9,7 @@ const ManagerBox = ({ mngProflieData }) => {
           <img src={item.img} alt="job manager" />
           <div className="manager-details">
             <p className="manager-word">{item.shortword}</p>
-            <p className="manager-name">{item.name}</p>
+            <p className="manager-name">{item.name} 취업지원실장</p>
             <ul className="manager-contact">
               <li>
                 <span>상담전화</span>

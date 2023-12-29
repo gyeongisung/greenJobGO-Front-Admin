@@ -6,9 +6,18 @@ export const SideMenuWrap = styled.div`
   background: ${Maincolor.white};
 
   .sidemenu-logo-div {
+    position: relative;
     width: 100%;
     height: 60px;
-    background: ${Maincolor.grayLight2};
+    background: ${Maincolor.white};
+    img {
+      width: 180px;
+      object-fit: contain;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   .ant-menu {

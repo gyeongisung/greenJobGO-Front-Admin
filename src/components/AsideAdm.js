@@ -38,7 +38,9 @@ const AsideAdm = () => {
         }
       >
         <div className="sidemenu-logo-div">
-          <Link to="/home">logo 위치</Link>
+          <Link to="/home">
+            <img src={`../../assets/LoginTitle.png`} alt="greenlogo" />
+          </Link>
         </div>
         <Menu
           style={{

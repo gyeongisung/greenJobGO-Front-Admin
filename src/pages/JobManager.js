@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ManagerBox from "../components/jobMng/ManagerBox";
 import { JobManagerWrap } from "../styles/JobmanagerStyle";
+import ManagerAdd from "../components/jobMng/ManagerAdd";
+import InputModal from "../components/InputModal";
 
 // 더미데이터
 const managers = [
@@ -29,16 +31,31 @@ const managers = [
     email: "green123@gmail.com",
   },
 ];
+
 const JobManager = () => {
   const [mngProflieData, setmngProflieData] = useState(managers);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <JobManagerWrap>
       <h2>취업 담당자 관리</h2>
-      <div>
-        <ManagerBox mngProflieData={mngProflieData} />
-      </div>
-      <div className="maganer-add">
-        <button>담당자 등록</button>
+      <div className="job-content-wrap">
+        <div>
+          <ManagerBox mngProflieData={mngProflieData} />
+        </div>
+        <div className="maganer-add">
+          <button onClick={openModal}>담당자 등록</button>
+          <InputModal open={modalOpen} close={closeModal} header="담당자 등록">
+            <ManagerAdd />
+          </InputModal>
+        </div>
       </div>
     </JobManagerWrap>
   );
