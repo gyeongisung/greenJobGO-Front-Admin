@@ -32,22 +32,26 @@ client.interceptors.response.use(
   async error => {
     const { config, response } = error;
     const refreshToken = getCookie("refreshToken");
-    if (response.status === 401 && refreshToken) {
+    if (response && response.status === 401 && refreshToken) {
       try {
         const { data } = await client.post(`/admin/sign/refresh-token`, {
           refreshToken,
         });
+
         const accessToken = data;
         setCookie("accessToken", accessToken);
-        config.headers.Authorization = `Bearer ${accessToken}`;
 
-        // 토큰 갱신 후 재시도
-        const retryResponse = await client(config);
-        return retryResponse;
+        if (config && config.headers && config.headers.Authorization) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+          const retryResponse = await client(config);
+          return retryResponse;
+        }
       } catch (error) {
-        console.log(error);
+        console.log("토큰 갱신 실패:", error);
       }
     }
+
+    console.error("요청 실패:", error);
     return Promise.reject(error);
   },
 );
@@ -59,23 +63,28 @@ export const fetchLogin = async (adminId, password) => {
       id: adminId,
       pw: password,
     });
-    const result = await res.data;
-    console.log(result);
-    const role = result.role;
-    setCookie("refreshToken", result.refreshToken, {
-      path: "/",
-      secure: true,
-      sameSite: "none",
-      httpOnly: true,
-    });
-    setCookie("accessToken", result.accessToken, {
-      path: "/",
-      secure: true,
-      sameSite: "none",
-      httpOnly: true,
-    });
-    return role;
+
+    const { data } = res;
+
+    const { role, refreshToken, accessToken } = data;
+
+    if (role === "ROLE_ADMIN" && refreshToken && accessToken) {
+      const cookieOptions = {
+        path: "/",
+        secure: true,
+        sameSite: "none",
+        httpOnly: true,
+      };
+
+      setCookie("refreshToken", refreshToken, cookieOptions);
+      setCookie("accessToken", accessToken, cookieOptions);
+
+      return { role, accessToken };
+    } else {
+      throw new Error("잘못된 응답 형식");
+    }
   } catch (error) {
     console.log(error);
+    throw new Error("로그인에 실패했습니다.");
   }
 };

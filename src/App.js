@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import PortfolioMgmt from "./pages/PortfolioMgmt";
 import Register from "./pages/Register";
 import JobManager from "./pages/JobManager";
+import { PrivateRoutes } from "./components/PrivateRoutes";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
       <Routes>
         {/* 로그인 페이지 */}
         <Route path="/" element={<Login />} />
-        <Route element={<AdminLayout />}>
+        <Route element={<PrivateRoutes element={<AdminLayout />} />}>
           {/* 관리자 인트로 */}
           <Route path="/home" element={<Home />} />
           {/* 수업 과정 관리 */}

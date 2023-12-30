@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { LoginInner, LoginWrap } from "../styles/LoginStyle";
 import { fetchLogin } from "../api/client";
 import { useNavigate } from "react-router";
+import { useRecoilState } from "recoil";
+import { AuthStateAtom } from "../recoil/atoms/AuthState";
 
 const Login = () => {
-  const [adminId, setAdmminId] = useState("greendg100");
+  const [adminId, setAdmminId] = useState("greendg01");
   const [password, setPassword] = useState("green1234");
   const [errmsg, setErrMsg] = useState(false);
+
+  const setAuthState = useRecoilState(AuthStateAtom)[1];
   const navigate = useNavigate();
 
   const handleLoginId = e => {
@@ -19,11 +23,19 @@ const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const role = await fetchLogin(adminId, password);
-    if (role === "ROLE_ADMIN") {
-      navigate("/home");
-    } else {
-      setErrMsg(true);
+
+    try {
+      const { role, accessToken } = await fetchLogin(adminId, password);
+      console.log(role);
+      if (role === "ROLE_ADMIN" && accessToken) {
+        setAuthState({ isLogin: true });
+        console.log("로그인 성공");
+        navigate("/home");
+      } else {
+        setErrMsg(true);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -37,7 +49,7 @@ const Login = () => {
           <div className="login-title">
             <img src="../../assets/LoginTitle.png" alt="LoginTitle" />
           </div>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div>
               <label htmlFor="login-id">아이디</label>
               <input

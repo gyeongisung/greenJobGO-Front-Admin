@@ -6,7 +6,7 @@ const Paging = ({ page, setPage, count }) => {
     <PagiWrap>
       <Pagination
         activePage={page}
-        itemsCountPerPage={16}
+        itemsCountPerPage={10}
         totalItemsCount={count}
         pageRangeDisplayed={5}
         marginPagesDisplayed={0}

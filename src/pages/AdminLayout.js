@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Aside from "../components/AsideAdm";
 import { Outlet, useLocation, useParams } from "react-router";
 import { ContentWrap } from "../styles/LayoutStyle";
 import { Breadcrumb, Layout } from "antd";
