@@ -26,13 +26,12 @@ const Login = () => {
 
     try {
       const { role, accessToken } = await fetchLogin(adminId, password);
-      console.log(role);
       if (role === "ROLE_ADMIN" && accessToken) {
         setAuthState({ isLogin: true });
         console.log("로그인 성공");
         navigate("/home");
       } else {
-        setErrMsg(true);
+        navigate("/");
       }
     } catch (error) {
       console.error(error);
