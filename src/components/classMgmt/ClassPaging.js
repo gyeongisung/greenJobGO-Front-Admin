@@ -1,4 +1,4 @@
-import { PagiWrap } from "../styles/PagingStyle";
+import { PagiWrap } from "../../styles/PagingStyle";
 import Pagination from "react-js-pagination";
 
 const Paging = ({ page, setPage, count }) => {

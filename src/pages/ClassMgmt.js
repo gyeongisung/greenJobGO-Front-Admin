@@ -4,8 +4,9 @@ import {
   ClassMgmtWrap,
   ClassTable,
 } from "../styles/ClassMgmtStyle";
-import Pagination from "../components/Paging";
+import Pagination from "../components/classMgmt/ClassPaging";
 import { ClassMgmtModal } from "../components/Modal";
+import Paging from "../components/classMgmt/ClassPaging";
 
 const ClassMgmt = () => {
   const [listData, setListData] = useState([]);
@@ -172,7 +173,7 @@ const ClassMgmt = () => {
               ))}
           </ul>
         </ClassTable>
-        <Pagination page={page} setPage={setPage} count={count} />
+        <Paging page={page} setPage={setPage} count={count} />
       </ClassMgmtInner>
     </ClassMgmtWrap>
   );

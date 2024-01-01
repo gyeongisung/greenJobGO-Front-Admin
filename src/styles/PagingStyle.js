@@ -5,35 +5,35 @@ export const PagiWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 23px;
+    padding-top: 25px;
     li {
       display: inline-block;
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 20px;
       cursor: pointer;
       a {
         text-decoration: none;
-        color: #176b87;
-        font-size: 20px;
-        line-height: 18px;
+        color: #000;
+        font-size: 14px;
+        line-height: 14px;
       }
     }
     .active a {
       color: #fff;
     }
     .active {
-      background-color: #176b87;
+      background-color: #228fcf;
     }
   }
-  .page-selection {
-    width: 48px;
+  /* .page-selection {
+    width: 40px;
     height: 30px;
-    line-height: 30px;
-    color: #176b87;
-  }
+    line-height: 25px;
+    color: #228fcf;
+  } */
 `;

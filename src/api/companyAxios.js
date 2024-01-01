@@ -24,12 +24,27 @@ export const postCompanyExcel = async companyfile => {
   }
 };
 
-export const deleteCompany = async checkedCompanyCodes => {
+export const postCompanyAccept = async payload => {
   try {
-    const res = await client.delete(
-      `/admin/companylist/${checkedCompanyCodes}`,
-    );
+    const res = await client.post("/admin/companylist", payload);
   } catch (error) {
     console.log(error);
   }
 };
+
+export const deleteCompany = async checkedCompanyCode => {
+  try {
+    const res = await client.delete(`/admin/companylist/${checkedCompanyCode}`);
+    console.log("삭제가 됬노?", res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// export const pathchCompany = async() => {
+//   try {
+//     const res = await client.patch(`/admin/companylist?companyCode=${}&area=${}&companyName=${}&secotr=${}&manager=${}&leaderName=${}&jobField=${}&phoneNumber=${}&dateConslusion=${}`)
+//   } catch (error) {
+
+//   }
+// }

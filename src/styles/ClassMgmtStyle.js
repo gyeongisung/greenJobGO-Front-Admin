@@ -100,7 +100,7 @@ export const ClassTable = styled.div`
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(17, 45px);
+    grid-template-rows: repeat(10, 43px);
     > li {
       line-height: 45px;
       border-top: 1px solid #ccc;

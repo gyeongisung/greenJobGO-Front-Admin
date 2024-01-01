@@ -65,8 +65,9 @@ export const CompanyMgmtInner = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 90px;
+    height: 80px;
     gap: 5px;
+    margin-top: 14px;
     button {
       color: #fff;
       background: #6d6d6d;
@@ -82,6 +83,14 @@ export const CompanyMgmtInner = styled.div`
         height: 40px;
       }
     }
+  }
+  .total-count {
+    padding-left: 10px;
+    font-size: 14px;
+    color: #888888;
+    height: 14px;
+    line-height: 14px;
+    margin-bottom: 5px;
   }
 `;
 export const CompanyTable = styled.div`
@@ -99,7 +108,7 @@ export const CompanyTable = styled.div`
     height: 1340px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(17, 42px);
+    grid-template-rows: repeat(10, 43px);
     > li {
       line-height: 42px;
       border-top: 1px solid #ccc;
@@ -114,7 +123,7 @@ export const CompanyTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.25fr 0.5fr 0.7fr 1.2fr 0.45fr 0.45fr 0.55fr 0.55fr;
+        grid-template-columns: 0.15fr 0.25fr 0.5fr 0.8fr 1.2fr 0.45fr 0.45fr 0.55fr 0.5fr;
         > li {
           :not(:last-of-type) {
             border-right: 1px solid #ccc;
