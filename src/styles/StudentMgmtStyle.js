@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 
-export const CompanyMgmtWrap = styled.div`
+export const StudentMgmtWrap = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  .company-title {
+  .student-title {
     width: 82%;
     display: flex;
     justify-content: flex-start;
@@ -19,13 +19,13 @@ export const CompanyMgmtWrap = styled.div`
   }
 `;
 
-export const CompanyMgmtInner = styled.div`
+export const StudentMgmtInner = styled.div`
   /* width: 100%; */
-  .company-search {
+  .student-search {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1340px;
+    width: 100%;
     height: 95px;
     border-radius: 5px;
     background: #a4a4a4;
@@ -62,7 +62,7 @@ export const CompanyMgmtInner = styled.div`
       }
     }
   }
-  .company-buttons {
+  .student-buttons {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -94,10 +94,10 @@ export const CompanyMgmtInner = styled.div`
     margin-bottom: 5px;
   }
 `;
-export const CompanyTable = styled.div`
+export const StudentTable = styled.div`
   position: relative;
-  width: 100%;
-  height: 52vh;
+  width: 1544px;
+  height: 470px;
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -106,10 +106,10 @@ export const CompanyTable = styled.div`
   box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   > ul {
-    height: 1340px;
+    /* height: 1340px; */
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(10, 43px);
+    grid-template-rows: repeat(11, 42.5px);
     > li {
       line-height: 42px;
       border-top: 1px solid #ccc;
@@ -124,7 +124,7 @@ export const CompanyTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.25fr 0.5fr 0.8fr 1.2fr 0.45fr 0.45fr 0.55fr 0.5fr;
+        grid-template-columns: 0.15fr 0.2fr 0.5fr 1.3fr 1fr 0.5fr 0.3fr 0.5fr 0.7fr 0.6fr 0.35fr 0.35fr;
         > li {
           :not(:last-of-type) {
             border-right: 1px solid #ccc;
@@ -134,3 +134,5 @@ export const CompanyTable = styled.div`
     }
   }
 `;
+
+

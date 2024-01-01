@@ -1,7 +1,8 @@
-import { PagiWrap } from "../../styles/PagingStyle";
+import React from "react";
 import Pagination from "react-js-pagination";
+import { PagiWrap } from "../../styles/PagingStyle";
 
-const ClassPaging = ({ page, setPage, count }) => {
+const StudentPaging = ({ page, setPage, count }) => {
   return (
     <PagiWrap>
       <Pagination
@@ -18,4 +19,4 @@ const ClassPaging = ({ page, setPage, count }) => {
   );
 };
 
-export default ClassPaging;
+export default StudentPaging;
