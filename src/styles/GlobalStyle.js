@@ -35,7 +35,7 @@ export const ModalWarp = styled.div`
   }
   .modal-wrapper {
     width: 684px;
-    height: 726px;
+    height: 624px;
     margin: 0 auto;
     border-radius: 0.3rem;
     background-color: ${Maincolor.white};
@@ -43,13 +43,14 @@ export const ModalWarp = styled.div`
     animation: modal-show 0.3s;
     overflow: hidden;
   }
+
   /* 모달 헤더 */
   .modal-header {
     position: relative;
     padding: 16px 64px 16px 16px;
     text-align: center;
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 23px;
+    font-weight: 800;
     text-align: center;
     box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
     p {
@@ -90,4 +91,20 @@ export const ModalWarp = styled.div`
       opacity: 1;
     }
   }
+`;
+
+/* 확인버튼 */
+export const BtnGlobal = styled.button`
+  /* .confirm-btn { */
+  width: 150px;
+  height: 50px;
+  border-radius: 8px;
+  border: 0;
+  background: ${Maincolor.grayDeep};
+  color: ${Maincolor.white};
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  cursor: pointer;
 `;

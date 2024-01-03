@@ -4,6 +4,11 @@ import Sider from "antd/es/layout/Sider";
 import { Menu } from "antd";
 import SubMenu from "antd/es/menu/SubMenu";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowRightFromBracket,
+  faGear,
+} from "@fortawesome/free-solid-svg-icons";
 
 const AsideAdm = () => {
   function getItem(label, key, icon, children) {
@@ -54,7 +59,18 @@ const AsideAdm = () => {
           items={menuItems2}
         />
       </Sider>
-      {/* <div className="end-menu"></div> */}
+      <div className="end-menu">
+        <ul>
+          <li className="end-m-id">
+            아이디
+            <img src={`../../assets/settingIcon.svg`} alt="icon" />
+          </li>
+          <li className="end-m-role">role</li>
+          <li className="end-m-logout">
+            로그아웃 <FontAwesomeIcon icon={faArrowRightFromBracket} />
+          </li>
+        </ul>
+      </div>
     </SideMenuWrap>
   );
 };

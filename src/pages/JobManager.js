@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ManagerBox from "../components/jobMng/ManagerBox";
 import { JobManagerWrap } from "../styles/JobmanagerStyle";
 import ManagerAdd from "../components/jobMng/ManagerAdd";
 import InputModal from "../components/InputModal";
+import { getJobManagerList } from "../api/jobMngAxiois";
 
 // 더미데이터
 const managers = [
@@ -33,7 +34,7 @@ const managers = [
 ];
 
 const JobManager = () => {
-  const [mngProflieData, setmngProflieData] = useState(managers);
+  const [mngProflieData, setmngProflieData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -43,6 +44,11 @@ const JobManager = () => {
     setModalOpen(false);
   };
 
+  useEffect (()=>{
+      // 취업담당자 정보 get
+      getJobManagerList(setmngProflieData);
+    }, []);
+  
   return (
     <JobManagerWrap>
       <h2>취업 담당자 관리</h2>
