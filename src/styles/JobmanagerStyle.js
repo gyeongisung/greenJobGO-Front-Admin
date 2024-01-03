@@ -89,3 +89,71 @@ export const JobManagerBoxWrap = styled.div`
     }
   }
 `;
+
+// 등록페이지
+export const JobManagerAddSty = styled.div`
+  ul {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 24px;
+    li {
+      h3 {
+        margin-bottom: 14px;
+      }
+      input {
+        width: 292px;
+        height: 40px;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid ${Maincolor.grayMedium};
+        background: ${Maincolor.white};
+      }
+    }
+    .email-input {
+      input {
+        width: 604px;
+        height: 40px;
+      }
+    }
+
+    /* 프로필사진 업로드 */
+    .photo-upload {
+      position: relative;
+
+      input {
+        /* position: absolute;
+        top: 40px;
+        left: 120px; */
+        margin-left: 120px;
+        width: 486px;
+        height: 40px;
+        border: 1px solid ${Maincolor.grayMedium};
+        border-radius: 6px;
+      }
+      input[type="file"]::file-selector-button {
+        position: absolute;
+        top: 37px;
+        left: 0px;
+        width: 110px;
+        height: 40px;
+        background: ${Maincolor.grayDeep};
+        color: ${Maincolor.white};
+        border: 1px solid ${Maincolor.grayDeep};
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      p {
+        margin-top: 10px;
+        width: 200%;
+        color: #eb5757;
+      }
+    }
+  }
+  .add-accept {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
