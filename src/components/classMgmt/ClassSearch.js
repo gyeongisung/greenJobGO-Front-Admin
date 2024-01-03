@@ -15,20 +15,26 @@ const ClassSearch = ({
           name="category-state"
           onChange={handleCategoryFiiter}
         >
-          <option name="category-state" value="선택">
+          <option name="category-state" value="">
             선택
           </option>
-          <option name="category-state" value="카테고리1">
-            카테고리1
+          <option name="category-state" value={1}>
+            IT 분야
           </option>
-          <option name="category-state" value="카테고리2">
-            카테고리2
+          <option name="category-state" value={2}>
+            건축기계 분야
           </option>
-          <option name="category-state" value="카테고리3">
-            카테고리3
+          <option name="category-state" value={3}>
+            UI/UX 분야
           </option>
-          <option name="category-state" value="카테고리4">
-            카테고리4
+          <option name="category-state" value={4}>
+            빅데이터 분야
+          </option>
+          <option name="category-state" value={5}>
+            영상 분야
+          </option>
+          <option name="category-state" value={6}>
+            편집디자인 분야
           </option>
         </select>
       </li>
@@ -40,11 +46,16 @@ const ClassSearch = ({
             name="category-state"
             value={search}
             onChange={e => setSearch(e.target.value)}
+            onKeyDown={e => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
           />
         </form>
       </li>
       <li>
-        <button>검색</button>
+        <button onClick={handleSearch}>검색</button>
       </li>
     </ul>
   );

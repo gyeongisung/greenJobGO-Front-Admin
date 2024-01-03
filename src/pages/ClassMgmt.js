@@ -16,7 +16,7 @@ const ClassMgmt = () => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [accept, setAccept] = useState(false);
 
@@ -50,6 +50,14 @@ const ClassMgmt = () => {
     setSaveCheckBox(resultIdArray);
   };
 
+  const fetchData = () => {
+    getClassSubject(setListData, setCount, page, search, category);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [page]);
+
   useEffect(() => {
     document.querySelector(".all-checkbox-btn").checked = false;
     document
@@ -57,15 +65,6 @@ const ClassMgmt = () => {
       .forEach(item => (item.checked = false));
     setSaveCheckBox([]);
   }, [listData]);
-
-  useEffect(() => {
-    setAccept(false);
-    setModalOpen(false);
-  }, [accept]);
-
-  const fetchData = () => {
-    getClassSubject(setListData, setCount, page, search);
-  };
 
   const handleSearch = () => {
     setPage(1);

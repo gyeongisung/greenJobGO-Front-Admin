@@ -1,12 +1,11 @@
 import { useState } from "react";
-import {
-  CompanyAcceptModalInner,
-  CompanyAcceptModalWrap,
-} from "../../styles/ModalStyle";
+import { ClassAcceptModalWrap } from "../../styles/ModalStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
 import { deleteClassSubject, postClassSubject } from "../../api/classAxios";
+import "react-datepicker/dist/react-datepicker.css";
+import ClassDatePicker from "./ClassDatePicker";
 
 export const DeleteCompanyModal = ({
   deleteModalOpen,
@@ -91,9 +90,9 @@ export const ClassAcceptModal = ({ modalOpen, setModalOpen }) => {
   return (
     <>
       {modalOpen && (
-        <CompanyAcceptModalWrap>
+        <ClassAcceptModalWrap>
           <div className="dim"></div>
-          <CompanyAcceptModalInner>
+          <div className="class-modal-inner">
             <ul className="modal-top">
               <li>
                 <h2>과정 등록</h2>
@@ -103,39 +102,41 @@ export const ClassAcceptModal = ({ modalOpen, setModalOpen }) => {
               </li>
             </ul>
             <div className="modal-btm">
-              <div className="company-info">
+              <div className="class-category">
                 <h3>대분류</h3>
-                <select
-                  name="category-state"
-                  onChange={e => {
-                    setPayload(payload => ({
-                      ...payload,
-                      classification: e.target.value,
-                    }));
-                  }}
-                >
-                  <option name="category-state" value="선택">
-                    선택
-                  </option>
-                  <option name="category-state" value="IT 분야">
-                    IT 분야
-                  </option>
-                  <option name="category-state" value="건축기계 분야">
-                    건축기계 분야
-                  </option>
-                  <option name="category-state" value="UIUX 분야">
-                    UI/UX 분야
-                  </option>
-                  <option name="category-state" value="빅데이터 분야">
-                    빅데이터 분야
-                  </option>
-                  <option name="category-state" value="영상 분야">
-                    영상 분야
-                  </option>
-                  <option name="category-state" value="편집디자인 분야">
-                    편집디자인 분야
-                  </option>
-                </select>
+                <div className="class-category-box">
+                  <select
+                    name="category-state"
+                    onChange={e => {
+                      setPayload(payload => ({
+                        ...payload,
+                        classification: e.target.value,
+                      }));
+                    }}
+                  >
+                    <option name="category-state" value="선택">
+                      선택
+                    </option>
+                    <option name="category-state" value="IT 분야">
+                      IT 분야
+                    </option>
+                    <option name="category-state" value="건축기계 분야">
+                      건축기계 분야
+                    </option>
+                    <option name="category-state" value="UIUX 분야">
+                      UI/UX 분야
+                    </option>
+                    <option name="category-state" value="빅데이터 분야">
+                      빅데이터 분야
+                    </option>
+                    <option name="category-state" value="영상 분야">
+                      영상 분야
+                    </option>
+                    <option name="category-state" value="편집디자인 분야">
+                      편집디자인 분야
+                    </option>
+                  </select>
+                </div>
               </div>
               <ul>
                 <li>
@@ -177,7 +178,7 @@ export const ClassAcceptModal = ({ modalOpen, setModalOpen }) => {
                   </div>
                 </li>
               </ul>
-              <div className="company-info">
+              <div className="class-info">
                 <h3>강사명</h3>
                 <input
                   type="text"
@@ -190,7 +191,7 @@ export const ClassAcceptModal = ({ modalOpen, setModalOpen }) => {
                   }}
                 />
               </div>
-              <div className="company-info">
+              <div className="class-info">
                 <h3>강의실</h3>
                 <input
                   type="text"
@@ -207,8 +208,8 @@ export const ClassAcceptModal = ({ modalOpen, setModalOpen }) => {
             <div className="modal-ok">
               <button onClick={handleModalAccept}>등록</button>
             </div>
-          </CompanyAcceptModalInner>
-        </CompanyAcceptModalWrap>
+          </div>
+        </ClassAcceptModalWrap>
       )}
     </>
   );

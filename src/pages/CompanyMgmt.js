@@ -51,7 +51,6 @@ const CompanyMgmt = () => {
       resultIdArray = resultIdArray.filter(item => item !== companyCode);
     }
     setSaveCheckBox(resultIdArray);
-    console.log(saveCheckBox);
   };
 
   const fetchData = () => {
@@ -149,7 +148,7 @@ const CompanyMgmt = () => {
             page={page}
           />
         </CompanyTable>
-        <Paging page={page} setPage={setPage} count={count} pgge={page} />
+        <Paging page={page} setPage={setPage} count={count} />
       </CompanyMgmtInner>
     </CompanyMgmtWrap>
   );

@@ -35,9 +35,11 @@ const ClassList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
                 />
               </li>
               <li>{(page - 1) * 10 + index + 1}</li>
-              <li>{item.nm}</li>
+              <li>{item.classification}</li>
               <li>{item.courseSubjectName}</li>
-              <li>{item.startedAt} ~ {item.endedAt}</li>
+              <li>
+                {item.startedAt} ~ {item.endedAt}
+              </li>
               <li>{item.instructor}</li>
               <li>{item.lectureRoom}</li>
             </ul>

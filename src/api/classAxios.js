@@ -1,8 +1,26 @@
 import { client } from "./client";
 
-export const getClassSubject = async () => {
+export const getClassSubject = async (
+  setListData,
+  setCount,
+  page,
+  search,
+  category,
+) => {
   try {
-    const res = await client.get();
+    let res;
+    if (category) {
+      res = await client.get(
+        `/admin/subject?page=${page}&size=10&sort=icourseSubject%2CASC&subjectName=${search}&iclassification=${category}&condition=0&delYn=0`,
+      );
+    } else {
+      res = await client.get(
+        `/admin/subject?page=${page}&size=10&sort=icourseSubject%2CASC&subjectName=${search}&condition=0&delYn=0`,
+      );
+    }
+
+    setListData(res.data.res);
+    setCount(res.data.page.idx);
   } catch (error) {
     console.log(error);
   }
@@ -25,4 +43,3 @@ export const deleteClassSubject = async icourseSubject => {
     console.log(error);
   }
 };
-
