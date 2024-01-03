@@ -1,23 +1,32 @@
 import React from "react";
 import { JobManagerBoxWrap } from "../../styles/JobmanagerStyle";
+import NoImage from "../../assets/NoImage.jpg";
 
 const ManagerBox = ({ mngProflieData }) => {
+  // 이미지 없을 때 error처리
+  const onImgError = e => {
+    e.target.src = NoImage;
+  };
   return (
     <JobManagerBoxWrap>
-      {mngProflieData?.map((item, index) => (
-        <div className="manager-profile" key={index}>
-          <img src={item.img} alt="job manager" />
+      {mngProflieData?.map(item => (
+        <div className="manager-profile" key={item.iemply}>
+          <img
+            src={`${process.env.PUBLIC_URL}/home/download/Employee/${item.iemply}/${item.profilePic}`}
+            alt="job manager"
+            onError={onImgError}
+          />
           <div className="manager-details">
-            <p className="manager-word">{item.shortword}</p>
+            <p className="manager-word">{item.oneWord}</p>
             <p className="manager-name">{item.name} 취업지원실장</p>
             <ul className="manager-contact">
               <li>
                 <span>상담전화</span>
-                <span>{item.call}</span>
+                <span>{item.conuselingNumber}</span>
               </li>
               <li>
                 <span>모바일</span>
-                <span>{item.mobile}</span>
+                <span>{item.phoneNumber}</span>
               </li>
               <li>
                 <span>이메일</span>
