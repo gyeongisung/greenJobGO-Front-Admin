@@ -106,10 +106,9 @@ export const StudentTable = styled.div`
   box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   > ul {
-    /* height: 1340px; */
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(11, 42.5px);
+    grid-template-rows: repeat(12, 42.5px);
     > li {
       line-height: 42px;
       border-top: 1px solid #ccc;
@@ -124,7 +123,7 @@ export const StudentTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.2fr 0.5fr 1.3fr 1fr 0.5fr 0.3fr 0.5fr 0.7fr 0.6fr 0.35fr 0.35fr;
+        grid-template-columns: 0.15fr 0.2fr 0.5fr 1.4fr 0.9fr 0.5fr 0.3fr 0.5fr 0.7fr 0.6fr 0.35fr 0.35fr 0.35fr;
         > li {
           :not(:last-of-type) {
             border-right: 1px solid #ccc;
@@ -134,5 +133,3 @@ export const StudentTable = styled.div`
     }
   }
 `;
-
-

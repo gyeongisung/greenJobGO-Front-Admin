@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
-import {
-  CompanyAcceptModalInner,
-  CompanyAcceptModalWrap,
-  StudentAcceptModalWrap,
-} from "../../styles/ModalStyle";
+import { StudentAcceptModalWrap } from "../../styles/ModalStyle";
+import { ko } from "date-fns/locale";
+import ReactDatePicker from "react-datepicker";
 
 export const DeleteStudnetModal = ({
   deleteModalOpen,
@@ -95,50 +93,98 @@ export const StudentModal = ({ modalOpen, setModalOpen }) => {
           <div className="student-modal-inner">
             <ul className="modal-top">
               <li>
-                <h2>기업등록</h2>
+                <h2>수강생 등록</h2>
               </li>
               <li>
                 <span onClick={handleModalCancel}>✖</span>
               </li>
             </ul>
             <div className="modal-btm">
-              <div className="company-info">
-                <h3>기업명</h3>
-                <input
-                  type="text"
-                  value={payload.companyName}
-                  onChange={e => {
-                    setPayload(payload => ({
-                      ...payload,
-                      companyName: e.target.value,
-                    }));
-                  }}
-                />
+              <div className="student-category">
+                <h3>대분류</h3>
+                <div className="student-category-box">
+                  <select
+                    name="category-state"
+                    onChange={e => {
+                      setPayload(payload => ({
+                        ...payload,
+                        classification: e.target.value,
+                      }));
+                    }}
+                  >
+                    <option name="category-state" value="선택">
+                      선택
+                    </option>
+                    <option name="category-state" value="IT 분야">
+                      IT 분야
+                    </option>
+                    <option name="category-state" value="건축기계 분야">
+                      건축기계 분야
+                    </option>
+                    <option name="category-state" value="UIUX 분야">
+                      UI/UX 분야
+                    </option>
+                    <option name="category-state" value="빅데이터 분야">
+                      빅데이터 분야
+                    </option>
+                    <option name="category-state" value="영상 분야">
+                      영상 분야
+                    </option>
+                    <option name="category-state" value="편집디자인 분야">
+                      편집디자인 분야
+                    </option>
+                  </select>
+                </div>
               </div>
               <ul>
                 <li>
                   <div>
-                    <h3>대표명</h3>
+                    <h3>과정명</h3>
                     <input
                       type="text"
-                      value={payload.leaderName}
+                      value={payload.courseSubjectName}
                       onChange={e => {
                         setPayload(payload => ({
                           ...payload,
-                          leaderName: e.target.value,
+                          courseSubjectName: e.target.value,
                         }));
                       }}
                     />
                   </div>
+                </li>
+                <li className="date-picker-wrap">
                   <div>
-                    <h3>지역</h3>
-                    <input
-                      type="text"
-                      value={payload.area}
-                      onChange={e => {
+                    <h3>수강기간</h3>
+                  </div>
+                  <div>
+                    <ReactDatePicker
+                      className="date-picker"
+                      locale={ko}
+                      selected={payload.startedAt}
+                      dateFormat="yyyy년 MM월 dd일"
+                      startDate={payload.startedAt}
+                      endDate={payload.endedAt}
+                      selectsStart
+                      onChange={value => {
                         setPayload(payload => ({
                           ...payload,
-                          area: e.target.value,
+                          startedAt: value,
+                        }));
+                      }}
+                    />
+                    <ReactDatePicker
+                      className="date-picker"
+                      locale={ko}
+                      selected={payload.endedAt}
+                      dateFormat="yyyy년 MM월 dd일"
+                      startDate={payload.startedAt}
+                      endDate={payload.endedAt}
+                      selectsEnd
+                      minDate={payload.startedAt}
+                      onChange={date => {
+                        setPayload(payload => ({
+                          ...payload,
+                          endedAt: date,
                         }));
                       }}
                     />
@@ -146,59 +192,33 @@ export const StudentModal = ({ modalOpen, setModalOpen }) => {
                 </li>
                 <li>
                   <div>
-                    <h3>담당자</h3>
+                    <h3>이름</h3>
                     <input
                       type="text"
-                      value={payload.manger}
+                      value={payload.instructor}
                       onChange={e => {
                         setPayload(payload => ({
                           ...payload,
-                          manger: e.target.value,
+                          instructor: e.target.value,
                         }));
                       }}
                     />
                   </div>
                   <div>
-                    <h3>연락처</h3>
+                    <h3>성별</h3>
                     <input
                       type="text"
-                      value={payload.phoneNumber}
+                      value={payload.lectureRoom}
                       onChange={e => {
                         setPayload(payload => ({
                           ...payload,
-                          phoneNumber: e.target.value,
+                          lectureRoom: e.target.value,
                         }));
                       }}
                     />
                   </div>
                 </li>
               </ul>
-              <div className="company-info">
-                <h3>채용분야</h3>
-                <input
-                  type="text"
-                  value={payload.jobField}
-                  onChange={e => {
-                    setPayload(payload => ({
-                      ...payload,
-                      jobField: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
-              <div className="company-info">
-                <h3>체결일자</h3>
-                <input
-                  type="text"
-                  value={payload.dateConslusion}
-                  onChange={e => {
-                    setPayload(payload => ({
-                      ...payload,
-                      dateConslusion: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
             </div>
             <div className="modal-ok">
               <button onClick={handleModalAccept}>등록</button>

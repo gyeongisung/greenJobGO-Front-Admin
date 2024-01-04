@@ -2,10 +2,78 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { deleteCompany, postCompanyAccept } from "../../api/companyAxios";
-import {
-  CompanyAcceptModalWrap,
-} from "../../styles/ModalStyle";
+import { CompanyAcceptModalWrap } from "../../styles/ModalStyle";
 import { useState } from "react";
+import { ExcelUploadModalWrap } from "../../styles/ExcelUploadStyle";
+
+export const ExcelUploadModal = ({
+  excelModalOpen,
+  setExcelModalOpen,
+  handleExcelUpload,
+  selectedFile,
+  setSelectedFile,
+}) => {
+  const handleFileChange = e => {
+    const file = e.target.files[0];
+
+    if (file) {
+      setSelectedFile(file);
+    }
+  };
+  const handleCancel = () => {
+    setExcelModalOpen(false);
+  };
+  return (
+    <>
+      {excelModalOpen && (
+        <ExcelUploadModalWrap>
+          <div className="dim"></div>
+          <div className="modal-inner">
+            <ul className="modal-top">
+              <li>
+                <h2>엑셀 업로드</h2>
+              </li>
+              <li>
+                <span onClick={handleCancel}>✖</span>
+              </li>
+            </ul>
+            <div className="content">
+              <h3>기업 등록</h3>
+              <div>
+                <span>
+                  엑셀을 업로드하여 다수의 기업 정보를 한번에 입력할 수
+                  있습니다.
+                  <br />
+                  양식에 맞춰 정보를 입력한 뒤 업로드해주세요.
+                </span>
+              </div>
+            </div>
+            <div className="file-box">
+              <input
+                type="file"
+                id="file"
+                accept=".xlsx, .xls, .csv"
+                onChange={handleFileChange}
+              />
+              <label htmlFor="file">파일첨부</label>
+              <input
+                className="upload-name"
+                value={selectedFile ? selectedFile.name : "첨부파일"}
+                placeholder="첨부파일"
+                readOnly
+              />
+            </div>
+            <div className="btn">
+              <button onClick={e => handleExcelUpload(e.target.files)}>
+                확인
+              </button>
+            </div>
+          </div>
+        </ExcelUploadModalWrap>
+      )}
+    </>
+  );
+};
 
 export const DeleteCompanyModal = ({
   deleteModalOpen,

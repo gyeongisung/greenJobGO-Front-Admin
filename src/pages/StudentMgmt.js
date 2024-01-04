@@ -11,6 +11,7 @@ import {
   DeleteStudnetModal,
   StudentModal,
 } from "../components/studentmgmt/StudentModal";
+import { getStudentList } from "../api/studentAxios";
 
 const StudentMgmt = () => {
   const [listData, setListData] = useState([]);
@@ -54,7 +55,7 @@ const StudentMgmt = () => {
   };
 
   const fetchData = () => {
-    // getCompanyList(setListData, setCount, page, search);
+    getStudentList(setListData, setCount, page, search);
   };
 
   useEffect(() => {
@@ -84,10 +85,10 @@ const StudentMgmt = () => {
   };
 
   const handleDeleteClick = () => {
-    if (saveCheckBox.length > 0) {
+    if (saveCheckBox.length >= 1) {
       setDeleteModalOpen(true);
     } else {
-      console.log("삭제할 기업을 선택해주세요.");
+      console.log("삭제할 훈련생을 선택해주세요.");
     }
   };
 
@@ -110,10 +111,19 @@ const StudentMgmt = () => {
           setSearch={setSearch}
           handleSearch={handleSearch}
         />
+        {modalOpen && (
+          <StudentModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        )}
+        {deleteModalOpen && (
+          <DeleteStudnetModal
+            deleteModalOpen={deleteModalOpen}
+            setDeleteModalOpen={setDeleteModalOpen}
+            saveCheckBox={saveCheckBox}
+            setSaveCheckBox={setSaveCheckBox}
+            setListData={setListData}
+          />
+        )}
         <div className="student-buttons">
-          {modalOpen && (
-            <StudentModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
-          )}
           <div>
             <input
               type="file"
@@ -121,17 +131,8 @@ const StudentMgmt = () => {
               onChange={e => handleExcelUpload(e.target.files)}
             />
           </div>
-          <button onClick={() => handleModalOpen()}>기업등록</button>
-          <button>수정</button>
-          {deleteModalOpen && (
-            <DeleteStudnetModal
-              deleteModalOpen={deleteModalOpen}
-              setDeleteModalOpen={setDeleteModalOpen}
-              saveCheckBox={saveCheckBox}
-              setSaveCheckBox={setSaveCheckBox}
-              setListData={setListData}
-            />
-          )}
+          <button>엑셀 업로드</button>
+          <button onClick={handleModalOpen}>수강생 등록</button>
           <button onClick={handleDeleteClick}>삭제</button>
         </div>
         <div className="total-count">

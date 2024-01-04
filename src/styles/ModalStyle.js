@@ -367,8 +367,8 @@ export const StudentAcceptModalWrap = styled.div`
   }
   .student-modal-inner {
     position: absolute;
-    width: 45%;
-    height: 75%;
+    width: 40%;
+    height: 70%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -402,13 +402,13 @@ export const StudentAcceptModalWrap = styled.div`
     .modal-btm {
       width: 100%;
       padding: 0 50px;
-      .class-category {
+      .student-category {
         > h3 {
           width: 0;
           font-size: 18px;
           margin: 15px 0 10px 0;
         }
-        .class-category-box {
+        .student-category-box {
           width: 0;
           > select {
             width: 150px;
@@ -422,12 +422,12 @@ export const StudentAcceptModalWrap = styled.div`
       ul {
         width: 100%;
         display: flex;
-        gap: 10px;
+        flex-direction: column;
+        gap: 20px;
         margin-top: 15px;
-        li {
-          width: 100%;
+        > li {
           display: flex;
-          flex-direction: column;
+          width: 100%;
           gap: 15px;
           > div {
             width: 100%;
@@ -445,11 +445,47 @@ export const StudentAcceptModalWrap = styled.div`
             }
           }
         }
+        .date-picker-wrap {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+          > div {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            .date-picker {
+              width: 100%;
+              height: 40px;
+              border: 1px solid #a4a4a4;
+              text-align: center;
+              border-radius: 6px;
+              padding: 0px 80px;
+            }
+            .react-datepicker__day:nth-of-type(1) {
+              color: red;
+            }
+            .react-datepicker__day:nth-of-type(7) {
+              color: #8685ff;
+            }
+            .react-datepicker__day-name:nth-of-type(1) {
+              color: #ff5555;
+            }
+            .react-datepicker__day-name:nth-of-type(7) {
+              color: #8685ff;
+            }
+          }
+        }
       }
     }
     .modal-ok {
-      margin-top: 30px;
-      button {
+      margin-top: 50px;
+      > button {
+        width: 150px;
+        height: 50px;
         color: #fff;
         background: #6d6d6d;
         border: none;

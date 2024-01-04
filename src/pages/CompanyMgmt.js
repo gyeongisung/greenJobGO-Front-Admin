@@ -11,6 +11,7 @@ import Paging from "../components/companymgmt/CompanyPaging";
 import {
   DeleteCompanyModal,
   CompanyMgmtModal,
+  ExcelUploadModal,
 } from "../components/companymgmt/CompanyModal";
 
 const CompanyMgmt = () => {
@@ -22,6 +23,8 @@ const CompanyMgmt = () => {
   const [category, setCategory] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [excelModalOpen, setExcelModalOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   let resultIdArray = saveCheckBox;
 
@@ -87,14 +90,23 @@ const CompanyMgmt = () => {
     if (saveCheckBox.length >= 1) {
       setDeleteModalOpen(true);
     } else {
-      alert("삭제하실 기업을 선택해주세요.")
+      alert("삭제하실 기업을 선택해주세요.");
     }
   };
 
-  const handleExcelUpload = companyfile => {
-    let formData = new FormData();
-    formData.append("companyfile", companyfile[0]);
-    postCompanyExcel(formData);
+  const handleExcelModalOpen = () => {
+    setExcelModalOpen(true);
+  };
+
+  const handleExcelUpload = () => {
+    if (selectedFile) {
+      let formData = new FormData();
+      formData.append("companyfile", selectedFile);
+      postCompanyExcel(formData);
+      setExcelModalOpen(false); // 업로드 후 모달 닫기
+    } else {
+      console.error("파일을 선택해주세요.");
+    }
   };
 
   return (
@@ -113,6 +125,15 @@ const CompanyMgmt = () => {
         {modalOpen && (
           <CompanyMgmtModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
         )}
+        {excelModalOpen && (
+          <ExcelUploadModal
+            excelModalOpen={excelModalOpen}
+            setExcelModalOpen={setExcelModalOpen}
+            handleExcelUpload={handleExcelUpload}
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+          />
+        )}
         {deleteModalOpen && (
           <DeleteCompanyModal
             deleteModalOpen={deleteModalOpen}
@@ -123,13 +144,7 @@ const CompanyMgmt = () => {
           />
         )}
         <div className="company-buttons">
-          <div>
-            <input
-              type="file"
-              accept=".xlsx, .xls, .csv"
-              onChange={e => handleExcelUpload(e.target.files)}
-            />
-          </div>
+          <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
           <button onClick={handleModalOpen}>기업등록</button>
           <button>수정</button>
           <button onClick={handleDeleteClick}>삭제</button>

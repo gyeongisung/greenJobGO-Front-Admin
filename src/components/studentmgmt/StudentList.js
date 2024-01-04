@@ -24,6 +24,7 @@ const StudentList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
           <li className="student-table-th">학력</li>
           <li className="student-table-th">자격증</li>
           <li className="student-table-th">포트폴리오</li>
+          <li className="student-table-th">취업여부</li>
         </ul>
       </li>
       {listData.length > 0 &&
@@ -35,21 +36,24 @@ const StudentList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
                   type="checkbox"
                   name="check-box"
                   defaultChecked={false}
-                  className={`student-checkbox userId${item.companyCode}`}
+                  className={`student-checkbox userId${item.istudent}`}
                   onChange={e => handleCheckBox(e)}
                 />
               </li>
               <li>{(page - 1) * 10 + index + 1}</li>
-              <li>{item.area}</li>
-              <li>{item.companyName}</li>
-              <li>{item.sector}</li>
-              <li>{item.leaderName}</li>
-              <li>{item.manger}</li>
-              <li>{item.phonenumber}</li>
-              <li>{item.dateConslusion}</li>
-              <li>{item.dateConslusion}</li>
-              <li>{item.dateConslusion}</li>
-              <li>{item.dateConslusion}</li>
+              <li>{item.classification}</li>
+              <li>{item.subjectName}</li>
+              <li>
+                {item.startedAt} ~ {item.endedAt}
+              </li>
+              <li>{item.name}</li>
+              <li>{item.gender}</li>
+              <li>{item.address}</li>
+              <li>{item.mobileNumber}</li>
+              <li>{item.education}</li>
+              <li>{item.certificate}</li>
+              <li>{item.file}</li>
+              <li>{item.istudent}</li>
             </ul>
           </li>
         ))}
