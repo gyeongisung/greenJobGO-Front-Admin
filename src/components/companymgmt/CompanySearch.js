@@ -33,7 +33,7 @@ const CompanySearch = ({
         </select>
       </li>
       <li>
-        <form onSubmit={e => e.preventDefault()}>
+        <div className="company-form">
           <input
             type="text"
             placeholder="기업 이름을 검색하세요."
@@ -46,7 +46,7 @@ const CompanySearch = ({
               }
             }}
           />
-        </form>
+        </div>
       </li>
       <li>
         <button onClick={handleSearch}>검색</button>

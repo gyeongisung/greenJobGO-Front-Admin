@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
-import { CompanyAcceptModalInner, CompanyAcceptModalWrap } from "../../styles/ModalStyle";
+import {
+  CompanyAcceptModalInner,
+  CompanyAcceptModalWrap,
+  StudentAcceptModalWrap,
+} from "../../styles/ModalStyle";
 
 export const DeleteStudnetModal = ({
   deleteModalOpen,
@@ -86,9 +90,9 @@ export const StudentModal = ({ modalOpen, setModalOpen }) => {
   return (
     <>
       {modalOpen && (
-        <CompanyAcceptModalWrap>
+        <StudentAcceptModalWrap>
           <div className="dim"></div>
-          <CompanyAcceptModalInner>
+          <div className="student-modal-inner">
             <ul className="modal-top">
               <li>
                 <h2>기업등록</h2>
@@ -199,8 +203,8 @@ export const StudentModal = ({ modalOpen, setModalOpen }) => {
             <div className="modal-ok">
               <button onClick={handleModalAccept}>등록</button>
             </div>
-          </CompanyAcceptModalInner>
-        </CompanyAcceptModalWrap>
+          </div>
+        </StudentAcceptModalWrap>
       )}
     </>
   );

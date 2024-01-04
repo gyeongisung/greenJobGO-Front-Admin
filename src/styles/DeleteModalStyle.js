@@ -63,12 +63,13 @@ export const DeleteModalWrap = styled.div`
       gap: 10px;
       padding-bottom: 20px;
       button {
-        width: 60px;
-        height: 30px;
+        width: 65px;
+        height: 32px;
+        line-height: 32px;
         background: #176b87;
         color: #fff;
-        border-radius: 3px;
-        line-height: 1;
+        border: 1px solid;
+        border-radius: 4px;
         cursor: pointer;
         :first-of-type {
           background: #228fcf;

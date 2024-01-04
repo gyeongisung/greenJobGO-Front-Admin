@@ -7,7 +7,10 @@ import {
 import ClassPaging from "../components/classMgmt/ClassPaging";
 import ClassSearch from "../components/classMgmt/ClassSearch";
 import ClassList from "../components/classMgmt/ClassList";
-import { ClassAcceptModal } from "../components/classMgmt/ClassModal";
+import {
+  ClassAcceptModal,
+  DeleteClassModal,
+} from "../components/classMgmt/ClassModal";
 import { getClassSubject } from "../api/classAxios";
 
 const ClassMgmt = () => {
@@ -18,7 +21,7 @@ const ClassMgmt = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-  const [accept, setAccept] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   let resultIdArray = saveCheckBox;
 
@@ -48,6 +51,7 @@ const ClassMgmt = () => {
       resultIdArray = resultIdArray.filter(item => item !== icourseSubject);
     }
     setSaveCheckBox(resultIdArray);
+    console.log(saveCheckBox);
   };
 
   const fetchData = () => {
@@ -81,6 +85,15 @@ const ClassMgmt = () => {
     document.body.style.overflow = "hidden";
   };
 
+  const handleDeleteModalOpen = () => {
+    if (saveCheckBox.length >= 1) {
+      setDeleteModalOpen(true);
+    } else {
+      alert("삭제하실 과정을 선택해주세요.");
+    }
+    document.body.style.overflow = "hidden";
+  };
+  console.log(saveCheckBox);
   return (
     <ClassMgmtWrap>
       <div className="class-title">
@@ -94,19 +107,24 @@ const ClassMgmt = () => {
           setSearch={setSearch}
           handleSearch={handleSearch}
         />
-        <div className="class-buttons">
-          {modalOpen && (
-            <ClassAcceptModal
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
-              setAccept={setAccept}
-            />
-          )}
-          <button onClick={() => handleModalOpen()}>과정등록</button>
-          <button>수정</button>
-          <button>삭제</button>
-        </div>
+        {modalOpen && (
+          <ClassAcceptModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        )}
 
+        {deleteModalOpen && (
+          <DeleteClassModal
+            deleteModalOpen={deleteModalOpen}
+            setDeleteModalOpen={setDeleteModalOpen}
+            saveCheckBox={saveCheckBox}
+            setSaveCheckBox={setSaveCheckBox}
+            setListData={setListData}
+          />
+        )}
+        <div className="class-buttons">
+          <button onClick={handleModalOpen}>과정등록</button>
+          <button>수정</button>
+          <button onClick={handleDeleteModalOpen}>삭제</button>
+        </div>
         <ClassTable>
           <ClassList
             listData={listData}

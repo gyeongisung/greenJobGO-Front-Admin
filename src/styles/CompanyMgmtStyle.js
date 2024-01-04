@@ -40,7 +40,7 @@ export const CompanyMgmtInner = styled.div`
         text-align: center;
         cursor: pointer;
       }
-      > form {
+      .company-form {
         display: flex;
         gap: 5px;
         input {
