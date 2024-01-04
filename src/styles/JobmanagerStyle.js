@@ -5,16 +5,18 @@ export const JobManagerWrap = styled.div`
   margin: 0 auto;
   padding: 1%;
   width: 100%;
+  max-width: 1440px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
   flex-direction: column;
   .job-title {
     width: 82%;
+    height: 80px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 80px;
+    margin-bottom: 20px;
     h3 {
       font-size: 24px;
       font-weight: 700;
@@ -37,10 +39,11 @@ export const JobManagerWrap = styled.div`
 `;
 export const JobManagerBoxWrap = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+  flex-wrap: wrap;
   gap: 40px;
-  padding: 1%;
+  /* padding: 1%; */
   .manager-profile {
     width: 440px;
     height: 623px;
@@ -108,6 +111,18 @@ export const JobManagerBoxWrap = styled.div`
       /* 삭제버튼 */
       .del-btn {
         background: ${Maincolor.grayLight2};
+      }
+    }
+  }
+  .add-recheck-content {
+    font-size: 14px;
+    line-height: 120%;
+    color: #515151;
+    & div {
+      margin-top: 32px;
+      text-align: right;
+      & button {
+        margin-left: 5px;
       }
     }
   }

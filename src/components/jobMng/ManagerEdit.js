@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 import { JobManagerAddSty } from "../../styles/JobmanagerStyle";
-import { BtnGlobal } from "../../styles/GlobalStyle";
-import { patchEditStore } from "../../api/jobMngAxiois";
+import {
+  BtnGlobal,
+  ModalCancelBtn,
+  ModalOkBtn,
+} from "../../styles/GlobalStyle";
+import { getJobManagerInfo, patchManagerEdit } from "../../api/jobMngAxiois";
+import ConfirmModal from "../ConfirmModal";
 
-const ManagerEdit = ({ item }) => {
+const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
   const [editManager, setEditManager] = useState(item);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectImg, setSelectImg] = useState();
 
-  const handleInfoEdit = (e, fieldName) => {
-    setEditManager({ ...editManager, [fieldName]: e.target.value });
-    console.log("editManager", editManager);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
-  // 주소를 변환하자
+  // 쿼리 주소를 변환하자
   const makeUrl = () => {
     let query = "";
 
@@ -21,8 +30,8 @@ const ManagerEdit = ({ item }) => {
     if (item.oneWord !== editManager.oneWord) {
       query += `oneWord=${editManager.oneWord}&`;
     }
-    if (item.conuselingNumber !== editManager.conuselingNumber) {
-      query += `conuselingNumber=${editManager.conuselingNumber}&`;
+    if (item.counselingNumber !== editManager.counselingNumber) {
+      query += `counselingNumber=${editManager.counselingNumber}&`;
     }
     if (item.phoneNumber !== editManager.phoneNumber) {
       query += `phone=${editManager.phoneNumber}&`;
@@ -30,31 +39,47 @@ const ManagerEdit = ({ item }) => {
     if (item.email !== editManager.email) {
       query += `email=${editManager.email}&`;
     }
-
-    // 마지막에는 & 제외하기
     if (query.endsWith("&")) {
       query = query.slice(0, -1);
     }
     return query;
   };
+
   const handleEditOK = async () => {
+    setModalOpen(true);
+  };
+
+  const handleImageUpload = e => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    setSelectImg(file);
+  };
+
+  const handleInfoEdit = (e, fieldName) => {
+    setEditManager({ ...editManager, [fieldName]: e.target.value });
+  };
+  // 변경있을때마다 자료 새로고침
+  const updateData = async () => {
     try {
-      let formData = new FormData();
-      Object.keys(editManager).forEach(key => {
-        formData.append(key, editManager[key]);
-      });
-
-      const query = makeUrl();
-      console.log("query", query);
-
-      const result = await patchEditStore({
-        formData,
-        query,
-        iemply: item.iemply,
-      });
-      console.log("result", result);
+      const newData = await getJobManagerInfo(setmngProflieData);
+      // setmngProflieData(newData);
+      console.log("데이터 업데이트 성공:", newData);
     } catch (error) {
-      console.error("수정 에러", error);
+      console.error("데이터 업데이트 에러:", error);
+    }
+  };
+
+  // 수정 재확인
+  const handleConfirm = async () => {
+    const formData = new FormData();
+    formData.append("pic", selectImg);
+    const query = makeUrl();
+    try {
+      await patchManagerEdit({ formData, editManager, query });
+      updateData();
+      setEditModalOpen(false);
+    } catch (error) {
+      console.error("취업 담당자 등록 에러:", error);
     }
   };
 
@@ -84,8 +109,8 @@ const ManagerEdit = ({ item }) => {
           <input
             type="text"
             placeholder="상담전화"
-            value={editManager.conuselingNumber}
-            onChange={e => handleInfoEdit(e, "conuselingNumber")}
+            value={editManager.counselingNumber}
+            onChange={e => handleInfoEdit(e, "counselingNumber")}
           />
         </li>
         <li>
@@ -111,10 +136,11 @@ const ManagerEdit = ({ item }) => {
           {/* <div className="upload-area"> */}
           <input
             type="file"
-            name="file"
-            id="file"
-            accept="image/gif,image/jpeg,image/png"
+            name="job-mng-img"
+            id="job-img-upload"
+            accept="image/gif,image/jpeg,image/jpg,image/png"
             placeholder="JPG,PNG,JPEG,GIF 파일 첨부"
+            onChange={handleImageUpload}
           />
           {/* </div> */}
           <p>*프로필 이미지를 등록해주세요.</p>
@@ -122,6 +148,15 @@ const ManagerEdit = ({ item }) => {
       </ul>
       <div className="add-accept">
         <BtnGlobal onClick={handleEditOK}> 수정 </BtnGlobal>
+        <ConfirmModal open={modalOpen} close={closeModal}>
+          <div className="add-recheck-content">
+            <span>항목을 수정 하시겠습니까?</span>
+            <div>
+              <ModalCancelBtn onClick={closeModal}>취소</ModalCancelBtn>
+              <ModalOkBtn onClick={handleConfirm}>확인</ModalOkBtn>
+            </div>
+          </div>
+        </ConfirmModal>
       </div>
     </JobManagerAddSty>
   );
