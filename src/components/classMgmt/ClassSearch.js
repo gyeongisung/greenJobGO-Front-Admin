@@ -39,7 +39,7 @@ const ClassSearch = ({
         </select>
       </li>
       <li>
-        <form onSubmit={e => e.preventDefault()}>
+        <div className="class-form">
           <input
             type="text"
             placeholder="훈련과정 명을 검색하세요."
@@ -52,7 +52,7 @@ const ClassSearch = ({
               }
             }}
           />
-        </form>
+        </div>
       </li>
       <li>
         <button onClick={handleSearch}>검색</button>

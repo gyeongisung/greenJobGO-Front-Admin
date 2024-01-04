@@ -39,7 +39,7 @@ export const ClassMgmtInner = styled.div`
         text-align: center;
         cursor: pointer;
       }
-      > form {
+      > .class-form {
         display: flex;
         gap: 5px;
         input {
@@ -56,8 +56,8 @@ export const ClassMgmtInner = styled.div`
         cursor: pointer;
         border: none;
         border-radius: 5px;
-        background: #6d6d6d;
         color: #fff;
+        background: #6d6d6d;
       }
     }
   }
@@ -102,7 +102,7 @@ export const ClassTable = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: repeat(10, 43px);
     > li {
-      line-height: 45px;
+      line-height: 42px;
       border-top: 1px solid #ccc;
       :first-of-type {
         background: #888888;

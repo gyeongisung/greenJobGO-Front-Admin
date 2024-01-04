@@ -84,10 +84,10 @@ const CompanyMgmt = () => {
   };
 
   const handleDeleteClick = () => {
-    if (saveCheckBox.length > 0) {
+    if (saveCheckBox.length >= 1) {
       setDeleteModalOpen(true);
     } else {
-      console.log("삭제할 기업을 선택해주세요.");
+      alert("삭제하실 기업을 선택해주세요.")
     }
   };
 
@@ -110,13 +110,19 @@ const CompanyMgmt = () => {
           setSearch={setSearch}
           handleSearch={handleSearch}
         />
+        {modalOpen && (
+          <CompanyMgmtModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        )}
+        {deleteModalOpen && (
+          <DeleteCompanyModal
+            deleteModalOpen={deleteModalOpen}
+            setDeleteModalOpen={setDeleteModalOpen}
+            saveCheckBox={saveCheckBox}
+            setSaveCheckBox={setSaveCheckBox}
+            setListData={setListData}
+          />
+        )}
         <div className="company-buttons">
-          {modalOpen && (
-            <CompanyMgmtModal
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
-            />
-          )}
           <div>
             <input
               type="file"
@@ -124,17 +130,8 @@ const CompanyMgmt = () => {
               onChange={e => handleExcelUpload(e.target.files)}
             />
           </div>
-          <button onClick={() => handleModalOpen()}>기업등록</button>
+          <button onClick={handleModalOpen}>기업등록</button>
           <button>수정</button>
-          {deleteModalOpen && (
-            <DeleteCompanyModal
-              deleteModalOpen={deleteModalOpen}
-              setDeleteModalOpen={setDeleteModalOpen}
-              saveCheckBox={saveCheckBox}
-              setSaveCheckBox={setSaveCheckBox}
-              setListData={setListData}
-            />
-          )}
           <button onClick={handleDeleteClick}>삭제</button>
         </div>
         <div className="total-count">

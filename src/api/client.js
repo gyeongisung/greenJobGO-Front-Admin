@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, setCookie } from "./cookie";
+import { getCookie, removeCookie, setCookie } from "./cookie";
 
 // axios 인스턴스 생성
 export const client = axios.create({
@@ -86,5 +86,16 @@ export const fetchLogin = async (adminId, password) => {
   } catch (error) {
     console.log(error);
     throw new Error("로그인에 실패했습니다.");
+  }
+};
+
+// 로그아웃 함수
+export const postLogout = async (accessToken, refreshToken) => {
+  try {
+    const res = await client.post("/admin/sign/logout");
+    removeCookie(accessToken);
+    removeCookie(refreshToken);
+  } catch (error) {
+    console.log(error);
   }
 };

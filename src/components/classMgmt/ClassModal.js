@@ -4,10 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
 import { deleteClassSubject, postClassSubject } from "../../api/classAxios";
-import "react-datepicker/dist/react-datepicker.css";
-import ClassDatePicker from "./ClassDatePicker";
+import { ko } from "date-fns/locale";
+import ReactDatePicker from "react-datepicker";
+import { format } from "date-fns";
 
-export const DeleteCompanyModal = ({
+export const DeleteClassModal = ({
   deleteModalOpen,
   setDeleteModalOpen,
   saveCheckBox,
@@ -40,6 +41,7 @@ export const DeleteCompanyModal = ({
   const closeModal = () => {
     setDeleteModalOpen(false);
   };
+
 
   return (
     <>
@@ -83,10 +85,16 @@ export const ClassAcceptModal = ({ modalOpen, setModalOpen }) => {
   };
 
   const handleModalAccept = () => {
-    postClassSubject(payload);
+    const formatData = {
+      ...payload,
+      startedAt: payload.startedAt
+        ? format(payload.startedAt, "yyyy-MM-dd")
+        : null,
+      endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
+    };
+    postClassSubject(formatData);
     setModalOpen(false);
   };
-  console.log(payload);
   return (
     <>
       {modalOpen && (
@@ -153,57 +161,76 @@ export const ClassAcceptModal = ({ modalOpen, setModalOpen }) => {
                       }}
                     />
                   </div>
+                </li>
+                <li className="date-picker-wrap">
                   <div>
                     <h3>수강기간</h3>
-                    <input
-                      type="text"
-                      value={payload.startedAt}
-                      onChange={e => {
+                  </div>
+                  <div>
+                    <ReactDatePicker
+                      className="date-picker"
+                      showIcon
+                      icon="fa fa-calendar"
+                      locale={ko}
+                      selected={payload.startedAt}
+                      dateFormat="yyyy년 MM월 dd일"
+                      startDate={payload.startedAt}
+                      endDate={payload.endedAt}
+                      selectsStart
+                      onChange={value => {
                         setPayload(payload => ({
                           ...payload,
-                          startedAt: e.target.value,
+                          startedAt: value,
                         }));
                       }}
                     />
+                    <ReactDatePicker
+                      className="date-picker"
+                      locale={ko}
+                      selected={payload.endedAt}
+                      dateFormat="yyyy년 MM월 dd일"
+                      startDate={payload.startedAt}
+                      endDate={payload.endedAt}
+                      selectsEnd
+                      minDate={payload.startedAt}
+                      onChange={date => {
+                        setPayload(payload => ({
+                          ...payload,
+                          endedAt: date,
+                        }));
+                      }}
+                    />
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h3>강사명</h3>
                     <input
                       type="text"
-                      value={payload.endedAt}
+                      value={payload.instructor}
                       onChange={e => {
                         setPayload(payload => ({
                           ...payload,
-                          endedAt: e.target.value,
+                          instructor: e.target.value,
+                        }));
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <h3>강의실</h3>
+                    <input
+                      type="text"
+                      value={payload.lectureRoom}
+                      onChange={e => {
+                        setPayload(payload => ({
+                          ...payload,
+                          lectureRoom: e.target.value,
                         }));
                       }}
                     />
                   </div>
                 </li>
               </ul>
-              <div className="class-info">
-                <h3>강사명</h3>
-                <input
-                  type="text"
-                  value={payload.instructor}
-                  onChange={e => {
-                    setPayload(payload => ({
-                      ...payload,
-                      instructor: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
-              <div className="class-info">
-                <h3>강의실</h3>
-                <input
-                  type="text"
-                  value={payload.lectureRoom}
-                  onChange={e => {
-                    setPayload(payload => ({
-                      ...payload,
-                      lectureRoom: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
             </div>
             <div className="modal-ok">
               <button onClick={handleModalAccept}>등록</button>

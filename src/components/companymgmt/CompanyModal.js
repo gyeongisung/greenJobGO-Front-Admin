@@ -3,7 +3,6 @@ import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { deleteCompany, postCompanyAccept } from "../../api/companyAxios";
 import {
-  CompanyAcceptModalInner,
   CompanyAcceptModalWrap,
 } from "../../styles/ModalStyle";
 import { useState } from "react";
@@ -92,7 +91,7 @@ export const CompanyMgmtModal = ({ modalOpen, setModalOpen }) => {
       {modalOpen && (
         <CompanyAcceptModalWrap>
           <div className="dim"></div>
-          <CompanyAcceptModalInner>
+          <div className="company-modal-inner">
             <ul className="modal-top">
               <li>
                 <h2>기업등록</h2>
@@ -102,20 +101,35 @@ export const CompanyMgmtModal = ({ modalOpen, setModalOpen }) => {
               </li>
             </ul>
             <div className="modal-btm">
-              <div className="company-info">
-                <h3>기업명</h3>
-                <input
-                  type="text"
-                  value={payload.companyName}
-                  onChange={e => {
-                    setPayload(payload => ({
-                      ...payload,
-                      companyName: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
               <ul>
+                <li>
+                  <div>
+                    <h3>기업명</h3>
+                    <input
+                      type="text"
+                      value={payload.companyName}
+                      onChange={e => {
+                        setPayload(payload => ({
+                          ...payload,
+                          companyName: e.target.value,
+                        }));
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <h3>지역</h3>
+                    <input
+                      type="text"
+                      value={payload.area}
+                      onChange={e => {
+                        setPayload(payload => ({
+                          ...payload,
+                          area: e.target.value,
+                        }));
+                      }}
+                    />
+                  </div>
+                </li>
                 <li>
                   <div>
                     <h3>대표명</h3>
@@ -131,14 +145,14 @@ export const CompanyMgmtModal = ({ modalOpen, setModalOpen }) => {
                     />
                   </div>
                   <div>
-                    <h3>지역</h3>
+                    <h3>체결일자</h3>
                     <input
                       type="text"
-                      value={payload.area}
+                      value={payload.dateConslusion}
                       onChange={e => {
                         setPayload(payload => ({
                           ...payload,
-                          area: e.target.value,
+                          dateConslusion: e.target.value,
                         }));
                       }}
                     />
@@ -186,24 +200,11 @@ export const CompanyMgmtModal = ({ modalOpen, setModalOpen }) => {
                   }}
                 />
               </div>
-              <div className="company-info">
-                <h3>체결일자</h3>
-                <input
-                  type="text"
-                  value={payload.dateConslusion}
-                  onChange={e => {
-                    setPayload(payload => ({
-                      ...payload,
-                      dateConslusion: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
             </div>
             <div className="modal-ok">
               <button onClick={handleModalAccept}>등록</button>
             </div>
-          </CompanyAcceptModalInner>
+          </div>
         </CompanyAcceptModalWrap>
       )}
     </>

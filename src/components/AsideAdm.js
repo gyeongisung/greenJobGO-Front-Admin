@@ -2,14 +2,16 @@ import React from "react";
 import { SideMenuWrap } from "../styles/AsideStyle";
 import Sider from "antd/es/layout/Sider";
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
+import { postLogout } from "../api/client";
 
 const AsideAdm = () => {
+  const navigate = useNavigate();
   function getItem(label, key, icon, children) {
     return {
       key,
@@ -31,6 +33,11 @@ const AsideAdm = () => {
     ]),
     getItem(<Link to="/company">기업등록 • 관리</Link>, "9", null),
   ];
+
+  const handleLogout = () => {
+    postLogout();
+    navigate("/");
+  };
 
   return (
     <SideMenuWrap>
@@ -71,7 +78,7 @@ const AsideAdm = () => {
             />
           </li>
           <li className="end-m-role">role</li>
-          <li className="end-m-logout">
+          <li className="end-m-logout" onClick={handleLogout}>
             로그아웃 <FontAwesomeIcon icon={faArrowRightFromBracket} />
           </li>
         </ul>
