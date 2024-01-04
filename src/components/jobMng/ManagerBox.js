@@ -1,20 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { JobManagerBoxWrap } from "../../styles/JobmanagerStyle";
 import NoImage from "../../assets/NoImage.jpg";
+import ManagerEdit from "./ManagerEdit";
+import InputModal from "../InputModal";
+import { Navigate } from "react-router";
 
 const ManagerBox = ({ mngProflieData }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
   // 이미지 없을 때 error처리
   const onImgError = e => {
     e.target.src = NoImage;
   };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  const handleEdit = item => {
+    console.log("수정버튼", item);
+    setSelectedItem(item);
+
+    setModalOpen(true);
+  };
+
   return (
     <JobManagerBoxWrap>
       {mngProflieData?.map(item => (
         <div className="manager-profile" key={item.iemply}>
           <img
-            src={`${process.env.PUBLIC_URL}/home/download/Employee/${item.iemply}/${item.profilePic}`}
+            src={`/home/download/Employee/${item.iemply}/${item.profilePic}`}
             alt="job manager"
             onError={onImgError}
+            className="manager-img"
           />
           <div className="manager-details">
             <p className="manager-word">{item.oneWord}</p>
@@ -36,7 +54,16 @@ const ManagerBox = ({ mngProflieData }) => {
           </div>
           <ul className="btn-group">
             <li>
-              <button className="edit-btn">수정</button>
+              <button className="edit-btn" onClick={() => handleEdit(item)}>
+                수정
+              </button>
+              <InputModal
+                open={modalOpen}
+                close={closeModal}
+                header="취업 담당자 수정"
+              >
+                <ManagerEdit item={selectedItem} />
+              </InputModal>
             </li>
             <li>
               <button className="del-btn">삭제</button>

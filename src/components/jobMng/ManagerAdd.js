@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import { JobManagerAddSty } from "../../styles/JobmanagerStyle";
-import { BtnGlobal } from "../../styles/GlobalStyle";
+import {
+  BtnGlobal,
+  ModalCancelBtn,
+  ModalOkBtn,
+} from "../../styles/GlobalStyle";
+import ConfirmModal from "../ConfirmModal";
 
 const ManagerAdd = () => {
-  const [filename, setFilename] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const handleFileChange = event => {
-    const file = event.target.files[0];
-    if (file) {
-      setFilename(file.name);
-    }
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  const handleConfirm = () => {
+    setModalOpen(false); // 모달을 닫습니다.
   };
   return (
     <JobManagerAddSty>
@@ -52,7 +60,16 @@ const ManagerAdd = () => {
         </li>
       </ul>
       <div className="add-accept">
-        <BtnGlobal> 등록완료 </BtnGlobal>
+        <BtnGlobal onClick={openModal}>등록</BtnGlobal>
+        <ConfirmModal open={modalOpen} close={closeModal}>
+          <div className="add-recheck-content">
+            <span>항목을 삭제하시겠습니까?</span>
+            <div>
+              <ModalCancelBtn onClick={closeModal}>취소</ModalCancelBtn>
+              <ModalOkBtn onClick={handleConfirm}>확인</ModalOkBtn>
+            </div>
+          </div>
+        </ConfirmModal>
       </div>
     </JobManagerAddSty>
   );

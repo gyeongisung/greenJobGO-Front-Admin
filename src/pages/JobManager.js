@@ -4,6 +4,7 @@ import { JobManagerWrap } from "../styles/JobmanagerStyle";
 import ManagerAdd from "../components/jobMng/ManagerAdd";
 import InputModal from "../components/InputModal";
 import { getJobManagerList } from "../api/jobMngAxiois";
+import { BtnGlobal } from "../styles/GlobalStyle";
 
 // 더미데이터
 const managers = [
@@ -44,21 +45,33 @@ const JobManager = () => {
     setModalOpen(false);
   };
 
-  useEffect (()=>{
-      // 취업담당자 정보 get
-      getJobManagerList(setmngProflieData);
-    }, []);
-  
+  // 데이터가 다 get되면 화면을 그리자~
+  const isRendering = Object.keys(mngProflieData).length > 0;
+
+  useEffect(() => {
+    // 취업담당자 정보 get
+    getJobManagerList(setmngProflieData);
+  }, []);
+
   return (
     <JobManagerWrap>
-      <h2>취업 담당자 관리</h2>
+      <div className="job-title">
+        <h2>취업 담당자 관리</h2>
+      </div>
       <div className="job-content-wrap">
         <div>
-          <ManagerBox mngProflieData={mngProflieData} />
+          {isRendering && (
+            //화면
+            <ManagerBox mngProflieData={mngProflieData} />
+          )}
         </div>
         <div className="maganer-add">
-          <button onClick={openModal}>담당자 등록</button>
-          <InputModal open={modalOpen} close={closeModal} header="담당자 등록">
+          <BtnGlobal onClick={openModal}>등록</BtnGlobal>
+          <InputModal
+            open={modalOpen}
+            close={closeModal}
+            header="취업 담당자 등록"
+          >
             <ManagerAdd />
           </InputModal>
         </div>
