@@ -1,28 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { JobManagerAddSty } from "../../styles/JobmanagerStyle";
 import {
   BtnGlobal,
   ModalCancelBtn,
   ModalOkBtn,
 } from "../../styles/GlobalStyle";
+import { getJobManagerInfo, patchManagerEdit } from "../../api/jobMngAxiois";
 import ConfirmModal from "../ConfirmModal";
-import { postManagerInfo } from "../../api/jobMngAxiois";
 
-const ManagerAdd = () => {
+const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
+  const [editManager, setEditManager] = useState(item);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectImg, setSelectImg] = useState();
-  const [addInfo, setAddInfo] = useState({
-    name: "",
-    oneWord: "",
-    counselingNumber: "",
-    phoneNumber: "",
-    email: "",
-  });
+
   const openModal = () => {
     setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  // 쿼리 주소를 변환하자
+  const makeUrl = () => {
+    let query = "";
+
+    if (item.name !== editManager.name) {
+      query += `name=${editManager.name}&`;
+    }
+    if (item.oneWord !== editManager.oneWord) {
+      query += `oneWord=${editManager.oneWord}&`;
+    }
+    if (item.counselingNumber !== editManager.counselingNumber) {
+      query += `counselingNumber=${editManager.counselingNumber}&`;
+    }
+    if (item.phoneNumber !== editManager.phoneNumber) {
+      query += `phone=${editManager.phoneNumber}&`;
+    }
+    if (item.email !== editManager.email) {
+      query += `email=${editManager.email}&`;
+    }
+    if (query.endsWith("&")) {
+      query = query.slice(0, -1);
+    }
+    return query;
+  };
+
+  const handleEditOK = async () => {
+    setModalOpen(true);
   };
 
   const handleImageUpload = e => {
@@ -31,22 +55,29 @@ const ManagerAdd = () => {
     setSelectImg(file);
   };
 
-  const handleInfoAdd = (e, fieldName) => {
-    setAddInfo({ ...addInfo, [fieldName]: e.target.value });
+  const handleInfoEdit = (e, fieldName) => {
+    setEditManager({ ...editManager, [fieldName]: e.target.value });
+  };
+  // 변경있을때마다 자료 새로고침
+  const updateData = async () => {
+    try {
+      const newData = await getJobManagerInfo(setmngProflieData);
+      // setmngProflieData(newData);
+      console.log("데이터 업데이트 성공:", newData);
+    } catch (error) {
+      console.error("데이터 업데이트 에러:", error);
+    }
   };
 
+  // 수정 재확인
   const handleConfirm = async () => {
     const formData = new FormData();
     formData.append("pic", selectImg);
-    formData.append("name", addInfo.name);
-    formData.append("oneWord", addInfo.oneWord);
-    formData.append("counselingNumber", addInfo.counselingNumber);
-    formData.append("phoneNumber", addInfo.phoneNumber);
-    formData.append("email", addInfo.email);
-
+    const query = makeUrl();
     try {
-      await postManagerInfo(formData);
-      setModalOpen(false);
+      await patchManagerEdit({ formData, editManager, query });
+      updateData();
+      setEditModalOpen(false);
     } catch (error) {
       console.error("취업 담당자 등록 에러:", error);
     }
@@ -60,45 +91,45 @@ const ManagerAdd = () => {
           <input
             type="text"
             placeholder="이름"
-            value={addInfo.name}
-            onChange={e => handleInfoAdd(e, "name")}
-          ></input>
+            value={editManager.name}
+            onChange={e => handleInfoEdit(e, "name")}
+          />
         </li>
         <li>
           <h3>한 줄 소개</h3>
           <input
             type="text"
             placeholder="소개문구를 작성해주세요. (최대 20자)"
-            value={addInfo.oneWord}
-            onChange={e => handleInfoAdd(e, "oneWord")}
-          ></input>
+            value={editManager.oneWord}
+            onChange={e => handleInfoEdit(e, "oneWord")}
+          />
         </li>
         <li>
           <h3>상담전화</h3>
           <input
             type="text"
             placeholder="상담전화"
-            value={addInfo.counselingNumber}
-            onChange={e => handleInfoAdd(e, "counselingNumber")}
-          ></input>
+            value={editManager.counselingNumber}
+            onChange={e => handleInfoEdit(e, "counselingNumber")}
+          />
         </li>
         <li>
           <h3>모바일</h3>
           <input
             type="text"
             placeholder="모바일"
-            value={addInfo.phoneNumber}
-            onChange={e => handleInfoAdd(e, "phoneNumber")}
-          ></input>
+            value={editManager.phoneNumber}
+            onChange={e => handleInfoEdit(e, "phoneNumber")}
+          />
         </li>
         <li className="email-input">
           <h3>이메일</h3>
           <input
             type="text"
             placeholder="이메일"
-            value={addInfo.email}
-            onChange={e => handleInfoAdd(e, "email")}
-          ></input>
+            value={editManager.email}
+            onChange={e => handleInfoEdit(e, "email")}
+          />
         </li>
         <li className="photo-upload">
           <h3>프로필 이미지</h3>
@@ -116,10 +147,10 @@ const ManagerAdd = () => {
         </li>
       </ul>
       <div className="add-accept">
-        <BtnGlobal onClick={openModal}>등록</BtnGlobal>
+        <BtnGlobal onClick={handleEditOK}> 수정 </BtnGlobal>
         <ConfirmModal open={modalOpen} close={closeModal}>
           <div className="add-recheck-content">
-            <span>항목을 등록 하시겠습니까?</span>
+            <span>항목을 수정 하시겠습니까?</span>
             <div>
               <ModalCancelBtn onClick={closeModal}>취소</ModalCancelBtn>
               <ModalOkBtn onClick={handleConfirm}>확인</ModalOkBtn>
@@ -131,4 +162,4 @@ const ManagerAdd = () => {
   );
 };
 
-export default ManagerAdd;
+export default ManagerEdit;

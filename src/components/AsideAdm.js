@@ -2,8 +2,7 @@ import React from "react";
 import { SideMenuWrap } from "../styles/AsideStyle";
 import Sider from "antd/es/layout/Sider";
 import { Menu } from "antd";
-import SubMenu from "antd/es/menu/SubMenu";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
@@ -51,7 +50,10 @@ const AsideAdm = () => {
       >
         <Link to="/home">
           <div className="sidemenu-logo-div">
-            <img src={`../../assets/LoginTitle.png`} alt="greenlogo" />
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/LoginTitle.png`}
+              alt="greenlogo"
+            />
           </div>
         </Link>
         <Menu
@@ -60,7 +62,7 @@ const AsideAdm = () => {
             background: "#ffffff",
           }}
           defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
+          // defaultOpenKeys={["sub1"]}
           mode={"inline"}
           theme={"light"}
           items={menuItems2}
@@ -70,7 +72,10 @@ const AsideAdm = () => {
         <ul>
           <li className="end-m-id">
             아이디
-            <img src={`../../assets/settingIcon.svg`} alt="icon" />
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/settingIcon.svg`}
+              alt="icon"
+            />
           </li>
           <li className="end-m-role">role</li>
           <li className="end-m-logout" onClick={handleLogout}>

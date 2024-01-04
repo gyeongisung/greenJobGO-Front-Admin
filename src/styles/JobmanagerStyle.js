@@ -4,6 +4,25 @@ import { Maincolor } from "./GlobalStyle";
 export const JobManagerWrap = styled.div`
   margin: 0 auto;
   padding: 1%;
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: center; */
+  flex-direction: column;
+  .job-title {
+    width: 82%;
+    height: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      padding-left: 10px;
+    }
+  }
   .job-content-wrap {
     width: 100%;
     margin: 0 auto;
@@ -12,34 +31,38 @@ export const JobManagerWrap = styled.div`
       float: right;
       margin: 40px 20px;
       & > button {
-        width: 160px;
+        width: 105px;
         height: 40px;
-        border: 0;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-bottom: 2%;
       }
     }
   }
 `;
 export const JobManagerBoxWrap = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+  flex-wrap: wrap;
   gap: 40px;
-  padding: 1%;
+  /* padding: 1%; */
   .manager-profile {
     width: 440px;
-    height: 630px;
+    height: 623px;
     border-radius: 12px;
     border: 1px ${Maincolor.grayLight2} solid;
     padding: 40px;
+    .manager-img {
+      width: 170px;
+      height: 226px;
+      object-fit: contain;
+      margin-bottom: 25px;
+    }
+
     .manager-details {
       /* 담당자 한마디 */
       font-weight: 500;
       .manager-word {
         font-size: 20px;
-        margin-top: 14px;
+        margin-bottom: 14px;
       }
       /* 담당자 이름 */
       .manager-name {
@@ -53,13 +76,16 @@ export const JobManagerBoxWrap = styled.div`
           display: flex;
           justify-content: left;
           align-items: center;
-          margin-top: 15px;
+          margin-top: 16px;
           span:nth-of-type(1) {
+            font-size: 14px;
             font-weight: 700;
             padding-right: 10px;
           }
           span:nth-of-type(2) {
             font-weight: 400;
+            font-size: 16px;
+            letter-spacing: -0.24px;
           }
         }
       }
@@ -80,11 +106,23 @@ export const JobManagerBoxWrap = styled.div`
       }
       /* 수정버튼 */
       .edit-btn {
-        background: ${Maincolor.grayLight2};
+        background: ${Maincolor.grayDeep};
       }
       /* 삭제버튼 */
       .del-btn {
-        background: ${Maincolor.grayDeep};
+        background: ${Maincolor.grayLight2};
+      }
+    }
+  }
+  .add-recheck-content {
+    font-size: 14px;
+    line-height: 120%;
+    color: #515151;
+    & div {
+      margin-top: 32px;
+      text-align: right;
+      & button {
+        margin-left: 5px;
       }
     }
   }
@@ -155,5 +193,17 @@ export const JobManagerAddSty = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    .add-recheck-content {
+      font-size: 14px;
+      line-height: 120%;
+      color: #515151;
+      & div {
+        margin-top: 32px;
+        text-align: right;
+        & button {
+          margin-left: 5px;
+        }
+      }
+    }
   }
 `;

@@ -8,7 +8,9 @@ export const Maincolor = {
   grayLight: "#DEDEDE",
   grayLight2: "#d9d9d9",
   grayMedium: "#A9A9A9",
+  grayMediumDeep: "#7E7E7E",
   grayDeep: "#6D6D6D",
+  blueMedium: "#228FCF",
 };
 
 // 말줄임 ================
@@ -31,7 +33,7 @@ export const ModalWarp = styled.div`
     bottom: 0;
     left: 0;
     z-index: 99;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.3);
   }
   .modal-wrapper {
     width: 684px;
@@ -52,7 +54,7 @@ export const ModalWarp = styled.div`
     font-size: 23px;
     font-weight: 800;
     text-align: center;
-    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
     p {
       position: absolute;
       top: 15px;
@@ -71,7 +73,7 @@ export const ModalWarp = styled.div`
   .modal.openModal {
     display: flex;
     align-items: center;
-    animation: modal-bg-show 0.3s;
+    animation: modal-bg-show 0.1s;
   }
   @keyframes modal-show {
     from {
@@ -93,7 +95,63 @@ export const ModalWarp = styled.div`
   }
 `;
 
-/* 확인버튼 */
+//공통) 확인 모달스타일
+export const ConfirmModalWarp = styled.div`
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .modal-wrapper {
+    width: 410px;
+    height: 140px;
+    margin: 0 auto;
+    border-radius: 6px;
+    border: 1px solid ${Maincolor.grayLight2};
+    background-color: ${Maincolor.white};
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-show 0.1s;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.12);
+  }
+
+  /* 모달 내용 */
+  .modal-content {
+    height: 100%;
+    padding: 40px 20px 20px 30px;
+  }
+
+  .modal.openModal {
+    display: flex;
+    align-items: center;
+    animation: modal-bg-show 0.1s;
+  }
+  @keyframes modal-show {
+    from {
+      opacity: 0;
+      margin-top: -50px;
+    }
+    to {
+      opacity: 1;
+      margin-top: 0;
+    }
+  }
+  @keyframes modal-bg-show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+`;
+
+/* 공통 확인버튼 */
 export const BtnGlobal = styled.button`
   /* .confirm-btn { */
   width: 150px;
@@ -106,5 +164,33 @@ export const BtnGlobal = styled.button`
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.24px;
+  cursor: pointer;
+`;
+
+// 모달 확인 버튼
+export const ModalOkBtn = styled.button`
+  width: 65px;
+  height: 32px;
+  border-radius: 4px;
+  border: 0;
+  background: ${Maincolor.blueMedium};
+  color: ${Maincolor.white};
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  `;
+
+// 모달 취소 버튼
+export const ModalCancelBtn = styled.button`
+  width: 65px;
+  height: 32px;
+  border-radius: 4px;
+  border: 0;
+  background: ${Maincolor.grayMediumDeep};
+  color: ${Maincolor.white};
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
   cursor: pointer;
 `;
