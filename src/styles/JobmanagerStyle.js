@@ -126,6 +126,17 @@ export const JobManagerBoxWrap = styled.div`
       }
     }
   }
+
+  // 수정 파일 업로드 버튼
+  .file-edit-wrap {
+    button {
+      background: none;
+      border: none;
+      margin-left: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
 `;
 
 // 등록페이지

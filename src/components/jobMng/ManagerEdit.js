@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { JobManagerAddSty } from "../../styles/JobmanagerStyle";
 import {
   BtnGlobal,
@@ -7,11 +7,14 @@ import {
 } from "../../styles/GlobalStyle";
 import { getJobManagerInfo, patchManagerEdit } from "../../api/jobMngAxiois";
 import ConfirmModal from "../ConfirmModal";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
   const [editManager, setEditManager] = useState(item);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectImg, setSelectImg] = useState();
+  const [isImg, setIsImg] = useState(item.profilePic);
 
   const openModal = () => {
     setModalOpen(true);
@@ -49,10 +52,16 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
     setModalOpen(true);
   };
 
-  const handleImageUpload = e => {
+  // 이미지업로드
+  const handleImageUpload = (e, fieldName) => {
     e.preventDefault();
     const file = e.target.files[0];
     setSelectImg(file);
+  };
+
+  //이미지 수정
+  const handleImgDel = () => {
+    setIsImg("");
   };
 
   const handleInfoEdit = (e, fieldName) => {
@@ -82,6 +91,7 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
       console.error("취업 담당자 등록 에러:", error);
     }
   };
+  useEffect(() => {}, [isImg]);
 
   return (
     <JobManagerAddSty>
@@ -133,16 +143,22 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
         </li>
         <li className="photo-upload">
           <h3>프로필 이미지</h3>
-          {/* <div className="upload-area"> */}
-          <input
-            type="file"
-            name="job-mng-img"
-            id="job-img-upload"
-            accept="image/gif,image/jpeg,image/jpg,image/png"
-            placeholder="JPG,PNG,JPEG,GIF 파일 첨부"
-            onChange={handleImageUpload}
-          />
-          {/* </div> */}
+          {isImg ? (
+            <div className="file-edit-wrap">
+              <span className="isFile">{isImg}</span>
+              <button onClick={handleImgDel}>
+                <FontAwesomeIcon icon={faXmark} />
+              </button>
+            </div>
+          ) : (
+            <input
+              type="file"
+              name="job-mng-img"
+              id="job-img-upload"
+              accept="image/gif,image/jpeg,image/jpg,image/png"
+              onChange={handleImageUpload}
+            />
+          )}
           <p>*프로필 이미지를 등록해주세요.</p>
         </li>
       </ul>
