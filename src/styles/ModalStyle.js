@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Maincolor } from "./GlobalStyle";
 
 export const ModalWrap = styled.div`
   position: absolute;
@@ -102,12 +103,14 @@ export const CompanyAcceptModalWrap = styled.div`
   left: 0;
   font-family: "Pretendard", sans-serif;
   .dim {
-    position: absolute;
-    width: 1980px;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
-    z-index: 10;
   }
   .company-modal-inner {
     position: absolute;
@@ -115,10 +118,12 @@ export const CompanyAcceptModalWrap = styled.div`
     height: 70%;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
-    background: #ffffff;
+    overflow: hidden;
     border-radius: 10px;
+    background-color: ${Maincolor.white};
+    transform: translate(-50%, -50%);
+    animation: modal-show 0.3s;
     z-index: 99;
     .modal-top {
       display: flex;
@@ -212,12 +217,14 @@ export const ClassAcceptModalWrap = styled.div`
   left: 0;
   font-family: "Pretendard", sans-serif;
   .dim {
-    position: absolute;
-    width: 1980px;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
-    z-index: 10;
   }
   .class-modal-inner {
     position: absolute;
@@ -225,10 +232,12 @@ export const ClassAcceptModalWrap = styled.div`
     height: 70%;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
-    background: #ffffff;
+    overflow: hidden;
     border-radius: 10px;
+    background-color: ${Maincolor.white};
+    transform: translate(-50%, -50%);
+    animation: modal-show 0.3s;
     z-index: 99;
     .modal-top {
       display: flex;
@@ -358,12 +367,14 @@ export const StudentAcceptModalWrap = styled.div`
   left: 0;
   font-family: "Pretendard", sans-serif;
   .dim {
-    position: absolute;
-    width: 1980px;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
-    z-index: 10;
   }
   .student-modal-inner {
     position: absolute;
@@ -371,10 +382,12 @@ export const StudentAcceptModalWrap = styled.div`
     height: 70%;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
-    background: #ffffff;
+    overflow: hidden;
     border-radius: 10px;
+    background-color: ${Maincolor.white};
+    transform: translate(-50%, -50%);
+    animation: modal-show 0.3s;
     z-index: 99;
     .modal-top {
       display: flex;

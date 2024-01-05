@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { ellipsis } from "./GlobalStyle";
 
 export const ClassMgmtWrap = styled.div`
   width: 100%;
@@ -117,6 +118,8 @@ export const ClassTable = styled.div`
         display: grid;
         grid-template-columns: 0.15fr 0.2fr 0.4fr 1.5fr 0.8fr 0.4fr 0.4fr;
         > li {
+        padding: 0 5px;
+          ${ellipsis.one}
           :not(:last-of-type) {
             border-right: 1px solid #ccc;
           }

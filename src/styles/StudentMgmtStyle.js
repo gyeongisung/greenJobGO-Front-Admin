@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { ellipsis } from "./GlobalStyle";
 
 export const StudentMgmtWrap = styled.div`
   width: 100%;
@@ -123,8 +124,10 @@ export const StudentTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.2fr 0.5fr 1.4fr 0.9fr 0.5fr 0.3fr 0.5fr 0.7fr 0.6fr 0.35fr 0.35fr 0.35fr;
+        grid-template-columns: 0.15fr 0.2fr 0.5fr 1.5fr 0.8fr 0.5fr 0.3fr 0.5fr 0.5fr 0.5fr 0.35fr 0.35fr 0.35fr;
         > li {
+          padding: 0 5px;
+          ${ellipsis.one}
           :not(:last-of-type) {
             border-right: 1px solid #ccc;
           }
