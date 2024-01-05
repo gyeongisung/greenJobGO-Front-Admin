@@ -60,7 +60,7 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
       console.error("데이터 업데이트 에러:", error);
     }
   };
-
+  console.log("mngProflieData", mngProflieData);
   return (
     <JobManagerBoxWrap>
       {mngProflieData?.map(item => (

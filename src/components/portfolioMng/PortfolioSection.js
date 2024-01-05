@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import PFsearch from "./PFsearch";
+import { getBigcate } from "../../api/portfolioAxios";
 
 const PortfolioSection = () => {
-  return (
-    <div>portfolioSection</div>
-  )
-}
+  const [search, setSearch] = useState();
+  const [category, setCategory] = useState([]);
 
-export default PortfolioSection
+  useEffect(() => {
+    getBigcate(setCategory);
+  }, []);
+  return (
+    <div>
+      <PFsearch search={search} category={category} setCategory={setCategory} />
+      <portfolioContent />
+    </div>
+  );
+};
+
+export default PortfolioSection;

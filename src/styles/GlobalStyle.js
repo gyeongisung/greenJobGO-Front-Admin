@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 export const Maincolor = {
   white: "#fff",
   black: "#000",
+  grayWhite: "#F0F0F0",
   grayLight: "#DEDEDE",
   grayLight2: "#d9d9d9",
   grayMedium: "#A9A9A9",
