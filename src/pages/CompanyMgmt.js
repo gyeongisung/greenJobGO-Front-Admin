@@ -103,7 +103,7 @@ const CompanyMgmt = () => {
       let formData = new FormData();
       formData.append("companyfile", selectedFile);
       postCompanyExcel(formData);
-      setExcelModalOpen(false); // 업로드 후 모달 닫기
+      setExcelModalOpen(false);
     } else {
       console.error("파일을 선택해주세요.");
     }
@@ -146,7 +146,6 @@ const CompanyMgmt = () => {
         <div className="company-buttons">
           <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
           <button onClick={handleModalOpen}>기업등록</button>
-          <button>수정</button>
           <button onClick={handleDeleteClick}>삭제</button>
         </div>
         <div className="total-count">

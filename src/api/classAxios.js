@@ -43,3 +43,5 @@ export const deleteClassSubject = async icourseSubject => {
     console.log(error);
   }
 };
+
+// export const patchClass

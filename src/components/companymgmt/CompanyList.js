@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { EdeitCompanyModal } from "./CompanyModal";
 
 const CompanyList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [companyInfo, setCompanyInfo] = useState(null);
+  const handleEditModalOpen = data => {
+    setCompanyInfo(data);
+    setEditModalOpen(true);
+  };
+
   return (
     <ul>
       <li className="company-list">
@@ -25,7 +33,7 @@ const CompanyList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
       </li>
       {listData.length > 0 &&
         listData.map((item, index) => (
-          <li key={index}>
+          <li key={item.companyCode}>
             <ul>
               <li>
                 <input
@@ -37,12 +45,21 @@ const CompanyList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
                 />
               </li>
               <li>{(page - 1) * 10 + index + 1}</li>
+              {editModalOpen && (
+                <EdeitCompanyModal
+                  companyInfo={companyInfo}
+                  editModalOpen={editModalOpen}
+                  setEditModalOpen={setEditModalOpen}
+                />
+              )}
               <li>{item.area}</li>
-              <li>{item.companyName}</li>
-              <li>{item.sector}</li>
+              <li onClick={() => handleEditModalOpen(item)}>
+                {item.companyName}
+              </li>
+              <li>{item.jobField}</li>
               <li>{item.leaderName}</li>
-              <li>{item.manger}</li>
-              <li>{item.phonenumber}</li>
+              <li>{item.manager}</li>
+              <li>{item.phoneNumber}</li>
               <li>{item.dateConslusion}</li>
             </ul>
           </li>

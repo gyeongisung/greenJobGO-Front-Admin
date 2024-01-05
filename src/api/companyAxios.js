@@ -41,10 +41,12 @@ export const deleteCompany = async checkedCompanyCode => {
   }
 };
 
-// export const pathchCompany = async() => {
-//   try {
-//     const res = await client.patch(`/admin/companylist?companyCode=${}&area=${}&companyName=${}&secotr=${}&manager=${}&leaderName=${}&jobField=${}&phoneNumber=${}&dateConslusion=${}`)
-//   } catch (error) {
-
-//   }
-// }
+export const patchCompany = async companyData => {
+  try {
+    const res = await client.patch(
+      `/admin/companylist?companyCode=${companyData.companyCode}&area=${companyData.area}&companyName=${companyData.companyName}&manager=${companyData.manager}&leaderName=${companyData.leaderName}&jobField=${companyData.jobField}&phoneNumber=${companyData.phoneNumber}&dateConslusion=${companyData.dateConslusion}`,
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};

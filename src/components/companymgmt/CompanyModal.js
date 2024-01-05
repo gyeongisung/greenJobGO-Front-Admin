@@ -1,7 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
-import { deleteCompany, postCompanyAccept } from "../../api/companyAxios";
+import {
+  deleteCompany,
+  patchCompany,
+  postCompanyAccept,
+} from "../../api/companyAxios";
 import { CompanyAcceptModalWrap } from "../../styles/ModalStyle";
 import { useState } from "react";
 import { ExcelUploadModalWrap } from "../../styles/ExcelUploadStyle";
@@ -268,6 +272,160 @@ export const CompanyMgmtModal = ({ modalOpen, setModalOpen }) => {
                     onChange={e => {
                       setPayload(payload => ({
                         ...payload,
+                        jobField: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="modal-ok">
+                <button onClick={handleModalAccept}>등록</button>
+              </div>
+            </div>
+          </div>
+        </CompanyAcceptModalWrap>
+      )}
+    </>
+  );
+};
+
+export const EdeitCompanyModal = ({
+  companyInfo,
+  editModalOpen,
+  setEditModalOpen,
+}) => {
+  const [companyData, setCompanyData] = useState({
+    companyCode: companyInfo.companyCode,
+    area: companyInfo.area,
+    companyName: companyInfo.companyName,
+    leaderName: companyInfo.leaderName,
+    jobField: companyInfo.jobField,
+    manager: companyInfo.manager,
+    phoneNumber: companyInfo.phoneNumber,
+    dateConslusion: companyInfo.dateConslusion,
+  });
+
+  const handleModalCancel = () => {
+    setEditModalOpen(false);
+    document.body.style.overflow = "unset";
+  };
+
+  const handleModalAccept = () => {
+    patchCompany(companyData);
+    setEditModalOpen(false);
+  };
+
+  console.log(companyData.companyCode);
+
+  return (
+    <>
+      {editModalOpen && (
+        <CompanyAcceptModalWrap>
+          <div className="dim">
+            <div className="company-modal-inner">
+              <ul className="modal-top">
+                <li>
+                  <h2>기업수정</h2>
+                </li>
+                <li>
+                  <span onClick={handleModalCancel}>✖</span>
+                </li>
+              </ul>
+              <div className="modal-btm">
+                <ul>
+                  <li>
+                    <div>
+                      <h3>기업명</h3>
+                      <input
+                        type="text"
+                        defaultValue={companyData.companyName}
+                        onChange={e => {
+                          setCompanyData(companyData => ({
+                            ...companyData,
+                            companyName: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <h3>지역</h3>
+                      <input
+                        type="text"
+                        defaultValue={companyData.area}
+                        onChange={e => {
+                          setCompanyData(companyData => ({
+                            ...companyData,
+                            area: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <div>
+                      <h3>대표명</h3>
+                      <input
+                        type="text"
+                        defaultValue={companyData.leaderName}
+                        onChange={e => {
+                          setCompanyData(companyData => ({
+                            ...companyData,
+                            leaderName: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <h3>체결일자</h3>
+                      <input
+                        type="text"
+                        defaultValue={companyData.dateConslusion}
+                        onChange={e => {
+                          setCompanyData(companyData => ({
+                            ...companyData,
+                            dateConslusion: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <div>
+                      <h3>담당자</h3>
+                      <input
+                        type="text"
+                        defaultValue={companyData.manager}
+                        onChange={e => {
+                          setCompanyData(companyData => ({
+                            ...companyData,
+                            manager: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <h3>연락처</h3>
+                      <input
+                        type="text"
+                        defaultValue={companyData.phoneNumber}
+                        onChange={e => {
+                          setCompanyData(companyData => ({
+                            ...companyData,
+                            phoneNumber: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </li>
+                </ul>
+                <div className="company-info">
+                  <h3>채용분야</h3>
+                  <input
+                    type="text"
+                    defaultValue={companyData.jobField}
+                    onChange={e => {
+                      setCompanyData(companyData => ({
+                        ...companyData,
                         jobField: e.target.value,
                       }));
                     }}
