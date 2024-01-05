@@ -72,3 +72,15 @@ export const PfSearchWrap = styled.div`
     }
   }
 `;
+
+// 포트폴리오 페이지 스타일
+export const PortFolioContentWrap = styled.div`
+  padding: 30px;
+  .pf-box {
+    .pf-img > img {
+      width: 294px;
+      height: 185px;
+      object-fit: cover;
+    }
+  }
+`;
