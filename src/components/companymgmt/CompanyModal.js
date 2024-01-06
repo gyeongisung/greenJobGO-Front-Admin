@@ -1,11 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
-import { faExclamation } from "@fortawesome/free-solid-svg-icons";
-import {
-  deleteCompany,
-  patchCompany,
-  postCompanyAccept,
-} from "../../api/companyAxios";
+import { deleteCompany, patchCompany } from "../../api/companyAxios";
 import { CompanyAcceptModalWrap } from "../../styles/ModalStyle";
 import { useState } from "react";
 import { ExcelUploadModalWrap } from "../../styles/ExcelUploadStyle";
@@ -121,18 +115,14 @@ export const DeleteCompanyModal = ({
           <div className="dim">
             <div className="content-wrap">
               <div className="header">
-                <FontAwesomeIcon
-                  icon={faExclamation}
-                  className="warning-icon"
-                />
+                <span onClick={closeModal}>✖</span>
               </div>
               <div className="content">
-                <span>선택하신 기업을 삭제 하시겠습니까?</span>
-                <span>삭제하신 기업은 영구 삭제되어 복구할 수 없습니다.</span>
+                <span>해당 기업을 삭제 하시겠습니까?</span>
               </div>
               <div className="btns">
-                <button onClick={handleOk}>확인</button>
                 <button onClick={closeModal}>취소</button>
+                <button onClick={handleOk}>확인</button>
               </div>
             </div>
           </div>
@@ -142,27 +132,18 @@ export const DeleteCompanyModal = ({
   );
 };
 
-export const CompanyMgmtModal = ({ modalOpen, setModalOpen }) => {
-  const [payload, setPayload] = useState({
-    area: "",
-    companyName: "",
-    leaderName: "",
-    jobField: "",
-    manger: "",
-    phoneNumber: "",
-    dateConslusion: "",
-  });
-
+export const CompanyMgmtModal = ({
+  modalOpen,
+  setModalOpen,
+  payload,
+  setPayload,
+  handleModalAccept,
+}) => {
   const handleModalCancel = () => {
     setModalOpen(false);
     document.body.style.overflow = "unset";
   };
 
-  const handleModalAccept = () => {
-    postCompanyAccept(payload);
-    setModalOpen(false);
-  };
-  console.log(payload);
   return (
     <>
       {modalOpen && (
@@ -244,7 +225,7 @@ export const CompanyMgmtModal = ({ modalOpen, setModalOpen }) => {
                         onChange={e => {
                           setPayload(payload => ({
                             ...payload,
-                            manger: e.target.value,
+                            manager: e.target.value,
                           }));
                         }}
                       />
@@ -293,6 +274,7 @@ export const EdeitCompanyModal = ({
   companyInfo,
   editModalOpen,
   setEditModalOpen,
+  handleModalCancel,
 }) => {
   const [companyData, setCompanyData] = useState({
     companyCode: companyInfo.companyCode,
@@ -304,11 +286,6 @@ export const EdeitCompanyModal = ({
     phoneNumber: companyInfo.phoneNumber,
     dateConslusion: companyInfo.dateConslusion,
   });
-
-  const handleModalCancel = () => {
-    setEditModalOpen(false);
-    document.body.style.overflow = "unset";
-  };
 
   const handleModalAccept = () => {
     patchCompany(companyData);

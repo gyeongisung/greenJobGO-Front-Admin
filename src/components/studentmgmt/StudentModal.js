@@ -47,18 +47,14 @@ export const DeleteStudnetModal = ({
           <div className="dim">
             <div className="content-wrap">
               <div className="header">
-                <FontAwesomeIcon
-                  icon={faExclamation}
-                  className="warning-icon"
-                />
+                <span onClick={closeModal}>✖</span>
               </div>
               <div className="content">
-                <span>선택하신 기업을 삭제 하시겠습니까?</span>
-                <span>삭제하신 기업은 영구 삭제되어 복구할 수 없습니다.</span>
+                <span>해당 수강생을 삭제 하시겠습니까?</span>
               </div>
               <div className="btns">
-                <button onClick={handleOk}>확인</button>
                 <button onClick={closeModal}>취소</button>
+                <button onClick={handleOk}>확인</button>
               </div>
             </div>
           </div>

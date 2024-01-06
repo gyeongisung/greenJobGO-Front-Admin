@@ -18,7 +18,11 @@ export const postCompanyExcel = async companyfile => {
     const res = await client.post("/admin/companylist/excel", companyfile, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-    console.log(res.data);
+    if (res.data === 1) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
   } catch (err) {
     console.error(err);
   }
@@ -27,6 +31,12 @@ export const postCompanyExcel = async companyfile => {
 export const postCompanyAccept = async payload => {
   try {
     const res = await client.post("/admin/companylist", payload);
+    // console.log(res.data.companyCode);
+    if (res.data.companyCode) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
   } catch (error) {
     console.log(error);
   }

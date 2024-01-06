@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Maincolor } from "./GlobalStyle";
 
 export const DeleteModalWrap = styled.div`
   position: absolute;
@@ -18,51 +19,39 @@ export const DeleteModalWrap = styled.div`
   }
   .content-wrap {
     position: absolute;
-    width: 27%;
-    height: 20vh;
+    width: 21.5%;
+    height: 15.5vh;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    padding: 15px 20px;
     text-align: center;
-    background: #fff;
     border-radius: 10px;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: column;
     justify-content: space-between;
+    background-color: ${Maincolor.white};
+    transform: translate(-50%, -50%);
+    animation: modal-show 0.3s;
     z-index: 99;
     > div {
       text-align: center;
     }
     .header {
-      padding-top: 20px;
-      .warning-icon {
-        color: #ff5e5e;
-        background: #ffe7ea;
-        width: 21px;
-        height: 21px;
-        border: 1px solid;
-        border-radius: 50%;
-        padding: 5px;
-      }
+      display: flex;
+      justify-content: flex-end;
+      font-size: 12px;
+      cursor: pointer;
     }
     .content {
-      line-height: 1.6;
-      span {
-        display: block;
-        font-size: 16px;
-        font-weight: 800;
-        :last-of-type {
-          font-weight: 400;
-          font-size: 13px;
-        }
-      }
+      display: flex;
+      font-size: 14px;
+      font-weight: 500;
     }
     .btns {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
-      gap: 10px;
-      padding-bottom: 20px;
+      gap: 5px;
       button {
         width: 65px;
         height: 32px;
@@ -73,10 +62,10 @@ export const DeleteModalWrap = styled.div`
         border-radius: 4px;
         cursor: pointer;
         :first-of-type {
-          background: #228fcf;
+          background: #7e7e7e;
         }
         :last-of-type {
-          background: #7e7e7e;
+          background: #228fcf;
         }
       }
     }

@@ -9,6 +9,11 @@ const CompanyList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
     setEditModalOpen(true);
   };
 
+  const handleModalCancel = () => {
+    setEditModalOpen(false);
+    document.body.style.overflow = "unset";
+  };
+
   return (
     <ul>
       <li className="company-list">
@@ -33,29 +38,27 @@ const CompanyList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
       </li>
       {listData.length > 0 &&
         listData.map((item, index) => (
-          <li key={item.companyCode}>
+          <li
+            key={item.companyCode}
+            onClick={e =>
+              !e.target.classList.contains("check-box-li") &&
+              handleEditModalOpen(item)
+            }
+          >
             <ul>
-              <li>
+              <li className="check-box-li">
                 <input
                   type="checkbox"
                   name="check-box"
                   defaultChecked={false}
                   className={`company-checkbox userId${item.companyCode}`}
                   onChange={e => handleCheckBox(e)}
+                  onClick={e => e.stopPropagation()}
                 />
               </li>
               <li>{(page - 1) * 10 + index + 1}</li>
-              {editModalOpen && (
-                <EdeitCompanyModal
-                  companyInfo={companyInfo}
-                  editModalOpen={editModalOpen}
-                  setEditModalOpen={setEditModalOpen}
-                />
-              )}
               <li>{item.area}</li>
-              <li onClick={() => handleEditModalOpen(item)}>
-                {item.companyName}
-              </li>
+              <li>{item.companyName}</li>
               <li>{item.jobField}</li>
               <li>{item.leaderName}</li>
               <li>{item.manager}</li>
@@ -64,6 +67,14 @@ const CompanyList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
             </ul>
           </li>
         ))}
+      {editModalOpen && (
+        <EdeitCompanyModal
+          companyInfo={companyInfo}
+          editModalOpen={editModalOpen}
+          setEditModalOpen={setEditModalOpen}
+          handleModalCancel={handleModalCancel}
+        />
+      )}
     </ul>
   );
 };

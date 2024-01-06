@@ -50,20 +50,14 @@ export const DeleteClassModal = ({
           <div className="dim">
             <div className="content-wrap">
               <div className="header">
-                <FontAwesomeIcon
-                  icon={faExclamation}
-                  className="warning-icon"
-                />
+                <span onClick={closeModal}>✖</span>
               </div>
               <div className="content">
-                <span>선택하신 수강 과정을 삭제 하시겠습니까?</span>
-                <span>
-                  삭제하신 수강 과정은 영구 삭제되어 복구할 수 없습니다.
-                </span>
+                <span>해당 훈련과정을 삭제 하시겠습니까?</span>
               </div>
               <div className="btns">
-                <button onClick={handleOk}>확인</button>
                 <button onClick={closeModal}>취소</button>
+                <button onClick={handleOk}>확인</button>
               </div>
             </div>
           </div>
@@ -246,7 +240,6 @@ export const ClassAcceptModal = ({ modalOpen, setModalOpen }) => {
     </>
   );
 };
-
 
 export const ClassEditModal = ({ modalOpen, setModalOpen }) => {
   const [payload, setPayload] = useState({
