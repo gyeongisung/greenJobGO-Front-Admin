@@ -37,7 +37,7 @@ export const getPortFolioList = async ({
   }
 };
 
-// 포트폴리오 보관함으로 보내기
+// 보관함으로 보내기
 export const patchSendSaved = async savedItemNum => {
   console.log("값 들어오니?", savedItemNum);
 
@@ -50,5 +50,30 @@ export const patchSendSaved = async savedItemNum => {
     return result;
   } catch (error) {
     console.log(error);
+  }
+};
+
+// 보관함 리스트를 불러오자
+export const getSavedPFList = async ({
+  setSavedPFList,
+  page,
+  setCount,
+  query,
+}) => {
+  console.log("query들어오냐 ㅋ ", query);
+
+  try {
+    const res = await client.get(
+      `/admin/student/storage?page=${page}&size=10&${query}`,
+    );
+
+    const result = await res.data;
+    console.log("보관함 리스트", result);
+    setSavedPFList(result);
+    setCount(result.page.idx);
+    return result;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };

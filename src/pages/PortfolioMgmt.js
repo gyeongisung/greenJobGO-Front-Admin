@@ -45,6 +45,7 @@ const PortfolioMgmt = () => {
               >
                 {item.name}
               </button>
+              <div className="search-upper-line"></div>
             </li>
           </ul>
           <div className="content-wrap">

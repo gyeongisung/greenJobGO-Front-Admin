@@ -14,14 +14,31 @@ export const PortFolioPage = styled.div`
     background: ${Maincolor.white};
     border: 1px solid #d0d0d0;
     cursor: pointer;
+    border-bottom: 2px solid ${Maincolor.grayDeep};
+
+    &.active {
+      border-top: 2px solid ${Maincolor.grayDeep};
+      border-right: 2px solid ${Maincolor.grayDeep};
+      border-bottom: 2px solid ${Maincolor.white};
+      border-left: 2px solid ${Maincolor.grayDeep};
+    }
+  }
+  .search-upper-line {
+    position: absolute;
+    top: 44px;
+    left: 324px;
+    width: 1234px;
+    height: 2px;
+    background: ${Maincolor.grayDeep};
   }
   /* 내용 섹션 */
   .content-wrap {
     position: absolute;
-    margin-top: 60px;
-    top: 0;
+    /* padding-top: 44px; */
+    top: 44px;
     left: 0;
-    width: 1440px;
+    width: 1620px;
+    height: 834px;
   }
 `;
 
@@ -35,6 +52,7 @@ export const PfSearchWrap = styled.div`
   height: 100px;
   border-radius: 12px;
   background: ${Maincolor.grayWhite};
+  margin-top: 30px;
   .student-portfolio-search {
     display: flex;
     /* justify-content: left; */
@@ -130,11 +148,16 @@ export const PortFolioContentWrap = styled.div`
     }
   }
 `;
+// 보관함 체크박스 style
+export const CheckToMainSt = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 // 검색결과가 없어요
 export const NothingData = styled.div`
-width: 80vw;
-height: 50vh;
+  width: 80vw;
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
