@@ -8,13 +8,13 @@ import { BtnGlobal } from "../styles/GlobalStyle";
 
 const JobManager = () => {
   const [mngProflieData, setmngProflieData] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setAddModalOpen] = useState(false);
 
   const openModal = () => {
-    setModalOpen(true);
+    setAddModalOpen(true);
   };
   const closeModal = () => {
-    setModalOpen(false);
+    setAddModalOpen(false);
   };
 
   useEffect(() => {
@@ -29,7 +29,10 @@ const JobManager = () => {
       </div>
       <div className="job-content-wrap">
         <div>
-            <ManagerBox mngProflieData={mngProflieData} setmngProflieData={setmngProflieData} />
+          <ManagerBox
+            mngProflieData={mngProflieData}
+            setmngProflieData={setmngProflieData}
+          />
         </div>
         <div className="maganer-add">
           <BtnGlobal onClick={openModal}>등록</BtnGlobal>
@@ -38,7 +41,8 @@ const JobManager = () => {
             close={closeModal}
             header="취업 담당자 등록"
           >
-            <ManagerAdd />
+            <ManagerAdd setAddModalOpen={setAddModalOpen}        mngProflieData={mngProflieData}
+            setmngProflieData={setmngProflieData}/>
           </InputModal>
         </div>
       </div>

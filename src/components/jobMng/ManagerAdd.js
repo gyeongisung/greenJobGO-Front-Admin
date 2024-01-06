@@ -6,9 +6,9 @@ import {
   ModalOkBtn,
 } from "../../styles/GlobalStyle";
 import ConfirmModal from "../ConfirmModal";
-import { postManagerInfo } from "../../api/jobMngAxiois";
+import { getJobManagerInfo, postManagerInfo } from "../../api/jobMngAxiois";
 
-const ManagerAdd = () => {
+const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectImg, setSelectImg] = useState();
   const [addInfo, setAddInfo] = useState({
@@ -46,12 +46,27 @@ const ManagerAdd = () => {
 
     try {
       await postManagerInfo(formData);
-      setModalOpen(false);
+      await setModalOpen(false);
+      await updateData();
+      await setAddModalOpen(false);
     } catch (error) {
       console.error("취업 담당자 등록 에러:", error);
     }
   };
+  // 변경있을때마다 자료 새로고침
+  const updateData = async () => {
+    try {
+      const newData = await getJobManagerInfo(setmngProflieData);
+    } catch (error) {
+      console.error("데이터 업데이트 에러:", error);
+    }
+  };
 
+  useEffect(() => {
+    if (mngProflieData !== undefined) {
+      console.log("mngProflieData가 변경됨:", mngProflieData);
+    }
+  }, [mngProflieData]);
   return (
     <JobManagerAddSty>
       <ul>

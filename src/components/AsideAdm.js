@@ -17,7 +17,6 @@ const AsideAdm = () => {
   const [defaultSelectedKeys, setDefaultSelectedKeys] = useState(
     location.pathname,
   );
-  console.log("location", location);
 
   useEffect(() => {
     setDefaultSelectedKeys(location.pathname);
@@ -83,10 +82,6 @@ const AsideAdm = () => {
         <ul>
           <li className="end-m-id">
             아이디
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/settingIcon.svg`}
-              alt="icon"
-            />
           </li>
           <li className="end-m-role">role</li>
           <li className="end-m-logout" onClick={handleLogout}>

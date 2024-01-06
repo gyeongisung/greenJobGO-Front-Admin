@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Maincolor } from "./GlobalStyle";
+import { Maincolor, ellipsis } from "./GlobalStyle";
 
 // 레이아웃 구성
 export const PortFolioPage = styled.div`
@@ -75,12 +75,57 @@ export const PfSearchWrap = styled.div`
 
 // 포트폴리오 페이지 스타일
 export const PortFolioContentWrap = styled.div`
-  padding: 30px;
+  width: 1600px;
+  padding: 30px 0;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
   .pf-box {
-    .pf-img > img {
+    position: relative;
+    .pf-img img {
       width: 294px;
       height: 185px;
       object-fit: cover;
+      margin-bottom: 15px;
+    }
+    .pf-name {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.24px;
+      margin-bottom: 5px;
+    }
+    .pf-subject {
+      width: 294px;
+      color: ${Maincolor.grayDeep};
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: -0.24px;
+      ${ellipsis.one}
+    }
+  }
+  .pf-box:hover .pf-img-hover {
+    display: block;
+    z-index: 888;
+  }
+
+  .pf-img-hover {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 294px;
+    height: 185px;
+    background-color: rgba(34, 143, 207, 0.3);
+    z-index: 99;
+    cursor: pointer;
+    & > .saved-btn {
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      font-size: 25px;
+      color: ${Maincolor.white};
     }
   }
 `;

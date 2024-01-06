@@ -98,7 +98,7 @@ export const ModalWarp = styled.div`
 
 //공통) 확인 모달스타일
 export const ConfirmModalWarp = styled.div`
-  .modal {
+  .Confimmodal {
     display: none;
     position: fixed;
     top: 0;
@@ -108,7 +108,7 @@ export const ConfirmModalWarp = styled.div`
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.3);
   }
-  .modal-wrapper {
+  .modalConfirm-wrapper {
     width: 410px;
     height: 140px;
     margin: 0 auto;
@@ -116,23 +116,24 @@ export const ConfirmModalWarp = styled.div`
     border: 1px solid ${Maincolor.grayLight2};
     background-color: ${Maincolor.white};
     /* 팝업이 열릴때 스르륵 열리는 효과 */
-    animation: modal-show 0.1s;
+    animation: modal-co-show 0.1s;
     overflow: hidden;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.12);
   }
 
   /* 모달 내용 */
-  .modal-content {
+  .modalConfirm-content {
     height: 100%;
     padding: 40px 20px 20px 30px;
   }
 
-  .modal.openModal {
+  .Confimmodal.openConfirmModal {
     display: flex;
     align-items: center;
-    animation: modal-bg-show 0.1s;
+    animation: modal-co-bg-show 0.1s;
   }
-  @keyframes modal-show {
+
+  @keyframes modal-co-show {
     from {
       opacity: 0;
       margin-top: -50px;
@@ -142,12 +143,24 @@ export const ConfirmModalWarp = styled.div`
       margin-top: 0;
     }
   }
-  @keyframes modal-bg-show {
+  @keyframes modal-co-bg-show {
     from {
       opacity: 0;
     }
     to {
       opacity: 1;
+    }
+  }
+`;
+export const ConfirmModalContent = styled.div`
+  font-size: 14px;
+  line-height: 120%;
+  color: #515151;
+  & div {
+    margin-top: 32px;
+    text-align: right;
+    & button {
+      margin-left: 5px;
     }
   }
 `;
@@ -180,7 +193,7 @@ export const ModalOkBtn = styled.button`
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
-  `;
+`;
 
 // 모달 취소 버튼
 export const ModalCancelBtn = styled.button`

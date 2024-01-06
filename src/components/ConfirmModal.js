@@ -7,11 +7,11 @@ const ConfirmModal = ({ open, close, children }) => {
   };
   return (
     <ConfirmModalWarp onClick={close}>
-      <div className={open ? "openModal modal" : "modal"}>
+      <div className={open ? "openConfirmModal Confimmodal" : "Confirmmodal"}>
         {open ? (
-          <div className="modal-wrapper" onClick={e => stopPropagation(e)}>
+          <div className="modalConfirm-wrapper" onClick={e => stopPropagation(e)}>
             {/* 모달내용(컴포넌트 읽어오는부분) */}
-            <div className="modal-content">{children}</div>
+            <div className="modalConfirm-content">{children}</div>
           </div>
         ) : null}
       </div>

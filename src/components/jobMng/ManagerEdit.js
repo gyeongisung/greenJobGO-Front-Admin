@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { JobManagerAddSty } from "../../styles/JobmanagerStyle";
 import {
   BtnGlobal,
+  ConfirmModalContent,
   ModalCancelBtn,
   ModalOkBtn,
 } from "../../styles/GlobalStyle";
@@ -10,7 +11,12 @@ import ConfirmModal from "../ConfirmModal";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
+const ManagerEdit = ({
+  item,
+  setEditModalOpen,
+  mngProflieData,
+  setmngProflieData,
+}) => {
   const [editManager, setEditManager] = useState(item);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectImg, setSelectImg] = useState();
@@ -67,16 +73,6 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
   const handleInfoEdit = (e, fieldName) => {
     setEditManager({ ...editManager, [fieldName]: e.target.value });
   };
-  // 변경있을때마다 자료 새로고침
-  const updateData = async () => {
-    try {
-      const newData = await getJobManagerInfo(setmngProflieData);
-      // setmngProflieData(newData);
-      console.log("데이터 업데이트 성공:", newData);
-    } catch (error) {
-      console.error("데이터 업데이트 에러:", error);
-    }
-  };
 
   // 수정 재확인
   const handleConfirm = async () => {
@@ -85,13 +81,26 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
     const query = makeUrl();
     try {
       await patchManagerEdit({ formData, editManager, query });
-      updateData();
+      await updateData();
       setEditModalOpen(false);
     } catch (error) {
       console.error("취업 담당자 등록 에러:", error);
     }
   };
-  useEffect(() => {}, [isImg]);
+  // 변경있을때마다 자료 새로고침
+  const updateData = async () => {
+    try {
+      const newData = await getJobManagerInfo(setmngProflieData);
+    } catch (error) {
+      console.error("데이터 업데이트 에러:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (mngProflieData !== undefined) {
+      console.log("mngProflieData가 변경됨:", mngProflieData);
+    }
+  }, [mngProflieData]);
 
   return (
     <JobManagerAddSty>
@@ -165,13 +174,13 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
       <div className="add-accept">
         <BtnGlobal onClick={handleEditOK}> 수정 </BtnGlobal>
         <ConfirmModal open={modalOpen} close={closeModal}>
-          <div className="add-recheck-content">
+          <ConfirmModalContent>
             <span>항목을 수정 하시겠습니까?</span>
             <div>
               <ModalCancelBtn onClick={closeModal}>취소</ModalCancelBtn>
               <ModalOkBtn onClick={handleConfirm}>확인</ModalOkBtn>
             </div>
-          </div>
+          </ConfirmModalContent>
         </ConfirmModal>
       </div>
     </JobManagerAddSty>
