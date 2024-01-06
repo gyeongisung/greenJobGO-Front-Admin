@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getBigcate } from "../../api/portfolioAxios";
 import PFsearch from "./PFsearch";
-import SaveContent from "./SaveContent";
+import SaveItemContent from "./SaveItemContent";
 
 const SaveItemSection = () => {
   const [search, setSearch] = useState();
@@ -14,7 +14,7 @@ const SaveItemSection = () => {
   return (
     <div>
       <PFsearch search={search} category={category} setCategory={setCategory} />
-      <SaveContent />
+      <SaveItemContent />
     </div>
   );
 };

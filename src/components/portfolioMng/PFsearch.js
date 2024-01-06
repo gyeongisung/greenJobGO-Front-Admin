@@ -2,23 +2,28 @@ import React from "react";
 import { PfSearchWrap } from "../../styles/PortfolioStyle";
 import { BtnGlobal } from "../../styles/GlobalStyle";
 
-const PFsearch = ({ search, category, setCategory }) => {
-  const handleCategoryFilter = e => {
-    console.log("e", e.target.value);
-    setCategory(e.target.value);
-    // setPage(1);
-  };
+const PFsearch = ({
+  searchsubj,
+  setSearchSubj,
+  searchname,
+  setSearchname,
+  category,
+  selectCate,
+  handleCategoryFilter,
+  handleSearchClick,
+}) => {
+
   return (
     <PfSearchWrap>
       <ul className="student-portfolio-search">
         <li>
           <label htmlFor="category-select">직종</label>
           <select
-            value={search}
+            value={selectCate}
             id="category-select"
-            onChange={handleCategoryFilter}
+            onChange={e => handleCategoryFilter(e)}
           >
-            <option value="" selected disabled hidden>
+            <option value="" selected>
               전체
             </option>
             {category?.map(item => (
@@ -35,13 +40,13 @@ const PFsearch = ({ search, category, setCategory }) => {
               type="text"
               name="subject-state"
               id="subject-state"
-              value={search}
-              // onChange={e => setSearch(e.target.value)}
-              // onKeyDown={e => {
-              //   if (e.key === "Enter") {
-              //     handleSearch();
-              //   }
-              // }}
+              value={searchsubj}
+              onChange={e => setSearchSubj(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === "Enter") {
+                  handleSearchClick();
+                }
+              }}
             />
           </div>
         </li>
@@ -52,22 +57,18 @@ const PFsearch = ({ search, category, setCategory }) => {
               type="text"
               name="student-state"
               id="student-state"
-              value={search}
-              // onChange={e => setSearch(e.target.value)}
-              // onKeyDown={e => {
-              //   if (e.key === "Enter") {
-              //     handleSearch();
-              //   }
-              // }}
+              value={searchname}
+              onChange={e => setSearchname(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === "Enter") {
+                  handleSearchClick();
+                }
+              }}
             />
           </div>
         </li>
         <li>
-          <BtnGlobal
-          // onClick={handleSearch}
-          >
-            검색
-          </BtnGlobal>
+          <BtnGlobal onClick={handleSearchClick}>조회</BtnGlobal>
         </li>
       </ul>
     </PfSearchWrap>

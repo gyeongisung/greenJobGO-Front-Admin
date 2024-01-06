@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { PortFolioContentWrap } from "../../styles/PortfolioStyle";
-import NoImage from "../../assets/NoImage.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { patchSendSaved } from "../../api/portfolioAxios";
 import {
   ConfirmModalContent,
   ModalCancelBtn,
   ModalOkBtn,
 } from "../../styles/GlobalStyle";
 import ConfirmModal from "../ConfirmModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { PortFolioContentWrap } from "../../styles/PortfolioStyle";
+import { patchSendSaved } from "../../api/portfolioAxios";
+import NoImage from "../../assets/NoImage.jpg";
 
-const PortfolioContent = ({ studentPFList }) => {
+const SaveItemContent = ({ studentPFList }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -79,4 +79,4 @@ const PortfolioContent = ({ studentPFList }) => {
   );
 };
 
-export default PortfolioContent;
+export default SaveItemContent;

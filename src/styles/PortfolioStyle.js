@@ -84,6 +84,7 @@ export const PortFolioContentWrap = styled.div`
   gap: 30px;
   .pf-box {
     position: relative;
+    margin: 10px 0;
     .pf-img img {
       width: 294px;
       height: 185px;
@@ -127,5 +128,17 @@ export const PortFolioContentWrap = styled.div`
       font-size: 25px;
       color: ${Maincolor.white};
     }
+  }
+`;
+
+// 검색결과가 없어요
+export const NothingData = styled.div`
+width: 80vw;
+height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    font-size: 20px;
   }
 `;

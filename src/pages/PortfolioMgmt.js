@@ -21,11 +21,6 @@ const PortfolioMgmt = () => {
       name: "보관함",
       component: <SaveItemSection />,
     },
-    {
-      ibtn: 3,
-      name: "메인 포트폴리오",
-      component: <MainpfSection />,
-    },
   ];
 
   const handleTabBtn = (_ibtn, e) => {
