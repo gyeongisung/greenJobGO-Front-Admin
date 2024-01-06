@@ -1,6 +1,15 @@
 import React from "react";
+import { useState } from "react";
 
-const StudentList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
+const StudentList = ({
+  listData,
+  handleAllCheck,
+  handleCheckBox,
+  page,
+  handleInfoClick,
+}) => {
+  const [companyInfo, setCompanyInfo] = useState(null);
+
   return (
     <ul>
       <li className="student-list">
@@ -29,15 +38,21 @@ const StudentList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
       </li>
       {listData.length > 0 &&
         listData.map((item, index) => (
-          <li key={index}>
+          <li
+            key={index}
+            onClick={e =>
+              !e.target.classList.contains("check-box-li") && handleInfoClick()
+            }
+          >
             <ul>
-              <li>
+              <li className="check-box-li">
                 <input
                   type="checkbox"
                   name="check-box"
                   defaultChecked={false}
                   className={`student-checkbox userId${item.istudent}`}
                   onChange={e => handleCheckBox(e)}
+                  onClick={e => e.stopPropagation()}
                 />
               </li>
               <li>{(page - 1) * 10 + index + 1}</li>

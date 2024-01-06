@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { ClassAcceptModalWrap } from "../../styles/ModalStyle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
 import { deleteClassSubject, postClassSubject } from "../../api/classAxios";
 import { ko } from "date-fns/locale";
@@ -67,32 +65,18 @@ export const DeleteClassModal = ({
   );
 };
 
-export const ClassAcceptModal = ({ modalOpen, setModalOpen }) => {
-  const [payload, setPayload] = useState({
-    courseSubjectName: "",
-    classification: "",
-    startedAt: "",
-    endedAt: "",
-    instructor: "",
-    lectureRoom: "",
-  });
-
+export const ClassAcceptModal = ({
+  modalOpen,
+  setModalOpen,
+  payload,
+  setPayload,
+  handleModalAccept,
+}) => {
   const handleModalCancel = () => {
     setModalOpen(false);
     document.body.style.overflow = "unset";
   };
 
-  const handleModalAccept = () => {
-    const formatData = {
-      ...payload,
-      startedAt: payload.startedAt
-        ? format(payload.startedAt, "yyyy-MM-dd")
-        : null,
-      endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
-    };
-    postClassSubject(formatData);
-    setModalOpen(false);
-  };
   return (
     <>
       {modalOpen && (
@@ -275,7 +259,7 @@ export const ClassEditModal = ({ modalOpen, setModalOpen }) => {
             <div className="class-modal-inner">
               <ul className="modal-top">
                 <li>
-                  <h2>과정 등록</h2>
+                  <h2>과정 수정</h2>
                 </li>
                 <li>
                   <span onClick={handleModalCancel}>✖</span>

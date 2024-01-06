@@ -9,9 +9,15 @@ import {
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { postLogout } from "../api/client";
+import { useRecoilState } from "recoil";
+import { changeComponent } from "../recoil/atoms/ChangeState";
 
 const AsideAdm = () => {
+  const [isTrue, setIsTrue] = useRecoilState(changeComponent);
   const navigate = useNavigate();
+  const handleIsTrue = () => {
+    setIsTrue(true);
+  };
   function getItem(label, key, icon, children) {
     return {
       key,
@@ -28,7 +34,12 @@ const AsideAdm = () => {
       getItem(<Link to="/jobmanager">취업 담당자 관리</Link>, "4"),
     ]),
     getItem("수강생 관리", "sub2", null, [
-      getItem(<Link to="/student">수강생 등록 • 관리</Link>, "7"),
+      getItem(
+        <Link onClick={handleIsTrue} to="/student">
+          수강생 등록 • 관리
+        </Link>,
+        "7",
+      ),
       getItem(<Link to="/portfolio">포트폴리오 관리</Link>, "8"),
     ]),
     getItem(<Link to="/company">기업등록 • 관리</Link>, "9", null),

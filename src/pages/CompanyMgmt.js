@@ -135,6 +135,7 @@ const CompanyMgmt = () => {
       }
     }
   };
+  
   const handleModalAccept = async () => {
     try {
       const result = await postCompanyAccept(payload);

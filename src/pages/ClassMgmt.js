@@ -11,7 +11,8 @@ import {
   ClassAcceptModal,
   DeleteClassModal,
 } from "../components/classMgmt/ClassModal";
-import { getClassSubject } from "../api/classAxios";
+import { getClassSubject, postClassSubject } from "../api/classAxios";
+import { format } from "date-fns";
 
 const ClassMgmt = () => {
   const [listData, setListData] = useState([]);
@@ -22,6 +23,14 @@ const ClassMgmt = () => {
   const [category, setCategory] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [payload, setPayload] = useState({
+    courseSubjectName: "",
+    classification: "",
+    startedAt: "",
+    endedAt: "",
+    instructor: "",
+    lectureRoom: "",
+  });
 
   let resultIdArray = saveCheckBox;
 
@@ -93,7 +102,19 @@ const ClassMgmt = () => {
     }
     document.body.style.overflow = "hidden";
   };
-  console.log(saveCheckBox);
+
+  const handleModalAccept = () => {
+    const formatData = {
+      ...payload,
+      startedAt: payload.startedAt
+        ? format(payload.startedAt, "yyyy-MM-dd")
+        : null,
+      endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
+    };
+    postClassSubject(formatData);
+    setModalOpen(false);
+  };
+
   return (
     <ClassMgmtWrap>
       <div className="class-title">
@@ -108,9 +129,14 @@ const ClassMgmt = () => {
           handleSearch={handleSearch}
         />
         {modalOpen && (
-          <ClassAcceptModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+          <ClassAcceptModal
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            payload={payload}
+            setPayload={setPayload}
+            handleModalAccept={handleModalAccept}
+          />
         )}
-
         {deleteModalOpen && (
           <DeleteClassModal
             deleteModalOpen={deleteModalOpen}
