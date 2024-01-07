@@ -125,10 +125,13 @@ export const CompanyTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.25fr 0.5fr 0.8fr 1.2fr 0.45fr 0.45fr 0.55fr 0.5fr;
+        grid-template-columns: 0.15fr 0.25fr 0.5fr 0.9fr 1.1fr 0.45fr 0.45fr 0.55fr 0.5fr;
         > li {
           padding: 0 5px;
           ${ellipsis.one}
+          :not(:first-of-type) {
+            cursor: pointer;
+          }
           :not(:last-of-type) {
             border-right: 1px solid #ccc;
           }

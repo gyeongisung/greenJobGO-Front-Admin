@@ -43,3 +43,11 @@ export const deleteClassSubject = async icourseSubject => {
     console.log(error);
   }
 };
+
+export const putClassSubject = async () => {
+  try {
+    const res = await client.put()
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ClassList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [classInfo, setClassInfo] = useState(null);
+  const handleEditModalOpen = data => {
+    setClassInfo(data);
+    setEditModalOpen(true);
+  };
+
+  const handleModalCancel = () => {
+    setEditModalOpen(false);
+    document.body.style.overflow = "unset";
+  };
   return (
     <ul>
       <li className="class-list">
@@ -23,7 +34,13 @@ const ClassList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
       </li>
       {listData.length > 0 &&
         listData.map((item, index) => (
-          <li key={index}>
+          <li
+            key={item.icourseSubject}
+            onClick={e =>
+              !e.target.classList.contains("check-box-li") &&
+              handleEditModalOpen(item)
+            }
+          >
             <ul>
               <li>
                 <input
@@ -32,6 +49,7 @@ const ClassList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
                   defaultChecked={false}
                   className={`class-checkbox userId${item.icourseSubject}`}
                   onChange={e => handleCheckBox(e)}
+                  onClick={e => e.stopPropagation()}
                 />
               </li>
               <li>{(page - 1) * 10 + index + 1}</li>

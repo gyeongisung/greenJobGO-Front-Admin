@@ -9,8 +9,11 @@ import {
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { postLogout } from "../api/client";
+import { useRecoilState } from "recoil";
+import { changeComponent } from "../recoil/atoms/ChangeState";
 
 const AsideAdm = () => {
+  const [isTrue, setIsTrue] = useRecoilState(changeComponent);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -22,6 +25,15 @@ const AsideAdm = () => {
     setDefaultSelectedKeys(location.pathname);
   }, [location]);
 
+  const handleIsTrue = () => {
+    setIsTrue(true);
+  };
+  
+  const handleLogout = () => {
+    postLogout();
+    navigate("/");
+  };
+  
   function getItem(label, key, icon, children) {
     return {
       key,
@@ -38,16 +50,11 @@ const AsideAdm = () => {
       getItem(<Link to="/jobmanager">취업 담당자 관리</Link>, "/jobmanager"),
     ]),
     getItem("수강생 관리", "sub2", null, [
-      getItem(<Link to="/student">수강생 등록 • 관리</Link>, "/student"),
+      getItem(<Link  onClick={handleIsTrue} to="/student">수강생 등록 • 관리</Link>, "/student"),
       getItem(<Link to="/portfolio">포트폴리오 관리</Link>, "/portfolio"),
     ]),
     getItem(<Link to="/company">기업등록 • 관리</Link>, "/company", null),
   ];
-
-  const handleLogout = () => {
-    postLogout();
-    navigate("/");
-  };
 
   return (
     <SideMenuWrap>

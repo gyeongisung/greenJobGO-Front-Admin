@@ -4,7 +4,11 @@ import {
   CompanyMgmtWrap,
   CompanyTable,
 } from "../styles/CompanyMgmtStyle";
-import { getCompanyList, postCompanyExcel } from "../api/companyAxios";
+import {
+  getCompanyList,
+  postCompanyAccept,
+  postCompanyExcel,
+} from "../api/companyAxios";
 import CompanyList from "../components/companymgmt/CompanyList";
 import CompanySearch from "../components/companymgmt/CompanySearch";
 import Paging from "../components/companymgmt/CompanyPaging";
@@ -13,6 +17,7 @@ import {
   CompanyMgmtModal,
   ExcelUploadModal,
 } from "../components/companymgmt/CompanyModal";
+import { AcceptModal, ExcelAcceptModal } from "../components/AcceptModals";
 
 const CompanyMgmt = () => {
   const [listData, setListData] = useState([]);
@@ -24,7 +29,19 @@ const CompanyMgmt = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [excelModalOpen, setExcelModalOpen] = useState(false);
+  const [excelOkModal, setExcelOkModal] = useState(false);
+  const [acceptOkModal, setAcceptOkModal] = useState(false);
+  const [uploadResult, setUpLoadResult] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [payload, setPayload] = useState({
+    area: "",
+    companyName: "",
+    leaderName: "",
+    jobField: "",
+    manager: "",
+    phoneNumber: "",
+    dateConslusion: "",
+  });
 
   let resultIdArray = saveCheckBox;
 
@@ -98,14 +115,39 @@ const CompanyMgmt = () => {
     setExcelModalOpen(true);
   };
 
-  const handleExcelUpload = () => {
+  const handleExcelUpload = async () => {
     if (selectedFile) {
       let formData = new FormData();
       formData.append("companyfile", selectedFile);
-      postCompanyExcel(formData);
-      setExcelModalOpen(false); // 업로드 후 모달 닫기
-    } else {
-      console.error("파일을 선택해주세요.");
+
+      try {
+        const result = await postCompanyExcel(formData);
+
+        setUpLoadResult(result);
+
+        if (result.success) {
+          setExcelModalOpen(false);
+          setExcelOkModal(true);
+          setSelectedFile(null);
+        }
+      } catch (error) {
+        console.error("파일 업로드에 실패했습니다.", error);
+      }
+    }
+  };
+  
+  const handleModalAccept = async () => {
+    try {
+      const result = await postCompanyAccept(payload);
+
+      setUpLoadResult(result);
+
+      if (result.success) {
+        setModalOpen(false);
+        setAcceptOkModal(true);
+      }
+    } catch (error) {
+      console.error("파일 업로드에 실패했습니다.", error);
     }
   };
 
@@ -123,7 +165,20 @@ const CompanyMgmt = () => {
           handleSearch={handleSearch}
         />
         {modalOpen && (
-          <CompanyMgmtModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+          <CompanyMgmtModal
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            payload={payload}
+            setPayload={setPayload}
+            handleModalAccept={handleModalAccept}
+          />
+        )}
+        {acceptOkModal && (
+          <AcceptModal
+            acceptOkModal={acceptOkModal}
+            setAcceptOkModal={setAcceptOkModal}
+            uploadResult={uploadResult}
+          />
         )}
         {excelModalOpen && (
           <ExcelUploadModal
@@ -132,6 +187,8 @@ const CompanyMgmt = () => {
             handleExcelUpload={handleExcelUpload}
             selectedFile={selectedFile}
             setSelectedFile={setSelectedFile}
+            excelOkModal={excelOkModal}
+            setExcelOkModal={setExcelOkModal}
           />
         )}
         {deleteModalOpen && (
@@ -143,10 +200,16 @@ const CompanyMgmt = () => {
             setListData={setListData}
           />
         )}
+        {excelOkModal && (
+          <ExcelAcceptModal
+            excelOkModal={excelOkModal}
+            setExcelOkModal={setExcelOkModal}
+            uploadResult={uploadResult}
+          />
+        )}
         <div className="company-buttons">
           <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
           <button onClick={handleModalOpen}>기업등록</button>
-          <button>수정</button>
           <button onClick={handleDeleteClick}>삭제</button>
         </div>
         <div className="total-count">
