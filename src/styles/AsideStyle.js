@@ -25,6 +25,7 @@ export const SideMenuWrap = styled.div`
     /* height: calc(100% - 64px); */
     height: 100%;
   }
+
   .ant-menu-sub.ant-menu-inline {
     background: ${Maincolor.white} !important;
   }

@@ -14,6 +14,7 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [deleteNum, setDeleteNum] = useState("");
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -32,41 +33,51 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
 
   // 수정하기
   const handleEdit = async item => {
+    console.log("수정모달열림", item);
     setSelectedItem(item);
     setModalOpen(true);
   };
 
   // 삭제하기
-  const handleConfirm = async item => {
+  const handleDeleteConfirm = async () => {
+    console.log("삭제확인누름");
+    console.log("삭제확인, 몇번?", deleteNum);
+
     try {
-      await deleteJobManagerInfo(item.iemply);
+      await deleteJobManagerInfo(deleteNum);
+      await updateData();
       setConfirmModalOpen(false);
-      updateData();
     } catch (error) {
       console.error("취업 담당자 등록 에러:", error);
     }
   };
   const handleDelete = item => {
+    console.log("삭제할래?", item);
+    setDeleteNum(item);
     setConfirmModalOpen(true);
   };
 
   // 변경있을때마다 자료 새로고침
   const updateData = async () => {
     try {
-      const newData = await getJobManagerInfo();
-      setmngProflieData(newData);
-      console.log("데이터 업데이트 성공:", mngProflieData);
+      const newData = await getJobManagerInfo(setmngProflieData);
     } catch (error) {
       console.error("데이터 업데이트 에러:", error);
     }
   };
-  console.log("mngProflieData", mngProflieData);
+
+  useEffect(() => {
+    if (mngProflieData !== undefined) {
+      console.log("mngProflieData가 변경됨:", mngProflieData);
+    }
+  }, [mngProflieData]);
   return (
     <JobManagerBoxWrap>
       {mngProflieData?.map(item => (
         <div className="manager-profile" key={item.iemply}>
           <img
-            src={`/home/download/Employee/${item.iemply}/${item.profilePic}`}
+            // src={`/home/download/Employee/${item.iemply}/${item.profilePic}`}
+            src={`/api/admin/profile${item.profilePic}`}
             alt="job manager"
             onError={onImgError}
             className="manager-img"
@@ -102,6 +113,7 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
                 <ManagerEdit
                   item={selectedItem}
                   setEditModalOpen={setModalOpen}
+                  mngProflieData={mngProflieData}
                   setmngProflieData={setmngProflieData}
                 />
               </InputModal>
@@ -110,28 +122,25 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
               <button
                 className="del-btn"
                 onClick={() => {
-                  handleDelete(item);
+                  handleDelete(item.iemply);
                 }}
               >
                 삭제
               </button>
-              <ConfirmModal open={confirmModalOpen} close={closeConfirmModal}>
-                <div className="add-recheck-content">
-                  <span>항목을 등록 하시겠습니까?</span>
-                  <div>
-                    <ModalCancelBtn onClick={closeConfirmModal}>
-                      취소
-                    </ModalCancelBtn>
-                    <ModalOkBtn onClick={() => handleConfirm(item)}>
-                      확인
-                    </ModalOkBtn>
-                  </div>
-                </div>
-              </ConfirmModal>
             </li>
           </ul>
         </div>
       ))}
+      {/* 확인모달 */}
+      <ConfirmModal open={confirmModalOpen} close={closeConfirmModal}>
+        <div className="add-recheck-content">
+          <span>항목을 삭제 하시겠습니까?</span>
+          <div>
+            <ModalCancelBtn onClick={closeConfirmModal}>취소</ModalCancelBtn>
+            <ModalOkBtn onClick={() => handleDeleteConfirm()}>확인</ModalOkBtn>
+          </div>
+        </div>
+      </ConfirmModal>
       {mngProflieData && mngProflieData.length === 0 && (
         <div>취업담당자의 정보를 등록해주세요</div>
       )}

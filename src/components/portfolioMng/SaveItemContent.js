@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import { PortFolioContentWrap } from "../../styles/PortfolioStyle";
-import NoImage from "../../assets/NoImage.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { patchSendSaved } from "../../api/portfolioAxios";
 import {
   ConfirmModalContent,
   ModalCancelBtn,
   ModalOkBtn,
 } from "../../styles/GlobalStyle";
 import ConfirmModal from "../ConfirmModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  CheckToMainSt,
+  PortFolioContentWrap,
+} from "../../styles/PortfolioStyle";
+import { patchSendSaved } from "../../api/portfolioAxios";
+import NoImage from "../../assets/NoImage.jpg";
 
-const PortfolioContent = ({ studentPFList }) => {
+const SaveItemContent = ({ savedPFList }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [isSaved, setIsSaved] = useState("1");
+  const [isSavedCancel, setIsSavedCancel] = useState("0");
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -25,13 +28,17 @@ const PortfolioContent = ({ studentPFList }) => {
     setModalOpen(false);
   };
 
+  const handleGoMain = e => {
+    console.log("메인으로 보내는 포폴 클릭", e);
+  };
   const handleSaveSend = item => {
+    console.log("보관함?", item);
     setSavedItemNum(item);
     setModalOpen(true);
   };
   const handleConfirm = async () => {
     try {
-      await patchSendSaved({ savedItemNum, isSaved });
+      await patchSendSaved({ savedItemNum, isSavedCancel });
       setModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
@@ -40,7 +47,7 @@ const PortfolioContent = ({ studentPFList }) => {
 
   return (
     <PortFolioContentWrap>
-      {studentPFList?.res?.map((item, index) => (
+      {savedPFList?.res?.map((item, index) => (
         <div className="pf-box" key={index}>
           <div className="pf-img-hover">
             <i
@@ -57,10 +64,17 @@ const PortfolioContent = ({ studentPFList }) => {
               onError={onImgError}
             />
           </div>
-          <ul>
-            <li className="pf-name">{item.studentName} 수강생</li>
-            <li className="pf-subject">{item.subjectName}</li>
-          </ul>
+          <CheckToMainSt>
+            <ul className="main-checked">
+              <li>
+                <input type="checkbox" onClick={e => handleGoMain(e)} />
+              </li>
+            </ul>
+            <ul>
+              <li className="pf-name">{item.studentName} 수강생</li>
+              <li className="pf-subject">{item.subjectName}</li>
+            </ul>
+          </CheckToMainSt>
         </div>
       ))}
 
@@ -68,7 +82,7 @@ const PortfolioContent = ({ studentPFList }) => {
       {modalOpen && (
         <ConfirmModal open={modalOpen} close={closeModal}>
           <ConfirmModalContent>
-            <span>해당 포트폴리오를 보관 하시겠습니까?</span>
+            <span>해당 포트폴리오의 보관을 취소 하시겠습니까?</span>
             <div>
               <ModalCancelBtn onClick={closeModal}>취소</ModalCancelBtn>
               <ModalOkBtn onClick={() => handleConfirm()}>확인</ModalOkBtn>
@@ -80,4 +94,4 @@ const PortfolioContent = ({ studentPFList }) => {
   );
 };
 
-export default PortfolioContent;
+export default SaveItemContent;

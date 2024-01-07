@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PfContentWrap from "../components/portfolioMng/PfContentWrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PortfolioSection from "../components/portfolioMng/PortfolioSection";
 import SaveItemSection from "../components/portfolioMng/SaveItemSection";
-import MainpfSection from "../components/portfolioMng/MainpfSection";
 import { PortFolioPage } from "../styles/PortfolioStyle";
 
 const PortfolioMgmt = () => {
@@ -20,11 +17,6 @@ const PortfolioMgmt = () => {
       ibtn: 2,
       name: "보관함",
       component: <SaveItemSection />,
-    },
-    {
-      ibtn: 3,
-      name: "메인 포트폴리오",
-      component: <MainpfSection />,
     },
   ];
 
@@ -50,6 +42,7 @@ const PortfolioMgmt = () => {
               >
                 {item.name}
               </button>
+              <div className="search-upper-line"></div>
             </li>
           </ul>
           <div className="content-wrap">

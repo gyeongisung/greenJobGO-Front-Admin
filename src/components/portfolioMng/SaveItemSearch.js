@@ -2,7 +2,7 @@ import React from "react";
 import { PfSearchWrap } from "../../styles/PortfolioStyle";
 import { BtnGlobal } from "../../styles/GlobalStyle";
 
-const PFsearch = ({
+const SaveItemSearch = ({
   searchsubj,
   setSearchSubj,
   searchname,
@@ -12,7 +12,6 @@ const PFsearch = ({
   handleCategoryFilter,
   handleSearchClick,
 }) => {
-
   return (
     <PfSearchWrap>
       <ul className="student-portfolio-search">
@@ -75,4 +74,4 @@ const PFsearch = ({
   );
 };
 
-export default PFsearch;
+export default SaveItemSearch;
