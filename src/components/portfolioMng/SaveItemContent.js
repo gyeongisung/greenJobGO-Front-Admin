@@ -17,6 +17,7 @@ import NoImage from "../../assets/NoImage.jpg";
 const SaveItemContent = ({ savedPFList }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [isSavedCancel, setIsSavedCancel] = useState("0");
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -27,13 +28,17 @@ const SaveItemContent = ({ savedPFList }) => {
     setModalOpen(false);
   };
 
+  const handleGoMain = e => {
+    console.log("메인으로 보내는 포폴 클릭", e);
+  };
   const handleSaveSend = item => {
+    console.log("보관함?", item);
     setSavedItemNum(item);
     setModalOpen(true);
   };
   const handleConfirm = async () => {
     try {
-      await patchSendSaved(savedItemNum);
+      await patchSendSaved({ savedItemNum, isSavedCancel });
       setModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
@@ -54,15 +59,15 @@ const SaveItemContent = ({ savedPFList }) => {
           </div>
           <div className="pf-img">
             <img
-              src={`/api/admin/student/portfolio/${item.img}`}
+              src={`${item.img}`}
               alt={item.studentName}
               onError={onImgError}
             />
           </div>
           <CheckToMainSt>
-            <ul>
+            <ul className="main-checked">
               <li>
-                <input type="checkbox" />
+                <input type="checkbox" onClick={e => handleGoMain(e)} />
               </li>
             </ul>
             <ul>

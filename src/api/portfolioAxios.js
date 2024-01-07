@@ -38,12 +38,12 @@ export const getPortFolioList = async ({
 };
 
 // 보관함으로 보내기
-export const patchSendSaved = async savedItemNum => {
+export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
   console.log("값 들어오니?", savedItemNum);
 
   try {
     const res = await client.patch(
-      `/admin/student/storage?istudent=${savedItemNum}`,
+      `/admin/student/storage?istudent=${savedItemNum}&storageYn=${isSaved}`,
     );
     const result = await res.data;
     console.log("보관함 감ㅋ", result);

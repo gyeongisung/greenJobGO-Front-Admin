@@ -38,7 +38,7 @@ export const PortFolioPage = styled.div`
     top: 44px;
     left: 0;
     width: 1620px;
-    height: 834px;
+    height: 30px;
   }
 `;
 
@@ -148,10 +148,18 @@ export const PortFolioContentWrap = styled.div`
     }
   }
 `;
-// 보관함 체크박스 style
+// 메인으로 보내는 체크박스 style
 export const CheckToMainSt = styled.div`
   display: flex;
   justify-content: space-between;
+  .main-checked {
+    margin-right: 15px;
+    line-height: 2;
+    > li > input {
+      width: 17px;
+      height: 17px;
+    }
+  }
 `;
 
 // 검색결과가 없어요

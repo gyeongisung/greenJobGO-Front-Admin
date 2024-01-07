@@ -14,6 +14,7 @@ import ConfirmModal from "../ConfirmModal";
 const PortfolioContent = ({ studentPFList }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [isSaved, setIsSaved] = useState("1");
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -30,7 +31,7 @@ const PortfolioContent = ({ studentPFList }) => {
   };
   const handleConfirm = async () => {
     try {
-      await patchSendSaved(savedItemNum);
+      await patchSendSaved({ savedItemNum, isSaved });
       setModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
@@ -51,7 +52,7 @@ const PortfolioContent = ({ studentPFList }) => {
           </div>
           <div className="pf-img">
             <img
-              src={`/api/admin/student/portfolio/${item.img}`}
+              src={`${item.img}`}
               alt={item.studentName}
               onError={onImgError}
             />

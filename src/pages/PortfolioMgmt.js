@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PfContentWrap from "../components/portfolioMng/PfContentWrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PortfolioSection from "../components/portfolioMng/PortfolioSection";
 import SaveItemSection from "../components/portfolioMng/SaveItemSection";
-import MainpfSection from "../components/portfolioMng/MainpfSection";
 import { PortFolioPage } from "../styles/PortfolioStyle";
 
 const PortfolioMgmt = () => {
