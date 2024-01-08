@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import { Maincolor, ellipsis } from "./GlobalStyle";
 
 // 레이아웃 구성
@@ -27,14 +27,13 @@ export const PortFolioPage = styled.div`
     position: absolute;
     top: 44px;
     left: 324px;
-    width: 1234px;
+    width: 1260px;
     height: 2px;
     background: ${Maincolor.grayDeep};
   }
   /* 내용 섹션 */
   .content-wrap {
     position: absolute;
-    /* padding-top: 44px; */
     top: 44px;
     left: 0;
     width: 1620px;
@@ -55,7 +54,6 @@ export const PfSearchWrap = styled.div`
   margin-top: 30px;
   .student-portfolio-search {
     display: flex;
-    /* justify-content: left; */
     align-items: center;
     gap: 20px;
     margin: 30px 0;
@@ -93,6 +91,7 @@ export const PfSearchWrap = styled.div`
 
 // 포트폴리오 페이지 스타일
 export const PortFolioContentWrap = styled.div`
+  position: relative;
   width: 1600px;
   padding: 30px 0;
   display: flex;
@@ -100,15 +99,54 @@ export const PortFolioContentWrap = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 30px;
+  .GoMainGo {
+    position: absolute;
+    top: -50px;
+    left: 1360px;
+    width: 225px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.24px;
+  }
   .pf-box {
-    position: relative;
+    width: 294px;
     margin: 10px 0;
-    .pf-img img {
-      width: 294px;
-      height: 185px;
-      object-fit: cover;
+    .pf-img {
+      position: relative;
       margin-bottom: 15px;
+      img {
+        width: 294px;
+        height: 185px;
+        object-fit: cover;
+      }
+      .save-icon {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 25px;
+      }
     }
+
+    /* 보관함 -> 저장된 이미지 */
+    .saved-img {
+      position: relative;
+      margin-bottom: 15px;
+      & > img {
+        width: 294px;
+        height: 185px;
+        object-fit: cover;
+      }
+      .isMainDim {
+        position: absolute;
+        width: 294px;
+        height: 185px;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    /* 포트폴리오 정보 */
     .pf-name {
       font-size: 16px;
       font-weight: 500;
@@ -124,6 +162,7 @@ export const PortFolioContentWrap = styled.div`
       ${ellipsis.one}
     }
   }
+  /* 포트폴리오리스트 -> 마우스 호버 */
   .pf-box:hover .pf-img-hover {
     display: block;
     z-index: 888;
@@ -132,32 +171,50 @@ export const PortFolioContentWrap = styled.div`
   .pf-img-hover {
     display: none;
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 294px;
-    height: 185px;
-    background-color: rgba(34, 143, 207, 0.3);
+    height: 60px;
+    background: rgba(0, 0, 0, 0.3);
     z-index: 99;
-    cursor: pointer;
-    & > .saved-btn {
-      position: absolute;
-      top: 5%;
-      right: 5%;
+    .savedGo-btn,
+    .isSaved-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
       font-size: 25px;
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    .savedGo-btn {
       color: ${Maincolor.white};
+    }
+
+    .isSaved-btn {
+      color: #ff6262;
     }
   }
 `;
+
 // 메인으로 보내는 체크박스 style
 export const CheckToMainSt = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   .main-checked {
-    margin-right: 15px;
     line-height: 2;
+    margin-right: 8px;
     > li > input {
       width: 17px;
       height: 17px;
+      text-align: center;
+    }
+  }
+  .side-info {
+    .pf-subject {
+      width: 250px;
+      ${ellipsis.one}
     }
   }
 `;

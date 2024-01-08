@@ -69,29 +69,34 @@ const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
     <PortFolioContentWrap>
       {studentPFList?.res?.map((item, index) => (
         <div className="pf-box" key={index}>
-          <div className="pf-img-hover">
-            {item.storageYn === 0 ? (
-              <i
-                className="saved-btn"
-                onClick={() => handleSaveSend(item.istudent)}
-              >
-                <FontAwesomeIcon icon={regularHeart} />
-              </i>
-            ) : item.storageYn === 1 ? (
-              <i
-                className="saved-btn"
-                onClick={() => handleSaveCancel(item.istudent)}
-              >
-                <FontAwesomeIcon icon={solidHeart} />
-              </i>
-            ) : null}
-          </div>
           <div className="pf-img">
+            <div className="pf-img-hover">
+              {item.storageYn === 0 ? (
+                <i
+                  className="savedGo-btn"
+                  onClick={() => handleSaveSend(item.istudent)}
+                >
+                  <FontAwesomeIcon icon={regularHeart} />
+                </i>
+              ) : item.storageYn === 1 ? (
+                <i
+                  className="isSaved-btn"
+                  onClick={() => handleSaveCancel(item.istudent)}
+                >
+                  <FontAwesomeIcon icon={solidHeart} />
+                </i>
+              ) : null}
+            </div>
             <img
               src={`${item.img}`}
               alt={item.studentName}
               onError={onImgError}
             />
+            {item.storageYn === 1 && (
+              <i className="save-icon">
+                <FontAwesomeIcon icon={solidHeart} />
+              </i>
+            )}
           </div>
           <ul>
             <li className="pf-name">{item.studentName} 수강생</li>

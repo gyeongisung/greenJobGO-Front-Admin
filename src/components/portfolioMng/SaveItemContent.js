@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  BtnGlobal,
   ConfirmModalContent,
   ModalCancelBtn,
   ModalOkBtn,
@@ -47,22 +48,18 @@ const SaveItemContent = ({ savedPFList }) => {
 
   return (
     <PortFolioContentWrap>
+      <BtnGlobal className="GoMainGo">메인 포트폴리오 적용</BtnGlobal>
       {savedPFList?.res?.map((item, index) => (
         <div className="pf-box" key={index}>
-          <div className="pf-img-hover">
-            <i
-              className="saved-btn"
-              onClick={() => handleSaveSend(item.istudent)}
-            >
-              <FontAwesomeIcon icon={faHeart} />
-            </i>
-          </div>
-          <div className="pf-img">
+          <div className="saved-img">
             <img
               src={`${item.img}`}
               alt={item.studentName}
               onError={onImgError}
             />
+            {item.companyMainYn === 1 ? (
+              <div className="isMainDim"></div>
+            ) : null}
           </div>
           <CheckToMainSt>
             <ul className="main-checked">
@@ -74,7 +71,7 @@ const SaveItemContent = ({ savedPFList }) => {
                 />
               </li>
             </ul>
-            <ul>
+            <ul className="side-info">
               <li className="pf-name">{item.studentName} 수강생</li>
               <li className="pf-subject">{item.subjectName}</li>
             </ul>
