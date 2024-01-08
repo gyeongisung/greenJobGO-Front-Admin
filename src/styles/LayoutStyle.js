@@ -1,40 +1,45 @@
 import styled from "@emotion/styled";
 import { Maincolor } from "./GlobalStyle";
 
+export const LayoutWrapSty = styled.div`
+  position: relative;
+  width: 100vw;
+  height: auto;
+`;
+
 export const ContentWrap = styled.div`
+  display: fixed;
+  top: 0;
+  left: 0;
   height: calc(100vh - 60px);
-  min-height: 600px;
-  min-width: 1400px;
+  /* min-width: 1400px; */
   background: ${Maincolor.white} !important;
+  background: red;
   .ant-layout-header {
     height: 60px;
     line-height: 60px;
   }
   .ant-layout-content {
-    /* width: 100vw; */
-    /* height: calc(100vh - 64px); */
-    height: 100%;
-    min-height: 600px;
-    min-width: 1400px;
+    position: absolute;
+    top: 60px;
+    left: 250px;
+    width: calc(100vw - 250px);
+    height: calc(100vh - 60px);
     margin: 0 auto;
-    /* height: 100vh; */
     background: ${Maincolor.white};
     border: 10px ${Maincolor.grayLight} solid;
     /* box-shadow: inset 0px -2px 20px black; */
   }
   .contents-box {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: calc(100% - 200px);
-    height: calc(100% - 60px);
+    height: calc(100vh - 80px);
     padding: 1%;
+    margin: 0 auto;
+
     & > div {
-      overflow: auto;
-      /* height: 100%; */
-      height: calc(100vh - 84px);
-      padding-right: 1%;
-      padding-bottom: 1%;
+      /* overflow: auto; */
+      /* height: calc(100vh - 110px); */
+      /* padding-right: 1%; */
+      /* padding-bottom: 1%; */
     }
   }
 `;

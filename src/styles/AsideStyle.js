@@ -2,17 +2,22 @@ import styled from "@emotion/styled";
 import { Maincolor } from "./GlobalStyle";
 
 export const SideMenuWrap = styled.div`
-  height: calc(100vh - 0px);
+  display: fixed;
+  top: 0;
+  left: 0;
+  height: calc(100vh - 60px);
   background: ${Maincolor.white};
 
   .sidemenu-logo-div {
     position: relative;
-    width: 100%;
+    margin: 0 auto;
+    width: 250px;
     height: 60px;
     background: ${Maincolor.white};
     cursor: pointer;
     img {
-      width: 180px;
+      width: 190px;
+      height: 15px;
       object-fit: contain;
       position: absolute;
       top: 50%;
@@ -24,6 +29,7 @@ export const SideMenuWrap = styled.div`
   .ant-menu {
     /* height: calc(100% - 64px); */
     height: 100%;
+    width: 250px;
   }
 
   .ant-menu-sub.ant-menu-inline {
@@ -35,12 +41,14 @@ export const SideMenuWrap = styled.div`
   .ant-menu .ant-menu-submenu-title {
     border-radius: 0;
   }
+
+  /* 좌측 하단메뉴 */
   .end-menu {
     position: fixed;
     bottom: 0;
     left: 0;
     background: ${Maincolor.grayLight2};
-    width: 200px;
+    width: 250px;
     height: 140px;
     padding: 27px 39px 19px 22px;
     .end-m-id {

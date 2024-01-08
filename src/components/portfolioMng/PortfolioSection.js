@@ -77,6 +77,7 @@ const PortfolioSection = () => {
       <PortfolioContent
         studentPFList={studentPFList}
         setStudentPFList={setStudentPFList}
+        setCount={setCount}
       />
       {/* ) : (
         // 데이터 없을 때 뜨는 화면
