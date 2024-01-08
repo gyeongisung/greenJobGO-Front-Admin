@@ -23,7 +23,7 @@ const PFsearch = ({
             id="category-select"
             onChange={e => handleCategoryFilter(e)}
           >
-            <option value="" selected>
+            <option value="" defaultValue>
               전체
             </option>
             {category?.map(item => (

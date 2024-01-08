@@ -74,7 +74,10 @@ const PortfolioSection = () => {
         handleCategoryFilter={handleCategoryFilter}
       />
       {/* {studentPFList.res.length > 0 ? ( */}
-        <PortfolioContent studentPFList={studentPFList} />
+      <PortfolioContent
+        studentPFList={studentPFList}
+        setStudentPFList={setStudentPFList}
+      />
       {/* ) : (
         // 데이터 없을 때 뜨는 화면
         <NothingData>
