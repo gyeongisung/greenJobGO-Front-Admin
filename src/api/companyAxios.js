@@ -31,7 +31,6 @@ export const postCompanyExcel = async companyfile => {
 export const postCompanyAccept = async payload => {
   try {
     const res = await client.post("/admin/companylist", payload);
-    // console.log(res.data.companyCode);
     if (res.data.companyCode) {
       return { success: true };
     } else {
