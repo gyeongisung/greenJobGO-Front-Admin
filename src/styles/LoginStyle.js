@@ -56,6 +56,7 @@ export const LoginInner = styled.ul`
             background: #6d6d6d;
             border: 1px solid black;
             border-radius: 6px;
+            cursor: pointer;
           }
         }
       }
