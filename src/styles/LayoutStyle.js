@@ -32,14 +32,7 @@ export const ContentWrap = styled.div`
   }
   .contents-box {
     height: calc(100vh - 80px);
-    padding: 1%;
+    /* padding: 1%; */
     margin: 0 auto;
-
-    & > div {
-      /* overflow: auto; */
-      /* height: calc(100vh - 110px); */
-      /* padding-right: 1%; */
-      /* padding-bottom: 1%; */
-    }
   }
 `;

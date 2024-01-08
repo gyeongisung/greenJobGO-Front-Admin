@@ -3,20 +3,16 @@ import { Maincolor } from "./GlobalStyle";
 
 export const JobManagerWrap = styled.div`
   margin: 0 auto;
-  padding: 1%;
+  /* padding: 1%; */
   width: 100%;
+  height: calc(100vh - 100px);
   max-width: 1440px;
-  display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
-  flex-direction: column;
+  overflow: auto;
   .job-title {
-    width: 82%;
-    height: 80px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 30px 0;
     h3 {
       font-size: 24px;
       font-weight: 700;
@@ -24,22 +20,26 @@ export const JobManagerWrap = styled.div`
     }
   }
   .job-content-wrap {
-    width: 100%;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
     /* 담당자 등록 버튼 */
     .maganer-add {
-      float: right;
-      margin: 40px 20px;
+      margin: 30px 40px;
       & > button {
+        float: right;
         width: 105px;
         height: 40px;
+        margin-bottom: 20px;
       }
     }
   }
 `;
 export const JobManagerBoxWrap = styled.div`
   display: flex;
-  justify-content: left;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   gap: 40px;
@@ -200,6 +200,7 @@ export const JobManagerAddSty = styled.div`
       }
     }
   }
+
   .add-accept {
     display: flex;
     justify-content: center;

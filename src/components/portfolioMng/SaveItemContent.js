@@ -67,7 +67,11 @@ const SaveItemContent = ({ savedPFList }) => {
           <CheckToMainSt>
             <ul className="main-checked">
               <li>
-                <input type="checkbox" id="go-main-checked" onClick={e => handleGoMain(e)} />
+                <input
+                  type="checkbox"
+                  id="go-main-checked"
+                  onClick={e => handleGoMain(e)}
+                />
               </li>
             </ul>
             <ul>
