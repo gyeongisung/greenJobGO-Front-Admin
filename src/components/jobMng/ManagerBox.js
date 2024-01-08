@@ -77,7 +77,7 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
         <div className="manager-profile" key={item.iemply}>
           <img
             // src={`/home/download/Employee/${item.iemply}/${item.profilePic}`}
-            src={`/api/admin/profile${item.profilePic}`}
+            src={`${item.profilePic}`}
             alt="job manager"
             onError={onImgError}
             className="manager-img"

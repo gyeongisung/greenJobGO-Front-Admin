@@ -28,12 +28,12 @@ const AsideAdm = () => {
   const handleIsTrue = () => {
     setIsTrue(true);
   };
-  
+
   const handleLogout = () => {
     postLogout();
     navigate("/");
   };
-  
+
   function getItem(label, key, icon, children) {
     return {
       key,
@@ -50,7 +50,12 @@ const AsideAdm = () => {
       getItem(<Link to="/jobmanager">취업 담당자 관리</Link>, "/jobmanager"),
     ]),
     getItem("수강생 관리", "sub2", null, [
-      getItem(<Link  onClick={handleIsTrue} to="/student">수강생 등록 • 관리</Link>, "/student"),
+      getItem(
+        <Link onClick={handleIsTrue} to="/student">
+          수강생 등록 • 관리
+        </Link>,
+        "/student",
+      ),
       getItem(<Link to="/portfolio">포트폴리오 관리</Link>, "/portfolio"),
     ]),
     getItem(<Link to="/company">기업등록 • 관리</Link>, "/company", null),
@@ -75,7 +80,8 @@ const AsideAdm = () => {
         </Link>
         <Menu
           style={{
-            width: 200,
+            width: "250",
+            height: "calc(100vh - 62px)",
             background: "#ffffff",
           }}
           defaultOpenKeys={["sub1", "sub2"]}
@@ -84,18 +90,16 @@ const AsideAdm = () => {
           theme={"light"}
           items={menuItems2}
         />
+        <div className="end-menu">
+          <ul>
+            <li className="end-m-id">아이디</li>
+            <li className="end-m-role">role</li>
+            <li className="end-m-logout" onClick={handleLogout}>
+              로그아웃 <FontAwesomeIcon icon={faArrowRightFromBracket} />
+            </li>
+          </ul>
+        </div>
       </Sider>
-      <div className="end-menu">
-        <ul>
-          <li className="end-m-id">
-            아이디
-          </li>
-          <li className="end-m-role">role</li>
-          <li className="end-m-logout" onClick={handleLogout}>
-            로그아웃 <FontAwesomeIcon icon={faArrowRightFromBracket} />
-          </li>
-        </ul>
-      </div>
     </SideMenuWrap>
   );
 };

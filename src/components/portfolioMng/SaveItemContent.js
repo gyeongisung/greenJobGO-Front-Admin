@@ -17,7 +17,7 @@ import NoImage from "../../assets/NoImage.jpg";
 const SaveItemContent = ({ savedPFList }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [isSavedCancel, setIsSavedCancel] = useState("0");
+  const [isSavedCancel, setIsSavedCancel] = useState(0);
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -59,7 +59,7 @@ const SaveItemContent = ({ savedPFList }) => {
           </div>
           <div className="pf-img">
             <img
-              src={`/admin/profile/${item.img}`}
+              src={`${item.img}`}
               alt={item.studentName}
               onError={onImgError}
             />

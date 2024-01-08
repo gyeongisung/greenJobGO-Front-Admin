@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useParams } from "react-router";
-import { ContentWrap } from "../styles/LayoutStyle";
+import { ContentWrap, LayoutWrapSty } from "../styles/LayoutStyle";
 import { Breadcrumb, Layout } from "antd";
 import { Link } from "react-router-dom";
 import { Content } from "antd/es/layout/layout";
@@ -86,11 +86,10 @@ const AdminLayout = () => {
     }
   }, [pathname]);
   return (
-    <>
+    <LayoutWrapSty>
       <Layout>
         {/* 관리자페이지 - 사이드메뉴 */}
         <AsideAdm />
-
         <Layout>
           <ContentWrap>
             <HeaderAdm
@@ -105,7 +104,7 @@ const AdminLayout = () => {
           </ContentWrap>
         </Layout>
       </Layout>
-    </>
+    </LayoutWrapSty>
   );
 };
 

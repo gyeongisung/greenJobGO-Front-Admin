@@ -12,7 +12,7 @@ import {
 } from "../../styles/GlobalStyle";
 import ConfirmModal from "../ConfirmModal";
 
-const PortfolioContent = ({ studentPFList, setStudentPFList }) => {
+const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
@@ -63,7 +63,7 @@ const PortfolioContent = ({ studentPFList, setStudentPFList }) => {
   };
 
   useEffect(() => {
-    // getPortFolioList({ setStudentPFList });
+    getPortFolioList({ setStudentPFList, setCount });
   }, [isSaved]);
   return (
     <PortFolioContentWrap>
@@ -88,7 +88,7 @@ const PortfolioContent = ({ studentPFList, setStudentPFList }) => {
           </div>
           <div className="pf-img">
             <img
-              src={`/admin/profile/${item.img}`}
+              src={`${item.img}`}
               alt={item.studentName}
               onError={onImgError}
             />
