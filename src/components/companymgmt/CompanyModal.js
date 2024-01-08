@@ -292,8 +292,6 @@ export const EdeitCompanyModal = ({
     setEditModalOpen(false);
   };
 
-  console.log(companyData.companyCode);
-
   return (
     <>
       {editModalOpen && (

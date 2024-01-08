@@ -73,8 +73,8 @@ const CompanyMgmt = () => {
     setSaveCheckBox(resultIdArray);
   };
 
-  const fetchData = () => {
-    getCompanyList(setListData, setCount, page, search);
+  const fetchData = async () => {
+    await getCompanyList(setListData, setCount, page, search);
   };
 
   useEffect(() => {
@@ -135,7 +135,7 @@ const CompanyMgmt = () => {
       }
     }
   };
-  
+
   const handleModalAccept = async () => {
     try {
       const result = await postCompanyAccept(payload);
@@ -145,9 +145,28 @@ const CompanyMgmt = () => {
       if (result.success) {
         setModalOpen(false);
         setAcceptOkModal(true);
+        setPayload({
+          area: "",
+          companyName: "",
+          leaderName: "",
+          jobField: "",
+          manager: "",
+          phoneNumber: "",
+          dateConslusion: "",
+        });
       }
     } catch (error) {
-      console.error("파일 업로드에 실패했습니다.", error);
+      setModalOpen(false);
+      setAcceptOkModal(true);
+      setPayload({
+        area: "",
+        companyName: "",
+        leaderName: "",
+        jobField: "",
+        manager: "",
+        phoneNumber: "",
+        dateConslusion: "",
+      });
     }
   };
 
