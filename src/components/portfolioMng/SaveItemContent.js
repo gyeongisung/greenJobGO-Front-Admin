@@ -59,7 +59,7 @@ const SaveItemContent = ({ savedPFList }) => {
           </div>
           <div className="pf-img">
             <img
-              src={`${item.img}`}
+              src={`/admin/profile/${item.img}`}
               alt={item.studentName}
               onError={onImgError}
             />
@@ -67,7 +67,7 @@ const SaveItemContent = ({ savedPFList }) => {
           <CheckToMainSt>
             <ul className="main-checked">
               <li>
-                <input type="checkbox" onClick={e => handleGoMain(e)} />
+                <input type="checkbox" id="go-main-checked" onClick={e => handleGoMain(e)} />
               </li>
             </ul>
             <ul>
