@@ -2,7 +2,6 @@ import { PagiWrap } from "../../styles/PagingStyle";
 import Pagination from "react-js-pagination";
 
 const PortfolioPaging = ({ page, setPage, count }) => {
-
   return (
     <PagiWrap>
       <Pagination

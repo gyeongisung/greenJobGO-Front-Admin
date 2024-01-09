@@ -1,6 +1,7 @@
 import React from "react";
 import { PfSearchWrap } from "../../styles/PortfolioStyle";
 import { BtnGlobal } from "../../styles/GlobalStyle";
+import { v4 } from "uuid";
 
 const SaveItemSearch = ({
   searchsubj,
@@ -26,7 +27,7 @@ const SaveItemSearch = ({
               전체
             </option>
             {category?.map(item => (
-              <option key={item.iclassification} value={item.iclassification}>
+              <option key={v4()} value={item.iclassification}>
                 {item.classification}
               </option>
             ))}

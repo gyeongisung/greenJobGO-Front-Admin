@@ -10,6 +10,8 @@ import {
   ModalCancelBtn,
   ModalOkBtn,
 } from "../../styles/GlobalStyle";
+import { v4 } from "uuid";
+
 import ConfirmModal from "../ConfirmModal";
 
 const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
@@ -67,8 +69,8 @@ const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
   }, [isSaved]);
   return (
     <PortFolioContentWrap>
-      {studentPFList?.res?.map((item, index) => (
-        <div className="pf-box" key={index}>
+      {studentPFList?.res?.map(item => (
+        <div className="pf-box" key={v4()}>
           <div className="pf-img">
             <div className="pf-img-hover">
               {item.storageYn === 0 ? (
@@ -92,11 +94,26 @@ const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
               alt={item.studentName}
               onError={onImgError}
             />
-            {item.storageYn === 1 && (
-              <i className="save-icon">
-                <FontAwesomeIcon icon={solidHeart} />
-              </i>
-            )}
+            <ul className="thumb-right">
+              {item.storageYn === 1 && (
+                <li>
+                  {" "}
+                  <i className="save-icon">
+                    <FontAwesomeIcon icon={solidHeart} />
+                  </i>
+                </li>
+              )}
+              {item.huntJobYn === 1 && (
+                <li>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/got-a-job.png`}
+                    alt="got-a-job"
+                    className="job-yes-icon"
+                    onError={onImgError}
+                  />
+                </li>
+              )}
+            </ul>
           </div>
           <ul>
             <li className="pf-name">{item.studentName} 수강생</li>

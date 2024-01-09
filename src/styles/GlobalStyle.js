@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 // 메인색상
 export const Maincolor = {
   white: "#fff",
-  black: "#000",
+  black: "#222",
   grayWhite: "#F0F0F0",
   grayLight: "#DEDEDE",
   grayLight2: "#d9d9d9",
@@ -12,6 +12,17 @@ export const Maincolor = {
   grayMediumDeep: "#7E7E7E",
   grayDeep: "#6D6D6D",
   blueMedium: "#228FCF",
+  // 확정된 컬러바입니다
+  search: "#e6e6e6",
+  maingray: "#d9d9d9",
+  paginate: "#bababa",
+  input: "#aaaaaa",
+  sectiontitle: "#898989",
+  header: "#7b7b7b",
+  btn: "#6d6d6d",
+  admintxt: "#228fcf",
+  adminmode: "rgba(34, 143, 207, 0.10)",
+  red: "#EB5757",
 };
 
 // 말줄임 ================
@@ -172,7 +183,7 @@ export const BtnGlobal = styled.button`
   height: 50px;
   border-radius: 8px;
   border: 0;
-  background: ${Maincolor.grayDeep};
+  background: ${Maincolor.btn};
   color: ${Maincolor.white};
   text-align: center;
   font-size: 16px;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Maincolor, ellipsis } from "./GlobalStyle";
 
 // 레이아웃 구성
@@ -50,7 +50,7 @@ export const PfSearchWrap = styled.div`
   min-width: 1266px;
   height: 100px;
   border-radius: 12px;
-  background: ${Maincolor.grayWhite};
+  background: ${Maincolor.search};
   margin-top: 30px;
   .student-portfolio-search {
     display: flex;
@@ -66,7 +66,7 @@ export const PfSearchWrap = styled.div`
       margin-left: 30px;
     }
     li > select {
-      border: 1px solid ${Maincolor.grayMedium};
+      border: 1px solid ${Maincolor.input};
       border-radius: 5px;
       width: 154px;
       height: 40px;
@@ -77,7 +77,7 @@ export const PfSearchWrap = styled.div`
     li > div > input {
       width: 215px;
       height: 40px;
-      border: 1px solid ${Maincolor.grayMedium};
+      border: 1px solid ${Maincolor.input};
       border-radius: 5px;
       padding: 8px 12px;
     }
@@ -119,11 +119,23 @@ export const PortFolioContentWrap = styled.div`
         height: 185px;
         object-fit: cover;
       }
-      .save-icon {
+      /* 리스트 썸네일 우측 아이콘 */
+      .thumb-right {
         position: absolute;
         top: 5px;
         right: 5px;
-        font-size: 25px;
+
+        /* 보관중인 포트폴리오 아이콘*/
+        .save-icon {
+          font-size: 25px;
+          /* color: ${Maincolor.white}; */
+        }
+        /* 취업자 아이콘 */
+        .job-yes-icon {
+          width: 25px;
+          height: 25px;
+          object-fit: contain;
+        }
       }
     }
 
@@ -138,10 +150,10 @@ export const PortFolioContentWrap = styled.div`
       }
       .isMainDim {
         position: absolute;
-        width: 294px;
-        height: 185px;
         top: 0;
         left: 0;
+        width: 294px;
+        height: 185px;
         background: rgba(0, 0, 0, 0.3);
       }
     }
@@ -187,11 +199,11 @@ export const PortFolioContentWrap = styled.div`
       padding: 5px;
       cursor: pointer;
     }
-
+    // 보관함으로 보내요 버튼
     .savedGo-btn {
       color: ${Maincolor.white};
     }
-
+    // 보관함이 있어요 버튼
     .isSaved-btn {
       color: #ff6262;
     }
