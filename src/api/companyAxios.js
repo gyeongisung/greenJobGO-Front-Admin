@@ -7,7 +7,6 @@ export const getCompanyList = async (setListData, setCount, page, search) => {
     );
     setListData(res.data.list);
     setCount(res.data.totalcount);
-    console.log(res.data.list);
   } catch (error) {
     console.log(error);
   }
@@ -55,6 +54,11 @@ export const patchCompany = async companyData => {
     const res = await client.patch(
       `/admin/companylist?companyCode=${companyData.companyCode}&area=${companyData.area}&companyName=${companyData.companyName}&manager=${companyData.manager}&leaderName=${companyData.leaderName}&jobField=${companyData.jobField}&phoneNumber=${companyData.phoneNumber}&dateConslusion=${companyData.dateConslusion}`,
     );
+    if (res.data.companyCode) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
   } catch (error) {
     console.log(error);
   }

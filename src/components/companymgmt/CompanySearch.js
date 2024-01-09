@@ -10,29 +10,6 @@ const CompanySearch = ({
   return (
     <ul className="company-search">
       <li>
-        <select
-          value={category}
-          name="category-state"
-          onChange={handleCategoryFiiter}
-        >
-          <option name="category-state" value="">
-            선택
-          </option>
-          <option name="category-state" value="">
-            카테고리1
-          </option>
-          <option name="category-state" value="">
-            카테고리2
-          </option>
-          <option name="category-state" value="">
-            카테고리3
-          </option>
-          <option name="category-state" value="">
-            카테고리4
-          </option>
-        </select>
-      </li>
-      <li>
         <div className="company-form">
           <input
             type="text"

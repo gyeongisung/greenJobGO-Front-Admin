@@ -6,6 +6,7 @@ const ClassSearch = ({
   search,
   setSearch,
   handleSearch,
+  categoryData,
 }) => {
   return (
     <ul className="class-search">
@@ -18,24 +19,16 @@ const ClassSearch = ({
           <option name="category-state" value="">
             선택
           </option>
-          <option name="category-state" value={1}>
-            IT 분야
-          </option>
-          <option name="category-state" value={2}>
-            건축기계 분야
-          </option>
-          <option name="category-state" value={3}>
-            UI/UX 분야
-          </option>
-          <option name="category-state" value={4}>
-            빅데이터 분야
-          </option>
-          <option name="category-state" value={5}>
-            영상 분야
-          </option>
-          <option name="category-state" value={6}>
-            편집디자인 분야
-          </option>
+          {categoryData &&
+            categoryData.map(item => (
+              <option
+                key={item.iclassification}
+                name="category-state"
+                value={item.iclassification}
+              >
+                {item.classification}
+              </option>
+            ))}
         </select>
       </li>
       <li>

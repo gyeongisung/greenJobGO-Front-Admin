@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { EdeitCompanyModal } from "./CompanyModal";
 
-const CompanyList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
+const CompanyList = ({
+  listData,
+  handleAllCheck,
+  handleCheckBox,
+  page,
+  acceptOkModal,
+  setAcceptOkModal,
+  uploadResult,
+  setUpLoadResult,
+}) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [companyInfo, setCompanyInfo] = useState(null);
   const handleEditModalOpen = data => {
@@ -73,6 +82,10 @@ const CompanyList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
           editModalOpen={editModalOpen}
           setEditModalOpen={setEditModalOpen}
           handleModalCancel={handleModalCancel}
+          acceptOkModal={acceptOkModal}
+          setAcceptOkModal={setAcceptOkModal}
+          uploadResult={uploadResult}
+          setUpLoadResult={setUpLoadResult}
         />
       )}
     </ul>

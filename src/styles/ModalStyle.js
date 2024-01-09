@@ -210,7 +210,7 @@ export const ClassAcceptModalWrap = styled.div`
   }
   .class-modal-inner {
     position: absolute;
-    width: 40%;
+    width: 36%;
     height: 70%;
     top: 50%;
     left: 50%;
@@ -227,7 +227,7 @@ export const ClassAcceptModalWrap = styled.div`
       align-items: center;
       height: 70px;
       padding: 30px 0 30px 0;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       border-radius: 10px 10px 0 0;
       box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
       li {
@@ -246,24 +246,7 @@ export const ClassAcceptModalWrap = styled.div`
     }
     .modal-btm {
       width: 100%;
-      padding: 0 50px;
-      .class-category {
-        > h3 {
-          width: 0;
-          font-size: 18px;
-          margin: 15px 0 10px 0;
-        }
-        .class-category-box {
-          width: 0;
-          > select {
-            width: 150px;
-            height: 40px;
-            border-radius: 6px;
-            border: 1px solid #a4a4a4;
-            cursor: pointer;
-          }
-        }
-      }
+      padding: 0 40px;
       ul {
         width: 100%;
         display: flex;
@@ -273,10 +256,28 @@ export const ClassAcceptModalWrap = styled.div`
         > li {
           display: flex;
           width: 100%;
-          gap: 15px;
+          gap: 20px;
+          .class-name {
+            > input {
+              width: 450px;
+              height: 40px;
+              border: 1px solid #a4a4a4;
+              border-radius: 6px;
+            }
+          }
           > div {
             width: 100%;
             border-radius: 6px;
+            .class-category-box {
+              width: 0;
+              > select {
+                width: 145px;
+                height: 40px;
+                border-radius: 6px;
+                border: 1px solid #a4a4a4;
+                cursor: pointer;
+              }
+            }
             > h3 {
               width: 0;
               font-size: 18px;
@@ -327,7 +328,7 @@ export const ClassAcceptModalWrap = styled.div`
       }
     }
     .modal-ok {
-      margin-top: 50px;
+      margin-top: 70px;
       > button {
         width: 150px;
         height: 50px;

@@ -11,25 +11,36 @@ import {
   ClassAcceptModal,
   DeleteClassModal,
 } from "../components/classMgmt/ClassModal";
-import { getClassSubject, postClassSubject } from "../api/classAxios";
+import {
+  getCategory,
+  getClassSubject,
+  postClassSubject,
+} from "../api/classAxios";
 import { format } from "date-fns";
+import { AcceptModal } from "../components/AcceptModals";
 
 const ClassMgmt = () => {
   const [listData, setListData] = useState([]);
   const [saveCheckBox, setSaveCheckBox] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [acceptOkModal, setAcceptOkModal] = useState(false);
+  const [uploadResult, setUpLoadResult] = useState(false);
   const [payload, setPayload] = useState({
     courseSubjectName: "",
+    iclassification: 0,
     classification: "",
     startedAt: "",
     endedAt: "",
     instructor: "",
     lectureRoom: "",
+    round: "",
+    classTime: "",
   });
 
   let resultIdArray = saveCheckBox;
@@ -69,6 +80,7 @@ const ClassMgmt = () => {
 
   useEffect(() => {
     fetchData();
+    getCategory(setCategoryData);
   }, [page]);
 
   useEffect(() => {
@@ -103,16 +115,51 @@ const ClassMgmt = () => {
     document.body.style.overflow = "hidden";
   };
 
-  const handleModalAccept = () => {
+  const handleModalAccept = async () => {
+    const { classification, ...newPayload } = payload;
     const formatData = {
-      ...payload,
+      ...newPayload,
       startedAt: payload.startedAt
         ? format(payload.startedAt, "yyyy-MM-dd")
         : null,
       endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
     };
-    postClassSubject(formatData);
-    setModalOpen(false);
+    try {
+      const result = await postClassSubject(formatData);
+
+      setUpLoadResult(result);
+
+      setModalOpen(false);
+      if (result.success) {
+        setAcceptOkModal(true);
+        setPayload({
+          courseSubjectName: "",
+          iclassification: 0,
+          classification: "",
+          startedAt: "",
+          endedAt: "",
+          instructor: "",
+          lectureRoom: "",
+          round: "",
+          classTime: "",
+        });
+        console.log(modalOpen);
+        console.log(acceptOkModal);
+      }
+    } catch (error) {
+      setAcceptOkModal(true);
+      setPayload({
+        courseSubjectName: "",
+        iclassification: 0,
+        classification: "",
+        startedAt: "",
+        endedAt: "",
+        instructor: "",
+        lectureRoom: "",
+        round: "",
+        classTime: "",
+      });
+    }
   };
 
   return (
@@ -127,7 +174,16 @@ const ClassMgmt = () => {
           search={search}
           setSearch={setSearch}
           handleSearch={handleSearch}
+          categoryData={categoryData}
         />
+        {acceptOkModal && (
+          <AcceptModal
+            acceptOkModal={acceptOkModal}
+            setAcceptOkModal={setAcceptOkModal}
+            uploadResult={uploadResult}
+            fetchData={fetchData}
+          />
+        )}
         {modalOpen && (
           <ClassAcceptModal
             modalOpen={modalOpen}
@@ -135,6 +191,7 @@ const ClassMgmt = () => {
             payload={payload}
             setPayload={setPayload}
             handleModalAccept={handleModalAccept}
+            categoryData={categoryData}
           />
         )}
         {deleteModalOpen && (
@@ -148,7 +205,6 @@ const ClassMgmt = () => {
         )}
         <div className="class-buttons">
           <button onClick={handleModalOpen}>과정등록</button>
-          <button>수정</button>
           <button onClick={handleDeleteModalOpen}>삭제</button>
         </div>
         <ClassTable>
@@ -157,6 +213,11 @@ const ClassMgmt = () => {
             handleAllCheck={handleAllCheck}
             handleCheckBox={handleCheckBox}
             page={page}
+            acceptOkModal={acceptOkModal}
+            setAcceptOkModal={setAcceptOkModal}
+            uploadResult={uploadResult}
+            setUpLoadResult={setUpLoadResult}
+            categoryData={categoryData}
           />
         </ClassTable>
         <ClassPaging page={page} setPage={setPage} count={count} />

@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { ClassAcceptModalWrap } from "../../styles/ModalStyle";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
-import { deleteClassSubject, postClassSubject } from "../../api/classAxios";
+import {
+  deleteClassSubject,
+  postClassSubject,
+  putClassSubject,
+} from "../../api/classAxios";
 import { ko } from "date-fns/locale";
 import ReactDatePicker from "react-datepicker";
-import { format } from "date-fns";
+import { format, formatISO, parseISO } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
+import { AcceptModal } from "../AcceptModals";
 
 export const DeleteClassModal = ({
   deleteModalOpen,
@@ -71,12 +76,14 @@ export const ClassAcceptModal = ({
   payload,
   setPayload,
   handleModalAccept,
+  categoryData,
 }) => {
   const handleModalCancel = () => {
     setModalOpen(false);
     document.body.style.overflow = "unset";
   };
 
+  console.log(modalOpen)
   return (
     <>
       {modalOpen && (
@@ -92,45 +99,37 @@ export const ClassAcceptModal = ({
                 </li>
               </ul>
               <div className="modal-btm">
-                <div className="class-category">
-                  <h3>대분류</h3>
-                  <div className="class-category-box">
-                    <select
-                      name="category-state"
-                      onChange={e => {
-                        setPayload(payload => ({
-                          ...payload,
-                          classification: e.target.value,
-                        }));
-                      }}
-                    >
-                      <option name="category-state" value="선택">
-                        선택
-                      </option>
-                      <option name="category-state" value="IT 분야">
-                        IT 분야
-                      </option>
-                      <option name="category-state" value="건축기계 분야">
-                        건축기계 분야
-                      </option>
-                      <option name="category-state" value="UIUX 분야">
-                        UI/UX 분야
-                      </option>
-                      <option name="category-state" value="빅데이터 분야">
-                        빅데이터 분야
-                      </option>
-                      <option name="category-state" value="영상 분야">
-                        영상 분야
-                      </option>
-                      <option name="category-state" value="편집디자인 분야">
-                        편집디자인 분야
-                      </option>
-                    </select>
-                  </div>
-                </div>
                 <ul>
                   <li>
                     <div>
+                      <h3>대분류</h3>
+                      <div className="class-category-box">
+                        <select
+                          name="category-state"
+                          onChange={e => {
+                            setPayload(payload => ({
+                              ...payload,
+                              iclassification: e.target.value,
+                            }));
+                          }}
+                        >
+                          <option name="category-state" value="선택">
+                            선택
+                          </option>
+                          {categoryData &&
+                            categoryData.map((item, index) => (
+                              <option
+                                key={item.index}
+                                name="category-state"
+                                value={item.iclassification}
+                              >
+                                {item.classification}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="class-name">
                       <h3>과정명</h3>
                       <input
                         type="text"
@@ -151,7 +150,6 @@ export const ClassAcceptModal = ({
                     <div>
                       <ReactDatePicker
                         className="date-picker"
-                        showIcon
                         icon="fa fa-calendar"
                         locale={ko}
                         selected={payload.startedAt}
@@ -179,6 +177,34 @@ export const ClassAcceptModal = ({
                           setPayload(payload => ({
                             ...payload,
                             endedAt: date,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <div>
+                      <h3>수강시간</h3>
+                      <input
+                        type="text"
+                        value={payload.classTime}
+                        onChange={e => {
+                          setPayload(payload => ({
+                            ...payload,
+                            classTime: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <h3>회차</h3>
+                      <input
+                        type="text"
+                        value={payload.round}
+                        onChange={e => {
+                          setPayload(payload => ({
+                            ...payload,
+                            round: e.target.value,
                           }));
                         }}
                       />
@@ -225,86 +251,104 @@ export const ClassAcceptModal = ({
   );
 };
 
-export const ClassEditModal = ({ modalOpen, setModalOpen }) => {
+export const ClassEditModal = ({
+  classInfo,
+  editModalOpen,
+  setEditModalOpen,
+  handleModalCancel,
+  categoryData,
+  acceptOkModal,
+  setAcceptOkModal,
+  uploadResult,
+  setUpLoadResult,
+}) => {
   const [payload, setPayload] = useState({
-    courseSubjectName: "",
-    classification: "",
-    startedAt: "",
-    endedAt: "",
-    instructor: "",
-    lectureRoom: "",
+    icourseSubject: classInfo.icourseSubject,
+    iclassification: classInfo.iclassification,
+    courseSubjectName: classInfo.courseSubjectName,
+    round: classInfo.round,
+    startedAt: classInfo.startedAt,
+    endedAt: classInfo.endedAt,
+    classTime: classInfo.classTime,
+    instructor: classInfo.instructor,
+    lectureRoom: classInfo.lectureRoom,
+    classification: classInfo.classification,
   });
 
-  const handleModalCancel = () => {
-    setModalOpen(false);
-    document.body.style.overflow = "unset";
-  };
-
-  const handleModalAccept = () => {
+  const handleModalAccept = async () => {
+    const { classification, ...newPayload } = payload;
     const formatData = {
-      ...payload,
+      ...newPayload,
       startedAt: payload.startedAt
         ? format(payload.startedAt, "yyyy-MM-dd")
         : null,
       endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
     };
-    postClassSubject(formatData);
-    setModalOpen(false);
+
+    try {
+      const result = await putClassSubject(formatData);
+
+      setUpLoadResult(result);
+      if (result.success) {
+        setEditModalOpen(false);
+        setAcceptOkModal(true);
+      }
+    } catch (error) {
+      setEditModalOpen(false);
+      setAcceptOkModal(true);
+    }
   };
+
+
   return (
     <>
-      {modalOpen && (
+      {editModalOpen && (
         <ClassAcceptModalWrap>
           <div className="dim">
             <div className="class-modal-inner">
               <ul className="modal-top">
                 <li>
-                  <h2>과정 수정</h2>
+                  <h2>과정 등록</h2>
                 </li>
                 <li>
                   <span onClick={handleModalCancel}>✖</span>
                 </li>
               </ul>
               <div className="modal-btm">
-                <div className="class-category">
-                  <h3>대분류</h3>
-                  <div className="class-category-box">
-                    <select
-                      name="category-state"
-                      onChange={e => {
-                        setPayload(payload => ({
-                          ...payload,
-                          classification: e.target.value,
-                        }));
-                      }}
-                    >
-                      <option name="category-state" value="선택">
-                        선택
-                      </option>
-                      <option name="category-state" value="IT 분야">
-                        IT 분야
-                      </option>
-                      <option name="category-state" value="건축기계 분야">
-                        건축기계 분야
-                      </option>
-                      <option name="category-state" value="UIUX 분야">
-                        UI/UX 분야
-                      </option>
-                      <option name="category-state" value="빅데이터 분야">
-                        빅데이터 분야
-                      </option>
-                      <option name="category-state" value="영상 분야">
-                        영상 분야
-                      </option>
-                      <option name="category-state" value="편집디자인 분야">
-                        편집디자인 분야
-                      </option>
-                    </select>
-                  </div>
-                </div>
                 <ul>
                   <li>
                     <div>
+                      <h3>대분류</h3>
+                      <div className="class-category-box">
+                        <select
+                          name="category-state"
+                          onChange={e => {
+                            setPayload(payload => ({
+                              ...payload,
+                              iclassification: e.target.value,
+                            }));
+                          }}
+                        >
+                          <option
+                            name="category-state"
+                            value={payload.classification}
+                          >
+                            {payload.classification}
+                          </option>
+                          {categoryData &&
+                            categoryData.map(item => (
+                              <option
+                                key={item.iclassification}
+                                name="category-state"
+                                value={item.iclassification}
+                              >
+                                {item.classification}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="class-name">
                       <h3>과정명</h3>
                       <input
                         type="text"
@@ -325,34 +369,63 @@ export const ClassEditModal = ({ modalOpen, setModalOpen }) => {
                     <div>
                       <ReactDatePicker
                         className="date-picker"
-                        showIcon
                         icon="fa fa-calendar"
                         locale={ko}
-                        selected={payload.startedAt}
+                        selected={
+                          payload.startedAt ? parseISO(payload.startedAt) : null
+                        }
                         dateFormat="yyyy년 MM월 dd일"
-                        startDate={payload.startedAt}
-                        endDate={payload.endedAt}
                         selectsStart
-                        onChange={value => {
+                        onChange={date => {
                           setPayload(payload => ({
                             ...payload,
-                            startedAt: value,
+                            startedAt: date ? formatISO(date) : null,
                           }));
                         }}
                       />
                       <ReactDatePicker
                         className="date-picker"
                         locale={ko}
-                        selected={payload.endedAt}
+                        selected={
+                          payload.endedAt ? parseISO(payload.endedAt) : null
+                        }
                         dateFormat="yyyy년 MM월 dd일"
-                        startDate={payload.startedAt}
-                        endDate={payload.endedAt}
                         selectsEnd
-                        minDate={payload.startedAt}
+                        minDate={
+                          payload.startedAt ? parseISO(payload.startedAt) : null
+                        }
                         onChange={date => {
                           setPayload(payload => ({
                             ...payload,
-                            endedAt: date,
+                            endedAt: date ? formatISO(date) : null,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <div>
+                      <h3>수강시간</h3>
+                      <input
+                        type="text"
+                        value={payload.classTime}
+                        onChange={e => {
+                          setPayload(payload => ({
+                            ...payload,
+                            classTime: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <h3>회차</h3>
+                      <input
+                        type="text"
+                        value={payload.round}
+                        onChange={e => {
+                          setPayload(payload => ({
+                            ...payload,
+                            round: e.target.value,
                           }));
                         }}
                       />
@@ -388,8 +461,15 @@ export const ClassEditModal = ({ modalOpen, setModalOpen }) => {
                   </li>
                 </ul>
               </div>
+              {acceptOkModal && (
+                <AcceptModal
+                  acceptOkModal={acceptOkModal}
+                  setAcceptOkModal={setAcceptOkModal}
+                  uploadResult={uploadResult}
+                />
+              )}
               <div className="modal-ok">
-                <button onClick={handleModalAccept}>등록</button>
+                <button onClick={handleModalAccept}>수정</button>
               </div>
             </div>
           </div>

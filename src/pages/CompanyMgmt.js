@@ -240,6 +240,10 @@ const CompanyMgmt = () => {
             handleAllCheck={handleAllCheck}
             handleCheckBox={handleCheckBox}
             page={page}
+            acceptOkModal={acceptOkModal}
+            setAcceptOkModal={setAcceptOkModal}
+            uploadResult={uploadResult}
+            setUpLoadResult={setUpLoadResult}
           />
         </CompanyTable>
         <Paging page={page} setPage={setPage} count={count} />

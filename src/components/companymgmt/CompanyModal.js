@@ -3,6 +3,7 @@ import { deleteCompany, patchCompany } from "../../api/companyAxios";
 import { CompanyAcceptModalWrap } from "../../styles/ModalStyle";
 import { useState } from "react";
 import { ExcelUploadModalWrap } from "../../styles/ExcelUploadStyle";
+import { AcceptModal } from "../AcceptModals";
 
 export const ExcelUploadModal = ({
   excelModalOpen,
@@ -275,6 +276,10 @@ export const EdeitCompanyModal = ({
   editModalOpen,
   setEditModalOpen,
   handleModalCancel,
+  acceptOkModal,
+  setAcceptOkModal,
+  uploadResult,
+  setUpLoadResult,
 }) => {
   const [companyData, setCompanyData] = useState({
     companyCode: companyInfo.companyCode,
@@ -287,9 +292,19 @@ export const EdeitCompanyModal = ({
     dateConslusion: companyInfo.dateConslusion,
   });
 
-  const handleModalAccept = () => {
-    patchCompany(companyData);
-    setEditModalOpen(false);
+  const handleModalAccept = async () => {
+    try {
+      const result = await patchCompany(companyData);
+
+      setUpLoadResult(result);
+      if (result.success) {
+        setEditModalOpen(false);
+        setAcceptOkModal(true);
+      }
+    } catch (error) {
+      setEditModalOpen(false);
+      setAcceptOkModal(true);
+    }
   };
 
   return (
@@ -407,8 +422,15 @@ export const EdeitCompanyModal = ({
                   />
                 </div>
               </div>
+              {acceptOkModal && (
+                <AcceptModal
+                  acceptOkModal={acceptOkModal}
+                  setAcceptOkModal={setAcceptOkModal}
+                  uploadResult={uploadResult}
+                />
+              )}
               <div className="modal-ok">
-                <button onClick={handleModalAccept}>등록</button>
+                <button onClick={handleModalAccept}>수정</button>
               </div>
             </div>
           </div>

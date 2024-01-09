@@ -1,5 +1,14 @@
 import { client } from "./client";
 
+export const getCategory = async setCategoryData => {
+  try {
+    const res = await client.get(`/admin/category`);
+    setCategoryData(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getClassSubject = async (
   setListData,
   setCount,
@@ -29,6 +38,12 @@ export const getClassSubject = async (
 export const postClassSubject = async payload => {
   try {
     const res = await client.post("/admin/subject", payload);
+    
+    if (res.data.icourseSubject) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
   } catch (error) {
     console.log(error);
   }
@@ -44,9 +59,16 @@ export const deleteClassSubject = async icourseSubject => {
   }
 };
 
-export const putClassSubject = async () => {
+export const putClassSubject = async payload => {
   try {
-    const res = await client.put()
+    const res = await client.put(
+      `/admin/subject?icourseSubject=${payload.icourseSubject}&iclassification=${payload.iclassification}&courseSubjectName=${payload.courseSubjectName}&startedAt=${payload.startedAt}&endedAt=${payload.endedAt}&instructor=${payload.instructor}&lectureRoom=${payload.lectureRoom}&round=${payload.round}&classTime=${payload.classTime}`,
+    );
+    if (res.data.icourseSubject) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
   } catch (error) {
     console.log(error);
   }

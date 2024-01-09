@@ -1,6 +1,17 @@
 import React, { useState } from "react";
+import { ClassEditModal } from "./ClassModal";
 
-const ClassList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
+const ClassList = ({
+  listData,
+  handleAllCheck,
+  handleCheckBox,
+  page,
+  acceptOkModal,
+  setAcceptOkModal,
+  uploadResult,
+  setUpLoadResult,
+  categoryData,
+}) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [classInfo, setClassInfo] = useState(null);
   const handleEditModalOpen = data => {
@@ -27,7 +38,9 @@ const ClassList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
           <li className="class-table-th">번호</li>
           <li className="class-table-th">대분류</li>
           <li className="class-table-th">과정명</li>
+          <li className="class-table-th">회차</li>
           <li className="class-table-th">수강기간</li>
+          <li className="class-table-th">수강시간</li>
           <li className="class-table-th">강사명</li>
           <li className="class-table-th">강의실</li>
         </ul>
@@ -42,7 +55,7 @@ const ClassList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
             }
           >
             <ul>
-              <li>
+              <li className="check-box-li">
                 <input
                   type="checkbox"
                   name="check-box"
@@ -55,14 +68,30 @@ const ClassList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
               <li>{(page - 1) * 10 + index + 1}</li>
               <li>{item.classification}</li>
               <li>{item.courseSubjectName}</li>
+              <li>{item.round}</li>
               <li>
                 {item.startedAt} ~ {item.endedAt}
               </li>
+              <li>{item.classTime}</li>
               <li>{item.instructor}</li>
               <li>{item.lectureRoom}</li>
             </ul>
           </li>
         ))}
+
+      {editModalOpen && (
+        <ClassEditModal
+          classInfo={classInfo}
+          editModalOpen={editModalOpen}
+          setEditModalOpen={setEditModalOpen}
+          handleModalCancel={handleModalCancel}
+          categoryData={categoryData}
+          acceptOkModal={acceptOkModal}
+          setAcceptOkModal={setAcceptOkModal}
+          uploadResult={uploadResult}
+          setUpLoadResult={setUpLoadResult}
+        />
+      )}
     </ul>
   );
 };

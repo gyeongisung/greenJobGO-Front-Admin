@@ -1,3 +1,4 @@
+import { getClassSubject } from "../api/classAxios";
 import { ExcelAcceptModalWrap } from "../styles/ExcelUploadStyle";
 import { AcceptModalWrap } from "../styles/ModalStyle";
 
@@ -42,9 +43,11 @@ export const AcceptModal = ({
   acceptOkModal,
   setAcceptOkModal,
   uploadResult,
+  fetchData,
 }) => {
   const handleOk = () => {
     setAcceptOkModal(false);
+    fetchData();
   };
 
   return (
