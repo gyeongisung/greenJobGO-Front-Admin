@@ -13,22 +13,22 @@ import {
 import { patchSendSaved } from "../../api/portfolioAxios";
 import NoImage from "../../assets/NoImage.jpg";
 import { v4 } from "uuid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
 const SaveItemContent = ({ savedPFList }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [isSavedCancel, setIsSavedCancel] = useState(0);
+  const [cancelModalOpen, setCancelModalOpen] = useState(false);
+  const [isSaved, setIsSaved] = useState(1);
   const [checkItems, setCheckItems] = useState([]);
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
     e.target.src = NoImage;
   };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
+  
   // 메인으로 보낼 리스트를 체크하자
   const handleMainCheck = (istudent, isChecked) => {
     if (isChecked) {
@@ -42,15 +42,18 @@ const SaveItemContent = ({ savedPFList }) => {
   const handleGoMain = e => {
     console.log("메인으로 보내는 포폴 클릭", e);
   };
-  const handleSaveSend = item => {
-    console.log("보관함?", item);
+  // 보관을 취소한다
+  const handleSaveCancel = item => {
+    console.log("item", item);
     setSavedItemNum(item);
-    setModalOpen(true);
+    setCancelModalOpen(true);
   };
-  const handleConfirm = async () => {
+  const handleCancelConfirm = async () => {
     try {
-      await patchSendSaved({ savedItemNum, isSavedCancel });
-      setModalOpen(false);
+      await setIsSaved(0);
+      await patchSendSaved({ savedItemNum, isSaved });
+      // await updateData();
+      setCancelModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
     }
@@ -104,25 +107,31 @@ const SaveItemContent = ({ savedPFList }) => {
             <ul className="side-info">
               <li className="pf-name">{item.studentName} 수강생</li>
               <li className="pf-subject">{item.subjectName}</li>
+              {item.storageYn === 1 ? (
+                <li
+                  className="isSaved-name-right"
+                  onClick={() => handleSaveCancel(item.istudent)}
+                >
+                  <FontAwesomeIcon icon={solidHeart} />
+                </li>
+              ) : null}
             </ul>
           </CheckToMainSt>
         </div>
       ))}
-
-      {/* 확인모달 */}
-      {modalOpen && (
-        <ConfirmModal open={modalOpen} close={closeModal}>
-          <ConfirmModalContent>
-            <span>해당 포트폴리오의 보관을 취소 하시겠습니까?</span>
-            <div>
-              <ModalCancelBtn onClick={closeModal}>취소</ModalCancelBtn>
-              <ModalOkBtn onClick={() => handleConfirm()}>확인</ModalOkBtn>
-            </div>
-          </ConfirmModalContent>
+      {/* 보관취소모달 */}
+      {cancelModalOpen && (
+        <ConfirmModal
+          open={cancelModalOpen}
+          close={() => setCancelModalOpen(false)}
+          onConfirm={handleCancelConfirm}
+          onCancel={() => setCancelModalOpen(false)}
+        >
+          <span>해당 포트폴리오 보관을 취소 하시겠습니까?</span>
         </ConfirmModal>
       )}
     </PortFolioContentWrap>
   );
 };
 
-export default SaveItemContent;
+export default React.memo(SaveItemContent);

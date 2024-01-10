@@ -6,13 +6,14 @@ export const Maincolor = {
   white: "#fff",
   black: "#222",
   grayWhite: "#F0F0F0",
-  grayLight: "#DEDEDE",
   grayLight2: "#d9d9d9",
   grayMedium: "#A9A9A9",
   grayMediumDeep: "#7E7E7E",
   grayDeep: "#6D6D6D",
   blueMedium: "#228FCF",
   // 확정된 컬러바입니다
+  wrapborder: "#ECF0F4",
+  grayLight: "#DEDEDE",
   search: "#e6e6e6",
   maingray: "#d9d9d9",
   paginate: "#bababa",
@@ -136,6 +137,16 @@ export const ConfirmModalWarp = styled.div`
   .modalConfirm-content {
     height: 100%;
     padding: 40px 20px 20px 30px;
+    font-size: 14px;
+    line-height: 120%;
+    color: #515151;
+    & > div {
+      margin-top: 32px;
+      text-align: right;
+      & button {
+        margin-left: 5px;
+      }
+    }
   }
 
   .Confimmodal.openConfirmModal {

@@ -27,7 +27,11 @@ const StudentPostAuth = () => {
         </li>
         <li>
           <Space direction="vertical" size={12}>
-            <RangePicker format={dateFormat} onChange={onRangeChange} />
+            <RangePicker
+              format={dateFormat}
+              onChange={onRangeChange}
+              id="student-auth-date"
+            />
           </Space>
         </li>
       </ul>

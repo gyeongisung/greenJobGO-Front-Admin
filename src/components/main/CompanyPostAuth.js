@@ -17,7 +17,11 @@ const CompanyPostAuth = () => {
       <ul className="click-content">
         <li>
           <Space direction="vertical" size={12}>
-            <RangePicker format={dateFormat} onChange={onRangeChange} />
+            <RangePicker
+              format={dateFormat}
+              onChange={onRangeChange}
+              id="company-auth-date"
+            />
           </Space>
         </li>
       </ul>

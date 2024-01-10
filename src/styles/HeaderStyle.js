@@ -8,10 +8,14 @@ export const HeaderWrap = styled.div`
 
   .breadcrumb-wrap {
     position: absolute;
-    top: 6px;
+    top: 0px;
     left: 250px;
     height: 60px;
     padding: 1%;
+    color: ${Maincolor.black};
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
     cursor: pointer;
   }
 `;

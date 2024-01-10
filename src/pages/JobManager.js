@@ -36,14 +36,14 @@ const JobManager = () => {
         </div>
         <div className="maganer-add">
           <BtnGlobal onClick={openModal}>등록</BtnGlobal>
-          <InputModal
+          {modalOpen &&(<InputModal
             open={modalOpen}
             close={closeModal}
             header="취업 담당자 등록"
           >
             <ManagerAdd setAddModalOpen={setAddModalOpen}        mngProflieData={mngProflieData}
             setmngProflieData={setmngProflieData}/>
-          </InputModal>
+          </InputModal>)}
         </div>
       </div>
     </JobManagerWrap>

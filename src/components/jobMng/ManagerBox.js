@@ -7,7 +7,6 @@ import {
   deleteJobManagerInfo,
   getJobManagerInfo,
 } from "../../api/jobMngAxiois";
-import { ModalCancelBtn, ModalOkBtn } from "../../styles/GlobalStyle";
 import ConfirmModal from "../ConfirmModal";
 
 const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
@@ -16,6 +15,7 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [deleteNum, setDeleteNum] = useState("");
 
+  console.log("취업담당자 box 리랜더링");
   // 이미지 없을 때 error처리
   const onImgError = e => {
     e.target.src = NoImage;
@@ -24,11 +24,6 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
   //수정 모달 닫음
   const closeModal = () => {
     setModalOpen(false);
-  };
-
-  //확인 모달 닫음
-  const closeConfirmModal = () => {
-    setConfirmModalOpen(false);
   };
 
   // 수정하기
@@ -40,9 +35,6 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
 
   // 삭제하기
   const handleDeleteConfirm = async () => {
-    console.log("삭제확인누름");
-    console.log("삭제확인, 몇번?", deleteNum);
-
     try {
       await deleteJobManagerInfo(deleteNum);
       await updateData();
@@ -105,18 +97,20 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
               <button className="edit-btn" onClick={() => handleEdit(item)}>
                 수정
               </button>
-              <InputModal
-                open={modalOpen}
-                close={closeModal}
-                header="취업 담당자 수정"
-              >
-                <ManagerEdit
-                  item={selectedItem}
-                  setEditModalOpen={setModalOpen}
-                  mngProflieData={mngProflieData}
-                  setmngProflieData={setmngProflieData}
-                />
-              </InputModal>
+              {modalOpen && (
+                <InputModal
+                  open={modalOpen}
+                  close={() => setModalOpen(false)}
+                  header="취업 담당자 수정"
+                >
+                  <ManagerEdit
+                    item={selectedItem}
+                    setEditModalOpen={setModalOpen}
+                    mngProflieData={mngProflieData}
+                    setmngProflieData={setmngProflieData}
+                  />
+                </InputModal>
+              )}
             </li>
             <li>
               <button
@@ -131,16 +125,17 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
           </ul>
         </div>
       ))}
-      {/* 확인모달 */}
-      <ConfirmModal open={confirmModalOpen} close={closeConfirmModal}>
-        <div className="add-recheck-content">
+      {/* 삭제 확인 모달 */}
+      {confirmModalOpen && (
+        <ConfirmModal
+          open={confirmModalOpen}
+          close={() => setConfirmModalOpen(false)}
+          onConfirm={handleDeleteConfirm}
+          onCancel={() => setConfirmModalOpen(false)}
+        >
           <span>항목을 삭제 하시겠습니까?</span>
-          <div>
-            <ModalCancelBtn onClick={closeConfirmModal}>취소</ModalCancelBtn>
-            <ModalOkBtn onClick={() => handleDeleteConfirm()}>확인</ModalOkBtn>
-          </div>
-        </div>
-      </ConfirmModal>
+        </ConfirmModal>
+      )}
       {mngProflieData && mngProflieData.length === 0 && (
         <div>취업담당자의 정보를 등록해주세요</div>
       )}
@@ -148,4 +143,4 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
   );
 };
 
-export default ManagerBox;
+export default React.memo(ManagerBox);

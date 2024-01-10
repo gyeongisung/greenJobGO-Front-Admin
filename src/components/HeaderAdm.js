@@ -21,7 +21,7 @@ const HeaderAdm = ({ breadCrumbLnbTitle, breadcrumbItems }) => {
             {/* 상단 네비게이션 메뉴 */}
             <div className="breadcrumb-wrap">
               {breadCrumbLnbTitle !== "" && (
-                <Breadcrumb items={breadcrumbItems} />
+                <Breadcrumb separator=">" items={breadcrumbItems} />
               )}
             </div>
           </HeaderWrap>

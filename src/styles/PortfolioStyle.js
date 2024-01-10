@@ -14,22 +14,24 @@ export const PortFolioPage = styled.div`
     background: ${Maincolor.white};
     border: 1px solid #d0d0d0;
     cursor: pointer;
-    border-bottom: 2px solid ${Maincolor.grayDeep};
+    border-bottom: 1px solid ${Maincolor.grayDeep};
+    border-radius: 6px 6px 0px 0px;
 
     &.active {
-      border-top: 2px solid ${Maincolor.grayDeep};
-      border-right: 2px solid ${Maincolor.grayDeep};
-      border-bottom: 2px solid ${Maincolor.white};
-      border-left: 2px solid ${Maincolor.grayDeep};
+      border-top: 1px solid ${Maincolor.grayDeep};
+      border-right: 1px solid ${Maincolor.grayDeep};
+      border-bottom: 1px solid ${Maincolor.white};
+      border-left: 1px solid ${Maincolor.grayDeep};
     }
   }
+  /* 검색바 윗쪽 라인 */
   .search-upper-line {
     position: absolute;
-    top: 44px;
-    left: 324px;
+    top: 45px;
+    left: 325px;
     width: 1260px;
-    height: 2px;
-    background: ${Maincolor.grayDeep};
+    height: 1px;
+    border-top: 1px solid ${Maincolor.grayDeep};
   }
   /* 내용 섹션 */
   .content-wrap {
@@ -118,6 +120,8 @@ export const PortFolioContentWrap = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 30px;
+  
+  /* 메인으로 보내는 버튼 */
   .GoMainGo {
     position: absolute;
     top: -50px;
@@ -178,19 +182,35 @@ export const PortFolioContentWrap = styled.div`
     }
 
     /* 포트폴리오 정보 */
-    .pf-name {
-      font-size: 16px;
-      font-weight: 500;
-      letter-spacing: -0.24px;
-      margin-bottom: 5px;
-    }
-    .pf-subject {
-      width: 294px;
-      color: ${Maincolor.grayDeep};
-      font-size: 16px;
-      font-weight: 400;
-      letter-spacing: -0.24px;
-      ${ellipsis.one}
+    & > ul {
+      position: relative;
+      .pf-name {
+        width: 120px;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.24px;
+        margin-bottom: 5px;
+        ${ellipsis.one}
+      }
+      .pf-subject {
+        width: 245px;
+        color: ${Maincolor.grayDeep};
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: -0.24px;
+        ${ellipsis.one}
+      }
+      /* 보관함에 있는 포트폴리오 하트 */
+      .isSaved-name-right {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        color: #ff6262;
+        & > svg {
+          font-size: 16px;
+        }
+      }
     }
   }
   /* 포트폴리오리스트 -> 마우스 호버 */
@@ -222,9 +242,8 @@ export const PortFolioContentWrap = styled.div`
     .savedGo-btn {
       color: ${Maincolor.white};
     }
-    // 보관함이 있어요 버튼
     .isSaved-btn {
-      color: #ff6262;
+      color: ${Maincolor.red};
     }
   }
 `;
@@ -243,9 +262,22 @@ export const CheckToMainSt = styled.div`
     }
   }
   .side-info {
+    position: relative;
     .pf-subject {
       width: 250px;
       ${ellipsis.one}
+    }
+    /* 보관함에 있는 포트폴리오 하트 */
+    .isSaved-name-right {
+      position: absolute;
+      top: 0;
+      right: -13px;
+      width: 20px;
+      color: ${Maincolor.red};
+      cursor: pointer;
+      & > svg {
+        font-size: 16px;
+      }
     }
   }
 `;

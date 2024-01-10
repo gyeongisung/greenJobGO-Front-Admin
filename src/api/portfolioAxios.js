@@ -40,7 +40,7 @@ export const getPortFolioList = async ({
 };
 
 // 보관함으로 보내기
-export const patchSendSaved = async ({ savedItemNum, isSaved, setRenderState }) => {
+export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
   console.log("값 들어오니?", savedItemNum);
 
   try {
@@ -49,7 +49,6 @@ export const patchSendSaved = async ({ savedItemNum, isSaved, setRenderState }) 
     );
     const result = await res.data;
     console.log("보관함 감ㅋ", result);
-    setRenderState(!false);
     return result;
   } catch (error) {
     console.log(error);
