@@ -5,15 +5,13 @@ import { v4 } from "uuid";
 import { getBigcate, getSavedPFList } from "../../api/portfolioAxios";
 
 const SaveItemSearch = ({
-  searchsubj,
-  setSearchSubj,
-  searchname,
-  setSearchname,
   page,
   setPage,
   setSavedPFList,
   setCount,
 }) => {
+  const [searchsubj, setSearchSubj] = useState("");
+  const [searchname, setSearchname] = useState("");
   const [category, setCategory] = useState([]);
   const [selectCate, setSelectCate] = useState("");
 
@@ -70,7 +68,7 @@ const SaveItemSearch = ({
             id="category-select"
             onChange={e => handleCategoryFilter(e)}
           >
-            <option value="" selected>
+            <option value="" defaultValue>
               전체
             </option>
             {category?.map(item => (
@@ -120,4 +118,4 @@ const SaveItemSearch = ({
   );
 };
 
-export default SaveItemSearch;
+export default React.memo(SaveItemSearch);

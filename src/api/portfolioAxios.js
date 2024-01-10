@@ -39,16 +39,21 @@ export const getPortFolioList = async ({
   }
 };
 
-// 보관함으로 보내기
-export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
-  console.log("값 들어오니?", savedItemNum);
+// 보관함으로 보내거나 취소하기
+export const patchSendSaved = async ({
+  savedItemNum,
+  isSaved,
+  setIsRender,
+}) => {
+  console.log("savedItemNum 들어오니?", savedItemNum);
+  console.log("isSaved 들어오니?", isSaved);
 
   try {
     const res = await client.patch(
       `/admin/student/storage?istudent=${savedItemNum}&storageYn=${isSaved}`,
     );
     const result = await res.data;
-    console.log("보관함 감ㅋ", result);
+    console.log("보관함 patchㅋ", result);
     return result;
   } catch (error) {
     console.log(error);

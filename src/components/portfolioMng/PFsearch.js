@@ -4,16 +4,9 @@ import { BtnGlobal } from "../../styles/GlobalStyle";
 import { v4 } from "uuid";
 import { getBigcate, getPortFolioList } from "../../api/portfolioAxios";
 
-const PFsearch = ({
-  searchsubj,
-  setSearchSubj,
-  searchname,
-  setSearchname,
-  page,
-  setPage,
-  setStudentPFList,
-  setCount,
-}) => {
+const PFsearch = ({ page, setPage, setStudentPFList, setCount }) => {
+  const [searchsubj, setSearchSubj] = useState("");
+  const [searchname, setSearchname] = useState("");
   const [category, setCategory] = useState([]);
   const [selectCate, setSelectCate] = useState("");
 

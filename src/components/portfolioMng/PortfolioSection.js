@@ -1,13 +1,12 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PFsearch from "./PFsearch";
 import { getPortFolioList } from "../../api/portfolioAxios";
 import PortfolioContent from "./PortfolioContent";
 import PortfolioPaging from "./PortfolioPaging";
-import { NothingData } from "../../styles/PortfolioStyle";
+import { NothingData, PortFolioContentWrap } from "../../styles/PortfolioStyle";
+import { v4 } from "uuid";
 
 const PortfolioSection = () => {
-  const [searchsubj, setSearchSubj] = useState("");
-  const [searchname, setSearchname] = useState("");
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [studentPFList, setStudentPFList] = useState("");
@@ -19,27 +18,20 @@ const PortfolioSection = () => {
 
   return (
     <div>
+      {/* 검색창 화면*/}
       <PFsearch
-        searchsubj={searchsubj}
-        setSearchSubj={setSearchSubj}
-        searchname={searchname}
-        setSearchname={setSearchname}
         page={page}
         setPage={setPage}
         setStudentPFList={setStudentPFList}
-        setCount={setCount} />
-      {/* {studentPFList.res.length > 0 ? ( */}
-      <PortfolioContent
-        studentPFList={studentPFList}
-        setStudentPFList={setStudentPFList}
         setCount={setCount}
       />
-      {/* ) : (
-        // 데이터 없을 때 뜨는 화면
-        <NothingData>
-          <p>데이터가 없어요 （；´д｀）ゞ</p>
-        </NothingData>
-      )} */}
+      {/* 포트폴리오 리스트 화면 */}
+      <PortFolioContentWrap>
+        {studentPFList?.res?.map(item => (
+          <PortfolioContent key={v4()} item={item} setStudentPFList={setStudentPFList}/>
+        ))}
+      </PortFolioContentWrap>
+      {/* 페이지네이션 */}
       <PortfolioPaging page={page} setPage={setPage} count={count} />
     </div>
   );
