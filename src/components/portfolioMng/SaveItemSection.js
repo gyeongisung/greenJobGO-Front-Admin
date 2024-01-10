@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getBigcate, getPortFolioList, getSavedPFList } from "../../api/portfolioAxios";
+import {
+  getBigcate,
+  getPortFolioList,
+  getSavedPFList,
+} from "../../api/portfolioAxios";
 import PFsearch from "./PFsearch";
 import SaveItemContent from "./SaveItemContent";
 import PortfolioPaging from "./PortfolioPaging";
@@ -55,6 +59,9 @@ const SaveItemSection = () => {
 
   useEffect(() => {
     getBigcate(setCategory);
+  }, []);
+  
+  useEffect(() => {
     getSavedPFList({ setSavedPFList, page, setCount });
   }, [page]);
   console.log("카테정보 어떻게 들어오니", category);

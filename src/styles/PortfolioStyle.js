@@ -67,7 +67,6 @@ export const PfSearchWrap = styled.div`
     }
     li > select {
       border: 1px solid ${Maincolor.input};
-      border-radius: 5px;
       width: 154px;
       height: 40px;
       padding: 8px 12px;
@@ -85,6 +84,26 @@ export const PfSearchWrap = styled.div`
       margin-left: 120px;
       width: 180px;
       height: 50px;
+    }
+    /* select창 화살표 커스텀 */
+    .select-wrap {
+      background: linear-gradient(
+        to right,
+        ${Maincolor.search} 33.5%,
+        ${Maincolor.white} 33.5%
+      );
+      select {
+        -o-appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url(${process.env.PUBLIC_URL}/assets/Arrowdown.png)
+          no-repeat calc(100% - 12px) 50%/11px auto;
+        padding: 0 28px 0 10px;
+      }
+      select::-ms-expand {
+        display: none;
+      }
     }
   }
 `;

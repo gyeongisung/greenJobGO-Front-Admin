@@ -16,13 +16,13 @@ const StudentPostAuth = () => {
     <StudentAuthPostSty>
       <ul className="click-content">
         <li className="select-wrap">
-          <select className="cate-select">
-            <option></option>
+          <select id="cate-select-student">
+            <option>전체</option>
           </select>
         </li>
         <li className="select-wrap">
-          <select className="subject-select">
-            <option></option>
+          <select id="subject-select-student">
+            <option>전체</option>
           </select>
         </li>
         <li>

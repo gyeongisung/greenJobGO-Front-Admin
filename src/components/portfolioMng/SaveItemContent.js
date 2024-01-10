@@ -90,7 +90,7 @@ const SaveItemContent = ({ savedPFList }) => {
               <li>
                 <input
                   type="checkbox"
-                  id="go-main-checked"
+                  id={`${v4()}`}
                   checked={checkItems.includes(item.istudent)}
                   onChange={() =>
                     handleMainCheck(

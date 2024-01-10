@@ -35,11 +35,10 @@ const SaveItemSearch = ({
         </li>
         <li>
           <div className="subjectname-form">
-            <label htmlFor="subject-state">과정명</label>
+            <label htmlFor="subject-state-save">과정명</label>
             <input
               type="text"
-              name="subject-state"
-              id="subject-state"
+              id="subject-state-save"
               value={searchsubj}
               onChange={e => setSearchSubj(e.target.value)}
               onKeyDown={e => {
@@ -52,11 +51,10 @@ const SaveItemSearch = ({
         </li>
         <li>
           <div className="studentname-form">
-            <label htmlFor="student-state">수강생 이름</label>
+            <label htmlFor="student-state-save">수강생 이름</label>
             <input
               type="text"
-              name="student-state"
-              id="student-state"
+              id="student-state-save"
               value={searchname}
               onChange={e => setSearchname(e.target.value)}
               onKeyDown={e => {

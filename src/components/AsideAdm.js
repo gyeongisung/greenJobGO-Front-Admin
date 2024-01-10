@@ -43,7 +43,6 @@ const AsideAdm = () => {
     };
   }
   const menuItems2 = [
-    // getItem("홈", "1", null),
     getItem(<Link to="/home">홈</Link>, "/home", null),
     getItem("과정관리", "sub1", null, [
       getItem(<Link to="/class">과정등록 • 관리</Link>, "/class"),
@@ -70,14 +69,12 @@ const AsideAdm = () => {
           }
         }
       >
-        <Link to="/home">
-          <div className="sidemenu-logo-div">
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/LoginTitle.png`}
-              alt="greenlogo"
-            />
-          </div>
-        </Link>
+        <div className="sidemenu-logo-div">
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/LoginTitle.png`}
+            alt="greenlogo"
+          />
+        </div>
         <Menu
           style={{
             width: "250",

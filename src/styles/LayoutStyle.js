@@ -5,7 +5,7 @@ export const LayoutWrapSty = styled.div`
   position: relative;
   width: 100vw;
   height: auto;
-`;
+  `;
 
 export const ContentWrap = styled.div`
   display: fixed;
@@ -29,6 +29,8 @@ export const ContentWrap = styled.div`
     background: ${Maincolor.white};
     border: 10px ${Maincolor.grayLight} solid;
     /* box-shadow: inset 0px -2px 20px black; */
+    overflow: auto;
+
   }
   .contents-box {
     height: calc(100vh - 80px);

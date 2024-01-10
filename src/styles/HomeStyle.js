@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Maincolor, ellipsis } from "./GlobalStyle";
 
 export const MainWrapSty = styled.div`
+  width: calc(1920px - 270px);
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
@@ -60,20 +61,20 @@ export const StudentAuthPostSty = styled.div`
     flex-wrap: wrap;
     gap: 15px;
     padding: 20px;
-    .cate-select,
-    .subject-select {
+    #cate-select-student,
+    #subject-select-student {
       padding: 8px 12px;
       align-items: center;
       border-radius: 6px;
       border: 1px solid ${Maincolor.maingray};
     }
     /* 대분류 선택 */
-    .cate-select {
+    #cate-select-student {
       width: 150px;
       height: 40px;
     }
     /* 과목 선택 */
-    .subject-select {
+    #subject-select-student {
       width: 260px;
       height: 40px;
     }
@@ -108,29 +109,44 @@ export const StudentAuthgetListSty = styled.div`
     .class-auth-list {
       width: 710px;
       height: 240px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      ::-webkit-scrollbar {
+        display: block;
+        width: 5px;
+        height: 5px;
+      }
+      /* 스크롤바 막대 */
+      ::-webkit-scrollbar-thumb {
+        background: ${Maincolor.btn}; /* 스크롤바 막대 색상 */
+        /* border-radius: 12px 12px 12px 12px; */
+      }
+      /* 스크롤바 막대 외부 */
+      ::-webkit-scrollbar-track {
+        background: ${Maincolor.maingray}; /* 스크롤바 뒷 배경 색상 */
+      }
       & > ul {
         width: 693px;
         height: 40px;
-        border-radius: 6px;
-        background: ${Maincolor.maingray};
         font-size: 14px;
         font-weight: 400;
         line-height: 18px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        flex-direction: column;
         gap: 10px;
         & > li {
+          background: ${Maincolor.maingray};
+          border-radius: 6px;
           padding: 11px;
           width: 100%;
           .title {
-            float: left;
+            text-align: left;
             width: 440px;
             ${ellipsis.one}
           }
           .date {
             float: right;
-
             width: 160px;
             ${ellipsis.one}
           }
