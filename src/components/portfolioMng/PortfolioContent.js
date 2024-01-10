@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { PortFolioContentWrap } from "../../styles/PortfolioStyle";
 import NoImage from "../../assets/NoImage.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,8 @@ import {
   ModalCancelBtn,
   ModalOkBtn,
 } from "../../styles/GlobalStyle";
+import { v4 } from "uuid";
+
 import ConfirmModal from "../ConfirmModal";
 
 const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
@@ -17,7 +19,8 @@ const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(1);
-  0;
+  const [renderState, setRenderState] = useState(false);
+
   // 이미지 없을 때 error처리
   const onImgError = e => {
     e.target.src = NoImage;
@@ -38,7 +41,7 @@ const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
   const handleConfirm = async () => {
     try {
       await setIsSaved(1);
-      await patchSendSaved({ savedItemNum, isSaved });
+      await patchSendSaved({ savedItemNum, isSaved, setRenderState });
       // await updateData();
       setModalOpen(false);
     } catch (error) {
@@ -54,7 +57,7 @@ const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
   const handleCancelConfirm = async () => {
     try {
       await setIsSaved(0);
-      await patchSendSaved({ savedItemNum, isSaved });
+      await patchSendSaved({ savedItemNum, isSaved, setRenderState });
       // await updateData();
       setCancelModalOpen(false);
     } catch (error) {
@@ -62,36 +65,59 @@ const PortfolioContent = ({ studentPFList, setStudentPFList, setCount }) => {
     }
   };
 
+
   useEffect(() => {
-    getPortFolioList({ setStudentPFList, setCount });
-  }, [isSaved]);
+    console.log("컨텐츠 화면 리랜더링 합니다");
+    console.log("render state?", renderState);
+    // getPortFolioList({ setStudentPFList, setCount });
+  }, [renderState]);
   return (
     <PortFolioContentWrap>
-      {studentPFList?.res?.map((item, index) => (
-        <div className="pf-box" key={index}>
-          <div className="pf-img-hover">
-            {item.storageYn === 0 ? (
-              <i
-                className="saved-btn"
-                onClick={() => handleSaveSend(item.istudent)}
-              >
-                <FontAwesomeIcon icon={regularHeart} />
-              </i>
-            ) : item.storageYn === 1 ? (
-              <i
-                className="saved-btn"
-                onClick={() => handleSaveCancel(item.istudent)}
-              >
-                <FontAwesomeIcon icon={solidHeart} />
-              </i>
-            ) : null}
-          </div>
+      {studentPFList?.res?.map(item => (
+        <div className="pf-box" key={v4()}>
           <div className="pf-img">
+            <div className="pf-img-hover">
+              {item.storageYn === 0 ? (
+                <i
+                  className="savedGo-btn"
+                  onClick={() => handleSaveSend(item.istudent)}
+                >
+                  <FontAwesomeIcon icon={regularHeart} />
+                </i>
+              ) : item.storageYn === 1 ? (
+                <i
+                  className="isSaved-btn"
+                  onClick={() => handleSaveCancel(item.istudent)}
+                >
+                  <FontAwesomeIcon icon={solidHeart} />
+                </i>
+              ) : null}
+            </div>
             <img
               src={`${item.img}`}
               alt={item.studentName}
               onError={onImgError}
             />
+            <ul className="thumb-right">
+              {item.storageYn === 1 && (
+                <li>
+                  {" "}
+                  <i className="save-icon">
+                    <FontAwesomeIcon icon={solidHeart} />
+                  </i>
+                </li>
+              )}
+              {item.huntJobYn === 1 && (
+                <li>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/got-a-job.png`}
+                    alt="got-a-job"
+                    className="job-yes-icon"
+                    onError={onImgError}
+                  />
+                </li>
+              )}
+            </ul>
           </div>
           <ul>
             <li className="pf-name">{item.studentName} 수강생</li>

@@ -14,29 +14,35 @@ export const SideMenuWrap = styled.div`
     width: 250px;
     height: 60px;
     background: ${Maincolor.white};
-    cursor: pointer;
     img {
       width: 190px;
       height: 15px;
       object-fit: contain;
       position: absolute;
-      top: 50%;
+      top: 52%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
   }
-
   .ant-menu {
     /* height: calc(100% - 64px); */
     height: 100%;
     width: 250px;
   }
-
   .ant-menu-sub.ant-menu-inline {
     background: ${Maincolor.white} !important;
   }
+  .ant-menu-submenu {
+    border-radius: 0;
+  }
+
   .ant-menu .ant-menu-item {
     border-radius: 0;
+    height: 50px;
+    margin-block: 0;
+  }
+  .ant-menu-light .ant-menu-item-selected {
+    background: rgba(34, 143, 207, 0.1);
   }
   .ant-menu .ant-menu-submenu-title {
     border-radius: 0;

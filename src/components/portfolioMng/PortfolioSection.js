@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PFsearch from "./PFsearch";
 import { getBigcate, getPortFolioList } from "../../api/portfolioAxios";
 import PortfolioContent from "./PortfolioContent";
@@ -15,10 +15,11 @@ const PortfolioSection = () => {
   const [studentPFList, setStudentPFList] = useState("");
 
   // 카테변경값 저장
-  const handleCategoryFilter = e => {
-    console.log("필터변경e", e.target.value);
-    setSelectCate(e.target.value);
-  };
+  const handleCategoryFilter =
+    e => {
+      console.log("필터변경e", e.target.value);
+      setSelectCate(e.target.value);
+    };
   // 쿼리 주소를 변환하자
   const makeUrl = () => {
     let query = "";
@@ -56,9 +57,13 @@ const PortfolioSection = () => {
 
   useEffect(() => {
     getBigcate(setCategory);
+  }, []);
+
+  useEffect(() => {
+    console.log("상위 화면 리랜더링 합니다");
     getPortFolioList({ setStudentPFList, page, setCount });
   }, [page]);
-  console.log("카테정보 어떻게 들어오니", category);
+
   console.log("무슨카테 선택했니", selectCate);
 
   return (

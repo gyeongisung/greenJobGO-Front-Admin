@@ -2,6 +2,8 @@ import { client } from "./client";
 
 //  대분류 카테고리 불러오기
 export const getBigcate = async setCategory => {
+  console.log("카테정보 불러옵니다");
+
   try {
     const res = await client.get(`/admin/category`);
     const result = await res.data;
@@ -38,7 +40,7 @@ export const getPortFolioList = async ({
 };
 
 // 보관함으로 보내기
-export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
+export const patchSendSaved = async ({ savedItemNum, isSaved, setRenderState }) => {
   console.log("값 들어오니?", savedItemNum);
 
   try {
@@ -47,6 +49,7 @@ export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
     );
     const result = await res.data;
     console.log("보관함 감ㅋ", result);
+    setRenderState(!false);
     return result;
   } catch (error) {
     console.log(error);

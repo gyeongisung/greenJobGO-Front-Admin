@@ -175,7 +175,7 @@ const ManagerEdit = ({
         <BtnGlobal onClick={handleEditOK}> 수정 </BtnGlobal>
         <ConfirmModal open={modalOpen} close={closeModal}>
           <ConfirmModalContent>
-            <span>항목을 수정 하시겠습니까?</span>
+            <span>수정 하시겠습니까?</span>
             <div>
               <ModalCancelBtn onClick={closeModal}>취소</ModalCancelBtn>
               <ModalOkBtn onClick={handleConfirm}>확인</ModalOkBtn>

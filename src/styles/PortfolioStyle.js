@@ -27,14 +27,13 @@ export const PortFolioPage = styled.div`
     position: absolute;
     top: 44px;
     left: 324px;
-    width: 1234px;
+    width: 1260px;
     height: 2px;
     background: ${Maincolor.grayDeep};
   }
   /* 내용 섹션 */
   .content-wrap {
     position: absolute;
-    /* padding-top: 44px; */
     top: 44px;
     left: 0;
     width: 1620px;
@@ -51,11 +50,10 @@ export const PfSearchWrap = styled.div`
   min-width: 1266px;
   height: 100px;
   border-radius: 12px;
-  background: ${Maincolor.grayWhite};
+  background: ${Maincolor.search};
   margin-top: 30px;
   .student-portfolio-search {
     display: flex;
-    /* justify-content: left; */
     align-items: center;
     gap: 20px;
     margin: 30px 0;
@@ -68,8 +66,7 @@ export const PfSearchWrap = styled.div`
       margin-left: 30px;
     }
     li > select {
-      border: 1px solid ${Maincolor.grayMedium};
-      border-radius: 5px;
+      border: 1px solid ${Maincolor.input};
       width: 154px;
       height: 40px;
       padding: 8px 12px;
@@ -79,7 +76,7 @@ export const PfSearchWrap = styled.div`
     li > div > input {
       width: 215px;
       height: 40px;
-      border: 1px solid ${Maincolor.grayMedium};
+      border: 1px solid ${Maincolor.input};
       border-radius: 5px;
       padding: 8px 12px;
     }
@@ -88,11 +85,32 @@ export const PfSearchWrap = styled.div`
       width: 180px;
       height: 50px;
     }
+    /* select창 화살표 커스텀 */
+    .select-wrap {
+      background: linear-gradient(
+        to right,
+        ${Maincolor.search} 33.5%,
+        ${Maincolor.white} 33.5%
+      );
+      select {
+        -o-appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url(${process.env.PUBLIC_URL}/assets/Arrowdown.png)
+          no-repeat calc(100% - 12px) 50%/11px auto;
+        padding: 0 28px 0 10px;
+      }
+      select::-ms-expand {
+        display: none;
+      }
+    }
   }
 `;
 
 // 포트폴리오 페이지 스타일
 export const PortFolioContentWrap = styled.div`
+  position: relative;
   width: 1600px;
   padding: 30px 0;
   display: flex;
@@ -100,15 +118,66 @@ export const PortFolioContentWrap = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 30px;
+  .GoMainGo {
+    position: absolute;
+    top: -50px;
+    left: 1360px;
+    width: 225px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.24px;
+  }
   .pf-box {
-    position: relative;
+    width: 294px;
     margin: 10px 0;
-    .pf-img img {
-      width: 294px;
-      height: 185px;
-      object-fit: cover;
+    .pf-img {
+      position: relative;
       margin-bottom: 15px;
+      img {
+        width: 294px;
+        height: 185px;
+        object-fit: cover;
+      }
+      /* 리스트 썸네일 우측 아이콘 */
+      .thumb-right {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+
+        /* 보관중인 포트폴리오 아이콘*/
+        .save-icon {
+          font-size: 25px;
+          /* color: ${Maincolor.white}; */
+        }
+        /* 취업자 아이콘 */
+        .job-yes-icon {
+          width: 25px;
+          height: 25px;
+          object-fit: contain;
+        }
+      }
     }
+
+    /* 보관함 -> 저장된 이미지 */
+    .saved-img {
+      position: relative;
+      margin-bottom: 15px;
+      & > img {
+        width: 294px;
+        height: 185px;
+        object-fit: cover;
+      }
+      .isMainDim {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 294px;
+        height: 185px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    /* 포트폴리오 정보 */
     .pf-name {
       font-size: 16px;
       font-weight: 500;
@@ -124,6 +193,7 @@ export const PortFolioContentWrap = styled.div`
       ${ellipsis.one}
     }
   }
+  /* 포트폴리오리스트 -> 마우스 호버 */
   .pf-box:hover .pf-img-hover {
     display: block;
     z-index: 888;
@@ -132,32 +202,50 @@ export const PortFolioContentWrap = styled.div`
   .pf-img-hover {
     display: none;
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 294px;
-    height: 185px;
-    background-color: rgba(34, 143, 207, 0.3);
+    height: 60px;
+    background: rgba(0, 0, 0, 0.3);
     z-index: 99;
-    cursor: pointer;
-    & > .saved-btn {
-      position: absolute;
-      top: 5%;
-      right: 5%;
+    .savedGo-btn,
+    .isSaved-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
       font-size: 25px;
+      padding: 5px;
+      cursor: pointer;
+    }
+    // 보관함으로 보내요 버튼
+    .savedGo-btn {
       color: ${Maincolor.white};
+    }
+    // 보관함이 있어요 버튼
+    .isSaved-btn {
+      color: #ff6262;
     }
   }
 `;
+
 // 메인으로 보내는 체크박스 style
 export const CheckToMainSt = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   .main-checked {
-    margin-right: 15px;
     line-height: 2;
+    margin-right: 8px;
     > li > input {
       width: 17px;
       height: 17px;
+      text-align: center;
+    }
+  }
+  .side-info {
+    .pf-subject {
+      width: 250px;
+      ${ellipsis.one}
     }
   }
 `;

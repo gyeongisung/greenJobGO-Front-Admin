@@ -134,7 +134,7 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
         <BtnGlobal onClick={openModal}>등록</BtnGlobal>
         <ConfirmModal open={modalOpen} close={closeModal}>
           <div className="add-recheck-content">
-            <span>항목을 등록 하시겠습니까?</span>
+            <span>등록 하시겠습니까?</span>
             <div>
               <ModalCancelBtn onClick={closeModal}>취소</ModalCancelBtn>
               <ModalOkBtn onClick={handleConfirm}>확인</ModalOkBtn>

@@ -1,6 +1,7 @@
 import React from "react";
 import { PfSearchWrap } from "../../styles/PortfolioStyle";
 import { BtnGlobal } from "../../styles/GlobalStyle";
+import { v4 } from "uuid";
 
 const PFsearch = ({
   searchsubj,
@@ -12,11 +13,10 @@ const PFsearch = ({
   handleCategoryFilter,
   handleSearchClick,
 }) => {
-
   return (
     <PfSearchWrap>
       <ul className="student-portfolio-search">
-        <li>
+        <li className="select-wrap">
           <label htmlFor="category-select">직종</label>
           <select
             value={selectCate}
@@ -27,7 +27,7 @@ const PFsearch = ({
               전체
             </option>
             {category?.map(item => (
-              <option key={item.iclassification} value={item.iclassification}>
+              <option key={v4()} value={item.iclassification}>
                 {item.classification}
               </option>
             ))}
@@ -38,7 +38,6 @@ const PFsearch = ({
             <label htmlFor="subject-state">과정명</label>
             <input
               type="text"
-              name="subject-state"
               id="subject-state"
               value={searchsubj}
               onChange={e => setSearchSubj(e.target.value)}
@@ -55,7 +54,6 @@ const PFsearch = ({
             <label htmlFor="student-state">수강생 이름</label>
             <input
               type="text"
-              name="student-state"
               id="student-state"
               value={searchname}
               onChange={e => setSearchname(e.target.value)}

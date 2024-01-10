@@ -2,6 +2,8 @@ import React from "react";
 import { ConfirmModalWarp } from "../styles/GlobalStyle";
 
 const ConfirmModal = ({ open, close, children }) => {
+
+  console.log("컨펌모달 작동됩니다")
   const stopPropagation = e => {
     e.stopPropagation();
   };
