@@ -8,19 +8,30 @@ import {
   StudentTable,
 } from "../../styles/StudentMgmtStyle";
 import { DeleteStudnetModal, StudentModal } from "../studentmgmt/StudentModal";
-import { getStudentList } from "../../api/studentAxios";
+import { getStudenListDownload, getStudentList } from "../../api/studentAxios";
 import { useRecoilState } from "recoil";
 import { changeComponent } from "../../recoil/atoms/ChangeState";
+import { getCategory } from "../../api/classAxios";
+import { postCompanyExcel } from "../../api/companyAxios";
+import { AcceptModal, ExcelAcceptModal } from "../AcceptModals";
+import { ExcelUploadModal } from "../companymgmt/CompanyModal";
 
 const StudentMain = () => {
   const [listData, setListData] = useState([]);
   const [saveCheckBox, setSaveCheckBox] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [excelModalOpen, setExcelModalOpen] = useState(false);
+  const [excelOkModal, setExcelOkModal] = useState(false);
+  const [acceptOkModal, setAcceptOkModal] = useState(false);
+  const [uploadResult, setUpLoadResult] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [excelDownload, setExcelDownload] = useState(null);
   const [isTrue, setIsTrue] = useRecoilState(changeComponent);
 
   let resultIdArray = saveCheckBox;
@@ -60,6 +71,7 @@ const StudentMain = () => {
 
   const fetchData = () => {
     getStudentList(setListData, setCount, page, search);
+    getCategory(setCategoryData);
   };
 
   useEffect(() => {
@@ -96,10 +108,33 @@ const StudentMain = () => {
     }
   };
 
-  const handleExcelUpload = companyfile => {
-    let formData = new FormData();
-    formData.append("companyfile", companyfile[0]);
-    // postCompanyExcel(formData);
+  const handleExcelModalOpen = () => {
+    setExcelModalOpen(true);
+  };
+
+  const handleExcelUpload = async () => {
+    if (selectedFile) {
+      let formData = new FormData();
+      formData.append("companyfile", selectedFile);
+
+      try {
+        const result = await postCompanyExcel(formData);
+
+        setUpLoadResult(result);
+
+        if (result.success) {
+          setExcelModalOpen(false);
+          setExcelOkModal(true);
+          setSelectedFile(null);
+        }
+      } catch (error) {
+        console.error("파일 업로드에 실패했습니다.", error);
+      }
+    }
+  };
+
+  const handleExcelDownLoad = async () => {
+    getStudenListDownload(setExcelDownload);
   };
 
   return (
@@ -114,9 +149,35 @@ const StudentMain = () => {
           search={search}
           setSearch={setSearch}
           handleSearch={handleSearch}
+          categoryData={categoryData}
         />
         {modalOpen && (
           <StudentModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        )}
+        {acceptOkModal && (
+          <AcceptModal
+            acceptOkModal={acceptOkModal}
+            setAcceptOkModal={setAcceptOkModal}
+            uploadResult={uploadResult}
+          />
+        )}
+        {excelModalOpen && (
+          <ExcelUploadModal
+            excelModalOpen={excelModalOpen}
+            setExcelModalOpen={setExcelModalOpen}
+            handleExcelUpload={handleExcelUpload}
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+            excelOkModal={excelOkModal}
+            setExcelOkModal={setExcelOkModal}
+          />
+        )}
+        {excelOkModal && (
+          <ExcelAcceptModal
+            excelOkModal={excelOkModal}
+            setExcelOkModal={setExcelOkModal}
+            uploadResult={uploadResult}
+          />
         )}
         {deleteModalOpen && (
           <DeleteStudnetModal
@@ -128,15 +189,8 @@ const StudentMain = () => {
           />
         )}
         <div className="student-buttons">
-          <div>
-            <input
-              type="file"
-              accept=".xlsx, .xls, .csv"
-              onChange={e => handleExcelUpload(e.target.files)}
-            />
-          </div>
-          <button>엑셀 업로드</button>
-          <button onClick={handleModalOpen}>수강생 등록</button>
+          <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
+          <button onClick={handleExcelDownLoad}>엑셀 다운로드</button>
           <button onClick={handleDeleteClick}>삭제</button>
         </div>
         <div className="total-count">

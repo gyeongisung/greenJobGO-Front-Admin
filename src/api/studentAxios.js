@@ -25,3 +25,50 @@ export const getStudentList = async (
     console.log(error);
   }
 };
+
+export const getStudentDetail = async istudent => {
+  try {
+    const res = await client.get(`/admin/student/detail?istudent=${istudent}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getStudenListDownload = async () => {
+  try {
+    const { data, headers } = await client.get(`/admin/sign/student-download`, {
+      responseType: "blob",
+    });
+    const blob = new Blob([data], {
+      type: headers["content-type"],
+    });
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    
+    const filename = headers["content-disposition"]
+      .split("filename=")[1]
+      .split(".")[0];
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(blobUrl);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteStudent = async istudent => {
+  try {
+    const res = await client.delete(`/admin/student?istudent=${istudent}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// export const putStudentInfo = async () => {
+//   try {
+//     const res = await client.put(``);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { StudentAcceptModalWrap } from "../../styles/ModalStyle";
 import { ko } from "date-fns/locale";
 import ReactDatePicker from "react-datepicker";
+import { deleteStudent } from "../../api/studentAxios";
 
 export const DeleteStudnetModal = ({
   deleteModalOpen,
@@ -14,15 +13,13 @@ export const DeleteStudnetModal = ({
   setSaveCheckBox,
 }) => {
   const handleDeleteCompany = async () => {
-    const checkedCompanyCode = saveCheckBox;
+    const checkedstudent = saveCheckBox;
 
     try {
-      // await deleteCompany(checkedCompanyCode);
+      await deleteStudent(checkedstudent);
 
       setListData(prevListData =>
-        prevListData.filter(
-          item => !checkedCompanyCode.includes(item.companyCode),
-        ),
+        prevListData.filter(item => !checkedstudent.includes(item.istudent)),
       );
 
       setSaveCheckBox([]);
