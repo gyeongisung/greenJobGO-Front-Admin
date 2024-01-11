@@ -8,14 +8,18 @@ import {
   StudentTable,
 } from "../../styles/StudentMgmtStyle";
 import { DeleteStudnetModal, StudentModal } from "../studentmgmt/StudentModal";
-import { getStudenListDownload, getStudentList, postExcelSign } from "../../api/studentAxios";
+import {
+  getStudenListDownload,
+  getStudentList,
+  postExcelSign,
+} from "../../api/studentAxios";
 import { useRecoilState } from "recoil";
 import { changeComponent } from "../../recoil/atoms/ChangeState";
 import { getCategory } from "../../api/classAxios";
 import { AcceptModal, ExcelAcceptModal } from "../AcceptModals";
 import { ExcelUploadModal } from "../companymgmt/CompanyModal";
 
-const StudentMain = () => {
+const StudentMain = ({ handleInfoClick }) => {
   const [listData, setListData] = useState([]);
   const [saveCheckBox, setSaveCheckBox] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
@@ -31,13 +35,8 @@ const StudentMain = () => {
   const [uploadResult, setUpLoadResult] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [excelDownload, setExcelDownload] = useState(null);
-  const [isTrue, setIsTrue] = useRecoilState(changeComponent);
 
   let resultIdArray = saveCheckBox;
-
-  const handleInfoClick = () => {
-    setIsTrue(false);
-  };
 
   const handleAllCheck = e => {
     const allCheckBox = document.querySelectorAll(".company-checkbox");

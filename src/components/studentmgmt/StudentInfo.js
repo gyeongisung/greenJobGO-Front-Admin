@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StudentInfoWrap } from "../../styles/StudentInfoStyle";
+import { getStudentDetail } from "../../api/studentAxios";
 
-const StudentInfo = () => {
+const StudentInfo = ({ studentInfo }) => {
+  const [studentId, setIstudentId] = useState(studentInfo.istudent);
+
+  useEffect(() => {
+    getStudentDetail(studentId);
+  }, []);
+
+  console.log(studentId);
   return (
     <StudentInfoWrap>
       <div className="info-contain">

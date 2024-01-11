@@ -29,6 +29,7 @@ export const getStudentList = async (
 export const getStudentDetail = async istudent => {
   try {
     const res = await client.get(`/admin/student/detail?istudent=${istudent}`);
+    console.log(res.data);
   } catch (error) {
     console.log(error);
   }

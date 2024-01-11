@@ -83,7 +83,7 @@ export const ClassAcceptModal = ({
     document.body.style.overflow = "unset";
   };
 
-  console.log(modalOpen)
+  console.log(modalOpen);
   return (
     <>
       {modalOpen && (
@@ -274,7 +274,6 @@ export const ClassEditModal = ({
     lectureRoom: classInfo.lectureRoom,
     classification: classInfo.classification,
   });
-
   const handleModalAccept = async () => {
     const { classification, ...newPayload } = payload;
     const formatData = {
@@ -298,7 +297,6 @@ export const ClassEditModal = ({
       setAcceptOkModal(true);
     }
   };
-
 
   return (
     <>

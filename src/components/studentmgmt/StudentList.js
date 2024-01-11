@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 
 const StudentList = ({
   listData,
@@ -8,8 +7,6 @@ const StudentList = ({
   page,
   handleInfoClick,
 }) => {
-  const [companyInfo, setCompanyInfo] = useState(null);
-
   return (
     <ul>
       <li className="student-list">
@@ -39,9 +36,10 @@ const StudentList = ({
       {listData.length > 0 &&
         listData.map((item, index) => (
           <li
-            key={index}
+            key={item.istudent}
             onClick={e =>
-              !e.target.classList.contains("check-box-li") && handleInfoClick()
+              !e.target.classList.contains("check-box-li") &&
+              handleInfoClick(item)
             }
           >
             <ul>
