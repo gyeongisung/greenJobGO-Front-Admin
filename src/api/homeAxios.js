@@ -24,15 +24,14 @@ export const patchStudentAuthData = async ({
   endDate,
   isAuthEdit,
 }) => {
-  console.log("subjectPk", typeof subjectPk);
-  console.log("startDate", typeof startDate);
-  console.log("endDate", typeof endDate);
-  console.log("isAuthEdit", typeof isAuthEdit);
+  console.log("subjectPk", subjectPk);
+  console.log("startDate", startDate);
+  console.log("endDate", endDate);
+  console.log("isAuthEdit", isAuthEdit);
 
   try {
     const res = await client.patch(
-      `/admin/student/editable-yn?icourseSubject=${
-        subjectPk}&startedAt=${startDate}&endedAt${endDate}&editableYn=${isAuthEdit}`,
+      `/admin/student/editable-yn?icourseSubject=${subjectPk}&startedAt=${startDate}&endedAt=${endDate}&editableYn=${isAuthEdit}`,
     );
     const result = res.data;
     console.log("기업권한수정 성공", result);
