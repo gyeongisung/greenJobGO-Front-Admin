@@ -120,7 +120,7 @@ export const PortFolioContentWrap = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 30px;
-  
+
   /* 메인으로 보내는 버튼 */
   .GoMainGo {
     position: absolute;
@@ -134,7 +134,8 @@ export const PortFolioContentWrap = styled.div`
   .pf-box {
     width: 294px;
     margin: 10px 0;
-    .pf-img {
+    .pf-img,
+    .saved-img {
       position: relative;
       margin-bottom: 15px;
       img {
@@ -145,8 +146,8 @@ export const PortFolioContentWrap = styled.div`
       /* 리스트 썸네일 우측 아이콘 */
       .thumb-right {
         position: absolute;
-        top: 5px;
-        right: 5px;
+        top: 0px;
+        right: 0px;
 
         /* 보관중인 포트폴리오 아이콘*/
         .save-icon {
@@ -155,6 +156,7 @@ export const PortFolioContentWrap = styled.div`
         }
         /* 취업자 아이콘 */
         .job-yes-icon {
+          margin: 15px;
           width: 25px;
           height: 25px;
           object-fit: contain;

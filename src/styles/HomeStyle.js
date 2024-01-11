@@ -15,13 +15,20 @@ export const MainLeftSty = styled.div`
   padding: 0 30px;
   border-right: 1px solid ${Maincolor.grayDeep};
   overflow: auto;
-  h2 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 140%;
-    letter-spacing: -0.96px;
-    color: ${Maincolor.black};
-    margin: 17px 0;
+  .main-title-div {
+    width: 363px;
+    height: 64px;
+    border-radius: 6px 6px 0px 0px;
+    background: rgba(34, 143, 207, 0.4);
+
+    h2 {
+      font-size: 23px;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: -2px;
+      color: ${Maincolor.black};
+      margin: 15px 20px;
+    }
   }
   & > div {
     display: grid;
@@ -105,7 +112,7 @@ export const StudentAuthgetListSty = styled.div`
     border: 1px solid ${Maincolor.maingray};
     width: 748px;
     height: 337px;
-    margin: 40px 8px 0 8px; 
+    margin: 40px 8px 0 8px;
     padding: 20px;
     .class-auth-list {
       width: 710px;
@@ -163,13 +170,19 @@ export const MainRightSty = styled.div`
   margin: 23px 0;
   padding: 0 30px;
   overflow: auto;
-  h2 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 140%;
-    letter-spacing: -0.96px;
-    color: ${Maincolor.black};
-    margin: 17px 0;
+  .main-title-div {
+    width: 271px;
+    height: 64px;
+    border-radius: 6px 6px 0px 0px;
+    background: rgba(130, 187, 43, 0.55);
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: -2px;
+      color: ${Maincolor.black};
+      margin: 15px 20px;
+    }
   }
   & > div {
     display: grid;

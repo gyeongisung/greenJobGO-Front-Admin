@@ -64,7 +64,7 @@ const SaveItemContent = ({
           {item.huntJobYn === 1 && (
             <li>
               <img
-                src={`${process.env.PUBLIC_URL}/got-a-job.png`}
+                src={`${process.env.PUBLIC_URL}/assets/got-a-job.png`}
                 alt="got-a-job"
                 className="job-yes-icon"
                 onError={onImgError}

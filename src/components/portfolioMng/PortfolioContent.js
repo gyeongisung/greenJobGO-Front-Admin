@@ -29,6 +29,7 @@ const PortfolioContent = ({ item, setStudentPFList }) => {
       let update = 1;
       setIsSaved(update);
       await patchSendSaved({ savedItemNum, isSaved: update });
+      await updateData();
       setModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
@@ -86,7 +87,7 @@ const PortfolioContent = ({ item, setStudentPFList }) => {
           {item.huntJobYn === 1 && (
             <li>
               <img
-                src={`${process.env.PUBLIC_URL}/got-a-job.png`}
+                src={`${process.env.PUBLIC_URL}/assets/got-a-job.png`}
                 alt="got-a-job"
                 className="job-yes-icon"
                 onError={onImgError}
