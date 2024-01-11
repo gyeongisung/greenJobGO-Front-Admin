@@ -43,11 +43,9 @@ export const AcceptModal = ({
   acceptOkModal,
   setAcceptOkModal,
   uploadResult,
-  fetchData,
 }) => {
   const handleOk = () => {
     setAcceptOkModal(false);
-    fetchData();
   };
 
   return (

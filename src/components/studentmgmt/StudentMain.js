@@ -8,11 +8,10 @@ import {
   StudentTable,
 } from "../../styles/StudentMgmtStyle";
 import { DeleteStudnetModal, StudentModal } from "../studentmgmt/StudentModal";
-import { getStudenListDownload, getStudentList } from "../../api/studentAxios";
+import { getStudenListDownload, getStudentList, postExcelSign } from "../../api/studentAxios";
 import { useRecoilState } from "recoil";
 import { changeComponent } from "../../recoil/atoms/ChangeState";
 import { getCategory } from "../../api/classAxios";
-import { postCompanyExcel } from "../../api/companyAxios";
 import { AcceptModal, ExcelAcceptModal } from "../AcceptModals";
 import { ExcelUploadModal } from "../companymgmt/CompanyModal";
 
@@ -115,10 +114,10 @@ const StudentMain = () => {
   const handleExcelUpload = async () => {
     if (selectedFile) {
       let formData = new FormData();
-      formData.append("companyfile", selectedFile);
+      formData.append("studentfile", selectedFile);
 
       try {
-        const result = await postCompanyExcel(formData);
+        const result = await postExcelSign(formData);
 
         setUpLoadResult(result);
 

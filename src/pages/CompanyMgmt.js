@@ -6,6 +6,7 @@ import {
 } from "../styles/CompanyMgmtStyle";
 import {
   getCompanyList,
+  getCompanyListDownload,
   postCompanyAccept,
   postCompanyExcel,
 } from "../api/companyAxios";
@@ -30,6 +31,7 @@ const CompanyMgmt = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [excelModalOpen, setExcelModalOpen] = useState(false);
   const [excelOkModal, setExcelOkModal] = useState(false);
+  const [excelDownload, setExcelDownload] = useState(null);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [uploadResult, setUpLoadResult] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -37,7 +39,7 @@ const CompanyMgmt = () => {
     area: "",
     companyName: "",
     leaderName: "",
-    jobField: "",
+    homepage: "",
     manager: "",
     phoneNumber: "",
     dateConslusion: "",
@@ -149,7 +151,7 @@ const CompanyMgmt = () => {
           area: "",
           companyName: "",
           leaderName: "",
-          jobField: "",
+          homepage: "",
           manager: "",
           phoneNumber: "",
           dateConslusion: "",
@@ -162,12 +164,16 @@ const CompanyMgmt = () => {
         area: "",
         companyName: "",
         leaderName: "",
-        jobField: "",
+        homepage: "",
         manager: "",
         phoneNumber: "",
         dateConslusion: "",
       });
     }
+  };
+
+  const handleExcelDownLoad = async () => {
+    getCompanyListDownload(setExcelDownload);
   };
 
   return (
@@ -228,6 +234,7 @@ const CompanyMgmt = () => {
         )}
         <div className="company-buttons">
           <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
+          <button onClick={handleExcelDownLoad}>엑셀 다운로드</button>
           <button onClick={handleModalOpen}>기업등록</button>
           <button onClick={handleDeleteClick}>삭제</button>
         </div>

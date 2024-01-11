@@ -84,6 +84,14 @@ export const ClassMgmtInner = styled.div`
       }
     }
   }
+  .total-count {
+    padding-left: 10px;
+    font-size: 14px;
+    color: #888888;
+    height: 14px;
+    line-height: 14px;
+    margin-bottom: 5px;
+  }
 `;
 export const ClassTable = styled.div`
   position: relative;

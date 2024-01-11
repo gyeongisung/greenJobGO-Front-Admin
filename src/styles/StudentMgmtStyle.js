@@ -21,7 +21,6 @@ export const StudentMgmtWrap = styled.div`
 `;
 
 export const StudentMgmtInner = styled.div`
-  /* width: 100%; */
   .student-search {
     display: flex;
     align-items: center;

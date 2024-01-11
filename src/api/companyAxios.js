@@ -12,6 +12,29 @@ export const getCompanyList = async (setListData, setCount, page, search) => {
   }
 };
 
+export const getCompanyListDownload = async () => {
+  try {
+    const { data, headers } = await client.get(`/admin/companylist/download`, {
+      responseType: "blob",
+    });
+    const blob = new Blob([data], {
+      type: headers["content-type"],
+    });
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = blobUrl;
+
+    const filename = headers["content-disposition"]
+      .split("filename=")[1]
+      .split(".")[0];
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(blobUrl);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const postCompanyExcel = async companyfile => {
   try {
     const res = await client.post("/admin/companylist/excel", companyfile, {

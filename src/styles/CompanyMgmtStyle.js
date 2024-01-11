@@ -125,7 +125,7 @@ export const CompanyTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.25fr 0.5fr 0.9fr 1.1fr 0.45fr 0.45fr 0.55fr 0.5fr;
+        grid-template-columns: 0.15fr 0.25fr 0.6fr 1fr 0.4fr 0.4fr 0.45fr 0.55fr 1fr;
         > li {
           padding: 0 5px;
           ${ellipsis.one}

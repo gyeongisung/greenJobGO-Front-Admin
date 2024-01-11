@@ -247,14 +247,14 @@ export const CompanyMgmtModal = ({
                   </li>
                 </ul>
                 <div className="company-info">
-                  <h3>채용분야</h3>
+                  <h3>홈페이지</h3>
                   <input
                     type="text"
-                    value={payload.jobField}
+                    value={payload.homepage}
                     onChange={e => {
                       setPayload(payload => ({
                         ...payload,
-                        jobField: e.target.value,
+                        homepage: e.target.value,
                       }));
                     }}
                   />
@@ -286,7 +286,7 @@ export const EdeitCompanyModal = ({
     area: companyInfo.area,
     companyName: companyInfo.companyName,
     leaderName: companyInfo.leaderName,
-    jobField: companyInfo.jobField,
+    homepage: companyInfo.homepage,
     manager: companyInfo.manager,
     phoneNumber: companyInfo.phoneNumber,
     dateConslusion: companyInfo.dateConslusion,
@@ -409,14 +409,14 @@ export const EdeitCompanyModal = ({
                   </li>
                 </ul>
                 <div className="company-info">
-                  <h3>채용분야</h3>
+                  <h3>홈페이지</h3>
                   <input
                     type="text"
-                    defaultValue={companyData.jobField}
+                    defaultValue={companyData.homepage}
                     onChange={e => {
                       setCompanyData(companyData => ({
                         ...companyData,
-                        jobField: e.target.value,
+                        homepage: e.target.value,
                       }));
                     }}
                   />
