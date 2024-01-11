@@ -18,16 +18,9 @@ const ManagerEdit = ({
   setmngProflieData,
 }) => {
   const [editManager, setEditManager] = useState(item);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [selectImg, setSelectImg] = useState();
   const [isImg, setIsImg] = useState(item.profilePic);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   // 쿼리 주소를 변환하자
   const makeUrl = () => {
@@ -54,10 +47,6 @@ const ManagerEdit = ({
     return query;
   };
 
-  const handleEditOK = async () => {
-    setModalOpen(true);
-  };
-
   // 이미지업로드
   const handleImageUpload = (e, fieldName) => {
     e.preventDefault();
@@ -74,7 +63,12 @@ const ManagerEdit = ({
     setEditManager({ ...editManager, [fieldName]: e.target.value });
   };
 
-  // 수정 재확인
+  // 수정 확인 모달 띄우기
+  const handleEditOK = async () => {
+    setConfirmModalOpen(true);
+  };
+
+  // 수정 재확인 ok
   const handleConfirm = async () => {
     const formData = new FormData();
     formData.append("pic", selectImg);
@@ -87,6 +81,7 @@ const ManagerEdit = ({
       console.error("취업 담당자 등록 에러:", error);
     }
   };
+
   // 변경있을때마다 자료 새로고침
   const updateData = async () => {
     try {
@@ -96,11 +91,11 @@ const ManagerEdit = ({
     }
   };
 
-  useEffect(() => {
-    if (mngProflieData !== undefined) {
-      console.log("mngProflieData가 변경됨:", mngProflieData);
-    }
-  }, [mngProflieData]);
+  // useEffect(() => {
+  //   if (mngProflieData !== undefined) {
+  //     console.log("mngProflieData가 변경됨:", mngProflieData);
+  //   }
+  // }, [mngProflieData]);
 
   return (
     <JobManagerAddSty>
@@ -173,18 +168,19 @@ const ManagerEdit = ({
       </ul>
       <div className="add-accept">
         <BtnGlobal onClick={handleEditOK}> 수정 </BtnGlobal>
-        <ConfirmModal open={modalOpen} close={closeModal}>
-          <ConfirmModalContent>
+        {confirmModalOpen && (
+          <ConfirmModal
+            open={confirmModalOpen}
+            close={() => setConfirmModalOpen(false)}
+            onConfirm={handleConfirm}
+            onCancel={() => setConfirmModalOpen(false)}
+          >
             <span>수정 하시겠습니까?</span>
-            <div>
-              <ModalCancelBtn onClick={closeModal}>취소</ModalCancelBtn>
-              <ModalOkBtn onClick={handleConfirm}>확인</ModalOkBtn>
-            </div>
-          </ConfirmModalContent>
-        </ConfirmModal>
+          </ConfirmModal>
+        )}
       </div>
     </JobManagerAddSty>
   );
 };
 
-export default ManagerEdit;
+export default React.memo(ManagerEdit);

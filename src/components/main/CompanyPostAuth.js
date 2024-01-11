@@ -2,26 +2,77 @@ import React, { useState } from "react";
 import { CompanyAuthPostSty, StudentAuthPostSty } from "../../styles/HomeStyle";
 import { DatePicker, Space } from "antd";
 import { BtnGlobal } from "../../styles/GlobalStyle";
+import { getCompanyAuthData, patchCompanyAuthData } from "../../api/homeAxios";
+import ConfirmModal from "../ConfirmModal";
+import dayjs from "dayjs";
 
-const CompanyPostAuth = () => {
-  const [clickStudentDate, setClickStudentDate] = useState([]);
+const CompanyPostAuth = ({ setAuthInfo }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [icompany, setIcompany] = useState("1");
   const { RangePicker } = DatePicker;
   const dateFormat = "YYYY-MM-DD";
 
-  const onRangeChange = (dates, dateStrings) => {
-    setClickStudentDate(dateStrings);
+  //  이전날짜 선택못하게 막기
+  const disabledDate = current => {
+    return current && current < dayjs().startOf("day");
   };
-  console.log("클릭한 날짜 나와라", clickStudentDate);
+
+  const onRangeChange = (dates, dateStrings) => {
+    setStartDate(dateStrings[0]);
+    setEndDate(dateStrings[1]);
+  };
+
+  // 권한기간 수정 버튼
+  const handleSummit = () => {
+    setModalOpen(true);
+  };
+  const handleSummitConfirm = async () => {
+    try {
+      await patchCompanyAuthData({ icompany, startDate, endDate });
+      await updateData();
+      setModalOpen(false);
+    } catch (error) {
+      console.log("변경실패", error);
+    }
+  };
+  // api 요청 성공할 때 화면 리랜더링
+  const updateData = async () => {
+    try {
+      const newData = await getCompanyAuthData(setAuthInfo);
+    } catch (error) {
+      console.error("데이터 업데이트 에러:", error);
+    }
+  };
   return (
     <CompanyAuthPostSty>
       <ul className="click-content">
         <li>
           <Space direction="vertical" size={12}>
-            <RangePicker format={dateFormat} onChange={onRangeChange} />
+            <RangePicker
+              format={dateFormat}
+              onChange={onRangeChange}
+              id="company-auth-date"
+              disabledDate={disabledDate}
+            />
           </Space>
         </li>
       </ul>
-      <BtnGlobal className="auth-post">적용</BtnGlobal>
+      <BtnGlobal className="auth-post" onClick={handleSummit}>
+        적용
+      </BtnGlobal>
+      {/* 권한 변경 확인모달 */}
+      {modalOpen && (
+        <ConfirmModal
+          open={modalOpen}
+          close={() => setModalOpen(false)}
+          onConfirm={handleSummitConfirm}
+          onCancel={() => setModalOpen(false)}
+        >
+          <span>기업 계정 열람 시간을 변경 하시겠습니까?</span>
+        </ConfirmModal>
+      )}
     </CompanyAuthPostSty>
   );
 };

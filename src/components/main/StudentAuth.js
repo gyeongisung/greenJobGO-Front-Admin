@@ -6,7 +6,7 @@ import { MainLeftSty } from "../../styles/HomeStyle";
 const StudentAuth = () => {
   return (
     <MainLeftSty>
-      <h2>과정별 이력서 등록/열람 기간 설정</h2>
+      <div className="main-title-div"><h2>수강생 이력서 등록/열람 기간 설정</h2></div>
       <div>
         <StudentPostAuth />
         <StudentGetAuthData />

@@ -39,17 +39,21 @@ export const getPortFolioList = async ({
   }
 };
 
-// 보관함으로 보내기
-export const patchSendSaved = async ({ savedItemNum, isSaved, setRenderState }) => {
-  console.log("값 들어오니?", savedItemNum);
+// 보관함으로 보내거나 취소하기
+export const patchSendSaved = async ({
+  savedItemNum,
+  isSaved,
+  setIsRender,
+}) => {
+  console.log("savedItemNum 들어오니?", savedItemNum);
+  console.log("isSaved 들어오니?", isSaved);
 
   try {
     const res = await client.patch(
       `/admin/student/storage?istudent=${savedItemNum}&storageYn=${isSaved}`,
     );
     const result = await res.data;
-    console.log("보관함 감ㅋ", result);
-    setRenderState(!false);
+    console.log("보관함 patchㅋ", result);
     return result;
   } catch (error) {
     console.log(error);
@@ -78,5 +82,22 @@ export const getSavedPFList = async ({
   } catch (error) {
     console.log(error);
     throw error;
+  }
+};
+
+// 메인보내기
+export const patchSendMain = async ({ queryState, isMain }) => {
+  // console.log("queryState 들어오니?", queryState);
+  // console.log("isSaved 들어오니?", isMain);
+
+  try {
+    const res = await client.patch(
+      `/admin/student/main?${queryState}&companyMainYn=${isMain}`,
+    );
+    const result = await res.data;
+    console.log("메인 patchㅋ", result);
+    return result;
+  } catch (error) {
+    console.log(error);
   }
 };

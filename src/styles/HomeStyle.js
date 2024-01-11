@@ -10,21 +10,29 @@ export const MainWrapSty = styled.div`
 // 메인 좌측 스타일
 export const MainLeftSty = styled.div`
   height: calc(100vh - 125px);
+  width: 100%;
   margin: 23px 0;
-  padding: 0 40px;
+  padding: 0 30px;
   border-right: 1px solid ${Maincolor.grayDeep};
   overflow: auto;
-  h2 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 140%;
-    letter-spacing: -0.96px;
-    color: ${Maincolor.black};
-    margin: 17px 0;
+  .main-title-div {
+    width: 363px;
+    height: 64px;
+    border-radius: 6px 6px 0px 0px;
+    background: rgba(34, 143, 207, 0.4);
+
+    h2 {
+      font-size: 23px;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: -2px;
+      color: ${Maincolor.black};
+      margin: 15px 20px;
+    }
   }
   & > div {
     display: grid;
-    grid-template-rows: repeat(2, minmax(400px, auto));
+    grid-template-rows: repeat(2, minmax(335px, auto));
   }
 `;
 
@@ -32,9 +40,9 @@ export const MainLeftSty = styled.div`
 export const StudentAuthPostSty = styled.div`
   position: relative;
   margin: 0 auto;
-  width: 100%;
+  width: 765px;
   height: 130px;
-  border-radius: 6px;
+  border-radius: 0px 6px 6px 6px;
   background: ${Maincolor.search};
   /* select창 화살표 커스텀 */
   .select-wrap {
@@ -104,8 +112,11 @@ export const StudentAuthgetListSty = styled.div`
     border: 1px solid ${Maincolor.maingray};
     width: 748px;
     height: 337px;
-    margin-top: 40px;
+    margin: 40px 8px 0 8px;
     padding: 20px;
+    h2 {
+      margin-bottom: 20px;
+    }
     .class-auth-list {
       width: 710px;
       height: 240px;
@@ -160,20 +171,26 @@ export const StudentAuthgetListSty = styled.div`
 export const MainRightSty = styled.div`
   height: calc(100vh - 125px);
   margin: 23px 0;
-  padding: 0 40px;
+  padding: 0 30px;
   overflow: auto;
-  h2 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 140%;
-    letter-spacing: -0.96px;
-    color: ${Maincolor.black};
-    margin: 17px 0;
+  .main-title-div {
+    width: 271px;
+    height: 64px;
+    border-radius: 6px 6px 0px 0px;
+    background: rgba(130, 187, 43, 0.55);
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: -2px;
+      color: ${Maincolor.black};
+      margin: 15px 20px;
+    }
   }
   & > div {
     display: grid;
     /* grid-template-rows: 1fr 1fr; */
-    grid-template-rows: repeat(2, minmax(400px, auto));
+    grid-template-rows: repeat(2, minmax(335px, auto));
   }
 `;
 
@@ -181,9 +198,9 @@ export const MainRightSty = styled.div`
 export const CompanyAuthPostSty = styled.div`
   position: relative;
   margin: 0 auto;
-  width: 100%;
+  width: 765px;
   height: 130px;
-  border-radius: 6px;
+  border-radius: 0px 6px 6px 6px;
   background: ${Maincolor.search};
   .click-content {
     margin: 20px;
