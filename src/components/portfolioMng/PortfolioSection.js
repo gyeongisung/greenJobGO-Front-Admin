@@ -37,4 +37,4 @@ const PortfolioSection = () => {
   );
 };
 
-export default React.memo(PortfolioSection);
+export default PortfolioSection;

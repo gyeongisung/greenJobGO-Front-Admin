@@ -91,11 +91,11 @@ const ManagerEdit = ({
     }
   };
 
-  useEffect(() => {
-    if (mngProflieData !== undefined) {
-      console.log("mngProflieData가 변경됨:", mngProflieData);
-    }
-  }, [mngProflieData]);
+  // useEffect(() => {
+  //   if (mngProflieData !== undefined) {
+  //     console.log("mngProflieData가 변경됨:", mngProflieData);
+  //   }
+  // }, [mngProflieData]);
 
   return (
     <JobManagerAddSty>

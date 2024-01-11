@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getSavedPFList } from "../../api/portfolioAxios";
+import { getSavedPFList, patchSendMain } from "../../api/portfolioAxios";
 import SaveItemContent from "./SaveItemContent";
 import SaveItemSearch from "./SaveItemSearch";
 import { v4 } from "uuid";
@@ -8,12 +8,11 @@ import { BtnGlobal } from "../../styles/GlobalStyle";
 import SaveItemPaging from "./SaveItemPaging";
 
 const SaveItemSection = () => {
-  // const [searchsubj, setSearchSubj] = useState("");
-  // const [searchname, setSearchname] = useState("");
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [savedPFList, setSavedPFList] = useState("");
   const [checkItems, setCheckItems] = useState([]);
+  const [isMain, setIsMain] = useState(1);
 
   // 메인으로 보낼 리스트를 체크하자
   const handleMainCheck = (istudent, isChecked) => {
@@ -22,11 +21,17 @@ const SaveItemSection = () => {
     } else {
       setCheckItems(checkItems.filter(item => item !== istudent));
     }
-    console.log("뭐체크됨?", checkItems);
   };
 
-  const handleGoMain = e => {
-    console.log("메인으로 보내는 포폴 클릭", e);
+  // const query = checkItems.map(num => `num=${num}`).join("&");
+
+  const handleGoMain = async e => {
+    // try {
+    //   const queryState = await query();
+    //   await patchSendMain({ queryState, isMain });
+    // } catch (error) {
+    //   console.error("에러", error);
+    // }
   };
 
   useEffect(() => {
@@ -51,9 +56,9 @@ const SaveItemSection = () => {
           <SaveItemContent
             key={v4()}
             item={item}
+            setSavedPFList={setSavedPFList}
             checkItems={checkItems}
             handleMainCheck={handleMainCheck}
-            setSavedPFList={setSavedPFList}
           />
         ))}
       </PortFolioContentWrap>
@@ -63,4 +68,4 @@ const SaveItemSection = () => {
   );
 };
 
-export default React.memo(SaveItemSection);
+export default SaveItemSection;

@@ -42,7 +42,7 @@ export const StudentAuthPostSty = styled.div`
   margin: 0 auto;
   width: 765px;
   height: 130px;
-  border-radius: 6px;
+  border-radius: 0px 6px 6px 6px;
   background: ${Maincolor.search};
   /* select창 화살표 커스텀 */
   .select-wrap {
@@ -114,6 +114,9 @@ export const StudentAuthgetListSty = styled.div`
     height: 337px;
     margin: 40px 8px 0 8px;
     padding: 20px;
+    h2 {
+      margin-bottom: 20px;
+    }
     .class-auth-list {
       width: 710px;
       height: 240px;
@@ -197,7 +200,7 @@ export const CompanyAuthPostSty = styled.div`
   margin: 0 auto;
   width: 765px;
   height: 130px;
-  border-radius: 6px;
+  border-radius: 0px 6px 6px 6px;
   background: ${Maincolor.search};
   .click-content {
     margin: 20px;

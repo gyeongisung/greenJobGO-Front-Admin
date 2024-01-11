@@ -9,9 +9,9 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
 const SaveItemContent = ({
   item,
+  setSavedPFList,
   checkItems,
   handleMainCheck,
-  setSavedPFList,
 }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
