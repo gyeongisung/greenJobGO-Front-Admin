@@ -1,8 +1,6 @@
 import React from "react";
 
 const CompanySearch = ({
-  category,
-  handleCategoryFiiter,
   search,
   setSearch,
   handleSearch,

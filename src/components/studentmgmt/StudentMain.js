@@ -13,8 +13,6 @@ import {
   getStudentList,
   postExcelSign,
 } from "../../api/studentAxios";
-import { useRecoilState } from "recoil";
-import { changeComponent } from "../../recoil/atoms/ChangeState";
 import { getCategory } from "../../api/classAxios";
 import { AcceptModal, ExcelAcceptModal } from "../AcceptModals";
 import { ExcelUploadModal } from "../companymgmt/CompanyModal";
@@ -68,12 +66,12 @@ const StudentMain = ({ handleInfoClick }) => {
   };
 
   const fetchData = () => {
-    getStudentList(setListData, setCount, page, search);
-    getCategory(setCategoryData);
+    getStudentList(setListData, setCount, page, search, category);
   };
 
   useEffect(() => {
     fetchData();
+    getCategory(setCategoryData);
   }, [page]);
 
   useEffect(() => {
@@ -91,6 +89,7 @@ const StudentMain = ({ handleInfoClick }) => {
   const handleCategoryFiiter = e => {
     setCategory(e.target.value);
     setPage(1);
+    console.log(category);
   };
 
   const handleModalOpen = () => {

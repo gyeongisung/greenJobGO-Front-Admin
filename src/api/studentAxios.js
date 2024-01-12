@@ -18,18 +18,38 @@ export const getStudentList = async (
         `/admin/student?page=${page}&size=10&sort=istudent%2CASC&subjectName=${search}`,
       );
     }
+    console.log(category);
     setListData(res.data.res);
-    console.log(res.data.res);
     setCount(res.data.page.idx);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getStudentDetail = async istudent => {
+export const getStudentDetail = async (istudent, setUserInfo, setUserFile) => {
   try {
     const res = await client.get(`/admin/student/detail?istudent=${istudent}`);
-    console.log(res.data);
+
+    const { certificates, birthday, subject, ...userInfoDetail } = res.data.res;
+
+    const img = res.data.file[0];
+    console.log(img);
+
+    const birthYear = birthday.split("-", 1);
+    console.log(birthYear);
+
+    const certificateResult = certificates
+      .map(item => item.certificate)
+      .join(", ");
+    console.log(certificateResult);
+    console.log(res.data.res);
+    setUserInfo({
+      userDetail: userInfoDetail,
+      certificateValue: certificateResult,
+      birth: birthYear,
+      subject: subject,
+    });
+    setUserFile(img);
   } catch (error) {
     console.log(error);
   }

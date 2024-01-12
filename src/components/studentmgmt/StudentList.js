@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 } from "uuid";
 
 const StudentList = ({
   listData,
@@ -36,7 +37,7 @@ const StudentList = ({
       {listData.length > 0 &&
         listData.map((item, index) => (
           <li
-            key={item.istudent}
+            key={v4()}
             onClick={e =>
               !e.target.classList.contains("check-box-li") &&
               handleInfoClick(item)

@@ -4,12 +4,20 @@ import { getStudentDetail } from "../../api/studentAxios";
 
 const StudentInfo = ({ studentInfo }) => {
   const [studentId, setIstudentId] = useState(studentInfo.istudent);
+  const [userInfo, setUserInfo] = useState({
+    userDetail: "",
+    birth: "",
+    certificateValue: "",
+    subject: "",
+  });
+  const [userFile, setUserFile] = useState("");
 
   useEffect(() => {
-    getStudentDetail(studentId);
+    getStudentDetail(studentId, setUserInfo, setUserFile);
   }, []);
-
+  console.log(userInfo.subject);
   console.log(studentId);
+  console.log(userFile);
   return (
     <StudentInfoWrap>
       <div className="info-contain">
@@ -18,28 +26,34 @@ const StudentInfo = ({ studentInfo }) => {
         </div>
         <ul className="info-content">
           <li>
-            <img src="" alt="썸네일" />
+            <img
+              src={`http://112.222.157.156/img/student/${studentId}/${userFile.file}`}
+              alt="썸네일"
+            />
           </li>
           <li className="info-content-left">
             <div>
-              <span>김그린</span>
-              <span>여 1999(만 25세)</span>
+              <span>{userInfo.userDetail.name}</span>
+              <span>여 {userInfo.birth}(만 25세)</span>
             </div>
             <div>
               <span>과정명</span>
-              <span>UX/UI 반응형 디자인 & 퍼블리싱 과정</span>
+              {userInfo.subject &&
+                userInfo.subject.map((item, index) => (
+                  <span key={index}>{item.subjectName}</span>
+                ))}
             </div>
             <div>
               <span>주소</span>
-              <span>대구 중구 중앙대로 394 제일빌딩 5F</span>
+              <span>{userInfo.userDetail.address}</span>
             </div>
             <div>
               <span>Email</span>
-              <span>green123@gmail.com</span>
+              <span>{userInfo.userDetail.email}</span>
             </div>
             <div>
               <span>자격증</span>
-              <span>웹디자인기능사, 컴퓨터활용능력1급, 전산회계 1급</span>
+              <span>{userInfo.certificateValue}</span>
             </div>
           </li>
           <li className="info-content-right">
@@ -49,15 +63,17 @@ const StudentInfo = ({ studentInfo }) => {
             </div>
             <div>
               <span>수료기간</span>
-              <span>2023.06.01 ~ 2023.12.01</span>
+              <span>
+                {userInfo.userDetail.startedAt} ~ {userInfo.userDetail.endedAt}
+              </span>
             </div>
             <div>
               <span>연락처</span>
-              <span>010-1234-5678</span>
+              <span>{userInfo.userDetail.mobileNumber}</span>
             </div>
             <div>
               <span>학력</span>
-              <span>계명대학교 컴퓨터공학부 4년제 졸업</span>
+              <span>{userInfo.userDetail.education}</span>
             </div>
           </li>
         </ul>

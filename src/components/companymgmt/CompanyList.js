@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { EdeitCompanyModal } from "./CompanyModal";
+import { v4 } from "uuid";
 
 const CompanyList = ({
   listData,
@@ -48,7 +49,7 @@ const CompanyList = ({
       {listData.length > 0 &&
         listData.map((item, index) => (
           <li
-            key={item.companyCode}
+            key={v4()}
             onClick={e =>
               !e.target.classList.contains("check-box-li") &&
               handleEditModalOpen(item)

@@ -12,7 +12,7 @@ const StudentMgmt = () => {
     setStudentInfo(data);
     setIsTrue(false);
   };
-  
+
   return (
     <>
       {isTrue ? (

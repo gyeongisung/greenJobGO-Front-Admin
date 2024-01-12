@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 } from "uuid";
 
 const StudentSearch = ({
   category,
@@ -21,7 +22,7 @@ const StudentSearch = ({
           </option>
           {categoryData.map(item => (
             <option
-              key={item.iclassification}
+              key={v4()}
               name="category-state"
               value={item.iclassification}
             >

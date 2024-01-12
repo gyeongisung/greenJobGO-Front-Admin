@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ClassEditModal } from "./ClassModal";
+import { v4 } from "uuid";
 
 const ClassList = ({
   listData,
@@ -48,7 +49,7 @@ const ClassList = ({
       {listData.length > 0 &&
         listData.map((item, index) => (
           <li
-            key={item.icourseSubject}
+            key={v4()}
             onClick={e =>
               !e.target.classList.contains("check-box-li") &&
               handleEditModalOpen(item)

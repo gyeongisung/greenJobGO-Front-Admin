@@ -14,7 +14,9 @@ export const StudentInfoWrap = styled.div`
       li:first-of-type {
         width: 300px;
         height: 240px;
-        background-color: red;
+        img {
+          width: 100%;
+        }
       }
       .info-content-left {
         div {
