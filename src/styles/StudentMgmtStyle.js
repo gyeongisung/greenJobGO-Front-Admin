@@ -127,6 +127,7 @@ export const StudentTable = styled.div`
         > li {
           padding: 0 5px;
           ${ellipsis.one}
+          cursor: pointer;
           :not(:last-of-type) {
             border-right: 1px solid #ccc;
           }

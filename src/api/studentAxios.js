@@ -26,7 +26,12 @@ export const getStudentList = async (
   }
 };
 
-export const getStudentDetail = async (istudent, setUserInfo, setUserFile) => {
+export const getStudentDetail = async (
+  istudent,
+  setUserInfo,
+  setUserFile,
+  setThumbNail,
+) => {
   try {
     const res = await client.get(`/admin/student/detail?istudent=${istudent}`);
 
@@ -37,6 +42,9 @@ export const getStudentDetail = async (istudent, setUserInfo, setUserFile) => {
 
     const birthYear = birthday.split("-", 1);
     console.log(birthYear);
+
+    const PortFolioFile = res.data.file.slice(1);
+    setUserFile(PortFolioFile);
 
     const certificateResult = certificates
       .map(item => item.certificate)
@@ -49,7 +57,7 @@ export const getStudentDetail = async (istudent, setUserInfo, setUserFile) => {
       birth: birthYear,
       subject: subject,
     });
-    setUserFile(img);
+    setThumbNail(img);
   } catch (error) {
     console.log(error);
   }

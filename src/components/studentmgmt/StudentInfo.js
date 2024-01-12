@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StudentInfoWrap } from "../../styles/StudentInfoStyle";
-import { getStudentDetail } from "../../api/studentAxios";
+import { deleteStudent, getStudentDetail } from "../../api/studentAxios";
+import { useRecoilState } from "recoil";
+import { changeComponent } from "../../recoil/atoms/ChangeState";
+import { v4 } from "uuid";
 
 const StudentInfo = ({ studentInfo }) => {
   const [studentId, setIstudentId] = useState(studentInfo.istudent);
@@ -10,14 +13,24 @@ const StudentInfo = ({ studentInfo }) => {
     certificateValue: "",
     subject: "",
   });
-  const [userFile, setUserFile] = useState("");
+  const [userFile, setUserFile] = useState([]);
+  const [thumbNail, setThumbNail] = useState("");
+  const [isTrue, setIsTrue] = useRecoilState(changeComponent);
 
   useEffect(() => {
-    getStudentDetail(studentId, setUserInfo, setUserFile);
+    getStudentDetail(studentId, setUserInfo, setUserFile, setThumbNail);
   }, []);
   console.log(userInfo.subject);
   console.log(studentId);
   console.log(userFile);
+
+  const handleBack = () => {
+    setIsTrue(true);
+  };
+  const handleDelete = () => {
+    deleteStudent(studentId);
+    setIsTrue(true);
+  };
   return (
     <StudentInfoWrap>
       <div className="info-contain">
@@ -27,21 +40,21 @@ const StudentInfo = ({ studentInfo }) => {
         <ul className="info-content">
           <li>
             <img
-              src={`http://112.222.157.156/img/student/${studentId}/${userFile.file}`}
+              src={`http://112.222.157.156/img/student/${studentId}/${thumbNail.file}`}
               alt="썸네일"
             />
           </li>
           <li className="info-content-left">
             <div>
               <span>{userInfo.userDetail.name}</span>
-              <span>여 {userInfo.birth}(만 25세)</span>
+              <span>
+                {userInfo.userDetail.gender} {userInfo.birth}년생 (만{" "}
+                {userInfo.userDetail.age}세)
+              </span>
             </div>
             <div>
               <span>과정명</span>
-              {userInfo.subject &&
-                userInfo.subject.map((item, index) => (
-                  <span key={index}>{item.subjectName}</span>
-                ))}
+              <span>{userInfo.subject.subjectName}</span>
             </div>
             <div>
               <span>주소</span>
@@ -59,7 +72,7 @@ const StudentInfo = ({ studentInfo }) => {
           <li className="info-content-right">
             <div>
               <span>취업여부</span>
-              <span>X</span>
+              <span>{userInfo.userDetail.huntJobYn}</span>
             </div>
             <div>
               <span>수료기간</span>
@@ -78,16 +91,20 @@ const StudentInfo = ({ studentInfo }) => {
           </li>
         </ul>
         <div>
-          <span>https://www.figma.com/file/DNPBzZmznUfUHpoZN</span>
+          {userFile && userFile.length > 0 ? (
+            userFile.map(item => <span key={v4()}>{item.file}</span>)
+          ) : (
+            <span>등록된 포트폴리오 및 이력서(자기소개서)가 없습니다.</span>
+          )}
         </div>
       </div>
       <div className="buttons">
         <div>
-          <button>돌아가기</button>
+          <button onClick={handleBack}>돌아가기</button>
         </div>
         <div>
           <button>수정</button>
-          <button>삭제</button>
+          <button onClick={handleDelete}>삭제</button>
         </div>
       </div>
     </StudentInfoWrap>

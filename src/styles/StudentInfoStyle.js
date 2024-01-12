@@ -104,7 +104,7 @@ export const StudentInfoWrap = styled.div`
     > div {
       :last-of-type {
         height: 37vh;
-        background: green;
+        /* background: green; */
         padding-bottom: 30px;
       }
     }
@@ -125,6 +125,7 @@ export const StudentInfoWrap = styled.div`
           background: #6d6d6d;
           border: none;
           border-radius: 4px;
+          cursor: pointer;
         }
       }
       :last-of-type {
@@ -140,6 +141,7 @@ export const StudentInfoWrap = styled.div`
           background: #6d6d6d;
           border: none;
           border-radius: 4px;
+          cursor: pointer;
         }
       }
     }
