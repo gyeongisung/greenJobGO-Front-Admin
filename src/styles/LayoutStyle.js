@@ -32,7 +32,7 @@ export const ContentWrap = styled.div`
     overflow: auto;
   }
   .contents-box {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 78px);
     /* padding: 1%; */
     margin: 0 auto;
     border: 1px ${Maincolor.grayLight} solid;

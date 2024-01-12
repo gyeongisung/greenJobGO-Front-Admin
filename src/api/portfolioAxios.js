@@ -86,17 +86,18 @@ export const getSavedPFList = async ({
 };
 
 // 메인보내기
-export const patchSendMain = async ({ queryState, isMain }) => {
-  // console.log("queryState 들어오니?", queryState);
-  // console.log("isSaved 들어오니?", isMain);
+export const patchSendMain = async ({ query, mainYn }) => {
+  console.log("query 들어오니?", query);
+  console.log("mainYn 들어오니?", mainYn);
 
   try {
     const res = await client.patch(
-      `/admin/student/main?${queryState}&companyMainYn=${isMain}`,
+      `/admin/student/main?${query}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
     console.log("메인 patchㅋ", result);
     return result;
+    
   } catch (error) {
     console.log(error);
   }

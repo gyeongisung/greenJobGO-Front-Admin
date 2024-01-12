@@ -17,6 +17,19 @@ export const getStudentSubject = async ({ selectCate, setSubjectList }) => {
   }
 };
 
+// 학생 권한 리스트 get
+export const getStudentAuthData = async setAuthInfo => {
+  console.log("학생권한정보 불러옵니다");
+
+  try {
+    const res = await client.get(`/admin/student/role-list`);
+    const result = await res.data;
+    setAuthInfo(result.res);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
 // 학생권한 수정
 export const patchStudentAuthData = async ({
   subjectPk,

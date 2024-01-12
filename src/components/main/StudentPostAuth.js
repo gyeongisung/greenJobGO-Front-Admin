@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { StudentAuthPostSty } from "../../styles/HomeStyle";
 import { DatePicker, Space } from "antd";
 import { BtnGlobal } from "../../styles/GlobalStyle";
-import { getStudentSubject, patchStudentAuthData } from "../../api/homeAxios";
+import {
+  getStudentAuthData,
+  getStudentSubject,
+  patchStudentAuthData,
+} from "../../api/homeAxios";
 import ConfirmModal from "../ConfirmModal";
 import dayjs from "dayjs";
 import { getBigcate } from "../../api/portfolioAxios";
 import { v4 } from "uuid";
 
-const StudentPostAuth = () => {
+const StudentPostAuth = ({ setAuthInfo }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [subjectPk, setSubjectPk] = useState();
   const [startDate, setStartDate] = useState("");
@@ -57,7 +61,7 @@ const StudentPostAuth = () => {
   // api 요청 성공할 때 화면 리랜더링
   const updateData = async () => {
     try {
-      // const newData = await patchStudentAuthData(setAuthInfo);
+      const newData = await getStudentAuthData(setAuthInfo);
     } catch (error) {
       console.error("데이터 업데이트 에러:", error);
     }
