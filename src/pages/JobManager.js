@@ -24,26 +24,33 @@ const JobManager = () => {
 
   return (
     <JobManagerWrap>
-      <div className="job-title">
-        <h3>취업 담당자 관리</h3>
-      </div>
-      <div className="job-content-wrap">
-        <div>
-          <ManagerBox
-            mngProflieData={mngProflieData}
-            setmngProflieData={setmngProflieData}
-          />
+      <div>
+        <div className="job-title">
+          <h3>취업 담당자 관리</h3>
         </div>
-        <div className="maganer-add">
-          <BtnGlobal onClick={openModal}>등록</BtnGlobal>
-          {modalOpen &&(<InputModal
-            open={modalOpen}
-            close={closeModal}
-            header="취업 담당자 등록"
-          >
-            <ManagerAdd setAddModalOpen={setAddModalOpen}        mngProflieData={mngProflieData}
-            setmngProflieData={setmngProflieData}/>
-          </InputModal>)}
+        <div className="job-content-wrap">
+          <div>
+            <ManagerBox
+              mngProflieData={mngProflieData}
+              setmngProflieData={setmngProflieData}
+            />
+          </div>
+          <div className="maganer-add">
+            <BtnGlobal onClick={openModal}>등록</BtnGlobal>
+            {modalOpen && (
+              <InputModal
+                open={modalOpen}
+                close={closeModal}
+                header="취업 담당자 등록"
+              >
+                <ManagerAdd
+                  setAddModalOpen={setAddModalOpen}
+                  mngProflieData={mngProflieData}
+                  setmngProflieData={setmngProflieData}
+                />
+              </InputModal>
+            )}
+          </div>
         </div>
       </div>
     </JobManagerWrap>

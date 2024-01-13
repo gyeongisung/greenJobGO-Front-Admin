@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { JobManagerAddSty } from "../../styles/JobmanagerStyle";
-import {
-  BtnGlobal,
-  ConfirmModalContent,
-  ModalCancelBtn,
-  ModalOkBtn,
-} from "../../styles/GlobalStyle";
+import { BtnGlobal } from "../../styles/GlobalStyle";
 import { getJobManagerInfo, patchManagerEdit } from "../../api/jobMngAxiois";
 import ConfirmModal from "../ConfirmModal";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ManagerEdit = ({
-  item,
-  setEditModalOpen,
-  mngProflieData,
-  setmngProflieData,
-}) => {
+const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
   const [editManager, setEditManager] = useState(item);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [selectImg, setSelectImg] = useState();
   const [isImg, setIsImg] = useState(item.profilePic);
+
+  // 입력 에러 처리
+  const [addNameError, setAddNameError] = useState("");
+  const [addOnewordError, setAddOnewordError] = useState("");
+  const [addCounselError, setAddCounselError] = useState("");
+  const [addPhoneError, setAddPhoneError] = useState("");
+  const [addEmailError, setAddEmailError] = useState("");
+  const [addImgError, setAddImgError] = useState("");
+  const [placeholder, setPlaceholder] = useState("JPG,PNG,JPEG,GIF 파일 첨부");
+
+  const img_ref = useRef(null);
 
   // 쿼리 주소를 변환하자
   const makeUrl = () => {
@@ -48,12 +49,18 @@ const ManagerEdit = ({
   };
 
   // 이미지업로드
-  const handleImageUpload = (e, fieldName) => {
+  const handleImageUpload = e => {
     e.preventDefault();
     const file = e.target.files[0];
     setSelectImg(file);
+    console.log("img_ref", img_ref);
+    if (img_ref.current.value !== "") {
+      const fileName = img_ref.current.value;
+      setPlaceholder(fileName);
+    } else {
+      console.log("데이터가 없다는디");
+    }
   };
-
   //이미지 수정
   const handleImgDel = () => {
     setIsImg("");
@@ -65,7 +72,51 @@ const ManagerEdit = ({
 
   // 수정 확인 모달 띄우기
   const handleEditOK = async () => {
-    setConfirmModalOpen(true);
+    setAddNameError(
+      editManager.name === undefined || editManager.name === ""
+        ? "이름을 입력 해 주세요."
+        : "",
+    );
+    setAddOnewordError(
+      editManager.oneWord === undefined || editManager.oneWord === ""
+        ? "한 줄 소개를 입력 해 주세요."
+        : "",
+    );
+
+    setAddCounselError(
+      editManager.counselingNumber === undefined ||
+        editManager.counselingNumber === ""
+        ? "상담전화를 입력 해 주세요."
+        : "",
+    );
+
+    setAddPhoneError(
+      editManager.phoneNumber === undefined || editManager.phoneNumber === ""
+        ? "모바일을 입력 해 주세요."
+        : "",
+    );
+
+    setAddEmailError(
+      editManager.email === undefined || editManager.email === ""
+        ? "이메일을 입력 해 주세요."
+        : "",
+    );
+
+    setAddImgError(
+      selectImg === undefined || selectImg === ""
+        ? "프로필 이미지를 입력 해 주세요."
+        : "",
+    );
+    if (
+      editManager.name &&
+      editManager.oneWord &&
+      editManager.counselingNumber &&
+      editManager.phoneNumber &&
+      editManager.email &&
+      selectImg
+    ) {
+      setConfirmModalOpen(true);
+    }
   };
 
   // 수정 재확인 ok
@@ -108,6 +159,11 @@ const ManagerEdit = ({
             value={editManager.name}
             onChange={e => handleInfoEdit(e, "name")}
           />
+          {addNameError ? (
+            <p className="error-class">{addNameError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li>
           <h3>한 줄 소개</h3>
@@ -115,8 +171,14 @@ const ManagerEdit = ({
             type="text"
             placeholder="소개문구를 작성해주세요. (최대 20자)"
             value={editManager.oneWord}
+            maxLength={20}
             onChange={e => handleInfoEdit(e, "oneWord")}
-          />
+          />{" "}
+          {addOnewordError ? (
+            <p className="error-class">{addOnewordError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li>
           <h3>상담전화</h3>
@@ -126,6 +188,11 @@ const ManagerEdit = ({
             value={editManager.counselingNumber}
             onChange={e => handleInfoEdit(e, "counselingNumber")}
           />
+          {addCounselError ? (
+            <p className="error-class">{addCounselError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li>
           <h3>모바일</h3>
@@ -134,7 +201,12 @@ const ManagerEdit = ({
             placeholder="모바일"
             value={editManager.phoneNumber}
             onChange={e => handleInfoEdit(e, "phoneNumber")}
-          />
+          />{" "}
+          {addPhoneError ? (
+            <p className="error-class">{addPhoneError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li className="email-input">
           <h3>이메일</h3>
@@ -144,6 +216,11 @@ const ManagerEdit = ({
             value={editManager.email}
             onChange={e => handleInfoEdit(e, "email")}
           />
+          {addEmailError ? (
+            <p className="error-class">{addEmailError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li className="photo-upload">
           <h3>프로필 이미지</h3>
@@ -155,15 +232,29 @@ const ManagerEdit = ({
               </button>
             </div>
           ) : (
-            <input
-              type="file"
-              name="job-mng-img"
-              id="job-img-upload"
-              accept="image/gif,image/jpeg,image/jpg,image/png"
-              onChange={handleImageUpload}
-            />
+            <div className="upload-area">
+              <input
+                className="file-place-hold"
+                placeholder={placeholder}
+                disabled
+              />
+              <input
+                type="file"
+                name="job-mng-img"
+                id="job-img-upload"
+                ref={img_ref}
+                accept="image/gif,image/jpeg,image/jpg,image/png"
+                // placeholder="JPG,PNG,JPEG,GIF 파일 첨부"
+                onChange={handleImageUpload}
+              />
+            </div>
           )}
-          <p>*프로필 이미지를 등록해주세요.</p>
+          {addImgError ? (
+            <p className="error-class">{addImgError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
+          <span>*프로필 이미지를 등록해주세요.</span>
         </li>
       </ul>
       <div className="add-accept">

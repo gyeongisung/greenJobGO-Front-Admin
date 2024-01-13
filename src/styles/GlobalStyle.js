@@ -62,25 +62,33 @@ export const ModalWarp = styled.div`
   /* 모달 헤더 */
   .modal-header {
     position: relative;
-    padding: 16px 64px 16px 16px;
+    height: 70px;
+    padding: 20px 40px;
     text-align: center;
-    font-size: 23px;
-    font-weight: 800;
+    font-size: 20px;
+    font-weight: 500;
     text-align: center;
-    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
     p {
       position: absolute;
-      top: 15px;
-      right: 15px;
+      top: 18px;
+      right: 40px;
       width: 30px;
+      height: 30px;
       color: ${Maincolor.black};
       background-color: transparent;
+      cursor: pointer;
+      img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+      }
     }
   }
   /* 모달 내용 */
   .modal-content {
     height: 100%;
-    padding: 16px;
+    /* padding: 16px; */
   }
 
   .modal.openModal {

@@ -3,6 +3,7 @@ import { Maincolor, ellipsis } from "./GlobalStyle";
 
 export const MainWrapSty = styled.div`
   width: calc(1920px - 270px);
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
@@ -11,7 +12,7 @@ export const MainWrapSty = styled.div`
 export const MainLeftSty = styled.div`
   height: calc(100vh - 125px);
   width: 100%;
-  margin: 23px 0;
+  margin: 30px 0;
   padding: 0 30px;
   border-right: 1px solid ${Maincolor.grayDeep};
   overflow: auto;
@@ -19,10 +20,10 @@ export const MainLeftSty = styled.div`
     width: 363px;
     height: 64px;
     border-radius: 6px 6px 0px 0px;
-    background: rgba(34, 143, 207, 0.4);
+    background: #9bcfee;
 
     h2 {
-      font-size: 23px;
+      font-size: 24px;
       font-weight: 700;
       line-height: 140%;
       letter-spacing: -2px;
@@ -43,7 +44,8 @@ export const StudentAuthPostSty = styled.div`
   width: 765px;
   height: 130px;
   border-radius: 0px 6px 6px 6px;
-  background: ${Maincolor.search};
+  /* background: ${Maincolor.search}; */
+  background: #e0ecf3;
   /* select창 화살표 커스텀 */
   .select-wrap {
     border-radius: 6px;
@@ -147,7 +149,7 @@ export const StudentAuthgetListSty = styled.div`
         flex-direction: column;
         gap: 10px;
         & > li {
-          background: ${Maincolor.maingray};
+          background: ${Maincolor.search};
           border-radius: 6px;
           padding: 11px;
           width: 100%;
@@ -170,16 +172,16 @@ export const StudentAuthgetListSty = styled.div`
 // 메인 우측 스타일
 export const MainRightSty = styled.div`
   height: calc(100vh - 125px);
-  margin: 23px 0;
+  margin: 30px 0;
   padding: 0 30px;
   overflow: auto;
   .main-title-div {
     width: 271px;
     height: 64px;
     border-radius: 6px 6px 0px 0px;
-    background: rgba(130, 187, 43, 0.55);
+    background: #bce182;
     h2 {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
       line-height: 140%;
       letter-spacing: -2px;
@@ -201,7 +203,7 @@ export const CompanyAuthPostSty = styled.div`
   width: 765px;
   height: 130px;
   border-radius: 0px 6px 6px 6px;
-  background: ${Maincolor.search};
+  background: #e7f3d5;
   .click-content {
     margin: 20px;
     /* 날짜 범위 선택 */

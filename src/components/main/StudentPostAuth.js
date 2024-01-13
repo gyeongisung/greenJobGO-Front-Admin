@@ -22,6 +22,12 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const [selectCate, setSelectCate] = useState("");
   const [subjectList, setSubjectList] = useState([]);
 
+  // 에러처리 state
+  const [cateError, setCateError] = useState("");
+  const [subjectError, setSubjectError] = useState("");
+  const [startDateError, setStartDateError] = useState("");
+  const [endDateError, setEndDateError] = useState("");
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
   const { RangePicker } = DatePicker;
   const dateFormat = "YYYY-MM-DD";
 
@@ -47,7 +53,31 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   };
   // 권한기간 수정 버튼
   const handleSummit = () => {
-    setModalOpen(true);
+    setCateError(
+      selectCate === undefined || startDate === ""
+        ? "카테고리를 선택 해 주세요."
+        : "",
+    );
+    setSubjectError(
+      subjectList === undefined || endDate === ""
+        ? "과정명을 선택 해 주세요."
+        : "",
+    );
+    setStartDateError(
+      startDate === undefined || startDate === ""
+        ? "권한 시작날짜를 선택 해 주세요."
+        : "",
+    );
+    setEndDateError(
+      endDate === undefined || endDate === ""
+        ? "권한 종료날짜를 선택 해 주세요."
+        : "",
+    );
+    // 에러가 없을 때 모달 열기
+
+    if (selectCate && subjectList && startDate && endDate) {
+      setModalOpen(true);
+    }
   };
   const handleSummitConfirm = async () => {
     try {
@@ -99,7 +129,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
             onChange={e => handleSubjectFilter(e)}
           >
             <option value="" defaultValue>
-              선택
+              과정명 선택
             </option>
             {subjectList?.map(item => (
               <option key={v4()} value={item.icourseSubject}>
@@ -115,6 +145,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
               onChange={onRangeChange}
               id="student-auth-date"
               disabledDate={disabledDate}
+              placeholder={["시작 날짜", "종료 날짜"]}
             />
           </Space>
         </li>
@@ -123,6 +154,17 @@ const StudentPostAuth = ({ setAuthInfo }) => {
         적용
       </BtnGlobal>
       {/* 권한 변경 확인모달 */}
+      {errorModalOpen && (
+        <ConfirmModal
+          open={modalOpen}
+          close={() => setErrorModalOpen(false)}
+          onConfirm={handleSummitConfirm}
+          onCancel={() => setErrorModalOpen(false)}
+        >
+          <span>과정별 수강생 계정 열람 시간을 변경 하시겠습니까?</span>
+        </ConfirmModal>
+      )}
+      {/* 빈값 에러 확인모달 */}
       {modalOpen && (
         <ConfirmModal
           open={modalOpen}

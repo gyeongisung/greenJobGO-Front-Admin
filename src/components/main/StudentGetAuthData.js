@@ -6,7 +6,7 @@ const StudentGetAuthData = ({ authInfo }) => {
   return (
     <StudentAuthgetListSty>
       <div className="auth-list-div">
-        <h2>과정별 이력서 등록/열람 기간</h2>
+        <h2>수강생 이력서 등록/열람 기간</h2>
         <div className="class-auth-list">
           {authInfo &&
             authInfo?.map(item => (
