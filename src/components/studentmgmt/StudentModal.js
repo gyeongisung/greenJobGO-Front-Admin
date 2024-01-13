@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
-import { StudentAcceptModalWrap } from "../../styles/ModalStyle";
+import {
+  PortFolioAddWrap,
+  StudentAcceptModalWrap,
+} from "../../styles/ModalStyle";
 import { ko } from "date-fns/locale";
 import ReactDatePicker from "react-datepicker";
 import { deleteStudent } from "../../api/studentAxios";
@@ -225,5 +228,73 @@ export const StudentModal = ({ modalOpen, setModalOpen }) => {
         </StudentAcceptModalWrap>
       )}
     </>
+  );
+};
+
+export const PortFolioAdd = () => {
+  return (
+    <PortFolioAddWrap>
+      <div>
+        <div className="modal-top">
+          <h2>포트폴리오 추가</h2>
+          <span>✖</span>
+        </div>
+        <div className="modal=btm">
+          <ul>
+            <li>
+              <input
+                type="radio"
+                id="student"
+                name="role"
+                value="ROLE_USER"
+                // checked={userType === "ROLE_USER"}
+                // onChange={handleUserTypeChange}
+              />
+              <label htmlFor="student">파일추가</label>
+              <input
+                type="radio"
+                id="company"
+                name="role"
+                value="ROLE_COMPANY"
+                // checked={userType === "ROLE_COMPANY"}
+                // onChange={handleUserTypeChange}
+              />
+              <label htmlFor="company">링크추가</label>
+            </li>
+            <li>
+              <input
+                type="file"
+                id="file"
+                accept=".xlsx, .xls, .csv"
+                // onChange={handleFileChange}
+              />
+              <label htmlFor="file">파일첨부</label>
+              <input
+                className="upload-name"
+                // value={selectedFile ? selectedFile.name : "첨부파일"}
+                placeholder="첨부파일"
+                readOnly
+              />
+            </li>
+            <li>
+              <input
+                type="text"
+                placeholder="포트폴리오 소개 내용을 작성해주세요.(최대 150자)"
+              />
+            </li>
+            <li>
+              <span>
+                *포트폴리오 파일은 최대 5개까지 등록 가능하며, 한번에 1개의
+                파일만 등록 가능합니다.
+              </span>
+              <span>*파일 용량은 최대 50MB까지만 첨부 가능합니다.</span>
+            </li>
+            <li>
+              <button>등록</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </PortFolioAddWrap>
   );
 };

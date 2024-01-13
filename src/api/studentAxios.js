@@ -26,38 +26,32 @@ export const getStudentList = async (
   }
 };
 
-export const getStudentDetail = async (
-  istudent,
-  setUserInfo,
-  setUserFile,
-  setThumbNail,
-) => {
+export const getStudentDetail = async (istudent, setUserInfo, setUserFile) => {
   try {
     const res = await client.get(`/admin/student/detail?istudent=${istudent}`);
 
     const { certificates, birthday, subject, ...userInfoDetail } = res.data.res;
 
-    const img = res.data.file[0];
-    console.log(img);
-
     const birthYear = birthday.split("-", 1);
-    console.log(birthYear);
 
-    const PortFolioFile = res.data.file.slice(1);
-    setUserFile(PortFolioFile);
+    setUserFile({
+      thumbNail: res.data.file.img,
+      resume: res.data.file.resume,
+      portFolio: res.data.file.portfolio,
+      fileLinks: res.data.file.fileLinks,
+    });
 
+    console.log(res.data.file.img);
     const certificateResult = certificates
       .map(item => item.certificate)
       .join(", ");
-    console.log(certificateResult);
-    console.log(res.data.res);
+
     setUserInfo({
       userDetail: userInfoDetail,
       certificateValue: certificateResult,
       birth: birthYear,
       subject: subject,
     });
-    setThumbNail(img);
   } catch (error) {
     console.log(error);
   }
@@ -109,10 +103,12 @@ export const deleteStudent = async istudent => {
   }
 };
 
-// export const putStudentInfo = async () => {
-//   try {
-//     const res = await client.put(``);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export const putStudentInfo = async (studentId, userInfo) => {
+  try {
+    const res = await client.put(
+      `/admin/student?istudent=${studentId}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}`,
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
