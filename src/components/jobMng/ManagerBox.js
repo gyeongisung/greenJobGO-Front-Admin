@@ -8,6 +8,7 @@ import {
   getJobManagerInfo,
 } from "../../api/jobMngAxiois";
 import ConfirmModal from "../ConfirmModal";
+import { Link } from "react-router-dom";
 
 const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
   const [modalOpen, setModalOpen] = useState(false);

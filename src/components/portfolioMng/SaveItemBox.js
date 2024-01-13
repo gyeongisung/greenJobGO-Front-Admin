@@ -14,8 +14,10 @@ import SaveItemCheckbox from "./SaveItemCheckbox";
 const SaveItemBox = ({ item, setSavedPFList }) => {
   const [savedItemNum, setSavedItemNum] = useState([]);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
+  const [mainCancelModalOpen, setMainCancelModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState();
   const [mainYn, setMainYn] = useState(0);
+  const [makeQuery, setMakeQuery] = useState("");
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -47,11 +49,20 @@ const SaveItemBox = ({ item, setSavedPFList }) => {
     }
   };
 
+  // 메인취소
   const handleMainDim = async e => {
     console.log("Dim eee", e);
+    setMainCancelModalOpen(true);
     const query = `istudent=${e}`;
-    await patchSendMain({ query, mainYn });
-    updateData();
+    setMakeQuery(query);
+  };
+  const handleMainCancelConfirm = async () => {
+    try {
+      await patchSendMain({ makeQuery, mainYn });
+      updateData();
+    } catch (error) {
+      console.log(error);
+    }
   };
   console.log("보관리스트 리랜더링~");
 
@@ -90,6 +101,17 @@ const SaveItemBox = ({ item, setSavedPFList }) => {
           onCancel={() => setCancelModalOpen(false)}
         >
           <span>해당 포트폴리오 보관을 취소 하시겠습니까?</span>
+        </ConfirmModal>
+      )}
+      {/* 메인취소모달 */}
+      {mainCancelModalOpen && (
+        <ConfirmModal
+          open={mainCancelModalOpen}
+          close={() => setMainCancelModalOpen(false)}
+          onConfirm={handleMainCancelConfirm}
+          onCancel={() => setMainCancelModalOpen(false)}
+        >
+          <span>메인 포트폴리오 설정을 취소 하시겠습니까?</span>
         </ConfirmModal>
       )}
     </div>

@@ -230,3 +230,35 @@ export const ModalCancelBtn = styled.button`
   font-weight: 400;
   cursor: pointer;
 `;
+
+export const NoItemSty = styled.div`
+  /* width: 1544px; */
+  /* height: 630px; */
+  width: 100%;
+  height: 100%;
+  padding: 80px;
+  & > div {
+    margin: 0 auto;
+    width: 1400px;
+    height: 270px;
+    border-radius: 10px;
+    border: 1px solid ${Maincolor.maingray};
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    & > img {
+      margin: 0 auto;
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+    }
+    & > p {
+      margin-top: 14px;
+      color: ${Maincolor.black};
+      text-align: center;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+`;

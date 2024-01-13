@@ -4,7 +4,13 @@ import { BtnGlobal } from "../../styles/GlobalStyle";
 import { v4 } from "uuid";
 import { getBigcate, getPortFolioList } from "../../api/portfolioAxios";
 
-const PFsearch = ({ page, setPage, setStudentPFList, setCount }) => {
+const PFsearch = ({
+  page,
+  setPage,
+  setStudentPFList,
+  setCount,
+  setNothing,
+}) => {
   const [searchsubj, setSearchSubj] = useState("");
   const [searchname, setSearchname] = useState("");
   const [category, setCategory] = useState([]);
@@ -44,6 +50,7 @@ const PFsearch = ({ page, setPage, setStudentPFList, setCount }) => {
         page,
         setCount,
         query,
+        setNothing,
       });
       setStudentPFList(data);
     } catch (error) {

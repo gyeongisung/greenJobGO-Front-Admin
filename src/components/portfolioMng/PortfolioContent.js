@@ -5,8 +5,9 @@ import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { getPortFolioList, patchSendSaved } from "../../api/portfolioAxios";
 import NoImage from "../../assets/NoImage.jpg";
 import ConfirmModal from "../ConfirmModal";
+import NoListItem from "../NoListItem";
 
-const PortfolioContent = ({ item, setStudentPFList }) => {
+const PortfolioContent = ({ item, setStudentPFList, nothing }) => {
   console.log("PortfolioContent 리랜더링?");
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);

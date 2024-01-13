@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { GoMainBtnSty, PfSearchWrap } from "../../styles/PortfolioStyle";
 import { BtnGlobal } from "../../styles/GlobalStyle";
 import { v4 } from "uuid";
-import { getBigcate, getSavedPFList, patchSendMain } from "../../api/portfolioAxios";
+import {
+  getBigcate,
+  getSavedPFList,
+  patchSendMain,
+} from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
 import { selector, useRecoilValue } from "recoil";
 import { clickMainRecoil } from "./SaveItemCheckbox";
@@ -17,7 +21,13 @@ export const readClickItems = selector({
   },
 });
 
-const SaveItemSearch = ({ page, setPage, setSavedPFList, setCount }) => {
+const SaveItemSearch = ({
+  page,
+  setPage,
+  setSavedPFList,
+  setCount,
+  setNothing,
+}) => {
   const [searchsubj, setSearchSubj] = useState("");
   const [searchname, setSearchname] = useState("");
   const [category, setCategory] = useState([]);
@@ -62,6 +72,7 @@ const SaveItemSearch = ({ page, setPage, setSavedPFList, setCount }) => {
         page,
         setCount,
         query,
+        setNothing,
       });
       setSavedPFList(data);
     } catch (error) {
