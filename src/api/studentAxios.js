@@ -35,7 +35,7 @@ export const getStudentDetail = async (istudent, setUserInfo, setUserFile) => {
     const birthYear = birthday.split("-", 1);
 
     setUserFile({
-      thumbNail: res.data.file.img,
+      thumbNail: res.data.file.img.img,
       resume: res.data.file.resume,
       portFolio: res.data.file.portfolio,
       fileLinks: res.data.file.fileLinks,
@@ -95,6 +95,42 @@ export const postExcelSign = async formData => {
   }
 };
 
+export const postStudentFileUpload = async (
+  studentId,
+  iFile,
+  formData,
+  description,
+  linkUrl,
+) => {
+  try {
+    let res;
+    if (iFile === 2) {
+      res = await client.post(
+        `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        },
+      );
+    } else if (iFile === 3) {
+      res = await client.post(
+        `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}&fileLink=${linkUrl}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        },
+      );
+    }
+    if (res.data.res.ifile) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const deleteStudent = async istudent => {
   try {
     const res = await client.delete(`/admin/student?istudent=${istudent}`);
@@ -103,11 +139,41 @@ export const deleteStudent = async istudent => {
   }
 };
 
+export const deleteFile = async fileId => {
+  try {
+    const res = await client.delete(`/admin/student/file?ifile=${fileId}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const putStudentInfo = async (studentId, userInfo) => {
   try {
     const res = await client.put(
-      `/admin/student?istudent=${studentId}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}`,
+      `/admin/student?istudent=${studentId}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}`,
     );
+    console.log(res.data.istudent);
+    if (res.data.istudent) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const putStudentCertificate = async (studentId, certificateValue) => {
+  try {
+    const res = await client.put(
+      `/admin/student/certificate-list?certificate=${certificateValue}&istudent=${studentId}`,
+    );
+    console.log(res.data.istudent);
+    if (res.data.istudent) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
   } catch (error) {
     console.log(error);
   }

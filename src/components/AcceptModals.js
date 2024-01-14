@@ -1,4 +1,3 @@
-import { getClassSubject } from "../api/classAxios";
 import { ExcelAcceptModalWrap } from "../styles/ExcelUploadStyle";
 import { AcceptModalWrap } from "../styles/ModalStyle";
 
@@ -57,7 +56,6 @@ export const AcceptModal = ({
               <div className="header">
                 <span>✖</span>
               </div>
-              <h2>{uploadResult ? "업로드 완료" : "업로드 실패"}</h2>
               <div className="content">
                 <span>
                   {uploadResult
@@ -75,3 +73,40 @@ export const AcceptModal = ({
     </>
   );
 };
+
+export const EditAceeptModal = ({
+  acceptOkModal,
+  setAcceptOkModal,
+  uploadResult,
+}) => {
+  const handleOk = () => {
+    setAcceptOkModal(false);
+  };
+
+  return (
+    <>
+      {acceptOkModal && (
+        <AcceptModalWrap>
+          <div className="dim">
+            <div className="content-wrap">
+              <div className="header">
+                <span>✖</span>
+              </div>
+              <div className="content">
+                <span>
+                  {uploadResult
+                    ? "수정이 완료되었습니다."
+                    : "정상적으로 수정 되지 않았습니다."}
+                </span>
+              </div>
+              <div className="btns">
+                <button onClick={handleOk}>확인</button>
+              </div>
+            </div>
+          </div>
+        </AcceptModalWrap>
+      )}
+    </>
+  );
+};
+

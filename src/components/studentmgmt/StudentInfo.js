@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { StudentInfoWrap } from "../../styles/StudentInfoStyle";
 import {
+  deleteFile,
   deleteStudent,
   getStudentDetail,
+  postStudentFileUpload,
+  putStudentCertificate,
   putStudentInfo,
 } from "../../api/studentAxios";
 import { useRecoilState } from "recoil";
@@ -12,6 +15,8 @@ import NoImage from "../../assets/NoImage.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faFilePdf } from "@fortawesome/free-regular-svg-icons";
 import { faCrown, faLink } from "@fortawesome/free-solid-svg-icons";
+import { DeleteSingleStudentModal, PortFolioAdd } from "./StudentModal";
+import { AcceptModal, EditAceeptModal } from "../AcceptModals";
 
 const StudentInfo = ({ studentInfo }) => {
   const [studentId, setIstudentId] = useState(studentInfo.istudent);
@@ -27,16 +32,17 @@ const StudentInfo = ({ studentInfo }) => {
     portFolio: [],
     fileLinks: [],
   });
+  const [iFile, setIFile] = useState(2);
   const [modalOpen, setModalOpen] = useState(false);
-  const [isTrue, setIsTrue] = useRecoilState(changeComponent);
+  const [acceptOkModal, setAcceptOkModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [uploadResult, setUpLoadResult] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [modify, setModify] = useState({
-    studentName: userInfo.userDetail.name,
-    address: userInfo.userDetail.address,
-    email: userInfo.userDetail.email,
-    education: userInfo.userDetail.education,
-    mobileNumber: userInfo.userDetail.mobileNumber,
-  });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [description, setDescription] = useState("");
+  const [linkUrl, setLinkUrl] = useState("");
+  const [isTrue, setIsTrue] = useRecoilState(changeComponent);
 
   useEffect(() => {
     getStudentDetail(studentId, setUserInfo, setUserFile);
@@ -44,29 +50,68 @@ const StudentInfo = ({ studentInfo }) => {
 
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
-    // if (isEditMode) {
-    //   setModify({
-    //     studentName: userInfo.userDetail.name,
-    //     address: userInfo.userDetail.address,
-    //     email: userInfo.userDetail.email,
-    //     education: userInfo.userDetail.education,
-    //     mobileNumber: userInfo.userDetail.mobileNumber,
-    //   });
-    // }
   };
 
   const handleUpdate = async () => {
     try {
-      await putStudentInfo(studentId, userInfo.userDetail);
+      let result;
+      result = await putStudentInfo(studentId, userInfo.userDetail);
+      result = await putStudentCertificate(
+        studentId,
+        userInfo.certificateValue,
+      );
+      setUpLoadResult(result);
+      if (result.success) {
+        setAcceptOkModal(true);
+        setIsEditMode(false);
+      }
       getStudentDetail(studentId, setUserInfo, setUserFile);
-      setIsEditMode(false);
     } catch (error) {
-      console.error(error);
+      setAcceptOkModal(true);
+      setIsEditMode(false);
+    }
+  };
+
+  const handleFileUpload = async () => {
+    if (iFile && (iFile === 2 || iFile === 3)) {
+      let formData = new FormData();
+      formData.append("file", selectedFile);
+      try {
+        const result = await postStudentFileUpload(
+          studentId,
+          iFile,
+          formData,
+          description,
+          linkUrl,
+        );
+        setUpLoadResult(result);
+        if (result.success) {
+          setModalOpen(false);
+          setAcceptOkModal(true);
+          setIFile(2);
+          setSelectedFile(null);
+          setLinkUrl("");
+          setDescription("");
+          getStudentDetail(studentId, setUserInfo, setUserFile);
+        }
+      } catch (error) {
+        setModalOpen(false);
+        setAcceptOkModal(true);
+        setIFile(2);
+        setSelectedFile(null);
+        setLinkUrl("");
+        setDescription("");
+        getStudentDetail(studentId, setUserInfo, setUserFile);
+      }
     }
   };
 
   const handleBack = () => {
-    setIsTrue(true);
+    if (isEditMode) {
+      setIsEditMode(!isEditMode);
+    } else {
+      setIsTrue(true);
+    }
   };
 
   const handleDelete = () => {
@@ -74,8 +119,62 @@ const StudentInfo = ({ studentInfo }) => {
     setIsTrue(true);
   };
 
+  const handleDeleteClick = () => {
+    setDeleteModalOpen(true);
+  };
+
+  const handleDeleteFile = async fileId => {
+    await deleteFile(fileId);
+    await getStudentDetail(studentId, setUserInfo, setUserFile);
+    console.log(fileId);
+  };
+
+  const handleAddButton = () => {
+    setModalOpen(true);
+  };
+
+  const handlePofolModalCancel = () => {
+    setModalOpen(false);
+  };
+
   return (
     <StudentInfoWrap>
+      {modalOpen && (
+        <PortFolioAdd
+          modalOpen={modalOpen}
+          handlePofolModalCancel={handlePofolModalCancel}
+          iFile={iFile}
+          setIFile={setIFile}
+          selectedFile={selectedFile}
+          setSelectedFile={setSelectedFile}
+          description={description}
+          setDescription={setDescription}
+          linkUrl={linkUrl}
+          setLinkUrl={setLinkUrl}
+          handleFileUpload={handleFileUpload}
+        />
+      )}
+      {acceptOkModal && (
+        <AcceptModal
+          acceptOkModal={acceptOkModal}
+          setAcceptOkModal={setAcceptOkModal}
+          uploadResult={uploadResult}
+        />
+      )}
+      {deleteModalOpen && (
+        <DeleteSingleStudentModal
+          handleDelete={handleDelete}
+          deleteModalOpen={deleteModalOpen}
+          setDeleteModalOpen={setDeleteModalOpen}
+        />
+      )}
+      {editModal && (
+        <EditAceeptModal
+          editModal={editModal}
+          setEditModal={setEditModal}
+          uploadResult={uploadResult}
+        />
+      )}
       <div className="info-contain">
         <div>
           <h2>수강생 상세 정보</h2>
@@ -164,13 +263,44 @@ const StudentInfo = ({ studentInfo }) => {
             </div>
             <div>
               <span>자격증</span>
-              <span>{userInfo.certificateValue}</span>
+              {isEditMode ? (
+                <input
+                  type="text"
+                  name="email"
+                  value={userInfo.certificateValue}
+                  onChange={e => {
+                    setUserInfo(userInfo => ({
+                      ...userInfo,
+                      certificateValue: e.target.value,
+                    }));
+                  }}
+                />
+              ) : (
+                <span>{userInfo.certificateValue}</span>
+              )}
             </div>
           </li>
           <li className="info-content-right">
             <div>
               <span>취업여부</span>
-              <span>{userInfo.userDetail.huntJobYn}</span>
+              {isEditMode ? (
+                <input
+                  type="text"
+                  name="email"
+                  value={userInfo.userDetail.huntJobYn}
+                  onChange={e => {
+                    setUserInfo(userInfo => ({
+                      ...userInfo,
+                      userDetail: {
+                        ...userInfo.userDetail,
+                        huntJobYn: e.target.value,
+                      },
+                    }));
+                  }}
+                />
+              ) : (
+                <span>{userInfo.userDetail.huntJobYn}</span>
+              )}
             </div>
             <div>
               <span>수료기간</span>
@@ -259,14 +389,13 @@ const StudentInfo = ({ studentInfo }) => {
         <ul className="portfolio-list">
           <li>
             <h2>포트폴리오</h2>
+            {isEditMode ? (
+              <button onClick={handleAddButton}>
+                + 포트폴리오 파일 또는 링크 추가
+              </button>
+            ) : null}
           </li>
-          <li
-            className={`${
-              (userFile && userFile.portFolio) || userFile.fileLinks
-                ? ""
-                : "portfolio-zero"
-            }`}
-          >
+          <li>
             <div>
               {userFile &&
               userFile.portFolio &&
@@ -290,12 +419,17 @@ const StudentInfo = ({ studentInfo }) => {
                         ) : (
                           ""
                         )}
-                        <p className="delete-icon">
-                          <FontAwesomeIcon
-                            icon={faCircleXmark}
-                            style={{ color: "#6d6d6d" }}
-                          />
-                        </p>
+                        {isEditMode ? (
+                          <p className="delete-icon">
+                            <FontAwesomeIcon
+                              onClick={() => handleDeleteFile(item.ifile)}
+                              icon={faCircleXmark}
+                              style={{ color: "#6d6d6d" }}
+                            />
+                          </p>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                     <span>{item.oneWord}</span>
@@ -303,7 +437,9 @@ const StudentInfo = ({ studentInfo }) => {
                 ))
               ) : (
                 <div>
-                  <span>등록된 포트폴리오 PDF 파일이 없습니다.</span>
+                  <div className="portfolio-zero">
+                    <span>등록된 포트폴리오 PDF 파일이 없습니다.</span>
+                  </div>
                 </div>
               )}
             </div>
@@ -318,19 +454,26 @@ const StudentInfo = ({ studentInfo }) => {
                         <FontAwesomeIcon icon={faLink} />
                         {item.fileLink}
                       </span>
-                      <p className="delete-icon">
-                        <FontAwesomeIcon
-                          icon={faCircleXmark}
-                          style={{ color: "#6d6d6d" }}
-                        />
-                      </p>
+                      {isEditMode ? (
+                        <p className="delete-icon">
+                          <FontAwesomeIcon
+                            onClick={() => handleDeleteFile(item.ifile)}
+                            icon={faCircleXmark}
+                            style={{ color: "#6d6d6d" }}
+                          />
+                        </p>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <span>{item.oneWord}</span>
                   </div>
                 ))
               ) : (
                 <div>
-                  <span>등록된 포트폴리오 링크가 없습니다.</span>
+                  <div className="portfolio-zero">
+                    <span>등록된 포트폴리오 링크가 없습니다.</span>
+                  </div>
                 </div>
               )}
             </div>
@@ -339,15 +482,19 @@ const StudentInfo = ({ studentInfo }) => {
       </div>
       <div className="buttons">
         <div>
-          <button onClick={handleDelete}>삭제</button>
+          <button onClick={handleDeleteClick}>삭제</button>
         </div>
         <div>
-          <button onClick={handleBack}>돌아가기</button>
-
           {isEditMode ? (
-            <button onClick={handleUpdate}>확인</button>
+            <>
+              <button onClick={handleBack}>돌아가기</button>
+              <button onClick={handleUpdate}>확인</button>
+            </>
           ) : (
-            <button onClick={handleEditMode}>수정</button>
+            <>
+              <button onClick={handleBack}>돌아가기</button>
+              <button onClick={handleEditMode}>수정</button>
+            </>
           )}
         </div>
       </div>

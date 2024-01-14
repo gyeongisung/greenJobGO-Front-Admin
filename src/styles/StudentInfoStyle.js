@@ -42,7 +42,7 @@ export const StudentInfoWrap = styled.div`
             margin-bottom: 40px;
             > input {
               font-size: 18px;
-              width: 85px;
+              width: 100px;
               height: 25px;
             }
             .student-name {
@@ -86,6 +86,12 @@ export const StudentInfoWrap = styled.div`
             display: flex;
             align-items: center;
             gap: 18px;
+            > input {
+              width: 100%;
+              height: 22px;
+              padding-left: 3px;
+              line-height: 20px;
+            }
           }
         }
       }
@@ -134,22 +140,41 @@ export const StudentInfoWrap = styled.div`
     .portfolio-list {
       width: 100%;
       padding-bottom: 30px;
-      .portfolio-zero {
-        display: flex !important;
-        justify-content: flex-start !important;
-        > div {
-          width: 50%;
-        }
-      }
+
       li {
         width: 100%;
         :first-of-type {
+          display: flex;
+          justify-content: space-between;
           padding-top: 40px;
+          > button {
+            width: 225px;
+            height: 40px;
+            font-weight: 500;
+            color: #fff;
+            background: #6d6d6d;
+            border: 1px solid #6d6d6d;
+            border-radius: 6px;
+            cursor: pointer;
+          }
         }
         :last-of-type {
           display: flex;
           justify-content: space-between;
           > div {
+            .portfolio-zero {
+              width: 690px;
+              height: 100px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              > div {
+                width: 100%;
+                > span {
+                  width: 100%;
+                }
+              }
+            }
             .portfolio-box {
               width: 690px;
               height: 100px;
