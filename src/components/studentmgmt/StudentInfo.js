@@ -352,7 +352,7 @@ const StudentInfo = ({ studentInfo }) => {
             </div>
           </li>
         </ul>
-        <div>
+        <div className="info-resume">
           <ul>
             <li>
               <h2>이력서 및 자기소개서</h2>
@@ -371,15 +371,36 @@ const StudentInfo = ({ studentInfo }) => {
               userFile.resume &&
               userFile.resume.oneWord &&
               userFile.resume.resume ? (
-                <a
-                  href={`${userFile.resume.resume}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FontAwesomeIcon icon={faFilePdf} />
-                  &nbsp;
-                  {userFile.resume.resume}
-                </a>
+                <div>
+                  <div>
+                    <p>
+                      <FontAwesomeIcon icon={faFilePdf} />
+                    </p>
+                    <a
+                      href={`http://${userFile.resume.resume}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      &nbsp;
+                      {userFile.resume.resume}
+                    </a>
+                  </div>
+                  {isEditMode ? (
+                    <div>
+                      <p>
+                        <FontAwesomeIcon
+                          onClick={() =>
+                            handleDeleteFile(userFile.resume.ifile)
+                          }
+                          icon={faCircleXmark}
+                          style={{ color: "#6d6d6d" }}
+                        />
+                      </p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
               ) : (
                 <span>&nbsp;이력서가 등록되어 있지 않습니다.</span>
               )}
@@ -403,11 +424,19 @@ const StudentInfo = ({ studentInfo }) => {
                 userFile.portFolio.map(item => (
                   <div className="portfolio-box" key={v4()}>
                     <div>
-                      <span>
-                        <FontAwesomeIcon icon={faFilePdf} />
-                        &nbsp;
-                        {item.file}
-                      </span>
+                      <div>
+                        <p>
+                          <FontAwesomeIcon icon={faFilePdf} />
+                        </p>
+                        <a
+                          href={`http://${item.file}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          &nbsp;
+                          {item.file}
+                        </a>
+                      </div>
                       <div className="portfolio-icons">
                         {item.mainYn === 1 ? (
                           <p>
@@ -450,18 +479,28 @@ const StudentInfo = ({ studentInfo }) => {
                 userFile.fileLinks.map(item => (
                   <div className="portfolio-box" key={v4()}>
                     <div>
-                      <span>
-                        <FontAwesomeIcon icon={faLink} />
-                        {item.fileLink}
-                      </span>
-                      {isEditMode ? (
-                        <p className="delete-icon">
-                          <FontAwesomeIcon
-                            onClick={() => handleDeleteFile(item.ifile)}
-                            icon={faCircleXmark}
-                            style={{ color: "#6d6d6d" }}
-                          />
+                      <div>
+                        <p>
+                          <FontAwesomeIcon icon={faLink} />
                         </p>
+                        <a
+                          href={`http://${item.fileLink}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          &nbsp;{item.fileLink}
+                        </a>
+                      </div>
+                      {isEditMode ? (
+                        <div>
+                          <p className="delete-icon">
+                            <FontAwesomeIcon
+                              onClick={() => handleDeleteFile(item.ifile)}
+                              icon={faCircleXmark}
+                              style={{ color: "#6d6d6d" }}
+                            />
+                          </p>
+                        </div>
                       ) : (
                         ""
                       )}

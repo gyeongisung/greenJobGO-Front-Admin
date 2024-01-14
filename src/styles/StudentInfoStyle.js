@@ -7,7 +7,6 @@ export const StudentInfoWrap = styled.div`
   .info-contain {
     h2 {
       font-size: 24px;
-      margin-bottom: 30px;
     }
     .info-content {
       display: flex;
@@ -137,12 +136,59 @@ export const StudentInfoWrap = styled.div`
         }
       }
     }
+    .info-resume {
+      height: 310px;
+      border-bottom: 1px solid #7b7b7b;
+      padding: 40px 0;
+      > ul {
+        > li {
+          > h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 30px;
+          }
+          > h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 14px;
+          }
+          :last-of-type {
+            margin-top: 30px;
+            > div {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 690px;
+              height: 40px;
+              line-height: 40px;
+              background: #e6e6e6;
+              border-radius: 6px;
+              padding: 0px 13px 0 10px;
+              margin-top: 14px;
+              a {
+                font-size: 14px;
+              }
+              p {
+                font-size: 21px;
+                height: 21px;
+                line-height: 21px;
+                cursor: pointer;
+              }
+              div {
+                display: flex;
+                align-items: center;
+              }
+            }
+          }
+        }
+      }
+    }
     .portfolio-list {
       width: 100%;
       padding-bottom: 30px;
-
       li {
         width: 100%;
+        padding-bottom: 30px;
         :first-of-type {
           display: flex;
           justify-content: space-between;
@@ -189,8 +235,16 @@ export const StudentInfoWrap = styled.div`
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding-right: 12px;
-                padding-left: 5px;
+                > div {
+                  display: flex;
+                  align-items: center;
+                  padding: 0 13px 0 10px;
+                  p {
+                    font-size: 21px;
+                    height: 21px;
+                    line-height: 21px;
+                  }
+                }
               }
               .portfolio-icons {
                 display: flex;
@@ -208,24 +262,6 @@ export const StudentInfoWrap = styled.div`
                 padding-left: 5px;
               }
             }
-          }
-        }
-      }
-    }
-    > div {
-      :nth-of-type(2) {
-        height: 310px;
-        border-bottom: 1px solid #7b7b7b;
-        li {
-          font-size: 16px;
-          :nth-of-type(1) {
-            padding-top: 40px;
-          }
-          :nth-of-type(2) {
-            padding-top: 30px;
-          }
-          :nth-of-type(3) {
-            padding-top: 30px;
           }
         }
       }
