@@ -5,6 +5,7 @@ import { BtnGlobal } from "../../styles/GlobalStyle";
 import { getCompanyAuthData, patchCompanyAuthData } from "../../api/homeAxios";
 import ConfirmModal from "../ConfirmModal";
 import dayjs from "dayjs";
+import OkModal from "../OkModal";
 
 const CompanyPostAuth = ({ setAuthInfo }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,6 +16,7 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
   // 에러처리 state
   const [startDateError, setStartDateError] = useState("");
   const [endDateError, setEndDateError] = useState("");
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   const { RangePicker } = DatePicker;
   const dateFormat = "YYYY-MM-DD";
@@ -31,18 +33,16 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
 
   // 권한기간 수정 버튼
   const handleSummit = () => {
-    setStartDateError(
-      startDate === undefined || startDate === ""
-        ? "권한 시작날짜를 선택 해 주세요."
-        : "",
-    );
-    setEndDateError(
-      endDate === undefined || endDate === ""
-        ? "권한 종료날짜를 선택 해 주세요."
-        : "",
-    );
-    if (startDate && endDate) {
+    setStartDateError(!startDate ? "권한 시작날짜를 선택 해 주세요." : "");
+    setEndDateError(!endDate ? "권한 종료날짜를 선택 해 주세요." : "");
+
+    const isError = !startDate || !endDate;
+
+    // 에러가 없을 때 모달 열기
+    if (!isError) {
       setModalOpen(true);
+    } else {
+      setErrorModalOpen(true);
     }
   };
   const handleSummitConfirm = async () => {
@@ -98,6 +98,16 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
         >
           <span>기업 계정 열람 시간을 변경 하시겠습니까?</span>
         </ConfirmModal>
+      )}
+      {/* 빈값 에러 확인모달 */}
+      {errorModalOpen && (
+        <OkModal
+          open={errorModalOpen}
+          close={() => setErrorModalOpen(false)}
+          onConfirm={() => setErrorModalOpen(false)}
+        >
+          <span>{startDateError || endDateError}</span>
+        </OkModal>
       )}
     </CompanyAuthPostSty>
   );

@@ -11,6 +11,7 @@ import ConfirmModal from "../ConfirmModal";
 import dayjs from "dayjs";
 import { getBigcate } from "../../api/portfolioAxios";
 import { v4 } from "uuid";
+import OkModal from "../OkModal";
 
 const StudentPostAuth = ({ setAuthInfo }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -53,30 +54,18 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   };
   // 권한기간 수정 버튼
   const handleSummit = () => {
-    setCateError(
-      selectCate === undefined || startDate === ""
-        ? "카테고리를 선택 해 주세요."
-        : "",
-    );
-    setSubjectError(
-      subjectList === undefined || endDate === ""
-        ? "과정명을 선택 해 주세요."
-        : "",
-    );
-    setStartDateError(
-      startDate === undefined || startDate === ""
-        ? "권한 시작날짜를 선택 해 주세요."
-        : "",
-    );
-    setEndDateError(
-      endDate === undefined || endDate === ""
-        ? "권한 종료날짜를 선택 해 주세요."
-        : "",
-    );
-    // 에러가 없을 때 모달 열기
+    setCateError(!selectCate ? "카테고리를 선택 해 주세요." : "");
+    setSubjectError(!subjectPk ? "과정명을 선택 해 주세요." : "");
+    setStartDateError(!startDate ? "권한 시작날짜를 선택 해 주세요." : "");
+    setEndDateError(!endDate ? "권한 종료날짜를 선택 해 주세요." : "");
 
-    if (selectCate && subjectList && startDate && endDate) {
+    const isError = !selectCate || !subjectPk || !startDate || !endDate;
+
+    // 에러가 없을 때 모달 열기
+    if (!isError) {
       setModalOpen(true);
+    } else {
+      setErrorModalOpen(true);
     }
   };
   const handleSummitConfirm = async () => {
@@ -154,17 +143,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
         적용
       </BtnGlobal>
       {/* 권한 변경 확인모달 */}
-      {errorModalOpen && (
-        <ConfirmModal
-          open={modalOpen}
-          close={() => setErrorModalOpen(false)}
-          onConfirm={handleSummitConfirm}
-          onCancel={() => setErrorModalOpen(false)}
-        >
-          <span>과정별 수강생 계정 열람 시간을 변경 하시겠습니까?</span>
-        </ConfirmModal>
-      )}
-      {/* 빈값 에러 확인모달 */}
       {modalOpen && (
         <ConfirmModal
           open={modalOpen}
@@ -174,6 +152,18 @@ const StudentPostAuth = ({ setAuthInfo }) => {
         >
           <span>과정별 수강생 계정 열람 시간을 변경 하시겠습니까?</span>
         </ConfirmModal>
+      )}
+      {/* 빈값 에러 확인모달 */}
+      {errorModalOpen && (
+        <OkModal
+          open={errorModalOpen}
+          close={() => setErrorModalOpen(false)}
+          onConfirm={() => setErrorModalOpen(false)}
+        >
+          <span>
+            {cateError || subjectError || startDateError || endDateError}
+          </span>
+        </OkModal>
       )}
     </StudentAuthPostSty>
   );

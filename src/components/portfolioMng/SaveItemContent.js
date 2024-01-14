@@ -18,8 +18,6 @@ export const readsavedListItems = selector({
   },
 });
 const SaveItemContent = ({
-  savedPFList,
-  // setSavedPFList,
   nothing,
 }) => {
   // 보관함 리스트 recoil을 읽어오자
@@ -27,13 +25,10 @@ const SaveItemContent = ({
 
   return (
     <PortFolioContentWrap>
-      {nothing && <NoListItem />}
-
       {savedListRead.res?.map(item => (
         <SaveItemBox
           key={v4()}
           item={item}
-          // setSavedPFList={setSavedPFList}
         />
       ))}
     </PortFolioContentWrap>

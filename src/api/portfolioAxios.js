@@ -83,7 +83,6 @@ export const getSavedPFList = async ({
     setSavedPFList(result);
     setCount(result.page.idx);
     setNothing(false);
-    setClickItems(result.res.companyMainYn);
     if (result.res.length === 0) {
       setNothing(true);
       // console.log("결과 없어요");
