@@ -24,10 +24,21 @@ export const SideMenuWrap = styled.div`
       transform: translate(-50%, -50%);
     }
   }
-  .ant-menu {
+  .ant-menu,
+  .end-menu {
     /* height: calc(100% - 64px); */
     height: 100%;
     width: 250px;
+    font-family:
+      "Noto Sans KR",
+      sans-serif,
+      "Pretendard Variable",
+      Pretendard,
+      -apple-system,
+      BlinkMacSystemFont,
+      system-ui,
+      Roboto,
+      "Helvetica Neue";
   }
   .ant-menu-sub.ant-menu-inline {
     background: ${Maincolor.white} !important;

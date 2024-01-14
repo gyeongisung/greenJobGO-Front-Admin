@@ -48,6 +48,7 @@ export const PfSearchWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   width: 1266px;
   min-width: 1266px;
   height: 100px;
@@ -64,7 +65,7 @@ export const PfSearchWrap = styled.div`
       font-weight: 500;
       line-height: 140%;
       letter-spacing: -0.64px;
-      margin-right: 16px;
+      margin-right: 18px;
       margin-left: 30px;
     }
     li > select {
@@ -114,26 +115,19 @@ export const PfSearchWrap = styled.div`
 export const PortFolioContentWrap = styled.div`
   position: relative;
   width: 1600px;
-  padding: 30px 0;
+  /* height: 630px; */
+  height: 585px;
+  padding: 30px 0 24px 0;
   display: flex;
   justify-content: left;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: wrap;
   gap: 30px;
 
-  /* 메인으로 보내는 버튼 */
-  .GoMainGo {
-    position: absolute;
-    top: -50px;
-    left: 1360px;
-    width: 225px;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.24px;
-  }
   .pf-box {
     width: 294px;
-    margin: 10px 0;
+    height: 251px;
+    /* margin: 10px 0; */
     .pf-img,
     .saved-img {
       position: relative;
@@ -184,7 +178,8 @@ export const PortFolioContentWrap = styled.div`
     }
 
     /* 포트폴리오 정보 */
-    & > ul {
+    & > ul,
+    .side-info {
       position: relative;
       .pf-name {
         width: 120px;
@@ -252,35 +247,51 @@ export const PortFolioContentWrap = styled.div`
 
 // 메인으로 보내는 체크박스 style
 export const CheckToMainSt = styled.div`
-  display: flex;
-  justify-content: center;
-  .main-checked {
-    line-height: 2;
-    margin-right: 8px;
-    > li > input {
-      width: 17px;
-      height: 17px;
-      text-align: center;
-    }
-  }
-  .side-info {
-    position: relative;
-    .pf-subject {
-      width: 250px;
-      ${ellipsis.one}
-    }
-    /* 보관함에 있는 포트폴리오 하트 */
-    .isSaved-name-right {
-      position: absolute;
-      top: 0;
-      right: -13px;
-      width: 20px;
-      color: ${Maincolor.red};
-      cursor: pointer;
-      & > svg {
-        font-size: 16px;
+  .Saved-infoWrap {
+    width: 294px;
+    display: flex;
+    justify-content: left;
+    .main-checked {
+      line-height: 2;
+      margin-right: 8px;
+      > li > input {
+        width: 17px;
+        height: 17px;
+        text-align: center;
       }
     }
+    .side-info {
+      position: relative;
+      .pf-subject {
+        width: 260px;
+        ${ellipsis.one}
+      }
+      /* 보관함에 있는 포트폴리오 하트 */
+      .isSaved-name-right {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        width: 20px;
+        color: ${Maincolor.red};
+        cursor: pointer;
+        & > svg {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+`;
+
+export const GoMainBtnSty = styled.div`
+  /* 메인으로 보내는 버튼 */
+  .GoMainGo {
+    position: absolute;
+    top: 80px;
+    left: 1360px;
+    width: 225px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.24px;
   }
 `;
 

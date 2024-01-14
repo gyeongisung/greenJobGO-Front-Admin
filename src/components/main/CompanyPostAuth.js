@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CompanyAuthPostSty, StudentAuthPostSty } from "../../styles/HomeStyle";
-import { DatePicker, Space } from "antd";
+import { ConfigProvider, DatePicker, Space } from "antd";
 import { BtnGlobal } from "../../styles/GlobalStyle";
 import { getCompanyAuthData, patchCompanyAuthData } from "../../api/homeAxios";
 import ConfirmModal from "../ConfirmModal";
@@ -11,6 +11,11 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [icompany, setIcompany] = useState("1");
+
+  // 에러처리 state
+  const [startDateError, setStartDateError] = useState("");
+  const [endDateError, setEndDateError] = useState("");
+
   const { RangePicker } = DatePicker;
   const dateFormat = "YYYY-MM-DD";
 
@@ -26,7 +31,19 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
 
   // 권한기간 수정 버튼
   const handleSummit = () => {
-    setModalOpen(true);
+    setStartDateError(
+      startDate === undefined || startDate === ""
+        ? "권한 시작날짜를 선택 해 주세요."
+        : "",
+    );
+    setEndDateError(
+      endDate === undefined || endDate === ""
+        ? "권한 종료날짜를 선택 해 주세요."
+        : "",
+    );
+    if (startDate && endDate) {
+      setModalOpen(true);
+    }
   };
   const handleSummitConfirm = async () => {
     try {
@@ -49,14 +66,23 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
     <CompanyAuthPostSty>
       <ul className="click-content">
         <li>
-          <Space direction="vertical" size={12}>
-            <RangePicker
-              format={dateFormat}
-              onChange={onRangeChange}
-              id="company-auth-date"
-              disabledDate={disabledDate}
-            />
-          </Space>
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: "#bce182",
+              },
+            }}
+          >
+            <Space direction="vertical" size={12}>
+              <RangePicker
+                format={dateFormat}
+                onChange={onRangeChange}
+                id="company-auth-date"
+                disabledDate={disabledDate}
+                placeholder={["시작 날짜", "종료 날짜"]}
+              />
+            </Space>
+          </ConfigProvider>
         </li>
       </ul>
       <BtnGlobal className="auth-post" onClick={handleSummit}>

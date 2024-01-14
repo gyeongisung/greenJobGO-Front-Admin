@@ -14,10 +14,21 @@ export const ContentWrap = styled.div`
   height: calc(100vh - 60px);
   /* min-width: 1400px; */
   background: ${Maincolor.white} !important;
-  background: red;
   .ant-layout-header {
     height: 60px;
     line-height: 60px;
+    .ant-breadcrumb {
+      font-family:
+        "Noto Sans KR",
+        sans-serif,
+        "Pretendard Variable",
+        Pretendard,
+        -apple-system,
+        BlinkMacSystemFont,
+        system-ui,
+        Roboto,
+        "Helvetica Neue";
+    }
   }
   .ant-layout-content {
     position: absolute;
@@ -30,9 +41,19 @@ export const ContentWrap = styled.div`
     border: 9px ${Maincolor.wrapborder} solid;
     /* box-shadow: inset 0px -2px 20px black; */
     overflow: auto;
+    font-family:
+      "Noto Sans KR",
+      sans-serif,
+      "Pretendard Variable",
+      Pretendard,
+      -apple-system,
+      BlinkMacSystemFont,
+      system-ui,
+      Roboto,
+      "Helvetica Neue";
   }
   .contents-box {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 78px);
     /* padding: 1%; */
     margin: 0 auto;
     border: 1px ${Maincolor.grayLight} solid;

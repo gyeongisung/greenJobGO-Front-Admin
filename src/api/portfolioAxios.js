@@ -20,6 +20,7 @@ export const getPortFolioList = async ({
   page,
   setCount,
   query,
+  setNothing,
 }) => {
   console.log("query들어오냐 ㅋ ", query);
 
@@ -32,19 +33,20 @@ export const getPortFolioList = async ({
     console.log("포트폴리오리스트", result);
     setStudentPFList(result);
     setCount(result.page.idx);
+    setNothing(false);
+    if (result.res.length === 0) {
+      setNothing(true);
+      // console.log("결과 없어요");
+    }
     return result;
   } catch (error) {
     console.log(error);
-    throw error;
+    // setNothing(true);
   }
 };
 
 // 보관함으로 보내거나 취소하기
-export const patchSendSaved = async ({
-  savedItemNum,
-  isSaved,
-  setIsRender,
-}) => {
+export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
   console.log("savedItemNum 들어오니?", savedItemNum);
   console.log("isSaved 들어오니?", isSaved);
 
@@ -63,36 +65,43 @@ export const patchSendSaved = async ({
 // 보관함 리스트를 불러오자
 export const getSavedPFList = async ({
   setSavedPFList,
-  page,
+  savePage,
   setCount,
   query,
+  setNothing,
+  setClickItems,
 }) => {
   console.log("query들어오냐 ㅋ ", query);
 
   try {
     const res = await client.get(
-      `/admin/student/storage?page=${page}&size=10&${query}`,
+      `/admin/student/storage?page=${savePage}&size=10&${query}`,
     );
 
     const result = await res.data;
     console.log("보관함 리스트", result);
     setSavedPFList(result);
     setCount(result.page.idx);
+    setNothing(false);
+    setClickItems(result.res.companyMainYn);
+    if (result.res.length === 0) {
+      setNothing(true);
+      // console.log("결과 없어요");
+    }
     return result;
   } catch (error) {
     console.log(error);
-    throw error;
   }
 };
 
-// 메인보내기
-export const patchSendMain = async ({ queryState, isMain }) => {
-  // console.log("queryState 들어오니?", queryState);
-  // console.log("isSaved 들어오니?", isMain);
 
+// 메인 보내기
+export const patchSendMain = async ({ query, mainYn }) => {
+  console.log("query 들어오니?", query);
+  console.log("mainYn 들어오니?", mainYn);
   try {
     const res = await client.patch(
-      `/admin/student/main?${queryState}&companyMainYn=${isMain}`,
+      `/admin/student/main?${query}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
     console.log("메인 patchㅋ", result);

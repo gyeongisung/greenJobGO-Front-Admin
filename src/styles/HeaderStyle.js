@@ -5,7 +5,6 @@ export const HeaderWrap = styled.div`
   background: ${Maincolor.white};
   /* width: calc(100vw - 200px); */
   height: 60px;
-
   .breadcrumb-wrap {
     position: absolute;
     top: 0px;

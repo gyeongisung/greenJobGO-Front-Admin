@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useLocation, useParams } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { ContentWrap, LayoutWrapSty } from "../styles/LayoutStyle";
 import { Breadcrumb, Layout } from "antd";
 import { Link } from "react-router-dom";
-import { Content } from "antd/es/layout/layout";
 import HeaderAdm from "../components/HeaderAdm";
 import AsideAdm from "../components/AsideAdm";
 
@@ -11,7 +10,6 @@ const AdminLayout = () => {
   const { Header, Content } = Layout;
 
   const { pathname } = useLocation();
-  // const { iproduct } = useParams();
 
   const listPathName = pathname.substring(1);
 

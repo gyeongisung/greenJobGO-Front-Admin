@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { JobManagerAddSty } from "../../styles/JobmanagerStyle";
 import {
   BtnGlobal,
@@ -18,9 +18,65 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
     phoneNumber: "",
     email: "",
   });
+
+  // 입력 에러 처리
+  const [addNameError, setAddNameError] = useState("");
+  const [addOnewordError, setAddOnewordError] = useState("");
+  const [addCounselError, setAddCounselError] = useState("");
+  const [addPhoneError, setAddPhoneError] = useState("");
+  const [addEmailError, setAddEmailError] = useState("");
+  const [addImgError, setAddImgError] = useState("");
+  const [placeholder, setPlaceholder] = useState("JPG,PNG,JPEG,GIF 파일 첨부");
+
+  const img_ref = useRef(null);
+
   const openModal = () => {
-    setModalOpen(true);
+    setAddNameError(
+      addInfo.name === undefined || addInfo.name === ""
+        ? "이름을 입력 해 주세요."
+        : "",
+    );
+    setAddOnewordError(
+      addInfo.oneWord === undefined || addInfo.oneWord === ""
+        ? "한 줄 소개를 입력 해 주세요."
+        : "",
+    );
+
+    setAddCounselError(
+      addInfo.counselingNumber === undefined || addInfo.counselingNumber === ""
+        ? "상담전화를 입력 해 주세요."
+        : "",
+    );
+
+    setAddPhoneError(
+      addInfo.phoneNumber === undefined || addInfo.phoneNumber === ""
+        ? "모바일을 입력 해 주세요."
+        : "",
+    );
+
+    setAddEmailError(
+      addInfo.email === undefined || addInfo.email === ""
+        ? "이메일을 입력 해 주세요."
+        : "",
+    );
+
+    setAddImgError(
+      selectImg === undefined || selectImg === ""
+        ? "프로필 이미지를 입력 해 주세요."
+        : "",
+    );
+    if (
+      addInfo.name &&
+      addInfo.oneWord &&
+      addInfo.counselingNumber &&
+      addInfo.phoneNumber &&
+      addInfo.email &&
+      selectImg
+    ) {
+      setModalOpen(true);
+    }
   };
+
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -29,9 +85,18 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
     e.preventDefault();
     const file = e.target.files[0];
     setSelectImg(file);
+    console.log("img_ref", img_ref);
+    if (img_ref.current.value !== "") {
+      const fileName = img_ref.current.value;
+      setPlaceholder(fileName);
+    } else {
+      console.log("데이터가 없다는디");
+    }
   };
 
   const handleInfoAdd = (e, fieldName) => {
+    console.log("e", e.target.value);
+    console.log("fieldName", fieldName);
     setAddInfo({ ...addInfo, [fieldName]: e.target.value });
   };
 
@@ -53,6 +118,7 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
       console.error("취업 담당자 등록 에러:", error);
     }
   };
+
   // 변경있을때마다 자료 새로고침
   const updateData = async () => {
     try {
@@ -78,15 +144,26 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
             value={addInfo.name}
             onChange={e => handleInfoAdd(e, "name")}
           ></input>
+          {addNameError ? (
+            <p className="error-class">{addNameError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li>
           <h3>한 줄 소개</h3>
           <input
             type="text"
             placeholder="소개문구를 작성해주세요. (최대 20자)"
+            maxLength={20}
             value={addInfo.oneWord}
             onChange={e => handleInfoAdd(e, "oneWord")}
           ></input>
+          {addOnewordError ? (
+            <p className="error-class">{addOnewordError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li>
           <h3>상담전화</h3>
@@ -96,6 +173,11 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
             value={addInfo.counselingNumber}
             onChange={e => handleInfoAdd(e, "counselingNumber")}
           ></input>
+          {addCounselError ? (
+            <p className="error-class">{addCounselError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li>
           <h3>모바일</h3>
@@ -105,6 +187,11 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
             value={addInfo.phoneNumber}
             onChange={e => handleInfoAdd(e, "phoneNumber")}
           ></input>
+          {addPhoneError ? (
+            <p className="error-class">{addPhoneError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li className="email-input">
           <h3>이메일</h3>
@@ -114,20 +201,36 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
             value={addInfo.email}
             onChange={e => handleInfoAdd(e, "email")}
           ></input>
+          {addEmailError ? (
+            <p className="error-class">{addEmailError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
         </li>
         <li className="photo-upload">
           <h3>프로필 이미지</h3>
-          {/* <div className="upload-area"> */}
-          <input
-            type="file"
-            name="job-mng-img"
-            id="job-img-upload"
-            accept="image/gif,image/jpeg,image/jpg,image/png"
-            placeholder="JPG,PNG,JPEG,GIF 파일 첨부"
-            onChange={handleImageUpload}
-          />
-          {/* </div> */}
-          <p>*프로필 이미지를 등록해주세요.</p>
+          <div className="upload-area">
+            <input
+              className="file-place-hold"
+              placeholder={placeholder}
+              disabled
+            />
+            <input
+              type="file"
+              name="job-mng-img"
+              id="job-img-upload"
+              ref={img_ref}
+              accept="image/gif,image/jpeg,image/jpg,image/png"
+              // placeholder="JPG,PNG,JPEG,GIF 파일 첨부"
+              onChange={handleImageUpload}
+            />
+          </div>
+          {addImgError ? (
+            <p className="error-class">{addImgError}</p>
+          ) : (
+            <p className="error-class"></p>
+          )}
+          <span>*프로필 이미지를 등록해주세요.</span>
         </li>
       </ul>
       <div className="add-accept">

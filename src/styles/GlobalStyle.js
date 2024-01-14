@@ -62,25 +62,33 @@ export const ModalWarp = styled.div`
   /* 모달 헤더 */
   .modal-header {
     position: relative;
-    padding: 16px 64px 16px 16px;
+    height: 70px;
+    padding: 20px 40px;
     text-align: center;
-    font-size: 23px;
-    font-weight: 800;
+    font-size: 20px;
+    font-weight: 500;
     text-align: center;
-    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
     p {
       position: absolute;
-      top: 15px;
-      right: 15px;
+      top: 18px;
+      right: 40px;
       width: 30px;
+      height: 30px;
       color: ${Maincolor.black};
       background-color: transparent;
+      cursor: pointer;
+      img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+      }
     }
   }
   /* 모달 내용 */
   .modal-content {
     height: 100%;
-    padding: 16px;
+    /* padding: 16px; */
   }
 
   .modal.openModal {
@@ -229,4 +237,36 @@ export const ModalCancelBtn = styled.button`
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
+`;
+
+export const NoItemSty = styled.div`
+  /* width: 1544px; */
+  /* height: 630px; */
+  width: 100%;
+  height: 100%;
+  padding: 80px;
+  & > div {
+    margin: 0 auto;
+    width: 1400px;
+    height: 270px;
+    border-radius: 10px;
+    /* border: 1px solid ${Maincolor.maingray}; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    & > img {
+      margin: 0 auto;
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+    }
+    & > p {
+      margin-top: 14px;
+      color: ${Maincolor.black};
+      text-align: center;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
 `;
