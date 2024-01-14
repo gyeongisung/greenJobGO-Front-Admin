@@ -250,7 +250,7 @@ export const NoItemSty = styled.div`
     width: 1400px;
     height: 270px;
     border-radius: 10px;
-    border: 1px solid ${Maincolor.maingray};
+    /* border: 1px solid ${Maincolor.maingray}; */
     display: flex;
     justify-content: center;
     flex-direction: column;

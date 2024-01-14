@@ -65,7 +65,7 @@ export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
 // 보관함 리스트를 불러오자
 export const getSavedPFList = async ({
   setSavedPFList,
-  page,
+  savePage,
   setCount,
   query,
   setNothing,
@@ -75,7 +75,7 @@ export const getSavedPFList = async ({
 
   try {
     const res = await client.get(
-      `/admin/student/storage?page=${page}&size=10&${query}`,
+      `/admin/student/storage?page=${savePage}&size=10&${query}`,
     );
 
     const result = await res.data;

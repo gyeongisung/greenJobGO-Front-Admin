@@ -65,7 +65,7 @@ export const PfSearchWrap = styled.div`
       font-weight: 500;
       line-height: 140%;
       letter-spacing: -0.64px;
-      margin-right: 16px;
+      margin-right: 18px;
       margin-left: 30px;
     }
     li > select {
@@ -115,8 +115,9 @@ export const PfSearchWrap = styled.div`
 export const PortFolioContentWrap = styled.div`
   position: relative;
   width: 1600px;
-  height: 630px;
-  padding: 30px 0;
+  /* height: 630px; */
+  height: 585px;
+  padding: 30px 0 24px 0;
   display: flex;
   justify-content: left;
   /* align-items: center; */
@@ -125,7 +126,8 @@ export const PortFolioContentWrap = styled.div`
 
   .pf-box {
     width: 294px;
-    margin: 10px 0;
+    height: 251px;
+    /* margin: 10px 0; */
     .pf-img,
     .saved-img {
       position: relative;
@@ -176,7 +178,8 @@ export const PortFolioContentWrap = styled.div`
     }
 
     /* 포트폴리오 정보 */
-    & > ul {
+    & > ul,
+    .side-info {
       position: relative;
       .pf-name {
         width: 120px;

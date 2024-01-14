@@ -17,7 +17,6 @@ export const PortfolioPagingSty = styled.div`
       justify-content: center;
       align-items: center;
       cursor: pointer;
-
       a {
         color: #bababa;
         text-decoration: none;

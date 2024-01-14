@@ -42,8 +42,6 @@ const PortfolioSection = () => {
           />
         ))}
       </PortFolioContentWrap>
-      {/* ) : ( */}
-      {/* )} */}
       {/* 페이지네이션 */}
       <PortfolioPaging page={page} setPage={setPage} count={count} />
     </div>
