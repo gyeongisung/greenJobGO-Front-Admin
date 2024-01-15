@@ -33,8 +33,8 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
 
   // 권한기간 수정 버튼
   const handleSummit = () => {
-    setStartDateError(!startDate ? "권한 시작날짜를 선택 해 주세요." : "");
-    setEndDateError(!endDate ? "권한 종료날짜를 선택 해 주세요." : "");
+    setStartDateError(!startDate ? "권한 시작 날짜를 선택 해 주세요." : "");
+    setEndDateError(!endDate ? "권한 종료 날짜를 선택 해 주세요." : "");
 
     const isError = !startDate || !endDate;
 
