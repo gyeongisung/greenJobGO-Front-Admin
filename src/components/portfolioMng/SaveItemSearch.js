@@ -21,15 +21,7 @@ export const readClickItems = selector({
     return result;
   },
 });
-// 클릭한 포트폴리오 읽자
-export const readSavePage= selector({
-  key: `/${v4()}`,
-  // 값을 읽겠다
-  get: ({ get }) => {
-    const result = get(savedPageRecoil);
-    return result;
-  },
-});
+
 const SaveItemSearch = ({
   page,
   setPage,
@@ -48,11 +40,9 @@ const SaveItemSearch = ({
   // recoil mainClick read
   const mainList = useRecoilValue(readClickItems);
   // recoil page read
-  const savePage = useRecoilValue(readSavePage);
 
   // 보관함 리스트 recoil
   const [savedPFList, setSavedPFList] = useRecoilState(savedListRecoil);
-
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
@@ -84,7 +74,7 @@ const SaveItemSearch = ({
       console.log("query?", query);
       const data = await getSavedPFList({
         setSavedPFList,
-        savePage,
+        page,
         setCount,
         query,
         setNothing,

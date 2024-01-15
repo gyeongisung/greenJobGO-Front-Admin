@@ -14,8 +14,6 @@ export const clickMainRecoil = atom({
 
 const SaveItemCheckbox = ({ item, handleSaveCancel, updateData }) => {
   const [mainCancelModalOpen, setMainCancelModalOpen] = useState(false);
-  const [mainYn, setMainYn] = useState(0);
-  const [makeQuery, setMakeQuery] = useState("");
   const [cancelMakeQuery, setCancelMakeQuery] = useState("");
 
   // 메인클릭 recoil
@@ -30,17 +28,8 @@ const SaveItemCheckbox = ({ item, handleSaveCancel, updateData }) => {
     if (!checked) {
       const query = `istudent=${istudent}`;
       setCancelMakeQuery(query);
-
-      // patchSendMain({ query, mainYn: 0 });
     }
   };
-
-  // const handleMainDim = async e => {
-  //   console.log("Dim eee", e);
-  //   setMainCancelModalOpen(true);
-  //   const query = `istudent=${e}`;
-  //   setMakeQuery(query);
-  // };
 
   //  메인취소
   const handleMainCancelConfirm = async () => {
@@ -66,18 +55,9 @@ const SaveItemCheckbox = ({ item, handleSaveCancel, updateData }) => {
     <div className="Saved-infoWrap">
       <ul className="main-checked">
         <li>
-          {/* <input
-            type="checkbox"
-            id={`check${v4()}`}
-            value={item.istudent}
-            defaultChecked={clickItems.includes(item.istudent)}
-            onChange={e => {
-              handleCheckBox(e.target.checked, item.istudent);
-            }}
-          /> */}
           <input
             type="checkbox"
-            id={`check${v4()}`}
+            id={`check${item.istudent}`}
             value={item.istudent}
             defaultChecked={
               item.companyMainYn === 1 || clickItems.includes(item.istudent)

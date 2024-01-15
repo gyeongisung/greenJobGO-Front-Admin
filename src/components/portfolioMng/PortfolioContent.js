@@ -7,8 +7,7 @@ import NoImage from "../../assets/NoImage.jpg";
 import ConfirmModal from "../ConfirmModal";
 import NoListItem from "../NoListItem";
 
-const PortfolioContent = ({ item, setStudentPFList, nothing }) => {
-  console.log("PortfolioContent 리랜더링?");
+const PortfolioContent = ({ item, setStudentPFList }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
@@ -117,7 +116,7 @@ const PortfolioContent = ({ item, setStudentPFList, nothing }) => {
           <span>해당 포트폴리오를 보관 하시겠습니까?</span>
         </ConfirmModal>
       )}
-
+    
       {/* 보관취소모달 */}
       {cancelModalOpen && (
         <ConfirmModal

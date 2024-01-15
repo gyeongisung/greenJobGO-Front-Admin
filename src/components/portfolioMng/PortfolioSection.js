@@ -29,7 +29,6 @@ const PortfolioSection = () => {
         setNothing={setNothing}
       />
       {/* 포트폴리오 리스트 화면 */}
-      {/* {studentPFList?.res?.length > 0 ? ( */}
       <PortFolioContentWrap>
         {nothing && <NoListItem />}
 
@@ -37,6 +36,7 @@ const PortfolioSection = () => {
           <PortfolioContent
             key={v4()}
             item={item}
+            studentPFList={studentPFList}
             setStudentPFList={setStudentPFList}
             nothing={nothing}
           />

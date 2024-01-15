@@ -257,12 +257,12 @@ export const NoItemSty = styled.div`
     text-align: center;
     & > img {
       margin: 0 auto;
-      width: 90px;
-      height: 90px;
+      width: 66px;
+      height: 73px;
       object-fit: contain;
     }
     & > p {
-      margin-top: 14px;
+      margin-top: 18px;
       color: ${Maincolor.black};
       text-align: center;
       font-size: 20px;
