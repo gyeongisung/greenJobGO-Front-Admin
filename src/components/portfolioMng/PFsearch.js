@@ -76,7 +76,10 @@ const PFsearch = ({
               전체
             </option>
             {category?.map(item => (
-              <option key={v4()} value={item.iclassification}>
+              <option
+                key={`cate${item.iclassification}`}
+                value={item.iclassification}
+              >
                 {item.classification}
               </option>
             ))}

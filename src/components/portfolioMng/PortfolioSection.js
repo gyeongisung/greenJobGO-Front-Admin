@@ -34,7 +34,7 @@ const PortfolioSection = () => {
 
         {studentPFList?.res?.map(item => (
           <PortfolioContent
-            key={v4()}
+            key={`pk${item.istudent}`}
             item={item}
             studentPFList={studentPFList}
             setStudentPFList={setStudentPFList}

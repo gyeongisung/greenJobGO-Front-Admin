@@ -122,6 +122,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
             </option>
             {subjectList?.map(item => (
               <option key={v4()} value={item.icourseSubject}>
+                {item.round !== 0 && `(${item.round}기)`}
                 {item.courseSubjectName}
               </option>
             ))}

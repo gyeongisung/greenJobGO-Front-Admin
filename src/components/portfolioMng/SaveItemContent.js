@@ -17,19 +17,14 @@ export const readsavedListItems = selector({
     return result;
   },
 });
-const SaveItemContent = ({
-  nothing,
-}) => {
+const SaveItemContent = ({ nothing }) => {
   // 보관함 리스트 recoil을 읽어오자
   const savedListRead = useRecoilValue(readsavedListItems);
 
   return (
     <PortFolioContentWrap>
       {savedListRead.res?.map(item => (
-        <SaveItemBox
-          key={v4()}
-          item={item}
-        />
+        <SaveItemBox key={`pk${item.istudent}`} item={item} />
       ))}
     </PortFolioContentWrap>
   );
