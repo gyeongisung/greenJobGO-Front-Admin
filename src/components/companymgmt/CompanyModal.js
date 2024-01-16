@@ -81,20 +81,20 @@ export const DeleteCompanyModal = ({
   saveCheckBox,
   setListData,
   setSaveCheckBox,
+  fetchData,
 }) => {
   const handleDeleteCompany = async () => {
     const checkedCompanyCode = saveCheckBox;
-
     try {
       await deleteCompany(checkedCompanyCode);
-
       setListData(prevListData =>
         prevListData.filter(
           item => !checkedCompanyCode.includes(item.companyCode),
         ),
       );
-
       setSaveCheckBox([]);
+
+      fetchData();
     } catch (error) {
       console.error(error);
     }

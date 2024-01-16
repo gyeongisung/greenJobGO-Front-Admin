@@ -14,6 +14,7 @@ export const DeleteStudnetModal = ({
   saveCheckBox,
   setListData,
   setSaveCheckBox,
+  fetchData,
 }) => {
   const handleDeleteCompany = async () => {
     const checkedstudent = saveCheckBox;
@@ -26,6 +27,7 @@ export const DeleteStudnetModal = ({
       );
 
       setSaveCheckBox([]);
+      fetchData();
     } catch (error) {
       console.error(error);
     }

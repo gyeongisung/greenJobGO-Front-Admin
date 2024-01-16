@@ -33,19 +33,11 @@ export const CompanyMgmtInner = styled.div`
     gap: 10px;
     > li {
       line-height: 1;
-      > select {
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        width: 150px;
-        height: 40px;
-        text-align: center;
-        cursor: pointer;
-      }
       .company-form {
         display: flex;
         gap: 5px;
         input {
-          padding-left: 5px;
+          padding-left: 10px;
           width: 725px;
           height: 40px;
           border: 1px solid #ccc;

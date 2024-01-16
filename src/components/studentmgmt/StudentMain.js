@@ -37,7 +37,7 @@ const StudentMain = ({ handleInfoClick }) => {
   let resultIdArray = saveCheckBox;
 
   const handleAllCheck = e => {
-    const allCheckBox = document.querySelectorAll(".company-checkbox");
+    const allCheckBox = document.querySelectorAll(".student-checkbox");
     resultIdArray = [];
     if (e.target.checked === true) {
       allCheckBox.forEach(item => {
@@ -124,6 +124,7 @@ const StudentMain = ({ handleInfoClick }) => {
           setExcelOkModal(true);
           setSelectedFile(null);
         }
+        fetchData();
       } catch (error) {
         console.error("파일 업로드에 실패했습니다.", error);
       }
@@ -183,6 +184,7 @@ const StudentMain = ({ handleInfoClick }) => {
             saveCheckBox={saveCheckBox}
             setSaveCheckBox={setSaveCheckBox}
             setListData={setListData}
+            fetchData={fetchData}
           />
         )}
         <div className="student-buttons">

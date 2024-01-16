@@ -157,6 +157,7 @@ const CompanyMgmt = () => {
           dateConslusion: "",
         });
       }
+      fetchData();
     } catch (error) {
       setModalOpen(false);
       setAcceptOkModal(true);
@@ -223,6 +224,7 @@ const CompanyMgmt = () => {
             saveCheckBox={saveCheckBox}
             setSaveCheckBox={setSaveCheckBox}
             setListData={setListData}
+            fetchData={fetchData}
           />
         )}
         {excelOkModal && (

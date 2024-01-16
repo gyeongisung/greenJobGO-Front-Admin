@@ -35,15 +35,37 @@ export const getClassSubject = async (
   }
 };
 
+export const postCategory = async postData => {
+  try {
+    const res = await client.post(`/admin/category`, postData);
+    if (res.data.iclassification) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const postClassSubject = async payload => {
   try {
     const res = await client.post("/admin/subject", payload);
-    
+
     if (res.data.icourseSubject) {
       return { success: true };
     } else {
       return { success: false };
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteCategory = async data => {
+  try {
+    const res = await client.delete(`/admin/category?iclassification=${data}`);
+    console.log(res);
   } catch (error) {
     console.log(error);
   }

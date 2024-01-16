@@ -35,7 +35,7 @@ const ClassSearch = ({
         <div className="class-form">
           <input
             type="text"
-            placeholder="훈련과정 명을 검색하세요."
+            placeholder="훈련 과정명을 검색하세요."
             name="category-state"
             value={search}
             onChange={e => setSearch(e.target.value)}

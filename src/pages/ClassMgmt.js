@@ -10,10 +10,13 @@ import ClassList from "../components/classMgmt/ClassList";
 import {
   ClassAcceptModal,
   DeleteClassModal,
+  EnrollCategoryModal,
 } from "../components/classMgmt/ClassModal";
 import {
+  deleteCategory,
   getCategory,
   getClassSubject,
+  postCategory,
   postClassSubject,
 } from "../api/classAxios";
 import { format } from "date-fns";
@@ -27,10 +30,14 @@ const ClassMgmt = () => {
   const [count, setCount] = useState(0);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(0);
+  const [categoryValue, setCategoryValue] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
+  const [enrollModalOpen, setEnrollModalOpen] = useState(false);
+  const [deleteOkModalOpen, setDeleteOkModalOpen] = useState(false);
   const [uploadResult, setUpLoadResult] = useState(false);
+  const [AddItemValue, setAddItemValue] = useState("");
   const [payload, setPayload] = useState({
     courseSubjectName: "",
     iclassification: 0,
@@ -115,6 +122,31 @@ const ClassMgmt = () => {
     document.body.style.overflow = "hidden";
   };
 
+  const handlePostCategory = async () => {
+    const postData = { classification: AddItemValue };
+    try {
+      const result = await postCategory(postData);
+      setUpLoadResult(result);
+      if (result.success === true) {
+        setAcceptOkModal(true);
+        setCategoryValue("");
+        await getCategory(setCategoryData);
+      }
+    } catch (error) {
+      setAcceptOkModal(true);
+      setCategoryValue("");
+    }
+  };
+
+  const handleDeleteCategory = async data => {
+    await deleteCategory(data);
+    await getCategory(setCategoryData);
+  };
+
+  const handleEnrollModalOpen = () => {
+    setEnrollModalOpen(true);
+  };
+
   const handleModalAccept = async () => {
     const { classification, ...newPayload } = payload;
     const formatData = {
@@ -130,7 +162,7 @@ const ClassMgmt = () => {
       setUpLoadResult(result);
 
       setModalOpen(false);
-      if (result.success) {
+      if (result.success === true) {
         setAcceptOkModal(true);
         setPayload({
           courseSubjectName: "",
@@ -143,8 +175,7 @@ const ClassMgmt = () => {
           round: "",
           classTime: "",
         });
-        console.log(modalOpen);
-        console.log(acceptOkModal);
+        fetchData();
       }
     } catch (error) {
       setAcceptOkModal(true);
@@ -176,12 +207,27 @@ const ClassMgmt = () => {
           handleSearch={handleSearch}
           categoryData={categoryData}
         />
+        {enrollModalOpen && (
+          <EnrollCategoryModal
+            categoryData={categoryData}
+            enrollModalOpen={enrollModalOpen}
+            setEnrollModalOpen={setEnrollModalOpen}
+            categoryValue={categoryValue}
+            setCategoryValue={setCategoryValue}
+            handleDeleteCategory={handleDeleteCategory}
+            handlePostCategory={handlePostCategory}
+            AddItemValue={AddItemValue}
+            setAddItemValue={setAddItemValue}
+            deleteOkModalOpen={deleteOkModalOpen}
+            setDeleteOkModalOpen={setDeleteOkModalOpen}
+          />
+        )}
         {acceptOkModal && (
           <AcceptModal
             acceptOkModal={acceptOkModal}
             setAcceptOkModal={setAcceptOkModal}
             uploadResult={uploadResult}
-            fetchData={fetchData}
+            setEnrollModalOpen={setEnrollModalOpen}
           />
         )}
         {modalOpen && (
@@ -201,9 +247,11 @@ const ClassMgmt = () => {
             saveCheckBox={saveCheckBox}
             setSaveCheckBox={setSaveCheckBox}
             setListData={setListData}
+            fetchData={fetchData}
           />
         )}
         <div className="class-buttons">
+          <button onClick={handleEnrollModalOpen}>대분류 설정</button>
           <button onClick={handleModalOpen}>과정등록</button>
           <button onClick={handleDeleteModalOpen}>삭제</button>
         </div>

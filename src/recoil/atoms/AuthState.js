@@ -8,6 +8,8 @@ export const AuthStateAtom = atom({
   default: {
     isLogin: false,
     accessToken: null,
+    role: "",
+    id: "",
   },
   effects_UNSTABLE: [persistAtom],
 });

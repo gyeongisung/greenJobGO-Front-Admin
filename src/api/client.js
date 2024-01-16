@@ -66,7 +66,7 @@ export const fetchLogin = async (adminId, password) => {
 
     const { data } = res;
 
-    const { role, refreshToken, accessToken } = data;
+    const { role, refreshToken, accessToken, id } = data;
 
     if (role === "ROLE_ADMIN" && refreshToken && accessToken) {
       const cookieOptions = {
@@ -79,7 +79,7 @@ export const fetchLogin = async (adminId, password) => {
       setCookie("refreshToken", refreshToken, cookieOptions);
       setCookie("accessToken", accessToken, cookieOptions);
 
-      return { role, accessToken };
+      return { role, accessToken, id };
     } else {
       throw new Error("잘못된 응답 형식");
     }

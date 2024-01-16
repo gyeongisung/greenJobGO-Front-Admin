@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { ClassAcceptModalWrap } from "../../styles/ModalStyle";
+import {
+  ClassAcceptModalWrap,
+  EnrollCategoryWrap,
+} from "../../styles/ModalStyle";
 import { DeleteModalWrap } from "../../styles/DeleteModalStyle";
 import {
   deleteClassSubject,
@@ -10,7 +13,7 @@ import { ko } from "date-fns/locale";
 import ReactDatePicker from "react-datepicker";
 import { format, formatISO, parseISO } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import { AcceptModal } from "../AcceptModals";
+import { AcceptModal, DeleteAceeptModal } from "../AcceptModals";
 
 export const DeleteClassModal = ({
   deleteModalOpen,
@@ -18,20 +21,20 @@ export const DeleteClassModal = ({
   saveCheckBox,
   setListData,
   setSaveCheckBox,
+  fetchData,
 }) => {
   const handleDeleteSubject = async () => {
     const checkedSubjectCode = saveCheckBox;
 
     try {
       await deleteClassSubject(checkedSubjectCode);
-
       setListData(prevListData =>
         prevListData.filter(
           item => !checkedSubjectCode.includes(item.icourseSubject),
         ),
       );
-
       setSaveCheckBox([]);
+      fetchData();
     } catch (error) {
       console.error(error);
     }
@@ -472,6 +475,114 @@ export const ClassEditModal = ({
             </div>
           </div>
         </ClassAcceptModalWrap>
+      )}
+    </>
+  );
+};
+
+export const EnrollCategoryModal = ({
+  categoryData,
+  enrollModalOpen,
+  setEnrollModalOpen,
+  handleDeleteCategory,
+  handlePostCategory,
+  categoryValue,
+  setCategoryValue,
+  setAddItemValue,
+  deleteOkModalOpen,
+  setDeleteOkModalOpen,
+}) => {
+  const [addCategory, setAddCategory] = useState([]);
+  const [categoryId, setCategoryId] = useState(0);
+
+  const handleAddCategory = () => {
+    const trimValue = categoryValue.trim();
+    if (trimValue !== "") {
+      setAddCategory(prevData => [...prevData, { classification: trimValue }]);
+      setAddItemValue(trimValue);
+      setCategoryValue("");
+    }
+  };
+
+  const handleDeleteButton = data => {
+    if (data.iclassification) {
+      setDeleteOkModalOpen(true);
+      setCategoryId(data.iclassification);
+    } else {
+      setAddCategory(prevData =>
+        prevData.filter(item => item.classification !== data.classification),
+      );
+    }
+  };
+
+  const handleModalCancel = () => {
+    setEnrollModalOpen(false);
+    document.body.style.overflow = "unset";
+  };
+  return (
+    <>
+      {enrollModalOpen && (
+        <EnrollCategoryWrap>
+          {deleteOkModalOpen && (
+            <DeleteAceeptModal
+              deleteOkModalOpen={deleteOkModalOpen}
+              setDeleteOkModalOpen={setDeleteOkModalOpen}
+              handleDeleteCategory={handleDeleteCategory}
+              categoryId={categoryId}
+              setEnrollModalOpen={setEnrollModalOpen}
+            />
+          )}
+          <div className="dim">
+            <div className="Enroll-modal-inner">
+              <ul className="modal-top">
+                <li>
+                  <h2>대분류 설정</h2>
+                </li>
+                <li>
+                  <span onClick={handleModalCancel}>✖</span>
+                </li>
+              </ul>
+              <div>
+                <h3>대분류명</h3>
+              </div>
+              <ul className="modal-btm">
+                <li>
+                  <div>
+                    <input
+                      type="text"
+                      value={categoryValue}
+                      onChange={e => setCategoryValue(e.target.value)}
+                      placeholder="대분류명을 입력해 주세요."
+                    />
+                  </div>
+                  <div>
+                    <button onClick={handleAddCategory}>+</button>
+                  </div>
+                </li>
+                {categoryData &&
+                  [...categoryData, ...addCategory].map(item => (
+                    <li key={item.iclassification}>
+                      <div>
+                        <input
+                          type="text"
+                          value={item.classification}
+                          readOnly
+                        />
+                      </div>
+                      <div>
+                        <button onClick={() => handleDeleteButton(item)}>
+                          -
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+              <div className="accept-button">
+                <button onClick={handlePostCategory}>설정</button>
+              </div>
+            </div>
+          </div>
+        </EnrollCategoryWrap>
       )}
     </>
   );

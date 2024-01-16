@@ -44,7 +44,7 @@ export const ClassMgmtInner = styled.div`
         display: flex;
         gap: 5px;
         input {
-          padding-left: 5px;
+          padding-left: 10px;
           width: 725px;
           height: 40px;
           border: 1px solid #ccc;

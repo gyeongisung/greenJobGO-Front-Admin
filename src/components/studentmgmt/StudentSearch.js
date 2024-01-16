@@ -35,7 +35,7 @@ const StudentSearch = ({
         <form onSubmit={e => e.preventDefault()}>
           <input
             type="text"
-            placeholder="수강생 이름을 검색하세요."
+            placeholder="훈련 과정명을 검색하세요."
             name="category-state"
             value={search}
             onChange={e => setSearch(e.target.value)}

@@ -144,7 +144,7 @@ export const CompanyAcceptModalWrap = styled.div`
           height: 40px;
           border: 1px solid #a4a4a4;
           border-radius: 6px;
-          padding: 0px 7px;
+          padding: 0px 10px;
         }
       }
       ul {
@@ -170,7 +170,7 @@ export const CompanyAcceptModalWrap = styled.div`
               height: 40px;
               border: 1px solid #a4a4a4;
               border-radius: 6px;
-              padding: 0px 7px;
+              padding: 0px 10px;
             }
           }
         }
@@ -263,6 +263,7 @@ export const ClassAcceptModalWrap = styled.div`
               height: 40px;
               border: 1px solid #a4a4a4;
               border-radius: 6px;
+              padding: 0px 10px;
             }
           }
           > div {
@@ -288,6 +289,7 @@ export const ClassAcceptModalWrap = styled.div`
               height: 40px;
               border: 1px solid #a4a4a4;
               border-radius: 6px;
+              padding: 0px 10px;
             }
           }
         }
@@ -634,6 +636,110 @@ export const PortFolioAddWrap = styled.div`
         padding: 0;
         overflow: hidden;
         border: 0;
+      }
+    }
+  }
+`;
+
+export const EnrollCategoryWrap = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  font-family: "Pretendard", sans-serif;
+  .dim {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+  }
+  .Enroll-modal-inner {
+    position: absolute;
+    width: 684px;
+    height: 624px;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: ${Maincolor.white};
+    transform: translate(-50%, -50%);
+    animation: modal-show 0.3s;
+    z-index: 99;
+    .modal-top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70px;
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
+      li {
+        :last-of-type {
+          position: absolute;
+          top: 3%.5;
+          right: 3.5%;
+          font-size: 21px;
+          cursor: pointer;
+        }
+        h2 {
+          font-size: 20px;
+          color: #000;
+        }
+      }
+    }
+    > div {
+      display: flex;
+      padding: 35px 40px 15px 40px;
+      h3 {
+        font-size: 18px;
+      }
+    }
+    .modal-btm {
+      height: 360px;
+      padding: 0 40px;
+      overflow-y: auto;
+      margin-right: 32px;
+      li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        input {
+          width: 292px;
+          height: 40px;
+          line-height: 40px;
+          border: 1px solid #aaa;
+          border-radius: 4px;
+          padding: 9px;
+        }
+        button {
+          width: 40px;
+          height: 40px;
+          color: #fff;
+          background: #6d6d6d;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+      }
+    }
+    .accept-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      > button {
+        width: 150px;
+        height: 50px;
+        font-size: 16px;
+        color: #fff;
+        background: #228fcf;
+        border: none;
+        border-radius: 6px;
       }
     }
   }

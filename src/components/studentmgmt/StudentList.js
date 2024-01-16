@@ -37,7 +37,7 @@ const StudentList = ({
       {listData.length > 0 &&
         listData.map((item, index) => (
           <li
-            key={v4()}
+            key={item.istudent}
             onClick={e =>
               !e.target.classList.contains("check-box-li") &&
               handleInfoClick(item)
@@ -67,7 +67,7 @@ const StudentList = ({
               <li>{item.education}</li>
               <li>{item.certificate}</li>
               <li>{item.file}</li>
-              <li>{item.istudent}</li>
+              <li>{item.file}</li>
             </ul>
           </li>
         ))}

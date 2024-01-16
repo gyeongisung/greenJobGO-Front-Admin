@@ -9,11 +9,16 @@ import {
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { postLogout } from "../api/client";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { changeComponent } from "../recoil/atoms/ChangeState";
+import { AuthStateAtom } from "../recoil/atoms/AuthState";
 
 const AsideAdm = () => {
   const [isTrue, setIsTrue] = useRecoilState(changeComponent);
+  const authState = useRecoilValue(AuthStateAtom);
+  const setAuthState = useSetRecoilState(AuthStateAtom);
+  const { isLogin, role, id } = authState;
+
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -31,6 +36,14 @@ const AsideAdm = () => {
 
   const handleLogout = () => {
     postLogout();
+
+    setAuthState(prevAuthState => ({
+      ...prevAuthState,
+      isLogin: false,
+      accessToken: null,
+      role: "",
+      id: "",
+    }));
     navigate("/");
   };
 
@@ -62,41 +75,43 @@ const AsideAdm = () => {
 
   return (
     <SideMenuWrap>
-      <Sider
-        style={
-          {
-            // height: "calc(100vh - 140px)",
+      {isLogin ? (
+        <Sider
+          style={
+            {
+              // height: "calc(100vh - 140px)",
+            }
           }
-        }
-      >
-        <div className="sidemenu-logo-div">
-          <img
-            src={`${process.env.PUBLIC_URL}/assets/LoginTitle.png`}
-            alt="greenlogo"
+        >
+          <div className="sidemenu-logo-div">
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/LoginTitle.png`}
+              alt="greenlogo"
+            />
+          </div>
+          <Menu
+            style={{
+              width: "250",
+              height: "calc(100vh - 62px)",
+              background: "#ffffff",
+            }}
+            defaultOpenKeys={["sub1", "sub2"]}
+            defaultSelectedKeys={[defaultSelectedKeys]}
+            mode={"inline"}
+            theme={"light"}
+            items={menuItems2}
           />
-        </div>
-        <Menu
-          style={{
-            width: "250",
-            height: "calc(100vh - 62px)",
-            background: "#ffffff",
-          }}
-          defaultOpenKeys={["sub1", "sub2"]}
-          defaultSelectedKeys={[defaultSelectedKeys]}
-          mode={"inline"}
-          theme={"light"}
-          items={menuItems2}
-        />
-        <div className="end-menu">
-          <ul>
-            <li className="end-m-id">아이디</li>
-            <li className="end-m-role">role</li>
-            <li className="end-m-logout" onClick={handleLogout}>
-              로그아웃 <FontAwesomeIcon icon={faArrowRightFromBracket} />
-            </li>
-          </ul>
-        </div>
-      </Sider>
+          <div className="end-menu">
+            <ul>
+              <li className="end-m-id">{id}</li>
+              <li className="end-m-role">{role}</li>
+              <li className="end-m-logout" onClick={handleLogout}>
+                로그아웃 <FontAwesomeIcon icon={faArrowRightFromBracket} />
+              </li>
+            </ul>
+          </div>
+        </Sider>
+      ) : null}
     </SideMenuWrap>
   );
 };

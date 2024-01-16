@@ -8,7 +8,7 @@ export const StudentMgmtWrap = styled.div`
   justify-content: center;
   flex-direction: column;
   .student-title {
-    width: 82%;
+    width: 94%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -44,7 +44,7 @@ export const StudentMgmtInner = styled.div`
         display: flex;
         gap: 5px;
         input {
-          padding-left: 5px;
+          padding-left: 10px;
           width: 725px;
           height: 40px;
           border: 1px solid #ccc;
