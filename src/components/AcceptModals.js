@@ -1,4 +1,4 @@
-import { DeleteModalWrap } from "../styles/DeleteModalStyle";
+import { DeleteModalWrap, HardDeleteModalWrap } from "../styles/DeleteModalStyle";
 import { ExcelAcceptModalWrap } from "../styles/ExcelUploadStyle";
 import { AcceptModalWrap } from "../styles/ModalStyle";
 
@@ -43,11 +43,11 @@ export const AcceptModal = ({
   acceptOkModal,
   setAcceptOkModal,
   uploadResult,
-  setEnrollModalOpen,
+  // setEnrollModalOpen,
 }) => {
   const handleOk = () => {
     setAcceptOkModal(false);
-    setEnrollModalOpen(false);
+    // setEnrollModalOpen(false);
   };
 
   return (
@@ -149,6 +149,45 @@ export const DeleteAceeptModal = ({
             </div>
           </div>
         </DeleteModalWrap>
+      )}
+    </>
+  );
+};
+
+export const BulkDeletetModal = ({ modalOpen, setModalOpen, handleDelete }) => {
+  const handleOk = async () => {
+    await handleDelete();
+    setModalOpen(false);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  return (
+    <>
+      {modalOpen && (
+        <HardDeleteModalWrap>
+          <div className="dim">
+            <div className="content-wrap">
+              <div className="header">
+                <span>항목을 삭제하시겠습니까?</span>
+                <span onClick={closeModal}>✖</span>
+              </div>
+              <div className="content">
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/bxs_error.png`}
+                  alt="경고"
+                />
+                <span>확인 버튼 클릭 시 해당 항목이 영구적으로 삭제됩니다.</span>
+              </div>
+              <div className="btns">
+                <button onClick={closeModal}>취소</button>
+                <button onClick={handleOk}>확인</button>
+              </div>
+            </div>
+          </div>
+        </HardDeleteModalWrap>
       )}
     </>
   );

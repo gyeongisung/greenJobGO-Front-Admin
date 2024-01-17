@@ -11,6 +11,8 @@ import PortfolioMgmt from "./pages/PortfolioMgmt";
 import Register from "./pages/Register";
 import JobManager from "./pages/JobManager";
 import { PrivateRoutes } from "./components/PrivateRoutes";
+import PermanentlyDelete from "./pages/PermanentlyDelete";
+import BulkDelete from "./pages/BulkDelete";
 
 function App() {
   return (
@@ -33,6 +35,10 @@ function App() {
           <Route path="/portfolio" element={<PortfolioMgmt />} />
           {/* 기업 관리 */}
           <Route path="/company" element={<CompanyMgmt />} />
+          {/* 일괄 삭제 */}
+          <Route path="/bulk" element={<BulkDelete />} />
+          {/* 영구 삭제 */}
+          <Route path="/permanently" element={<PermanentlyDelete />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

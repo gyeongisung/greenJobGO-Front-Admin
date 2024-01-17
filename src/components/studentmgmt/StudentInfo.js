@@ -521,12 +521,18 @@ const StudentInfo = ({ studentInfo }) => {
       </div>
       <div className="buttons">
         <div>
-          <button onClick={handleDeleteClick}>삭제</button>
+          {isEditMode ? (
+            <div className="spacer" />
+          ) : (
+            <>
+              <button onClick={handleDeleteClick}>삭제</button>
+            </>
+          )}
         </div>
         <div>
           {isEditMode ? (
             <>
-              <button onClick={handleBack}>돌아가기</button>
+              <button onClick={handleBack}>취소</button>
               <button onClick={handleUpdate}>확인</button>
             </>
           ) : (

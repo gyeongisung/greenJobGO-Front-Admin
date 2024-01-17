@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Maincolor } from "./GlobalStyle";
 
 export const StudentInfoWrap = styled.div`
   padding: 50px 100px 20px 100px;
@@ -269,15 +270,18 @@ export const StudentInfoWrap = styled.div`
   }
   .buttons {
     display: flex;
+    gap: 400px;
     width: 100%;
     div {
       :first-of-type {
-        padding-right: 400px;
+        .spacer {
+          width: 131px;
+        }
         > button {
           width: 131px;
           height: 50px;
           color: #fff;
-          background: #aaa;
+          background: ${Maincolor.input};
           border: none;
           border-radius: 4px;
           cursor: pointer;
@@ -290,7 +294,7 @@ export const StudentInfoWrap = styled.div`
           width: 131px;
           height: 50px;
           color: #fff;
-          background: #6d6d6d;
+          background: ${Maincolor.admintxt};
           border: none;
           border-radius: 4px;
           cursor: pointer;
@@ -298,7 +302,7 @@ export const StudentInfoWrap = styled.div`
             width: 180px;
             height: 50px;
             color: #fff;
-            background: #aaa;
+            background: ${Maincolor.btn};
           }
         }
       }

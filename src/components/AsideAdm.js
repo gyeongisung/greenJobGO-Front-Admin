@@ -71,6 +71,10 @@ const AsideAdm = () => {
       getItem(<Link to="/portfolio">포트폴리오 관리</Link>, "/portfolio"),
     ]),
     getItem(<Link to="/company">기업등록 • 관리</Link>, "/company", null),
+    getItem("데이터 삭제", "sub3", null, [
+      getItem(<Link to="/bulk">일괄 삭제</Link>, "/bulk"),
+      getItem(<Link to="/permanently">영구 삭제</Link>, "/permanently"),
+    ]),
   ];
 
   return (
