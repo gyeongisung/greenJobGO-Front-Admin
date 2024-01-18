@@ -8,14 +8,17 @@ import DeletePaging from "../components/Permanently/DeletePaging";
 import DeleteList from "../components/Permanently/DeleteList";
 import DeleteSearch from "../components/Permanently/DeleteSearch";
 import { getStudentList } from "../api/permanentlyAxios";
+import { getBigcate } from "../api/portfolioAxios";
 
 const PermanentlyDelete = () => {
   const [listData, setListData] = useState([]);
   const [saveCheckBox, setSaveCheckBox] = useState([]);
-  const [categoryData, setCategoryData] = useState([]);
+  // const [categoryData, setCategoryData] = useState([]);
+  const [selectCate, setSelectCate] = useState("");
+
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
-  const [category, setCategory] = useState(0);
+  // const [category, setCategory] = useState(0);
   const [searchsubj, setSearchsubj] = useState("");
   const [searchname, setSearchname] = useState("");
   const [categoryValue, setCategoryValue] = useState("");
@@ -33,70 +36,64 @@ const PermanentlyDelete = () => {
     classTime: "",
   });
 
-  let resultIdArray = saveCheckBox;
-
-  const handleAllCheck = e => {
-    const allCheckBox = document.querySelectorAll(".class-checkbox");
-    resultIdArray = [];
-    if (e.target.checked === true) {
-      allCheckBox.forEach(item => {
-        item.checked = true;
-        resultIdArray.push(parseInt(item.classList[1].slice(6)));
-      });
-    } else {
-      allCheckBox.forEach(item => {
-        item.checked = false;
-      });
-      resultIdArray = [];
-    }
-    setSaveCheckBox(resultIdArray);
-  };
-
-  const handleCheckBox = e => {
-    const clickList = e.currentTarget;
-    const icourseSubject = parseInt(clickList.classList[1].slice(6));
-    if (e.target.checked === true) {
-      resultIdArray.push(icourseSubject);
-    } else {
-      resultIdArray = resultIdArray.filter(item => item !== icourseSubject);
-    }
-    setSaveCheckBox(resultIdArray);
-    console.log(saveCheckBox);
-  };
-
-  const fetchData = () => {
-    getStudentList(
-      setListData,
-      setCount,
-      page,
-      category,
-      searchsubj,
-      searchname,
-    );
-  };
-
-  useEffect(() => {
-    fetchData();
-    //   getCategory(setCategoryData);
-  }, [page]);
-
-  useEffect(() => {
-    document.querySelector(".all-checkbox-btn").checked = false;
-    document
-      .querySelectorAll(".class-checkbox")
-      .forEach(item => (item.checked = false));
-    setSaveCheckBox([]);
-  }, [listData]);
-
+  // 수강생 검색
   const handleSearch = () => {
     setPage(1);
     fetchData();
   };
+  let resultIdArray = saveCheckBox;
 
-  const handleCategoryFiiter = e => {
-    setCategory(e.target.value);
-    setPage(1);
+  // const handleAllCheck = e => {
+  //   const allCheckBox = document.querySelectorAll(".class-checkbox");
+  //   resultIdArray = [];
+  //   if (e.target.checked === true) {
+  //     allCheckBox.forEach(item => {
+  //       item.checked = true;
+  //       resultIdArray.push(parseInt(item.classList[1].slice(6)));
+  //     });
+  //   } else {
+  //     allCheckBox.forEach(item => {
+  //       item.checked = false;
+  //     });
+  //     resultIdArray = [];
+  //   }
+  //   setSaveCheckBox(resultIdArray);
+  // };
+
+  // const handleCheckBox = e => {
+  //   const clickList = e.currentTarget;
+  //   const icourseSubject = parseInt(clickList.classList[1].slice(6));
+  //   if (e.target.checked === true) {
+  //     resultIdArray.push(icourseSubject);
+  //   } else {
+  //     resultIdArray = resultIdArray.filter(item => item !== icourseSubject);
+  //   }
+  //   setSaveCheckBox(resultIdArray);
+  //   console.log(saveCheckBox);
+  // };
+
+  const fetchData = () => {
+    getStudentList(setListData, setCount, page, selectCate, searchname);
   };
+
+  // useEffect(() => {
+  //   fetchData();
+  //   getBigcate(setCategoryData);
+  // }, [page]);
+
+  useEffect(() => {
+    // document.querySelector(".all-checkbox-btn").checked = false;
+    // document
+    //   .querySelectorAll(".class-checkbox")
+    //   .forEach(item => (item.checked = false));
+    // setSaveCheckBox([]);
+  }, [listData]);
+
+  // // 카테고리 변경
+  // const handleCategoryFiiter = e => {
+  //   setCategory(e.target.value);
+  //   setPage(1);
+  // };
 
   return (
     <PermanentlyWrap>
@@ -114,10 +111,19 @@ const PermanentlyDelete = () => {
       </div>
       <PermanentlyInner>
         <DeleteSearch
-          category={category}
-          handleCategoryFiiter={handleCategoryFiiter}
-          handleSearch={handleSearch}
-          categoryData={categoryData}
+          // category={category}
+          // handleCategoryFiiter={handleCategoryFiiter}
+          // handleSearch={handleSearch}
+          // categoryData={categoryData}
+          searchname={searchname}
+          setSearchname={setSearchname}
+          searchsubj={searchsubj}
+          setSearchsubj={setSearchsubj}
+          fetchData={fetchData}
+          page={page}
+          setPage={setPage}
+          setSelectCate={setSelectCate}
+          selectCate={selectCate}
         />
         <div className="delete-buttons">
           <button>삭제</button>
@@ -126,15 +132,15 @@ const PermanentlyDelete = () => {
           <span>총 {count}개</span>
         </div>
         <DeleteTable>
-          <DeleteList
+          {/* <DeleteList
             listData={listData}
             handleAllCheck={handleAllCheck}
             handleCheckBox={handleCheckBox}
             page={page}
             uploadResult={uploadResult}
             setUpLoadResult={setUpLoadResult}
-            categoryData={categoryData}
-          />
+            selectCate={selectCate}
+          /> */}
         </DeleteTable>
         <DeletePaging page={page} setPage={setPage} count={count} />
       </PermanentlyInner>

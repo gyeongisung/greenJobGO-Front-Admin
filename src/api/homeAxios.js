@@ -2,15 +2,14 @@ import { client } from "./client";
 
 // 수강과목 불러오기
 export const getStudentSubject = async ({ selectCate, setSubjectList }) => {
-  console.log("수강과목 불러옵니다");
-
   try {
     const res = await client.get(
       // `/admin/subject?page=1&size=100&sort=icourseSubject%2CASC&iclassification=${selectCate}&condition=0&delYn=0`,
-      `/admin/subject?page=1&size=100&iclassification=${selectCate}`,
+      `/admin/student/dropbox-category?iclassification=${selectCate}`,
     );
     const result = await res.data;
     setSubjectList(result.res);
+    console.log("수강과목 불러옵니다 subject list", result);
     return result;
   } catch (error) {
     console.log(error);

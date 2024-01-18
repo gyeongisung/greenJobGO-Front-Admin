@@ -73,7 +73,7 @@ export const StudentAuthPostSty = styled.div`
     padding: 20px;
     #cate-select-student,
     #subject-select-student {
-      padding: 8px 12px;
+      padding: 8px 25px 8px 12px;
       align-items: center;
       border-radius: 6px;
       border: 1px solid ${Maincolor.maingray};
@@ -85,8 +85,9 @@ export const StudentAuthPostSty = styled.div`
     }
     /* 과목 선택 */
     #subject-select-student {
-      width: 260px;
+      width: 378px;
       height: 40px;
+      ${ellipsis}
     }
     /* 날짜 범위 선택 */
     .ant-space-item .ant-picker {

@@ -19,7 +19,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [category, setCategory] = useState([]);
-  const [selectCate, setSelectCate] = useState("");
+  const [selectCate, setSelectCate] = useState(0);
   const [subjectList, setSubjectList] = useState([]);
 
   // 에러처리 state
@@ -36,6 +36,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
     console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
   };
+
   // 과목변경값 저장
   const handleSubjectFilter = e => {
     console.log("과목선택e", e.target.value);
@@ -46,21 +47,29 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const disabledDate = current => {
     return current && current < dayjs().startOf("day");
   };
+  const Today = dayjs().format("YYYY-MM-DD");
 
   const onRangeChange = (dates, dateStrings) => {
     console.log("dateStrings", dateStrings);
-    setStartDate(dateStrings[0]);
+    setStartDate(Today);
     setEndDate(dateStrings[1]);
   };
+
+  console.log("startDate", startDate);
+  console.log("endDate", endDate);
 
   // 권한기간 수정 버튼
   const handleSummit = () => {
     setCateError(!selectCate ? "카테고리를 선택 해 주세요." : "");
     setSubjectError(!subjectPk ? "과정명을 선택 해 주세요." : "");
-    setStartDateError(!startDate ? "권한 시작날짜를 선택 해 주세요." : "");
+    // setStartDateError(
+    //   startDate === Today ? "권한 시작날짜는 오늘 날짜만 선택 가능 합니다" : "",
+    // );
     setEndDateError(!endDate ? "권한 종료날짜를 선택 해 주세요." : "");
+    console.log("startDate", startDate);
 
-    const isError = !selectCate || !subjectPk || !startDate || !endDate;
+    const isError =
+      !selectCate || !subjectPk || !endDate;
 
     // 에러가 없을 때 모달 열기
     if (!isError) {
@@ -84,7 +93,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
       const newData = await getStudentAuthData(setAuthInfo);
       setSelectCate("");
       setSubjectPk("");
-      setStartDate("");
       setEndDate("");
     } catch (error) {
       console.error("데이터 업데이트 에러:", error);
@@ -128,7 +136,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
             {subjectList?.map(item => (
               <option key={v4()} value={item.icourseSubject}>
                 {item.round !== 0 && `(${item.round}기)`}
-                {item.courseSubjectName}
+                {item.subjectName}
               </option>
             ))}
           </select>
@@ -136,16 +144,14 @@ const StudentPostAuth = ({ setAuthInfo }) => {
         <li>
           <Space direction="vertical" size={12}>
             <RangePicker
-              className="authRangeDate"
-              label="authRangeDate"
               format={dateFormat}
               onChange={onRangeChange}
               id="student-auth-date"
               disabledDate={disabledDate}
-              value={[
-                startDate ? dayjs(startDate) : null,
-                endDate ? dayjs(endDate) : null,
-              ]}               placeholder={["시작 날짜", "종료 날짜"]}
+              defaultValue={[dayjs(), endDate ? dayjs(endDate) : null]}
+              disabled={[true, false]}
+              value={[dayjs(), endDate ? dayjs(endDate) : null]}
+              placeholder={["시작 날짜", "종료 날짜"]}
             />
           </Space>
         </li>
