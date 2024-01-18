@@ -12,7 +12,10 @@ const StudentGetAuthData = ({ authInfo }) => {
             authInfo?.map(item => (
               <ul key={v4()}>
                 <li>
-                  <span className="title">{item.subjectName}</span>
+                  <span className="title">
+                    {item.round !== 0 && `(${item.round}기)`}
+                    {item.subjectName}
+                  </span>
                   <span className="date">
                     {item.startedAt} ~ {item.endedAt}
                   </span>

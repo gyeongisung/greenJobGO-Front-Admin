@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ellipsis } from "./GlobalStyle";
+import { Maincolor, ellipsis } from "./GlobalStyle";
 
 export const ClassMgmtWrap = styled.div`
   width: 100%;
@@ -30,38 +30,61 @@ export const ClassMgmtInner = styled.div`
     border-radius: 5px;
     background: #a4a4a4;
     gap: 10px;
-    > li {
-      line-height: 1;
-      > select {
+    /* > li {
+      line-height: 1; */
+    /* > select {
         border: 1px solid #ccc;
         border-radius: 3px;
         width: 150px;
         height: 40px;
         text-align: center;
         cursor: pointer;
-      }
-      > .class-form {
-        display: flex;
-        gap: 5px;
-        input {
-          padding-left: 10px;
-          width: 725px;
-          height: 40px;
-          border: 1px solid #ccc;
-          border-radius: 3px;
-        }
-      }
-      > button {
-        width: 140px;
+      } */
+
+    .select-wrap {
+      /* border-radius: 6px; */
+      background: ${Maincolor.white};
+
+      select {
+        width: 155px;
         height: 40px;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
-        color: #fff;
-        background: #6d6d6d;
+        -o-appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 1px solid ${Maincolor.input};
+
+        background: url(${process.env.PUBLIC_URL}/assets/Arrowdown.png)
+          no-repeat calc(100% - 12px) 50%/11px auto;
+        padding: 0 28px 0 10px;
+      }
+      select::-ms-expand {
+        display: none;
       }
     }
+
+    .class-form {
+      display: flex;
+      gap: 5px;
+      input {
+        padding-left: 10px;
+        width: 667px;
+        height: 40px;
+        border: 1px solid ${Maincolor.input};
+        border-radius: 4px;
+      }
+    }
+    button {
+      width: 140px;
+      height: 40px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      background: ${Maincolor.btn};
+    }
   }
+  /* } */
   .class-buttons {
     display: flex;
     justify-content: flex-end;

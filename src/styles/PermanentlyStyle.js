@@ -35,8 +35,90 @@ export const PermanentlyInner = styled.div`
     height: 95px;
     border-radius: 5px;
     background: ${Maincolor.search};
-    gap: 10px;
-    > li {
+    gap: 30px;
+
+    li {
+      /* border-radius: 6px; */
+      display: flex;
+      align-items: center;
+      background: ${Maincolor.white};
+      span {
+        display: inline-block;
+        height: 40px;
+        line-height: 2.3;
+        font-size: 16px;
+        font-weight: 500;
+        padding-right: 10px;
+        background: ${Maincolor.search};
+      }
+
+      select {
+        /* width: 155px; */
+        height: 40px;
+        -o-appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 1px solid ${Maincolor.input};
+
+        background: url(${process.env.PUBLIC_URL}/assets/Arrowdown.png)
+          no-repeat calc(100% - 12px) 50%/11px auto;
+        padding: 0 28px 0 10px;
+      }
+      select::-ms-expand {
+        display: none;
+      }
+    }
+    li:nth-of-type(1) {
+      select {
+        width: 160px;
+        height: 40px;
+        cursor: pointer;
+      }
+    }
+    li:nth-of-type(2) {
+      select {
+        width: 540px;
+        height: 40px;
+        cursor: pointer;
+      }
+    }
+    li:nth-of-type(3) {
+      .delete-form {
+        display: flex;
+        background: ${Maincolor.search};
+
+        input {
+          padding-left: 10px;
+          width: 200px;
+          height: 40px;
+          border: 1px solid ${Maincolor.input};
+          border-radius: 3px;
+        }
+        label {
+          font-size: 16px;
+          height: 40px;
+          line-height: 40px;
+          font-weight: 500;
+          padding-right: 10px;
+          background: ${Maincolor.search};
+        }
+      }
+    }
+    .search-btn {
+      background: ${Maincolor.search};
+      button {
+        width: 140px;
+        height: 40px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        background: ${Maincolor.btn};
+      }
+    }
+
+    /* > li {
       padding-right: 20px;
       > span {
         font-size: 16px;
@@ -94,7 +176,7 @@ export const PermanentlyInner = styled.div`
           background: ${Maincolor.btn};
         }
       }
-    }
+    } */
   }
   .delete-buttons {
     display: flex;

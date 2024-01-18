@@ -35,48 +35,69 @@ export const BulkInner = styled.div`
     height: 100px;
     border-radius: 5px;
     background: ${Maincolor.search};
-    gap: 10px;
+    gap: 30px;
     margin-bottom: 70px;
-    > li {
-      padding-right: 20px;
-      > span {
+    /* > li { */
+    /* padding-right: 20px; */
+    .select-wrap {
+      /* border-radius: 6px; */
+      display: flex;
+      align-items: center;
+      background: ${Maincolor.white};
+      span {
+        display: inline-block;
+        height: 40px;
+        line-height: 2.3;
         font-size: 16px;
         font-weight: 500;
         padding-right: 10px;
+        background: ${Maincolor.search};
       }
-      :nth-of-type(1) {
-        > select {
-          border: 1px solid ${Maincolor.input};
-          border-radius: 3px;
-          width: 160px;
-          height: 40px;
-          text-align: center;
-          cursor: pointer;
-        }
+
+      select {
+        width: 155px;
+        height: 40px;
+        -o-appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 1px solid ${Maincolor.input};
+
+        background: url(${process.env.PUBLIC_URL}/assets/Arrowdown.png)
+          no-repeat calc(100% - 12px) 50%/11px auto;
+        padding: 0 28px 0 10px;
       }
-      :nth-of-type(2) {
-        > select {
-          border: 1px solid ${Maincolor.input};
-          border-radius: 3px;
-          width: 540px;
-          height: 40px;
-          text-align: center;
-          cursor: pointer;
-        }
+      select::-ms-expand {
+        display: none;
       }
-      :nth-of-type(3) {
-        > button {
-          width: 140px;
-          height: 40px;
-          cursor: pointer;
-          border: none;
-          border-radius: 5px;
-          color: #fff;
-          background: ${Maincolor.btn};
-        }
+    }
+    li:nth-of-type(1) {
+      > select {
+        width: 160px;
+        height: 40px;
+        cursor: pointer;
+      }
+    }
+    li:nth-of-type(2) {
+      > select {
+        width: 540px;
+        height: 40px;
+        cursor: pointer;
+      }
+    }
+    li:nth-of-type(3) {
+      button {
+        width: 140px;
+        height: 40px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        background: ${Maincolor.btn};
       }
     }
   }
+  /* } */
   .total-count {
     padding-left: 10px;
     font-size: 14px;

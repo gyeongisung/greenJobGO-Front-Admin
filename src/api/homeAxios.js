@@ -2,7 +2,7 @@ import { client } from "./client";
 
 // 수강과목 불러오기
 export const getStudentSubject = async ({ selectCate, setSubjectList }) => {
-  console.log("기업권한정보 불러옵니다");
+  console.log("수강과목 불러옵니다");
 
   try {
     const res = await client.get(
@@ -47,7 +47,7 @@ export const patchStudentAuthData = async ({
       `/admin/student/editable-yn?icourseSubject=${subjectPk}&startedAt=${startDate}&endedAt=${endDate}&editableYn=${isAuthEdit}`,
     );
     const result = res.data;
-    console.log("기업권한수정 성공", result);
+    console.log("학생권한정보 수정 성공", result);
     return result;
   } catch (error) {
     console.log(error);

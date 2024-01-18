@@ -57,7 +57,7 @@ const DeleteSearch = ({
           />
         </div>
       </li>
-      <li>
+      <li className="search-btn">
         <button onClick={handleSearch}>조회</button>
       </li>
     </ul>

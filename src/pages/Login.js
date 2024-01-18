@@ -11,6 +11,7 @@ const Login = () => {
   const [errmsg, setErrMsg] = useState(false);
 
   const [authState, setAuthState] = useRecoilState(AuthStateAtom);
+
   const navigate = useNavigate();
 
   const handleLoginId = e => {
@@ -23,7 +24,6 @@ const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     try {
       const { role, accessToken, id } = await fetchLogin(adminId, password);
       if (role === "ROLE_ADMIN" && accessToken) {

@@ -10,7 +10,7 @@ const ClassSearch = ({
 }) => {
   return (
     <ul className="class-search">
-      <li>
+      <li className="select-wrap">
         <select
           value={category}
           name="category-state"

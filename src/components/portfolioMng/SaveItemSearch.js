@@ -106,6 +106,7 @@ const SaveItemSearch = ({
   // 메인적용 확인
   const handleMainConfirm = async () => {
     try {
+      await setPage(1);
       const query = makeQuery();
       console.log("query?", query);
       let update = 1;
@@ -136,7 +137,10 @@ const SaveItemSearch = ({
                 전체
               </option>
               {category?.map(item => (
-                <option key={`cate${item.iclassification}`} value={item.iclassification}>
+                <option
+                  key={`cate${item.iclassification}`}
+                  value={item.iclassification}
+                >
                   {item.classification}
                 </option>
               ))}
