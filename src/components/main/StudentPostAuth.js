@@ -18,7 +18,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const [subjectPk, setSubjectPk] = useState();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [isAuthEdit, setIsAuthEdit] = useState(1);
   const [category, setCategory] = useState([]);
   const [selectCate, setSelectCate] = useState("");
   const [subjectList, setSubjectList] = useState([]);
@@ -49,9 +48,11 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   };
 
   const onRangeChange = (dates, dateStrings) => {
+    console.log("dateStrings", dateStrings);
     setStartDate(dateStrings[0]);
     setEndDate(dateStrings[1]);
   };
+
   // 권한기간 수정 버튼
   const handleSummit = () => {
     setCateError(!selectCate ? "카테고리를 선택 해 주세요." : "");
@@ -70,7 +71,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   };
   const handleSummitConfirm = async () => {
     try {
-      await patchStudentAuthData({ subjectPk, startDate, endDate, isAuthEdit });
+      await patchStudentAuthData({ subjectPk, startDate, endDate });
       await updateData();
       setModalOpen(false);
     } catch (error) {
@@ -81,6 +82,10 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const updateData = async () => {
     try {
       const newData = await getStudentAuthData(setAuthInfo);
+      setSelectCate("");
+      setSubjectPk("");
+      setStartDate("");
+      setEndDate("");
     } catch (error) {
       console.error("데이터 업데이트 에러:", error);
     }
@@ -131,11 +136,16 @@ const StudentPostAuth = ({ setAuthInfo }) => {
         <li>
           <Space direction="vertical" size={12}>
             <RangePicker
+              className="authRangeDate"
+              label="authRangeDate"
               format={dateFormat}
               onChange={onRangeChange}
               id="student-auth-date"
               disabledDate={disabledDate}
-              placeholder={["시작 날짜", "종료 날짜"]}
+              value={[
+                startDate ? dayjs(startDate) : null,
+                endDate ? dayjs(endDate) : null,
+              ]}               placeholder={["시작 날짜", "종료 날짜"]}
             />
           </Space>
         </li>

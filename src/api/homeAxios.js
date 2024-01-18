@@ -7,7 +7,7 @@ export const getStudentSubject = async ({ selectCate, setSubjectList }) => {
   try {
     const res = await client.get(
       // `/admin/subject?page=1&size=100&sort=icourseSubject%2CASC&iclassification=${selectCate}&condition=0&delYn=0`,
-      `/admin/subject?page=1&iclassification=${selectCate}`,
+      `/admin/subject?page=1&size=100&iclassification=${selectCate}`,
     );
     const result = await res.data;
     setSubjectList(result.res);
@@ -40,11 +40,10 @@ export const patchStudentAuthData = async ({
   console.log("subjectPk", subjectPk);
   console.log("startDate", startDate);
   console.log("endDate", endDate);
-  console.log("isAuthEdit", isAuthEdit);
 
   try {
     const res = await client.patch(
-      `/admin/student/editable-yn?icourseSubject=${subjectPk}&startedAt=${startDate}&endedAt=${endDate}&editableYn=${isAuthEdit}`,
+      `/admin/student/editable-yn?icourseSubject=${subjectPk}&startedAt=${startDate}&endedAt=${endDate}`,
     );
     const result = res.data;
     console.log("학생권한정보 수정 성공", result);

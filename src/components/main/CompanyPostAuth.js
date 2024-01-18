@@ -79,6 +79,10 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
                 onChange={onRangeChange}
                 id="company-auth-date"
                 disabledDate={disabledDate}
+                value={[
+                  startDate ? dayjs(startDate) : null,
+                  endDate ? dayjs(endDate) : null,
+                ]}
                 placeholder={["시작 날짜", "종료 날짜"]}
               />
             </Space>

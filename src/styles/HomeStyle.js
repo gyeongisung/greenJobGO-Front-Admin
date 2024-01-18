@@ -147,7 +147,7 @@ export const StudentAuthgetListSty = styled.div`
         display: flex;
         align-items: center;
         flex-direction: column;
-        gap: 10px;
+        margin: 10px 0;
         & > li {
           background: ${Maincolor.search};
           border-radius: 6px;
