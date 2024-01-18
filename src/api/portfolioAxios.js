@@ -19,18 +19,18 @@ export const getPortFolioList = async ({
   setStudentPFList,
   page,
   setCount,
-  query,
+  resultUrl,
   setNothing,
 }) => {
-  console.log("query들어오냐 ㅋ ", query);
+  console.log("query들어오냐 ㅋ ", resultUrl);
 
   try {
     const res = await client.get(
-      `/admin/student/portfolio?page=${page}&size=10&${query}`,
+      `/admin/student/portfolio?page=${page}&size=10&${resultUrl}`,
     );
 
     const result = await res.data;
-    console.log("포트폴리오리스트", result);
+    console.log("포트폴리오리스트", res.config.url);
     setStudentPFList(result);
     setCount(result.page.idx);
     setNothing(false);
@@ -65,21 +65,20 @@ export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
 // 보관함 리스트를 불러오자
 export const getSavedPFList = async ({
   setSavedPFList,
-  savePage,
+  page,
   setCount,
-  query,
+  resultUrl,
   setNothing,
-  setClickItems,
 }) => {
-  console.log("query들어오냐 ㅋ ", query);
+  console.log("query들어오냐 ㅋ ", resultUrl);
 
   try {
     const res = await client.get(
-      `/admin/student/storage?page=${savePage}&size=10&${query}`,
+      `/admin/student/storage?page=${page}&size=10&sort=istudent%2CASC${resultUrl}`,
     );
 
     const result = await res.data;
-    console.log("보관함 리스트", result);
+    console.log("보관함 리스트", res.config.url);
     setSavedPFList(result);
     setCount(result.page.idx);
     setNothing(false);
@@ -92,7 +91,6 @@ export const getSavedPFList = async ({
     console.log(error);
   }
 };
-
 
 // 메인 보내기
 export const patchSendMain = async ({ query, mainYn }) => {

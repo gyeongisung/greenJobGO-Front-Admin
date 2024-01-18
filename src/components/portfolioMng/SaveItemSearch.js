@@ -4,13 +4,11 @@ import { BtnGlobal } from "../../styles/GlobalStyle";
 import { v4 } from "uuid";
 import {
   getBigcate,
-  getSavedPFList,
   patchSendMain,
 } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
-import { selector, useRecoilState, useRecoilValue } from "recoil";
+import { selector, useRecoilValue } from "recoil";
 import { clickMainRecoil } from "./SaveItemCheckbox";
-import { savedListRecoil, savedPageRecoil } from "./SaveItemSection";
 
 // 클릭한 포트폴리오 읽자
 export const readClickItems = selector({
@@ -23,16 +21,17 @@ export const readClickItems = selector({
 });
 
 const SaveItemSearch = ({
-  page,
   setPage,
-  // setSavedPFList,
-  setCount,
-  setNothing,
+  selectCate,
+  setSelectCate,
+  searchsubj,
+  setSearchSubj,
+  searchname,
+  setSearchname,
+  handleSearchClick,
+  fetchData
 }) => {
-  const [searchsubj, setSearchSubj] = useState("");
-  const [searchname, setSearchname] = useState("");
   const [category, setCategory] = useState([]);
-  const [selectCate, setSelectCate] = useState("");
 
   const [mainGoModalOpen, setMainGoModalOpen] = useState(false);
   const [mainYn, setMainYn] = useState(1);
@@ -42,55 +41,15 @@ const SaveItemSearch = ({
   // recoil page read
 
   // 보관함 리스트 recoil
-  const [savedPFList, setSavedPFList] = useRecoilState(savedListRecoil);
+  // const [savedPFList, setSavedPFList] = useRecoilState(savedListRecoil);
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
     console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
-  };
-  // 쿼리 주소를 변환하자
-  const makeUrl = () => {
-    let query = "";
+    setSearchSubj("")
+    setSearchname("")
 
-    if (selectCate !== "") {
-      query += `iclassfication=${selectCate}&`;
-    }
-    if (searchsubj !== "") {
-      query += `subjectName=${searchsubj}&`;
-    }
-    if (searchname !== "") {
-      query += `studentName=${searchname}&`;
-    }
-    query = query ? query.slice(0, -1) : "";
-    return query;
-  };
-
-  // 검색버튼 클릭
-  const handleSearchClick = async () => {
-    try {
-      await setPage(1);
-      const query = makeUrl();
-      console.log("query?", query);
-      const data = await getSavedPFList({
-        setSavedPFList,
-        page,
-        setCount,
-        query,
-        setNothing,
-      });
-      // setSavedPFList(data);
-    } catch (error) {
-      console.error("데이터 가져오기 실패:", error);
-    }
-  };
-
-  const updateData = async () => {
-    try {
-      const newData = await getSavedPFList({ setSavedPFList });
-    } catch (error) {
-      console.error("데이터 업데이트 에러:", error);
-    }
   };
 
   // 선택된 메인포트폴리오 정보를 불러오자
@@ -106,13 +65,12 @@ const SaveItemSearch = ({
   // 메인적용 확인
   const handleMainConfirm = async () => {
     try {
-      await setPage(1);
+      // await setPage(1);
       const query = makeQuery();
-      console.log("query?", query);
       let update = 1;
       await setMainYn(update);
       await patchSendMain({ query, mainYn });
-      await updateData();
+      await fetchData();
       setMainGoModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
@@ -203,4 +161,4 @@ const SaveItemSearch = ({
   );
 };
 
-export default React.memo(SaveItemSearch);
+export default SaveItemSearch

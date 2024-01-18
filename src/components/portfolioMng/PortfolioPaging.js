@@ -7,6 +7,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const PortfolioPaging = ({ page, setPage, count }) => {
+  console.log("page", page);
+
   return (
     <PortfolioPagingSty>
       <Pagination

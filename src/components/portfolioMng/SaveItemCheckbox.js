@@ -12,7 +12,7 @@ export const clickMainRecoil = atom({
   default: [],
 });
 
-const SaveItemCheckbox = ({ item, handleSaveCancel, updateData }) => {
+const SaveItemCheckbox = ({ item, handleSaveCancel, fetchData }) => {
   const [mainCancelModalOpen, setMainCancelModalOpen] = useState(false);
   const [cancelMakeQuery, setCancelMakeQuery] = useState("");
 
@@ -35,7 +35,7 @@ const SaveItemCheckbox = ({ item, handleSaveCancel, updateData }) => {
   const handleMainCancelConfirm = async () => {
     try {
       await patchSendMain({ query: cancelMakeQuery, mainYn: 0 });
-      await updateData();
+      await fetchData();
     } catch (error) {
       console.log(error);
     }
@@ -95,4 +95,4 @@ const SaveItemCheckbox = ({ item, handleSaveCancel, updateData }) => {
   );
 };
 
-export default React.memo(SaveItemCheckbox);
+export default SaveItemCheckbox;
