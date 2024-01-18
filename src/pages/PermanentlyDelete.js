@@ -9,12 +9,15 @@ import DeleteList from "../components/Permanently/DeleteList";
 import DeleteSearch from "../components/Permanently/DeleteSearch";
 import { getStudentList } from "../api/permanentlyAxios";
 import { getBigcate } from "../api/portfolioAxios";
+import NoListItem from "../components/NoListItem";
 
 const PermanentlyDelete = () => {
+  const [nothing, setNothing] = useState(false);
+
   const [listData, setListData] = useState([]);
   const [saveCheckBox, setSaveCheckBox] = useState([]);
   // const [categoryData, setCategoryData] = useState([]);
-  const [selectCate, setSelectCate] = useState("");
+  const [selectCate, setSelectCate] = useState(0);
 
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
@@ -73,13 +76,34 @@ const PermanentlyDelete = () => {
   // };
 
   const fetchData = () => {
-    getStudentList(setListData, setCount, page, selectCate, searchname);
+    getStudentList({
+      setListData,
+      setCount,
+      page,
+      selectCate,
+      searchsubj,
+      searchname,
+    });
   };
 
   // useEffect(() => {
   //   fetchData();
-  //   getBigcate(setCategoryData);
+  //   getBigcate(setCategory);
   // }, [page]);
+
+  useEffect(() => {
+    getStudentList({
+      setListData,
+      setCount,
+      page,
+      selectCate,
+      searchsubj,
+      searchname,
+      setNothing,
+    });
+  }, []);
+  console.log("page", page);
+  console.log("nothing", nothing);
 
   useEffect(() => {
     // document.querySelector(".all-checkbox-btn").checked = false;
@@ -132,15 +156,16 @@ const PermanentlyDelete = () => {
           <span>총 {count}개</span>
         </div>
         <DeleteTable>
-          {/* <DeleteList
+          {nothing && <NoListItem />}
+          <DeleteList
             listData={listData}
-            handleAllCheck={handleAllCheck}
-            handleCheckBox={handleCheckBox}
+            // handleAllCheck={handleAllCheck}
+            // handleCheckBox={handleCheckBox}
             page={page}
-            uploadResult={uploadResult}
-            setUpLoadResult={setUpLoadResult}
+            // uploadResult={uploadResult}
+            // setUpLoadResult={setUpLoadResult}
             selectCate={selectCate}
-          /> */}
+          />
         </DeleteTable>
         <DeletePaging page={page} setPage={setPage} count={count} />
       </PermanentlyInner>

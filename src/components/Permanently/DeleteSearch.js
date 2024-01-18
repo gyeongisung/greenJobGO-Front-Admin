@@ -21,13 +21,7 @@ const DeleteSearch = ({
 }) => {
   const [category, setCategory] = useState([]);
   // const [selectCate, setSelectCate] = useState("");
-  const [subjectPk, setSubjectPk] = useState();
   const [subjectList, setSubjectList] = useState([]);
-
-  // 카테고리 변경
-  // const handleCategoryFiiter = e => {
-  //   setCategory(e.target.value);
-  // };
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
@@ -52,8 +46,9 @@ const DeleteSearch = ({
   };
 
   useEffect(() => {
+    fetchData();
     getBigcate(setCategory);
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     getStudentSubject({ selectCate, setSubjectList });
@@ -80,7 +75,7 @@ const DeleteSearch = ({
       <li>
         <span>과정명</span>
         <select
-          value={subjectList.subjectName}
+          value={searchsubj}
           id="subject-select-student"
           onChange={e => handleSubjectFilter(e)}
         >
