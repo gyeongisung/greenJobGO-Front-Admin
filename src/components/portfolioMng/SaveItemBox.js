@@ -27,7 +27,7 @@ const SaveItemBox = ({ item }) => {
   const [clickItems, setClickItems] = useRecoilState(clickMainRecoil);
 
   // 보관함 리스트 recoil을 읽어오자
-  const savedListRead = useRecoilValue(readsavedListItems);
+  // const savedListRead = useRecoilValue(readsavedListItems);
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -62,48 +62,42 @@ const SaveItemBox = ({ item }) => {
   console.log("보관리스트 리랜더링~");
 
   return (
-        <div className="pf-box">
-          <div className="saved-img">
-            <img
-              src={`${item.img}`}
-              alt={item.studentName}
-              onError={onImgError}
-            />
-            {item.companyMainYn === 1 ? (
-              <div className="isMainDim"></div>
-            ) : null}
-            <ul className="thumb-right">
-              {item.huntJobYn === 1 && (
-                <li>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/assets/got-a-job.png`}
-                    alt="got-a-job"
-                    className="job-yes-icon"
-                    onError={onImgError}
-                  />
-                </li>
-              )}
-            </ul>
-          </div>
-          <CheckToMainSt>
-            <SaveItemCheckbox
-              item={item}
-              handleSaveCancel={handleSaveCancel}
-              updateData={updateData}
-            />
-          </CheckToMainSt>
-          {/* 보관취소모달 */}
-          {cancelModalOpen && (
-            <ConfirmModal
-              open={cancelModalOpen}
-              close={() => setCancelModalOpen(false)}
-              onConfirm={handleCancelConfirm}
-              onCancel={() => setCancelModalOpen(false)}
-            >
-              <span>해당 포트폴리오 보관을 취소 하시겠습니까?</span>
-            </ConfirmModal>
+    <div className="pf-box">
+      <div className="saved-img">
+        <img src={`${item.img}`} alt={item.studentName} onError={onImgError} />
+        {item.companyMainYn === 1 ? <div className="isMainDim"></div> : null}
+        <ul className="thumb-right">
+          {item.huntJobYn === 1 && (
+            <li>
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/got-a-job.png`}
+                alt="got-a-job"
+                className="job-yes-icon"
+                onError={onImgError}
+              />
+            </li>
           )}
-        </div>
+        </ul>
+      </div>
+      <CheckToMainSt>
+        <SaveItemCheckbox
+          item={item}
+          handleSaveCancel={handleSaveCancel}
+          updateData={updateData}
+        />
+      </CheckToMainSt>
+      {/* 보관취소모달 */}
+      {cancelModalOpen && (
+        <ConfirmModal
+          open={cancelModalOpen}
+          close={() => setCancelModalOpen(false)}
+          onConfirm={handleCancelConfirm}
+          onCancel={() => setCancelModalOpen(false)}
+        >
+          <span>해당 포트폴리오 보관을 취소 하시겠습니까?</span>
+        </ConfirmModal>
+      )}
+    </div>
   );
 };
 

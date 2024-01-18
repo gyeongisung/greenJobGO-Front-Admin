@@ -9,14 +9,15 @@ import NoListItem from "../NoListItem";
 
 // 보관함리스트 저장 recoil
 export const savedListRecoil = atom({
-  key: `savedListRecoil/${v4()}`,
+  // key: `savedListRecoil/${v4()}`,
+  key: `savedListRecoil`,
   default: [],
 });
 
 const SaveItemSection = () => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
-  // const [savedPFList, setSavedPFList] = useState("");
+  // const [savedPFList, setSavedPFList] = useState([]);
   const [nothing, setNothing] = useState(false);
 
   // 보관함 리스트 recoil
@@ -42,7 +43,6 @@ const SaveItemSection = () => {
         <NoListItem />
       ) : (
         <SaveItemContent
-          nothing={nothing}
           setCount={setCount}
           setNothing={setNothing}
         />

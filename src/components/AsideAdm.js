@@ -9,14 +9,15 @@ import {
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { postLogout } from "../api/client";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { changeComponent } from "../recoil/atoms/ChangeState";
-import { AuthStateAtom } from "../recoil/atoms/AuthState";
+import { AuthStateAtom,  } from "../recoil/atoms/AuthState";
 
 const AsideAdm = () => {
   const [isTrue, setIsTrue] = useRecoilState(changeComponent);
-  const authState = useRecoilValue(AuthStateAtom);
-  const setAuthState = useSetRecoilState(AuthStateAtom);
+
+  const [authState, setAuthState] = useRecoilState(AuthStateAtom);
+
   const { isLogin, role, id } = authState;
 
   const navigate = useNavigate();

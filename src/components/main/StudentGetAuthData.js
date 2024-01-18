@@ -1,6 +1,5 @@
 import React from "react";
 import { StudentAuthgetListSty } from "../../styles/HomeStyle";
-import { v4 } from "uuid";
 
 const StudentGetAuthData = ({ authInfo }) => {
   return (
@@ -10,9 +9,12 @@ const StudentGetAuthData = ({ authInfo }) => {
         <div className="class-auth-list">
           {authInfo &&
             authInfo?.map(item => (
-              <ul key={v4()}>
+              <ul key={`${item.subjectName}` + `${item.round}`}>
                 <li>
-                  <span className="title">{item.subjectName}</span>
+                  <span className="title">
+                    {item.round !== 0 && `(${item.round}기)`}
+                    {item.subjectName}
+                  </span>
                   <span className="date">
                     {item.startedAt} ~ {item.endedAt}
                   </span>

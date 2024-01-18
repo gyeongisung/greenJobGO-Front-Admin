@@ -11,7 +11,7 @@ const BulkSearch = ({
 }) => {
   return (
     <ul className="delete-search">
-      <li>
+      <li className="select-wrap">
         <span>직종</span>
         <select
           value={category}
@@ -33,7 +33,7 @@ const BulkSearch = ({
             ))}
         </select>
       </li>
-      <li>
+      <li className="select-wrap">
         <span>과정명</span>
         <select
           name="subject-state"

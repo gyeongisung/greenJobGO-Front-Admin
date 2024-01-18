@@ -13,7 +13,7 @@ const PortfolioPaging = ({ page, setPage, count }) => {
         activePage={page}
         itemsCountPerPage={10}
         totalItemsCount={count}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={10}
         marginPagesDisplayed={0}
         prevPageText={<FontAwesomeIcon icon={faChevronLeft} />}
         nextPageText={<FontAwesomeIcon icon={faChevronRight} />}

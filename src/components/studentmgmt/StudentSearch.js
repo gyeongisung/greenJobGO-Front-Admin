@@ -11,7 +11,7 @@ const StudentSearch = ({
 }) => {
   return (
     <ul className="student-search">
-      <li>
+      <li className="select-wrap">
         <select
           value={category}
           name="category-state"
