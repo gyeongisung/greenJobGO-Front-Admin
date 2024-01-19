@@ -51,9 +51,11 @@ const SaveItemCheckbox = ({
         query: cancelMakeQuery,
         mainYn: 0,
         setErrorCancelInfo,
+        setClickItems,
       });
-      await fetchData();
-      setMainCancelModalOpen(false);
+      // await fetchData();
+      await setMainCancelModalOpen(false);
+      setErrorModalOpen(true);
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +63,7 @@ const SaveItemCheckbox = ({
 
   useEffect(() => {
     if (cancelMakeQuery) {
-      fetchData();
+      // fetchData();
       setMainCancelModalOpen(true);
     }
   }, [cancelMakeQuery]);
@@ -69,8 +71,6 @@ const SaveItemCheckbox = ({
   useEffect(() => {
     if (errorCancelInfo) {
       setErrorModalOpen(true);
-      setClickItems([]);
-      fetchData();
     } else {
       setErrorModalOpen(false);
     }
@@ -124,8 +124,14 @@ const SaveItemCheckbox = ({
       {errorModalOpen && (
         <OkModal
           open={errorModalOpen}
-          close={() => setErrorModalOpen(false)}
-          onConfirm={() => setErrorModalOpen(false)}
+          close={() => {
+            setErrorModalOpen(false);
+            fetchData();
+          }}
+          onConfirm={() => {
+            setErrorModalOpen(false);
+            fetchData();
+          }}
         >
           <span>{errorCancelInfo}</span>
         </OkModal>

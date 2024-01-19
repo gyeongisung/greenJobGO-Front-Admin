@@ -8,18 +8,6 @@ const DeleteList = ({
   setClickItems,
   page,
 }) => {
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  // const [classInfo, setClassInfo] = useState(null);
-
-  // const handleEditModalOpen = data => {
-  //   // setClassInfo(data);
-  //   setEditModalOpen(true);
-  // };
-
-  // const handleModalCancel = () => {
-  //   setEditModalOpen(false);
-  //   document.body.style.overflow = "unset";
-  // };
 
   // 체크박스 변경 이벤트 핸들러
   const handleCheckBox = (checked, istudent) => {

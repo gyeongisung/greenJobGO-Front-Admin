@@ -126,66 +126,6 @@ export const PermanentlyInner = styled.div`
         background: ${Maincolor.btn};
       }
     }
-
-    /* > li {
-      padding-right: 20px;
-      > span {
-        font-size: 16px;
-        font-weight: 500;
-        padding-right: 10px;
-      }
-      :nth-of-type(1) {
-        > select {
-          border: 1px solid ${Maincolor.input};
-          border-radius: 3px;
-          width: 160px;
-          height: 40px;
-          text-align: center;
-          cursor: pointer;
-        }
-      }
-      :nth-of-type(2) {
-        > select {
-          border: 1px solid ${Maincolor.input};
-          border-radius: 3px;
-          width: 540px;
-          height: 40px;
-          text-align: center;
-          cursor: pointer;
-        }
-      }
-      :nth-of-type(3) {
-        > .delete-form {
-          display: flex;
-          gap: 5px;
-          input {
-            padding-left: 10px;
-            width: 200px;
-            height: 40px;
-            border: 1px solid ${Maincolor.input};
-            border-radius: 3px;
-          }
-          label {
-            font-size: 16px;
-            height: 40px;
-            line-height: 40px;
-            font-weight: 500;
-            padding-right: 10px;
-          }
-        }
-      }
-      :nth-of-type(4) {
-        > button {
-          width: 140px;
-          height: 40px;
-          cursor: pointer;
-          border: none;
-          border-radius: 5px;
-          color: #fff;
-          background: ${Maincolor.btn};
-        }
-      }
-    } */
   }
   .delete-buttons {
     position: relative;
@@ -223,7 +163,13 @@ export const DeleteTable = styled.div`
   /* box-sizing: border-box; */
   .list-border {
     border: 1px solid ${Maincolor.sectiontitle};
-    border-radius: 5px;
+    .class-table-th {
+      color: ${Maincolor.black};
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 43px;
+    }
     > ul {
       /* width: 1500px; */
       width: 1536px;

@@ -17,14 +17,13 @@ import OkModal from "../components/OkModal";
 
 const PermanentlyDelete = () => {
   const [nothing, setNothing] = useState(false);
-
   const [listData, setListData] = useState("");
 
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [searchsubj, setSearchsubj] = useState("");
   const [searchname, setSearchname] = useState("");
-  const [selectCate, setSelectCate] = useState("");
+  const [selectCate, setSelectCate] = useState(0);
 
   // 체크박스 state
   const [clickItems, setClickItems] = useState([]);
@@ -85,7 +84,7 @@ const PermanentlyDelete = () => {
     try {
       // await setPage(1);
       await deleteCompleteStudent({ clickItems, setErrorInfo });
-      await fetchData();
+      // await fetchData();
       await setModalOpen(false);
       setErrorModalOpen(true);
     } catch (error) {
@@ -97,7 +96,7 @@ const PermanentlyDelete = () => {
   useEffect(() => {
     if (errorInfo) {
       setErrorModalOpen(true);
-      fetchData();
+      // fetchData();
     } else {
       setErrorModalOpen(false);
     }
@@ -184,8 +183,14 @@ const PermanentlyDelete = () => {
         <OkModal
           header={""}
           open={errorModalOpen}
-          close={() => setErrorModalOpen(false)}
-          onConfirm={() => setErrorModalOpen(false)}
+          close={() => {
+            setErrorModalOpen(false);
+            fetchData();
+          }}
+          onConfirm={() => {
+            setErrorModalOpen(false);
+            fetchData();
+          }}
         >
           <span>{errorInfo}</span>
         </OkModal>

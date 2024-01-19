@@ -48,12 +48,6 @@ const SaveItemSearch = ({
     setSearchname("");
   };
 
-
-  const handleErrorModal = async () => {
-    setErrorInfo("");
-    await fetchData();
-    await setErrorModalOpen(false);
-  };
   // 메인 포트폴리오 적용 버튼 클릭
   const handleGoMain = () => {
     setMainGoModalOpen(true);
@@ -61,8 +55,12 @@ const SaveItemSearch = ({
   // 메인적용 확인
   const handleMainConfirm = async () => {
     try {
-      await patchSendMain({ clickItems, mainYn: 1, setErrorInfo });
-      await fetchData();
+      await patchSendMain({
+        clickItems,
+        mainYn: 1,
+        setErrorInfo,
+        setClickItems,
+      });
       await setMainGoModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
@@ -75,8 +73,8 @@ const SaveItemSearch = ({
 
   useEffect(() => {
     if (errorInfo) {
-      setClickItems(prev => []);
-      fetchData();
+      // setClickItems(prev => []);
+      // fetchData();
       setErrorModalOpen(true);
     } else {
       setErrorModalOpen(false);
@@ -163,10 +161,16 @@ const SaveItemSearch = ({
       {errorModalOpen && (
         <OkModal
           open={errorModalOpen}
-          close={handleErrorModal}
-          // close={() => setErrorModalOpen(false)}
-          onConfirm={handleErrorModal}
-          // onConfirm={() => setErrorModalOpen(false)}
+          close={() => {
+            setErrorModalOpen(false);
+            setErrorInfo("");
+            fetchData();
+          }}
+          onConfirm={() => {
+            setErrorModalOpen(false);
+            setErrorInfo("");
+            fetchData();
+          }}
         >
           <span>{errorInfo}</span>
         </OkModal>
