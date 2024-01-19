@@ -1,7 +1,18 @@
 import React from "react";
-import { ConfirmModalWarp, ModalCancelBtn, ModalOkBtn } from "../styles/GlobalStyle";
+import {
+  ConfirmModalWarp,
+  ModalCancelBtn,
+  ModalOkBtn,
+} from "../styles/GlobalStyle";
 
-const ConfirmModal = ({  open, close, onConfirm, onCancel, children }) => {
+const ConfirmModal = ({
+  header,
+  open,
+  close,
+  onConfirm,
+  onCancel,
+  children,
+}) => {
   console.log("컨펌모달 작동됩니다");
   const stopPropagation = e => {
     e.stopPropagation();
@@ -14,6 +25,16 @@ const ConfirmModal = ({  open, close, onConfirm, onCancel, children }) => {
             className="modalConfirm-wrapper"
             onClick={e => stopPropagation(e)}
           >
+            {/* 헤더내용 */}
+            <div className="modal-header">
+              {header}
+              <p className="close" onClick={close}>
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                  alt="X"
+                />
+              </p>
+            </div>
             {/* 모달내용(컴포넌트 읽어오는부분) */}
             <div className="modalConfirm-content">
               {children}

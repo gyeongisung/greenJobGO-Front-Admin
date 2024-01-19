@@ -67,7 +67,6 @@ export const ModalWarp = styled.div`
     text-align: center;
     font-size: 20px;
     font-weight: 500;
-    text-align: center;
     box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
     p {
       position: absolute;
@@ -129,6 +128,7 @@ export const ConfirmModalWarp = styled.div`
     background-color: rgba(0, 0, 0, 0.3);
   }
   .modalConfirm-wrapper {
+    position: relative;
     width: 410px;
     height: 140px;
     margin: 0 auto;
@@ -140,16 +140,44 @@ export const ConfirmModalWarp = styled.div`
     overflow: hidden;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.12);
   }
-
+  /* 모달 헤더 */
+  .modal-header {
+    height: 45px;
+    position: relative;
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 500;
+    p {
+      position: absolute;
+      top: 15px;
+      right: 0px;
+      width: 30px;
+      height: 14px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: ${Maincolor.black};
+      cursor: pointer;
+      img {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        object-fit: contain;
+      }
+    }
+  }
   /* 모달 내용 */
   .modalConfirm-content {
+    /* position: absolute; */
+    /* top: 50px;
+    left: 20px; */
     height: 100%;
-    padding: 40px 20px 20px 30px;
+    padding: 0px 20px 0px 30px;
     font-size: 14px;
-    line-height: 120%;
     color: #515151;
     & > div {
-      margin-top: 32px;
+      margin-top: 20px;
       text-align: right;
       & button {
         margin-left: 5px;
@@ -244,7 +272,7 @@ export const NoItemSty = styled.div`
   /* height: 630px; */
   width: 100%;
   height: 100%;
-  padding: 80px;
+  padding: 80px 0;
   & > div {
     margin: 0 auto;
     width: 1400px;

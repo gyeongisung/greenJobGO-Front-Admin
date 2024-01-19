@@ -22,7 +22,7 @@ export const getPortFolioList = async ({
   resultUrl,
   setNothing,
 }) => {
-  console.log("query들어오냐 ㅋ ", resultUrl);
+  // console.log("query들어오냐 ㅋ ", resultUrl);
 
   try {
     const res = await client.get(
@@ -30,7 +30,7 @@ export const getPortFolioList = async ({
     );
 
     const result = await res.data;
-    console.log("포트폴리오리스트", res.config.url);
+    console.log("포트폴리오리스트", result);
     setStudentPFList(result);
     setCount(result.page.idx);
     setNothing(false);
@@ -70,8 +70,6 @@ export const getSavedPFList = async ({
   resultUrl,
   setNothing,
 }) => {
-  console.log("query들어오냐 ㅋ ", resultUrl);
-
   try {
     const res = await client.get(
       `/admin/student/storage?page=${page}&size=10&sort=istudent%2CASC${resultUrl}`,
@@ -93,17 +91,45 @@ export const getSavedPFList = async ({
 };
 
 // 메인 보내기
-export const patchSendMain = async ({ query, mainYn }) => {
-  console.log("query 들어오니?", query);
+export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
+  console.log("메인보내는 mainList 들어오니?", clickItems);
   console.log("mainYn 들어오니?", mainYn);
+
+  try {
+    const queryString = clickItems.map(item => `istudent=${item}`).join("&");
+    const res = await client.patch(
+      `/admin/student/main?${queryString}&companyMainYn=${mainYn}`,
+    );
+    const result = await res.data;
+    console.log("메인보내기patch성공", result);
+    setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
+    return result;
+  } catch (error) {
+    console.log(error.response.data);
+    setErrorInfo(error.response.data.message);
+    return;
+  }
+};
+// 메인 취소
+export const patchCancelMain = async ({
+  query,
+  mainYn,
+  setErrorCancelInfo,
+}) => {
+  console.log("메인 취소 들어오니?", query);
+  console.log("mainYn 들어오니?", mainYn);
+
   try {
     const res = await client.patch(
       `/admin/student/main?${query}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
-    console.log("메인 patchㅋ", result);
+    console.log("메인취소patch성공", result.url);
+    setErrorCancelInfo("메인 포트폴리오 설정이 취소되었습니다.");
     return result;
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data.message);
+    setErrorCancelInfo(error.response.data.message);
+    return;
   }
 };

@@ -1,40 +1,63 @@
 import { client } from "../api/client";
 
-export const getStudentList = async ({
+// 수강과목 불러오기
+export const getSubjectInfo = async ({ selectCate, setSubjectList }) => {
+  try {
+    // const res = await client.get(
+    //   `/admin/student/dropbox-category?${
+    //     selectCate ? `iclassification=${selectCate}` : ""
+    //   }`,
+    // );
+    const res = await client.get(
+      `/admin/student/dropbox-category?iclassification=${selectCate}`,
+    );
+    const result = await res.data;
+    setSubjectList(result.res);
+    console.log("수강과목 불러옵니다 subject list", result);
+    return result;
+  } catch (error) {
+    console.log("수강과목 에러", error);
+  }
+};
+
+export const getCompleteDeleteList = async ({
   setListData,
   setCount,
   page,
-  selectCate,
-  searchsubj,
-  searchname,
+  resultUrl,
   setNothing,
 }) => {
   try {
-    let apiUrl = `/admin/student/student/oneyearago?page=${page}&size=10&sort=istudent%2CASC`;
-    if (selectCate) {
-      apiUrl += `&iclassification=${selectCate}`;
-    }
+    const res = await client.get(
+      `/admin/student/oneyearago?page=${page}&size=10&sort=istudent%2CASC&${resultUrl}`,
+    );
 
-    if (searchsubj) {
-      apiUrl += `&subjectName=${searchsubj}`;
-    }
-
-    if (searchname) {
-      apiUrl += `&studentName=${searchname}`;
-    }
-
-    const res = await client.get(apiUrl);
-    setCount(res.data.page.idx);
-    setListData(res.data.vo);
-
-    console.log("완전삭제 결과나와라", res);
-    console.log("완전삭제 결과나와라", res.config.url);
+    const result = await res.data;
+    setListData(result.vo);
+    setCount(result.page.idx);
     setNothing(false);
-    if (res.data.vo.length == 0) {
+    if (result.vo.length === 0) {
       setNothing(true);
       // console.log("결과 없어요");
     }
+    return result;
   } catch (error) {
     console.log(error);
+  }
+};
+
+// DELETE
+export const deleteCompleteStudent = async ({ clickItems, setErrorInfo }) => {
+  try {
+    const queryString = clickItems.map(item => `istudent=${item}`).join("&");
+    const res = await client.delete(`/admin/student/oneyearago?${queryString}`);
+    const result = res.data;
+    console.log("완전 삭제성공", result);
+    setErrorInfo("영구 삭제가 완료되었습니다.");
+    return result;
+  } catch (err) {
+    console.log("완전DELETE 실패", err);
+    setErrorInfo("영구 삭제가 처리되지 않았습니다.");
+    return setErrorInfo;
   }
 };

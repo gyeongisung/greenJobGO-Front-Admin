@@ -8,7 +8,7 @@ import NoListItem from "../NoListItem";
 
 const PortfolioSection = () => {
   const [page, setPage] = useState(1);
-  const [count, setCount] = useState();
+  const [count, setCount] = useState(0);
   const [studentPFList, setStudentPFList] = useState("");
   const [nothing, setNothing] = useState(false);
   // const [queryAdd, setQueryAdd] = useState();
@@ -55,10 +55,8 @@ const PortfolioSection = () => {
   };
 
   useEffect(() => {
-    console.log("상위 화면 리랜더링 합니다");
     fetchData();
   }, [page]);
-  console.log("page", page);
   return (
     <div>
       {/* 검색창 화면*/}

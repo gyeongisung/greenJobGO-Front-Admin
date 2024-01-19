@@ -68,8 +68,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
     setEndDateError(!endDate ? "권한 종료날짜를 선택 해 주세요." : "");
     console.log("startDate", startDate);
 
-    const isError =
-      !selectCate || !subjectPk || !endDate;
+    const isError = !selectCate || !subjectPk || !endDate;
 
     // 에러가 없을 때 모달 열기
     if (!isError) {
@@ -162,6 +161,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
       {/* 권한 변경 확인모달 */}
       {modalOpen && (
         <ConfirmModal
+          header={""}
           open={modalOpen}
           close={() => setModalOpen(false)}
           onConfirm={handleSummitConfirm}
@@ -173,6 +173,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
       {/* 빈값 에러 확인모달 */}
       {errorModalOpen && (
         <OkModal
+          header={""}
           open={errorModalOpen}
           close={() => setErrorModalOpen(false)}
           onConfirm={() => setErrorModalOpen(false)}

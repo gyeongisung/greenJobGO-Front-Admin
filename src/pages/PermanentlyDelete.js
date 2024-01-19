@@ -7,117 +7,105 @@ import {
 import DeletePaging from "../components/Permanently/DeletePaging";
 import DeleteList from "../components/Permanently/DeleteList";
 import DeleteSearch from "../components/Permanently/DeleteSearch";
-import { getStudentList } from "../api/permanentlyAxios";
-import { getBigcate } from "../api/portfolioAxios";
+import {
+  deleteCompleteStudent,
+  getCompleteDeleteList,
+} from "../api/permanentlyAxios";
 import NoListItem from "../components/NoListItem";
+import ConfirmModal from "../components/ConfirmModal";
+import OkModal from "../components/OkModal";
 
 const PermanentlyDelete = () => {
   const [nothing, setNothing] = useState(false);
 
-  const [listData, setListData] = useState([]);
-  const [saveCheckBox, setSaveCheckBox] = useState([]);
-  // const [categoryData, setCategoryData] = useState([]);
-  const [selectCate, setSelectCate] = useState(0);
+  const [listData, setListData] = useState("");
 
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
-  // const [category, setCategory] = useState(0);
   const [searchsubj, setSearchsubj] = useState("");
   const [searchname, setSearchname] = useState("");
-  const [categoryValue, setCategoryValue] = useState("");
+  const [selectCate, setSelectCate] = useState("");
+
+  // 체크박스 state
+  const [clickItems, setClickItems] = useState([]);
+  const [allClick, setAllClick] = useState(false);
+
+  // 모달
   const [modalOpen, setModalOpen] = useState(false);
-  const [uploadResult, setUpLoadResult] = useState(false);
-  const [payload, setPayload] = useState({
-    courseSubjectName: "",
-    iclassification: 0,
-    classification: "",
-    startedAt: "",
-    endedAt: "",
-    instructor: "",
-    lectureRoom: "",
-    round: "",
-    classTime: "",
-  });
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
-  // 수강생 검색
-  const handleSearch = () => {
-    setPage(1);
-    fetchData();
+  const [errorInfo, setErrorInfo] = useState("");
+
+  // url을 만들자
+  const makeUrl = () => {
+    let query = "";
+
+    if (selectCate !== "" && selectCate !== 0) {
+      query += `iclassification=${selectCate}&`;
+    }
+    if (searchsubj !== "") {
+      query += `subjectName=${searchsubj}&`;
+    }
+    if (searchname !== "") {
+      query += `studentName=${searchname}&`;
+    }
+    query = query ? query.slice(0, -1) : "";
+    return query;
   };
-  let resultIdArray = saveCheckBox;
 
-  // const handleAllCheck = e => {
-  //   const allCheckBox = document.querySelectorAll(".class-checkbox");
-  //   resultIdArray = [];
-  //   if (e.target.checked === true) {
-  //     allCheckBox.forEach(item => {
-  //       item.checked = true;
-  //       resultIdArray.push(parseInt(item.classList[1].slice(6)));
-  //     });
-  //   } else {
-  //     allCheckBox.forEach(item => {
-  //       item.checked = false;
-  //     });
-  //     resultIdArray = [];
-  //   }
-  //   setSaveCheckBox(resultIdArray);
-  // };
-
-  // const handleCheckBox = e => {
-  //   const clickList = e.currentTarget;
-  //   const icourseSubject = parseInt(clickList.classList[1].slice(6));
-  //   if (e.target.checked === true) {
-  //     resultIdArray.push(icourseSubject);
-  //   } else {
-  //     resultIdArray = resultIdArray.filter(item => item !== icourseSubject);
-  //   }
-  //   setSaveCheckBox(resultIdArray);
-  //   console.log(saveCheckBox);
-  // };
-
-  const fetchData = () => {
-    getStudentList({
+  const fetchData = async () => {
+    const resultUrl = makeUrl();
+    await getCompleteDeleteList({
       setListData,
       setCount,
       page,
-      selectCate,
-      searchsubj,
-      searchname,
-    });
-  };
-
-  // useEffect(() => {
-  //   fetchData();
-  //   getBigcate(setCategory);
-  // }, [page]);
-
-  useEffect(() => {
-    getStudentList({
-      setListData,
-      setCount,
-      page,
-      selectCate,
-      searchsubj,
-      searchname,
+      resultUrl,
       setNothing,
     });
-  }, []);
-  console.log("page", page);
-  console.log("nothing", nothing);
+  };
+
+  console.log("listData", listData);
+  // 수강생 검색
+  const handleSearch = async () => {
+    try {
+      setPage(1);
+      await fetchData();
+    } catch (error) {
+      console.error("데이터 가져오기 실패:", error);
+    }
+  };
+
+  // 삭제버튼 클릭
+  const handleDelete = () => {
+    setModalOpen(true);
+  };
+
+  // 삭제컨펌
+  const handleDelConfirm = async () => {
+    try {
+      // await setPage(1);
+      await deleteCompleteStudent({ clickItems, setErrorInfo });
+      await fetchData();
+      await setModalOpen(false);
+      setErrorModalOpen(true);
+    } catch (error) {
+      console.log("삭제실패", error);
+      setErrorModalOpen(true);
+    }
+  };
 
   useEffect(() => {
-    // document.querySelector(".all-checkbox-btn").checked = false;
-    // document
-    //   .querySelectorAll(".class-checkbox")
-    //   .forEach(item => (item.checked = false));
-    // setSaveCheckBox([]);
-  }, [listData]);
+    if (errorInfo) {
+      setErrorModalOpen(true);
+      fetchData();
+    } else {
+      setErrorModalOpen(false);
+    }
+  }, [errorInfo]);
 
-  // // 카테고리 변경
-  // const handleCategoryFiiter = e => {
-  //   setCategory(e.target.value);
-  //   setPage(1);
-  // };
+  useEffect(() => {
+    fetchData();
+  }, [page]);
 
   return (
     <PermanentlyWrap>
@@ -135,22 +123,16 @@ const PermanentlyDelete = () => {
       </div>
       <PermanentlyInner>
         <DeleteSearch
-          // category={category}
-          // handleCategoryFiiter={handleCategoryFiiter}
-          // handleSearch={handleSearch}
-          // categoryData={categoryData}
+          handleSearch={handleSearch}
           searchname={searchname}
           setSearchname={setSearchname}
           searchsubj={searchsubj}
           setSearchsubj={setSearchsubj}
-          fetchData={fetchData}
-          page={page}
-          setPage={setPage}
-          setSelectCate={setSelectCate}
           selectCate={selectCate}
+          setSelectCate={setSelectCate}
         />
         <div className="delete-buttons">
-          <button>삭제</button>
+          <button onClick={handleDelete}>삭제</button>
         </div>
         <div className="total-count">
           <span>총 {count}개</span>
@@ -159,16 +141,55 @@ const PermanentlyDelete = () => {
           {nothing && <NoListItem />}
           <DeleteList
             listData={listData}
-            // handleAllCheck={handleAllCheck}
-            // handleCheckBox={handleCheckBox}
             page={page}
-            // uploadResult={uploadResult}
-            // setUpLoadResult={setUpLoadResult}
-            selectCate={selectCate}
+            allClick={allClick}
+            setAllClick={setAllClick}
+            clickItems={clickItems}
+            setClickItems={setClickItems}
           />
         </DeleteTable>
         <DeletePaging page={page} setPage={setPage} count={count} />
       </PermanentlyInner>
+      {/* 삭제확인모달 */}
+      {modalOpen && (
+        <ConfirmModal
+          header={
+            <p
+              style={{
+                width: "200px",
+                position: "absolute",
+                top: "20px",
+                left: "25px",
+              }}
+            >
+              항목을 삭제하시겠습니까?
+            </p>
+          }
+          open={modalOpen}
+          close={() => setModalOpen(false)}
+          onConfirm={handleDelConfirm}
+          onCancel={() => setModalOpen(false)}
+        >
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/bxs_error.png`}
+            alt="경고"
+          />
+          <span style={{ fontSize: "12px", lineHeight: "2.5" }}>
+            확인 버튼 클릭 시 해당 항목과 포트폴리오가 영구적으로 삭제됩니다.
+          </span>
+        </ConfirmModal>
+      )}
+      {/* api 에러 확인모달 */}
+      {errorModalOpen && (
+        <OkModal
+          header={""}
+          open={errorModalOpen}
+          close={() => setErrorModalOpen(false)}
+          onConfirm={() => setErrorModalOpen(false)}
+        >
+          <span>{errorInfo}</span>
+        </OkModal>
+      )}
     </PermanentlyWrap>
   );
 };

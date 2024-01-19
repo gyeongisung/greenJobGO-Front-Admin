@@ -1,21 +1,29 @@
 import React from "react";
 import { PagiWrap } from "../../styles/PagingStyle";
 import Pagination from "react-js-pagination";
+import { PortfolioPagingSty } from "../../styles/portfoliopagingstyle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const DeletePaging = ({ page, setPage, count }) => {
   return (
-    <PagiWrap>
+    <PortfolioPagingSty style={{ marginTop: "25px" }}>
       <Pagination
         activePage={page}
         itemsCountPerPage={10}
         totalItemsCount={count}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={10}
         marginPagesDisplayed={0}
-        prevPageText={"‹"}
-        nextPageText={"›"}
+        prevPageText={<FontAwesomeIcon icon={faChevronLeft} />}
+        nextPageText={<FontAwesomeIcon icon={faChevronRight} />}
+        firstPageText={""}
+        lastPageText={""}
         onChange={setPage}
       />
-    </PagiWrap>
+    </PortfolioPagingSty>
   );
 };
 

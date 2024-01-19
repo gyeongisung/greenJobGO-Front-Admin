@@ -1,22 +1,16 @@
 import React, { useState } from "react";
 import NoImage from "../../assets/NoImage.jpg";
-import {
-  patchSendSaved,
-} from "../../api/portfolioAxios";
+import { patchSendSaved } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
 import { CheckToMainSt } from "../../styles/PortfolioStyle";
 import SaveItemCheckbox from "./SaveItemCheckbox";
 
 // // 메인클릭 정보 저장 recoil
 
-const SaveItemBox = ({ item, fetchData }) => {
+const SaveItemBox = ({ item, fetchData, clickItems, setClickItems }) => {
   const [savedItemNum, setSavedItemNum] = useState([]);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState();
-
-
-  // 보관함 리스트 recoil을 읽어오자
-  // const savedListRead = useRecoilValue(readsavedListItems);
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -66,6 +60,8 @@ const SaveItemBox = ({ item, fetchData }) => {
           item={item}
           handleSaveCancel={handleSaveCancel}
           fetchData={fetchData}
+          clickItems={clickItems}
+          setClickItems={setClickItems}
         />
       </CheckToMainSt>
       {/* 보관취소모달 */}
@@ -83,4 +79,4 @@ const SaveItemBox = ({ item, fetchData }) => {
   );
 };
 
-export default SaveItemBox;
+export default React.memo(SaveItemBox);
