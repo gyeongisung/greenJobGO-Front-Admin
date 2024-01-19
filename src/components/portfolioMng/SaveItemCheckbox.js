@@ -3,39 +3,57 @@ import { atom, useRecoilState } from "recoil";
 import { v4 } from "uuid";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { patchSendMain } from "../../api/portfolioAxios";
+import { patchCancelMain, patchSendMain } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
+import OkModal from "../OkModal";
 
 // 텍스트 저장 recoil
-export const clickMainRecoil = atom({
-  key: `clickMainRecoil/${v4()}`,
-  default: [],
-});
+// export const clickMainRecoil = atom({
+//   key: `clickMainRecoil/${v4()}`,
+//   default: [],
+// });
 
-const SaveItemCheckbox = ({ item, handleSaveCancel, updateData }) => {
+const SaveItemCheckbox = ({
+  item,
+  handleSaveCancel,
+  fetchData,
+  clickItems,
+  setClickItems,
+}) => {
   const [mainCancelModalOpen, setMainCancelModalOpen] = useState(false);
   const [cancelMakeQuery, setCancelMakeQuery] = useState("");
-
-  // 메인클릭 recoil
-  const [clickItems, setClickItems] = useRecoilState(clickMainRecoil);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorCancelInfo, setErrorCancelInfo] = useState("");
 
   // 체크박스 변경 이벤트 핸들러
   const handleCheckBox = (checked, istudent) => {
-    setClickItems(prev =>
-      checked ? [...prev, istudent] : prev.filter(item => item !== istudent),
-    );
+    setClickItems(prev => {
+      if (!checked) {
+        const query = `istudent=${istudent}`;
+        setCancelMakeQuery(query);
+      }
 
-    if (!checked) {
-      const query = `istudent=${istudent}`;
-      setCancelMakeQuery(query);
-    }
+      return checked
+        ? [...prev, istudent]
+        : prev.filter(item => item !== istudent);
+    });
+  };
+  // 메인취소하기 모달 취소 클릭
+  const handleCancelReject = () => {
+    setClickItems([]);
+    setMainCancelModalOpen(false);
   };
 
-  //  메인취소
+  //  메인취소 확인
   const handleMainCancelConfirm = async () => {
     try {
-      await patchSendMain({ query: cancelMakeQuery, mainYn: 0 });
-      await updateData();
+      await patchCancelMain({
+        query: cancelMakeQuery,
+        mainYn: 0,
+        setErrorCancelInfo,
+      });
+      await fetchData();
+      setMainCancelModalOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -43,14 +61,25 @@ const SaveItemCheckbox = ({ item, handleSaveCancel, updateData }) => {
 
   useEffect(() => {
     if (cancelMakeQuery) {
+      fetchData();
       setMainCancelModalOpen(true);
     }
   }, [cancelMakeQuery]);
 
   useEffect(() => {
+    if (errorCancelInfo) {
+      setErrorModalOpen(true);
+      setClickItems([]);
+      fetchData();
+    } else {
+      setErrorModalOpen(false);
+    }
+  }, [errorCancelInfo]);
+
+  useEffect(() => {
     setClickItems(prev => []);
-    // getSavedPFList({ savePage, setClickItems });
   }, []);
+
   return (
     <div className="Saved-infoWrap">
       <ul className="main-checked">
@@ -84,12 +113,22 @@ const SaveItemCheckbox = ({ item, handleSaveCancel, updateData }) => {
       {mainCancelModalOpen && (
         <ConfirmModal
           open={mainCancelModalOpen}
-          close={() => setMainCancelModalOpen(false)}
+          close={handleCancelReject}
           onConfirm={handleMainCancelConfirm}
-          onCancel={() => setMainCancelModalOpen(false)}
+          onCancel={handleCancelReject}
         >
           <span>메인 포트폴리오 설정을 취소 하시겠습니까?</span>
         </ConfirmModal>
+      )}
+      {/* api 에러 확인모달 */}
+      {errorModalOpen && (
+        <OkModal
+          open={errorModalOpen}
+          close={() => setErrorModalOpen(false)}
+          onConfirm={() => setErrorModalOpen(false)}
+        >
+          <span>{errorCancelInfo}</span>
+        </OkModal>
       )}
     </div>
   );

@@ -1,17 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const DeleteList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
+const DeleteList = ({
+  listData,
+  allClick,
+  setAllClick,
+  clickItems,
+  setClickItems,
+  page,
+}) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [classInfo, setClassInfo] = useState(null);
-  const handleEditModalOpen = data => {
-    setClassInfo(data);
-    setEditModalOpen(true);
+  // const [classInfo, setClassInfo] = useState(null);
+
+  // const handleEditModalOpen = data => {
+  //   // setClassInfo(data);
+  //   setEditModalOpen(true);
+  // };
+
+  // const handleModalCancel = () => {
+  //   setEditModalOpen(false);
+  //   document.body.style.overflow = "unset";
+  // };
+
+  // 체크박스 변경 이벤트 핸들러
+  const handleCheckBox = (checked, istudent) => {
+    setClickItems(prev =>
+      checked ? [...prev, istudent] : prev.filter(item => item !== istudent),
+    );
+
+    if (allClick) {
+      const allCheckBox = document.getElementById("allcheck");
+      allCheckBox.checked = clickItems.length === listData.length;
+    }
+  };
+  console.log("clickItems", clickItems);
+
+  // 전체선택
+  const handleSelectAll = isChecked => {
+    if (isChecked) {
+      setClickItems(listData.map(({ istudent }) => istudent));
+      setAllClick(true);
+    } else {
+      setClickItems([]);
+      setAllClick(false);
+    }
   };
 
-  const handleModalCancel = () => {
-    setEditModalOpen(false);
-    document.body.style.overflow = "unset";
-  };
+  useEffect(() => {
+    setClickItems([]);
+    setAllClick(false);
+  }, [page]);
   return (
     <div className="list-border">
       <ul>
@@ -20,9 +57,9 @@ const DeleteList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
             <li className="class-table-th">
               <input
                 type="checkbox"
-                name="all-check-box"
-                onChange={e => handleAllCheck(e)}
-                className="all-checkbox-btn"
+                id="allcheck"
+                onChange={e => handleSelectAll(e.target.checked)}
+                checked={allClick}
               />
             </li>
             <li className="class-table-th">번호</li>
@@ -38,22 +75,17 @@ const DeleteList = ({ listData, handleAllCheck, handleCheckBox, page }) => {
         </li>
         {listData.length > 0 &&
           listData.map((item, index) => (
-            <li
-              key={item.icourseSubject}
-              onClick={e =>
-                !e.target.classList.contains("check-box-li") &&
-                handleEditModalOpen(item)
-              }
-            >
+            <li key={item.istudent}>
               <ul>
                 <li className="check-box-li">
                   <input
                     type="checkbox"
-                    name="check-box"
-                    defaultChecked={false}
-                    className={`class-checkbox userId${item.icourseSubject}`}
-                    onChange={e => handleCheckBox(e)}
-                    onClick={e => e.stopPropagation()}
+                    id={`check${item.istudent}`}
+                    checked={clickItems.includes(item.istudent)}
+                    value={item.istudent}
+                    onChange={e => {
+                      handleCheckBox(e.target.checked, item.istudent);
+                    }}
                   />
                 </li>
                 <li>{(page - 1) * 10 + index + 1}</li>

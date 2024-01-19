@@ -2,56 +2,39 @@ import React, { useEffect, useState } from "react";
 import { getStudentSubject } from "../../api/homeAxios";
 import { v4 } from "uuid";
 import { getBigcate } from "../../api/portfolioAxios";
+import { getSubjectInfo } from "../../api/permanentlyAxios";
 
 const DeleteSearch = ({
-  // category,
-  // handleCategoryFiiter,
+  handleSearch,
   searchname,
   setSearchname,
   searchsubj,
   setSearchsubj,
-  // setSearch,
-  // handleSearch,
-  categoryData,
-  fetchData,
-  page,
-  setPage,
   setSelectCate,
   selectCate,
 }) => {
   const [category, setCategory] = useState([]);
-  // const [selectCate, setSelectCate] = useState("");
   const [subjectList, setSubjectList] = useState([]);
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
     console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
-    setPage(1);
+    setSearchsubj("");
+    setSearchname("");
   };
   // 과목변경값 저장
   const handleSubjectFilter = e => {
     console.log("과목선택e", e.target.value);
     setSearchsubj(e.target.value);
   };
-  // useEffect(() => {
-  //   fetchData();
-  //   getBigcate(setCategory);
-  // }, [page]);
-
-  // 수강생 검색
-  const handleSearch = () => {
-    setPage(1);
-    fetchData();
-  };
 
   useEffect(() => {
-    fetchData();
     getBigcate(setCategory);
-  }, [page]);
+  }, []);
 
   useEffect(() => {
-    getStudentSubject({ selectCate, setSubjectList });
+    getSubjectInfo({ selectCate, setSubjectList });
   }, [selectCate]);
   return (
     <ul className="delete-search">

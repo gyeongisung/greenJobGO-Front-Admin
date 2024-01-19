@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
-import { getPortFolioList, patchSendSaved } from "../../api/portfolioAxios";
+import { patchSendSaved } from "../../api/portfolioAxios";
 import NoImage from "../../assets/NoImage.jpg";
 import ConfirmModal from "../ConfirmModal";
-import NoListItem from "../NoListItem";
 
-const PortfolioContent = ({ item, setStudentPFList }) => {
+const PortfolioContent = ({ item, setPage, fetchData }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
@@ -26,10 +25,11 @@ const PortfolioContent = ({ item, setStudentPFList }) => {
   // 보관 컨펌
   const handleConfirm = async () => {
     try {
+      // await setPage(1);
       let update = 1;
       setIsSaved(update);
       await patchSendSaved({ savedItemNum, isSaved: update });
-      await updateData();
+      await fetchData();
       setModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
@@ -47,20 +47,20 @@ const PortfolioContent = ({ item, setStudentPFList }) => {
       let update = 0;
       setIsSaved(update);
       await patchSendSaved({ savedItemNum, isSaved: update });
-      await updateData();
+      await fetchData();
       setCancelModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
     }
   };
   // api 요청 성공할 때 화면 리랜더링
-  const updateData = async () => {
-    try {
-      const newData = await getPortFolioList({ setStudentPFList });
-    } catch (error) {
-      console.error("데이터 업데이트 에러:", error);
-    }
-  };
+  // const updateData = async () => {
+  //   try {
+  //     const newData = await getPortFolioList({ setStudentPFList });
+  //   } catch (error) {
+  //     console.error("데이터 업데이트 에러:", error);
+  //   }
+  // };
 
   return (
     <div className="pf-box">
@@ -116,7 +116,7 @@ const PortfolioContent = ({ item, setStudentPFList }) => {
           <span>해당 포트폴리오를 보관 하시겠습니까?</span>
         </ConfirmModal>
       )}
-    
+
       {/* 보관취소모달 */}
       {cancelModalOpen && (
         <ConfirmModal

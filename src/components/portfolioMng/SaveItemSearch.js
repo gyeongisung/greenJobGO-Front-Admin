@@ -1,104 +1,59 @@
 import React, { useEffect, useState } from "react";
 import { GoMainBtnSty, PfSearchWrap } from "../../styles/PortfolioStyle";
 import { BtnGlobal } from "../../styles/GlobalStyle";
-import { v4 } from "uuid";
-import {
-  getBigcate,
-  getSavedPFList,
-  patchSendMain,
-} from "../../api/portfolioAxios";
+import { getBigcate, patchSendMain } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
-import { selector, useRecoilState, useRecoilValue } from "recoil";
+import { selector } from "recoil";
 import { clickMainRecoil } from "./SaveItemCheckbox";
-import { savedListRecoil, savedPageRecoil } from "./SaveItemSection";
+import OkModal from "../OkModal";
 
 // 클릭한 포트폴리오 읽자
-export const readClickItems = selector({
-  key: `/${v4()}`,
-  // 값을 읽겠다
-  get: ({ get }) => {
-    const result = get(clickMainRecoil);
-    return result;
-  },
-});
+// export const readClickItems = selector({
+//   key: "readClickItems",
+//   // 값을 읽겠다
+//   get: ({ get }) => {
+//     const result = get(clickMainRecoil);
+//     return result;
+//   },
+// });
 
 const SaveItemSearch = ({
-  page,
   setPage,
-  // setSavedPFList,
-  setCount,
-  setNothing,
+  selectCate,
+  setSelectCate,
+  searchsubj,
+  setSearchSubj,
+  searchname,
+  setSearchname,
+  handleSearchClick,
+  fetchData,
+  clickItems,
+  setClickItems,
 }) => {
-  const [searchsubj, setSearchSubj] = useState("");
-  const [searchname, setSearchname] = useState("");
   const [category, setCategory] = useState([]);
-  const [selectCate, setSelectCate] = useState("");
 
   const [mainGoModalOpen, setMainGoModalOpen] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+
   const [mainYn, setMainYn] = useState(1);
 
-  // recoil mainClick read
-  const mainList = useRecoilValue(readClickItems);
-  // recoil page read
-
-  // 보관함 리스트 recoil
-  const [savedPFList, setSavedPFList] = useRecoilState(savedListRecoil);
+  const [errorInfo, setErrorInfo] = useState("");
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
+    setPage(1);
     console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
-  };
-  // 쿼리 주소를 변환하자
-  const makeUrl = () => {
-    let query = "";
-
-    if (selectCate !== "") {
-      query += `iclassfication=${selectCate}&`;
-    }
-    if (searchsubj !== "") {
-      query += `subjectName=${searchsubj}&`;
-    }
-    if (searchname !== "") {
-      query += `studentName=${searchname}&`;
-    }
-    query = query ? query.slice(0, -1) : "";
-    return query;
+    setSearchSubj("");
+    setSearchname("");
   };
 
-  // 검색버튼 클릭
-  const handleSearchClick = async () => {
-    try {
-      await setPage(1);
-      const query = makeUrl();
-      console.log("query?", query);
-      const data = await getSavedPFList({
-        setSavedPFList,
-        page,
-        setCount,
-        query,
-        setNothing,
-      });
-      // setSavedPFList(data);
-    } catch (error) {
-      console.error("데이터 가져오기 실패:", error);
-    }
-  };
 
-  const updateData = async () => {
-    try {
-      const newData = await getSavedPFList({ setSavedPFList });
-    } catch (error) {
-      console.error("데이터 업데이트 에러:", error);
-    }
+  const handleErrorModal = async () => {
+    setErrorInfo("");
+    await fetchData();
+    await setErrorModalOpen(false);
   };
-
-  // 선택된 메인포트폴리오 정보를 불러오자
-  const makeQuery = () => {
-    const queryString = mainList.map(item => `istudent=${item}`).join("&");
-    return queryString;
-  };
-
   // 메인 포트폴리오 적용 버튼 클릭
   const handleGoMain = () => {
     setMainGoModalOpen(true);
@@ -106,14 +61,9 @@ const SaveItemSearch = ({
   // 메인적용 확인
   const handleMainConfirm = async () => {
     try {
-      await setPage(1);
-      const query = makeQuery();
-      console.log("query?", query);
-      let update = 1;
-      await setMainYn(update);
-      await patchSendMain({ query, mainYn });
-      await updateData();
-      setMainGoModalOpen(false);
+      await patchSendMain({ clickItems, mainYn: 1, setErrorInfo });
+      await fetchData();
+      await setMainGoModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
     }
@@ -122,6 +72,16 @@ const SaveItemSearch = ({
   useEffect(() => {
     getBigcate(setCategory);
   }, []);
+
+  useEffect(() => {
+    if (errorInfo) {
+      setClickItems(prev => []);
+      fetchData();
+      setErrorModalOpen(true);
+    } else {
+      setErrorModalOpen(false);
+    }
+  }, [errorInfo]);
   return (
     <div>
       <PfSearchWrap>
@@ -199,8 +159,20 @@ const SaveItemSearch = ({
           <span>메인 포트폴리오로 설정 하시겠습니까?</span>
         </ConfirmModal>
       )}
+      {/* api 에러 확인모달 */}
+      {errorModalOpen && (
+        <OkModal
+          open={errorModalOpen}
+          close={handleErrorModal}
+          // close={() => setErrorModalOpen(false)}
+          onConfirm={handleErrorModal}
+          // onConfirm={() => setErrorModalOpen(false)}
+        >
+          <span>{errorInfo}</span>
+        </OkModal>
+      )}
     </div>
   );
 };
 
-export default React.memo(SaveItemSearch);
+export default SaveItemSearch;
