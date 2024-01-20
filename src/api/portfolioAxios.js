@@ -124,8 +124,7 @@ export const patchSendMain = async ({
   } catch (error) {
     console.log(error.response.data);
     setErrorInfo(error.response.data.message);
-    setClickItems([]);
-    return;
+    return setClickItems([]);
   }
 };
 // 메인 취소

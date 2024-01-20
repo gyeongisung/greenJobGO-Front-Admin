@@ -292,6 +292,7 @@ export const GoMainBtnSty = styled.div`
     font-size: 16px;
     font-weight: 500;
     letter-spacing: -0.24px;
+    background: ${Maincolor.admintxt};
   }
 `;
 
