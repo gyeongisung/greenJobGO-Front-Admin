@@ -155,7 +155,7 @@ export const DeleteTable = styled.div`
   position: relative;
   width: 100%;
   /* height: 58vh; */
-  height: 485px;
+  height: 475px;
   text-align: center;
   overflow: hidden;
   background: #fff;
@@ -176,7 +176,7 @@ export const DeleteTable = styled.div`
       height: 100%;
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: repeat(10, 44px);
+      grid-template-rows: repeat(10, 43px);
 
       > li {
         line-height: 43px;

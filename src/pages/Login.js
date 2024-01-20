@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginInner, LoginWrap } from "../styles/LoginStyle";
 import { fetchLogin } from "../api/client";
 import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { AuthStateAtom } from "../recoil/atoms/AuthState";
+import OkModal from "../components/OkModal";
 
 const Login = () => {
   const [adminId, setAdmminId] = useState("greendg01");
   const [password, setPassword] = useState("green1234");
   const [errmsg, setErrMsg] = useState(false);
+
+  // 로그인 오류 메세지 받아오는 state.
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorCancelInfo, setErrorCancelInfo] = useState("");
 
   const [authState, setAuthState] = useRecoilState(AuthStateAtom);
 
@@ -24,23 +29,38 @@ const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    try {
-      const { role, accessToken, id } = await fetchLogin(adminId, password);
-      if (role === "ROLE_ADMIN" && accessToken) {
-        setAuthState({
-          isLogin: true,
-          accessToken: accessToken,
-          role: role,
-          id: id,
-        });
-        navigate("/home");
-      } else {
-        navigate("/");
+    if (!adminId) {
+      setErrorCancelInfo("아이디를 입력 해 주세요.");
+      return;
+    } else if (!password) {
+      setErrorCancelInfo("비밀번호를 입력 해 주세요.");
+      return;
+    } else {
+      try {
+        const { role, accessToken, id } = await fetchLogin(adminId, password,setErrorCancelInfo);
+        if (role === "ROLE_ADMIN" && accessToken) {
+          setAuthState({
+            isLogin: true,
+            accessToken: accessToken,
+            role: role,
+            id: id,
+          });
+          navigate("/home");
+        } else {
+          navigate("/");
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
+  useEffect(() => {
+    if (errorCancelInfo) {
+      setErrorModalOpen(true);
+    } else {
+      setErrorModalOpen(false);
+    }
+  }, [errorCancelInfo]);
 
   return (
     <LoginWrap>
@@ -79,6 +99,21 @@ const Login = () => {
           </form>
         </li>
       </LoginInner>
+      {/* api 에러 확인모달 */}
+      {errorModalOpen && (
+        <OkModal
+          header={""}
+          open={errorModalOpen}
+          close={() => {
+            setErrorModalOpen(false), setErrorCancelInfo("");
+          }}
+          onConfirm={() => {
+            setErrorModalOpen(false), setErrorCancelInfo("");
+          }}
+        >
+          <span>{errorCancelInfo}</span>
+        </OkModal>
+      )}
     </LoginWrap>
   );
 };

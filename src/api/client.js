@@ -57,7 +57,7 @@ client.interceptors.response.use(
 );
 
 // 로그인 함수
-export const fetchLogin = async (adminId, password) => {
+export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
   try {
     const res = await client.post(`/admin/sign/sign-in`, {
       id: adminId,
@@ -78,13 +78,14 @@ export const fetchLogin = async (adminId, password) => {
 
       setCookie("refreshToken", refreshToken, cookieOptions);
       setCookie("accessToken", accessToken, cookieOptions);
+      setErrorCancelInfo("");
 
       return { role, accessToken, id };
     } else {
       throw new Error("잘못된 응답 형식");
     }
   } catch (error) {
-    console.log(error);
+    setErrorCancelInfo(error.response.data.message);
     throw new Error("로그인에 실패했습니다.");
   }
 };
