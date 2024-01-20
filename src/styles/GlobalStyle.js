@@ -230,7 +230,7 @@ export const BtnGlobal = styled.button`
   height: 50px;
   border-radius: 8px;
   border: 0;
-  background: ${Maincolor.btn};
+  background: ${Maincolor.admintxt};
   color: ${Maincolor.white};
   text-align: center;
   font-size: 16px;
@@ -245,7 +245,7 @@ export const ModalOkBtn = styled.button`
   height: 32px;
   border-radius: 4px;
   border: 0;
-  background: ${Maincolor.blueMedium};
+  background: ${Maincolor.admintxt};
   color: ${Maincolor.white};
   text-align: center;
   font-size: 14px;

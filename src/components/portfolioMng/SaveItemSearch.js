@@ -3,9 +3,10 @@ import { GoMainBtnSty, PfSearchWrap } from "../../styles/PortfolioStyle";
 import { BtnGlobal } from "../../styles/GlobalStyle";
 import { getBigcate, patchSendMain } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
-import { selector } from "recoil";
+import { selector, useRecoilValue } from "recoil";
 import { clickMainRecoil } from "./SaveItemCheckbox";
 import OkModal from "../OkModal";
+import { readsavedListItems } from "./SaveItemContent";
 
 // 클릭한 포트폴리오 읽자
 // export const readClickItems = selector({
@@ -38,6 +39,7 @@ const SaveItemSearch = ({
   const [mainYn, setMainYn] = useState(1);
 
   const [errorInfo, setErrorInfo] = useState("");
+  const savedListRead = useRecoilValue(readsavedListItems);
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
@@ -62,11 +64,21 @@ const SaveItemSearch = ({
         setClickItems,
       });
       await setMainGoModalOpen(false);
+      setPage(1);
     } catch (error) {
       console.log("보관실패", error);
     }
   };
 
+  // 에러나서 취소될때 ok버튼
+  const handleErrorOK = () => {
+    setErrorModalOpen(false);
+    setErrorInfo("");
+    setPage(1);
+  };
+  const handleCancel =  () => {
+    setMainGoModalOpen(false)
+  };
   useEffect(() => {
     getBigcate(setCategory);
   }, []);
@@ -80,6 +92,9 @@ const SaveItemSearch = ({
       setErrorModalOpen(false);
     }
   }, [errorInfo]);
+
+  console.log("clickItems", clickItems);
+  console.log("savedListRead", savedListRead);
   return (
     <div>
       <PfSearchWrap>
@@ -137,7 +152,12 @@ const SaveItemSearch = ({
             </div>
           </li>
           <li>
-            <BtnGlobal onClick={handleSearchClick}>조회</BtnGlobal>
+            <BtnGlobal
+              onClick={handleSearchClick}
+              style={{ background: "#6d6d6d" }}
+            >
+              조회
+            </BtnGlobal>
           </li>
         </ul>
       </PfSearchWrap>
@@ -150,9 +170,9 @@ const SaveItemSearch = ({
       {mainGoModalOpen && (
         <ConfirmModal
           open={mainGoModalOpen}
-          close={() => setMainGoModalOpen(false)}
+          close={handleCancel}
           onConfirm={handleMainConfirm}
-          onCancel={() => setMainGoModalOpen(false)}
+          onCancel={handleCancel}
         >
           <span>메인 포트폴리오로 설정 하시겠습니까?</span>
         </ConfirmModal>
@@ -161,16 +181,8 @@ const SaveItemSearch = ({
       {errorModalOpen && (
         <OkModal
           open={errorModalOpen}
-          close={() => {
-            setErrorModalOpen(false);
-            setErrorInfo("");
-            fetchData();
-          }}
-          onConfirm={() => {
-            setErrorModalOpen(false);
-            setErrorInfo("");
-            fetchData();
-          }}
+          close={handleErrorOK}
+          onConfirm={handleErrorOK}
         >
           <span>{errorInfo}</span>
         </OkModal>

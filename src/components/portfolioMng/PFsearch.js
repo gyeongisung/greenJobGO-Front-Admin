@@ -82,7 +82,12 @@ const PFsearch = ({
           </div>
         </li>
         <li>
-          <BtnGlobal onClick={handleSearchClick}>조회</BtnGlobal>
+          <BtnGlobal
+            onClick={handleSearchClick}
+            style={{ background: "#6d6d6d" }}
+          >
+            조회
+          </BtnGlobal>
         </li>
       </ul>
     </PfSearchWrap>

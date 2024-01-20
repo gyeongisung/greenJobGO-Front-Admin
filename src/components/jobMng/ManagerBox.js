@@ -95,37 +95,37 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
           </div>
           <ul className="btn-group">
             <li>
-              <button className="edit-btn" onClick={() => handleEdit(item)}>
-                수정
-              </button>
-              {modalOpen && (
-                <InputModal
-                  open={modalOpen}
-                  close={() => setModalOpen(false)}
-                  header="취업 담당자 수정"
-                >
-                  <ManagerEdit
-                    item={selectedItem}
-                    setEditModalOpen={setModalOpen}
-                    mngProflieData={mngProflieData}
-                    setmngProflieData={setmngProflieData}
-                  />
-                </InputModal>
-              )}
-            </li>
-            <li>
               <button
                 className="del-btn"
                 onClick={() => {
                   handleDelete(item.iemply);
                 }}
-              >
+                >
                 삭제
+              </button>
+            </li>
+            <li>
+              <button className="edit-btn" onClick={() => handleEdit(item)}>
+                수정
               </button>
             </li>
           </ul>
         </div>
       ))}
+      {modalOpen && (
+        <InputModal
+          open={modalOpen}
+          close={() => setModalOpen(false)}
+          header="취업 담당자 수정"
+        >
+          <ManagerEdit
+            item={selectedItem}
+            setEditModalOpen={setModalOpen}
+            mngProflieData={mngProflieData}
+            setmngProflieData={setmngProflieData}
+          />
+        </InputModal>
+      )}
       {/* 삭제 확인 모달 */}
       {confirmModalOpen && (
         <ConfirmModal

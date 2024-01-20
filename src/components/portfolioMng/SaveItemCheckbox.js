@@ -25,6 +25,8 @@ const SaveItemCheckbox = ({
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorCancelInfo, setErrorCancelInfo] = useState("");
 
+
+  
   // 체크박스 변경 이벤트 핸들러
   const handleCheckBox = (checked, istudent) => {
     setClickItems(prev => {
@@ -53,7 +55,6 @@ const SaveItemCheckbox = ({
         setErrorCancelInfo,
         setClickItems,
       });
-      // await fetchData();
       await setMainCancelModalOpen(false);
       setErrorModalOpen(true);
     } catch (error) {
@@ -63,7 +64,6 @@ const SaveItemCheckbox = ({
 
   useEffect(() => {
     if (cancelMakeQuery) {
-      // fetchData();
       setMainCancelModalOpen(true);
     }
   }, [cancelMakeQuery]);

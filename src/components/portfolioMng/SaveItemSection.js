@@ -70,7 +70,6 @@ const SaveItemSection = () => {
     fetchData();
   }, [page]);
 
-  console.log("savedPFList", savedPFList);
   return (
     <div>
       {/* 검색화면 */}

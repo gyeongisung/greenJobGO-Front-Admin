@@ -116,8 +116,8 @@ export const PortFolioContentWrap = styled.div`
   position: relative;
   width: 1600px;
   /* height: 630px; */
-  height: 585px;
-  padding: 30px 0 24px 0;
+  height: 570px;
+  padding: 30px 0 0 0;
   display: flex;
   justify-content: left;
   /* align-items: center; */
@@ -292,6 +292,7 @@ export const GoMainBtnSty = styled.div`
     font-size: 16px;
     font-weight: 500;
     letter-spacing: -0.24px;
+    background: ${Maincolor.admintxt};
   }
 `;
 
