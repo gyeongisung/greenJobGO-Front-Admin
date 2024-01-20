@@ -10,7 +10,7 @@ import {
 
 const DeletePaging = ({ page, setPage, count }) => {
   return (
-    <PortfolioPagingSty style={{ marginTop: "25px" }}>
+    <PortfolioPagingSty style={{ marginTop: "20px" }}>
       <Pagination
         activePage={page}
         itemsCountPerPage={10}

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { patchSendSaved } from "../../api/portfolioAxios";
 import NoImage from "../../assets/NoImage.jpg";
 import ConfirmModal from "../ConfirmModal";
+import OkModal from "../OkModal";
 
 const PortfolioContent = ({ item, setPage, fetchData }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
@@ -12,6 +13,8 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState();
 
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorInfo, setErrorInfo] = useState("");
   // 이미지 없을 때 error처리
   const onImgError = e => {
     e.target.src = NoImage;
@@ -26,11 +29,12 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
   const handleConfirm = async () => {
     try {
       // await setPage(1);
-      let update = 1;
-      setIsSaved(update);
-      await patchSendSaved({ savedItemNum, isSaved: update });
-      await fetchData();
-      setModalOpen(false);
+      // let update = 1;
+      // setIsSaved(update);
+      await patchSendSaved({ savedItemNum, isSaved: 1, setErrorInfo });
+      // await fetchData();
+      await setModalOpen(false);
+      setErrorModalOpen(true);
     } catch (error) {
       console.log("보관실패", error);
     }
@@ -44,13 +48,15 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
   // 보관취소 컨펌
   const handleCancelConfirm = async () => {
     try {
-      let update = 0;
-      setIsSaved(update);
-      await patchSendSaved({ savedItemNum, isSaved: update });
-      await fetchData();
-      setCancelModalOpen(false);
+      // let update = 0;
+      // setIsSaved(update);
+      await patchSendSaved({ savedItemNum, isSaved: 0, setErrorInfo });
+      // await fetchData();
+      await setCancelModalOpen(false);
+      setErrorModalOpen(true);
     } catch (error) {
       console.log("보관실패", error);
+      setErrorModalOpen(true);
     }
   };
   // api 요청 성공할 때 화면 리랜더링
@@ -61,6 +67,14 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
   //     console.error("데이터 업데이트 에러:", error);
   //   }
   // };
+  useEffect(() => {
+    if (errorInfo) {
+      setErrorModalOpen(true);
+      // fetchData();
+    } else {
+      setErrorModalOpen(false);
+    }
+  }, [errorInfo]);
 
   return (
     <div className="pf-box">
@@ -127,6 +141,23 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
         >
           <span>해당 포트폴리오 보관을 취소 하시겠습니까?</span>
         </ConfirmModal>
+      )}
+      {/* api 에러 확인모달 */}
+      {errorModalOpen && (
+        <OkModal
+          header={""}
+          open={errorModalOpen}
+          close={() => {
+            setErrorModalOpen(false);
+            fetchData();
+          }}
+          onConfirm={() => {
+            setErrorModalOpen(false);
+            fetchData();
+          }}
+        >
+          <span>{errorInfo}</span>
+        </OkModal>
       )}
     </div>
   );

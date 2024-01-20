@@ -46,7 +46,11 @@ export const getPortFolioList = async ({
 };
 
 // 보관함으로 보내거나 취소하기
-export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
+export const patchSendSaved = async ({
+  savedItemNum,
+  isSaved,
+  setErrorInfo,
+}) => {
   console.log("savedItemNum 들어오니?", savedItemNum);
   console.log("isSaved 들어오니?", isSaved);
 
@@ -56,9 +60,17 @@ export const patchSendSaved = async ({ savedItemNum, isSaved }) => {
     );
     const result = await res.data;
     console.log("보관함 patchㅋ", result);
+    {
+      isSaved === 1
+        ? setErrorInfo("보관함 이동이 완료되었습니다.")
+        : isSaved === 0
+          ? setErrorInfo("보관함 취소가 완료되었습니다.")
+          : null;
+    }
     return result;
   } catch (error) {
     console.log(error);
+    setErrorInfo(error);
   }
 };
 
@@ -91,7 +103,12 @@ export const getSavedPFList = async ({
 };
 
 // 메인 보내기
-export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
+export const patchSendMain = async ({
+  clickItems,
+  mainYn,
+  setErrorInfo,
+  setClickItems,
+}) => {
   console.log("메인보내는 mainList 들어오니?", clickItems);
   console.log("mainYn 들어오니?", mainYn);
 
@@ -107,6 +124,7 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
   } catch (error) {
     console.log(error.response.data);
     setErrorInfo(error.response.data.message);
+    setClickItems([]);
     return;
   }
 };
@@ -115,6 +133,7 @@ export const patchCancelMain = async ({
   query,
   mainYn,
   setErrorCancelInfo,
+  setClickItems,
 }) => {
   console.log("메인 취소 들어오니?", query);
   console.log("mainYn 들어오니?", mainYn);
@@ -130,6 +149,7 @@ export const patchCancelMain = async ({
   } catch (error) {
     console.log(error.response.data.message);
     setErrorCancelInfo(error.response.data.message);
+    // setClickItems([]);
     return;
   }
 };

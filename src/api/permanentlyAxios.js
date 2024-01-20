@@ -20,6 +20,7 @@ export const getSubjectInfo = async ({ selectCate, setSubjectList }) => {
   }
 };
 
+// 영구삭제 가능한 리스트 불러오기
 export const getCompleteDeleteList = async ({
   setListData,
   setCount,
@@ -47,7 +48,11 @@ export const getCompleteDeleteList = async ({
 };
 
 // DELETE
-export const deleteCompleteStudent = async ({ clickItems, setErrorInfo }) => {
+export const deleteCompleteStudent = async ({
+  clickItems,
+  setErrorInfo,
+  setClickItems,
+}) => {
   try {
     const queryString = clickItems.map(item => `istudent=${item}`).join("&");
     const res = await client.delete(`/admin/student/oneyearago?${queryString}`);
@@ -55,9 +60,9 @@ export const deleteCompleteStudent = async ({ clickItems, setErrorInfo }) => {
     console.log("완전 삭제성공", result);
     setErrorInfo("영구 삭제가 완료되었습니다.");
     return result;
-  } catch (err) {
-    console.log("완전DELETE 실패", err);
-    setErrorInfo("영구 삭제가 처리되지 않았습니다.");
-    return setErrorInfo;
+  } catch (error) {
+    console.log("완전DELETE 실패", error);
+    setErrorInfo("영구 삭제가 처리되지 않았습니다.", error);
+    return;
   }
 };

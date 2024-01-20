@@ -113,136 +113,136 @@ export const PfSearchWrap = styled.div`
 
 // 포트폴리오 페이지 스타일
 export const PortFolioContentWrap = styled.div`
-    position: relative;
-    width: 1600px;
-    /* height: 630px; */
-    height: 585px;
-    padding: 30px 0 24px 0;
-    display: flex;
-    justify-content: left;
-    /* align-items: center; */
-    flex-wrap: wrap;
-    gap: 30px;
+  position: relative;
+  width: 1600px;
+  /* height: 630px; */
+  height: 585px;
+  padding: 30px 0 24px 0;
+  display: flex;
+  justify-content: left;
+  /* align-items: center; */
+  flex-wrap: wrap;
+  gap: 30px;
 
-    .pf-box {
-      width: 294px;
-      height: 251px;
-      /* margin: 10px 0; */
-      .pf-img,
-      .saved-img {
-        position: relative;
-        margin-bottom: 15px;
-        img {
-          width: 294px;
-          height: 185px;
-          object-fit: cover;
+  .pf-box {
+    width: 294px;
+    height: 251px;
+    /* margin: 10px 0; */
+    .pf-img,
+    .saved-img {
+      position: relative;
+      margin-bottom: 15px;
+      img {
+        width: 294px;
+        height: 185px;
+        object-fit: cover;
+      }
+      /* 리스트 썸네일 우측 아이콘 */
+      .thumb-right {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+
+        /* 보관중인 포트폴리오 아이콘*/
+        .save-icon {
+          font-size: 25px;
+          /* color: ${Maincolor.white}; */
         }
-        /* 리스트 썸네일 우측 아이콘 */
-        .thumb-right {
-          position: absolute;
-          top: 0px;
-          right: 0px;
-
-          /* 보관중인 포트폴리오 아이콘*/
-          .save-icon {
-            font-size: 25px;
-            /* color: ${Maincolor.white}; */
-          }
-          /* 취업자 아이콘 */
-          .job-yes-icon {
-            margin: 15px;
-            width: 25px;
-            height: 25px;
-            object-fit: contain;
-          }
+        /* 취업자 아이콘 */
+        .job-yes-icon {
+          margin: 15px;
+          width: 25px;
+          height: 25px;
+          object-fit: contain;
         }
       }
+    }
 
-      /* 보관함 -> 저장된 이미지 */
-      .saved-img {
-        position: relative;
-        margin-bottom: 15px;
-        & > img {
-          width: 294px;
-          height: 185px;
-          object-fit: cover;
-        }
-        .isMainDim {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 294px;
-          height: 185px;
-          background: rgba(0, 0, 0, 0.3);
-        }
+    /* 보관함 -> 저장된 이미지 */
+    .saved-img {
+      position: relative;
+      margin-bottom: 15px;
+      & > img {
+        width: 294px;
+        height: 185px;
+        object-fit: cover;
       }
+      .isMainDim {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 294px;
+        height: 185px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
 
-      /* 포트폴리오 정보 */
-      & > ul,
-      .side-info {
-        position: relative;
-        .pf-name {
-          width: 120px;
+    /* 포트폴리오 정보 */
+    & > ul,
+    .side-info {
+      position: relative;
+      .pf-name {
+        width: 120px;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.24px;
+        margin-bottom: 5px;
+        ${ellipsis.one}
+      }
+      .pf-subject {
+        width: 290px;
+        color: ${Maincolor.grayDeep};
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: -0.24px;
+        ${ellipsis.one}
+      }
+      /* 보관함에 있는 포트폴리오 하트 */
+      .isSaved-name-right {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        color: #ff6262;
+        & > svg {
           font-size: 16px;
-          font-weight: 500;
-          letter-spacing: -0.24px;
-          margin-bottom: 5px;
-          ${ellipsis.one}
-        }
-        .pf-subject {
-          width: 245px;
-          color: ${Maincolor.grayDeep};
-          font-size: 16px;
-          font-weight: 400;
-          letter-spacing: -0.24px;
-          ${ellipsis.one}
-        }
-        /* 보관함에 있는 포트폴리오 하트 */
-        .isSaved-name-right {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 20px;
-          color: #ff6262;
-          & > svg {
-            font-size: 16px;
-          }
         }
       }
     }
-    /* 포트폴리오리스트 -> 마우스 호버 */
-    .pf-box:hover .pf-img-hover {
-      display: block;
-      z-index: 888;
-    }
+  }
+  /* 포트폴리오리스트 -> 마우스 호버 */
+  .pf-box:hover .pf-img-hover {
+    display: block;
+    z-index: 888;
+  }
 
-    .pf-img-hover {
-      display: none;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 294px;
-      height: 60px;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 99;
-      .savedGo-btn,
-      .isSaved-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        font-size: 25px;
-        padding: 5px;
-        cursor: pointer;
-      }
-      // 보관함으로 보내요 버튼
-      .savedGo-btn {
-        color: ${Maincolor.white};
-      }
-      .isSaved-btn {
-        color: ${Maincolor.red};
-      }
+  .pf-img-hover {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 294px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 99;
+    .savedGo-btn,
+    .isSaved-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      font-size: 25px;
+      padding: 5px;
+      cursor: pointer;
     }
+    // 보관함으로 보내요 버튼
+    .savedGo-btn {
+      color: ${Maincolor.white};
+    }
+    .isSaved-btn {
+      color: ${Maincolor.red};
+    }
+  }
 `;
 
 // 메인으로 보내는 체크박스 style

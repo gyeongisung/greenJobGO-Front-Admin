@@ -90,7 +90,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const updateData = async () => {
     try {
       const newData = await getStudentAuthData(setAuthInfo);
-      setSelectCate("");
+      setSelectCate(0);
       setSubjectPk("");
       setEndDate("");
     } catch (error) {
