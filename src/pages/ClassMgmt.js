@@ -252,11 +252,11 @@ const ClassMgmt = () => {
         )}
         <div className="class-buttons">
           <button onClick={handleEnrollModalOpen}>대분류 설정</button>
-          <button onClick={handleModalOpen}>과정등록</button>
           <button onClick={handleDeleteModalOpen}>삭제</button>
+          <button onClick={handleModalOpen}>과정등록</button>
         </div>
         <div className="total-count">
-          <span>총 {count}개</span>
+          <span>[총 {count}개]</span>
         </div>
         <ClassTable>
           <ClassList

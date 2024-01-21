@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ellipsis } from "./GlobalStyle";
+import { Maincolor, ellipsis } from "./GlobalStyle";
 
 export const CompanyMgmtWrap = styled.div`
   width: 100%;
@@ -8,14 +8,16 @@ export const CompanyMgmtWrap = styled.div`
   justify-content: center;
   flex-direction: column;
   .company-title {
-    width: 82%;
+    width: 80%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     height: 80px;
     h3 {
+      margin: 30px 0;
       font-size: 24px;
-      padding-left: 10px;
+      letter-spacing: -0.96px;
+      color: ${Maincolor.black};
     }
   }
 `;
@@ -26,10 +28,10 @@ export const CompanyMgmtInner = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1340px;
+    width: 1334px;
     height: 95px;
-    border-radius: 5px;
-    background: #a4a4a4;
+    border-radius: 6px;
+    background: ${Maincolor.search};
     gap: 10px;
     > li {
       line-height: 1;
@@ -40,7 +42,7 @@ export const CompanyMgmtInner = styled.div`
           padding-left: 10px;
           width: 725px;
           height: 40px;
-          border: 1px solid #ccc;
+          border: 1px solid ${Maincolor.input};
           border-radius: 3px;
         }
       }
@@ -50,7 +52,7 @@ export const CompanyMgmtInner = styled.div`
         cursor: pointer;
         border: none;
         border-radius: 5px;
-        background: #6d6d6d;
+        background: ${Maincolor.btn};
         color: #fff;
       }
     }
@@ -59,32 +61,45 @@ export const CompanyMgmtInner = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 80px;
+    /* height: 80px; */
     gap: 5px;
-    margin-top: 14px;
+    margin-top: 40px;
+    margin-bottom: 0;
+
     button {
       color: #fff;
-      background: #6d6d6d;
+      background: ${Maincolor.btn};
       border: none;
       border-radius: 5px;
       cursor: pointer;
       :first-of-type {
-        width: 150px;
+        background: ${Maincolor.input};
+        width: 105px;
         height: 40px;
       }
-      :not(:first-of-type) {
-        width: 100px;
+      :nth-of-type(2) {
+        background: ${Maincolor.btn};
+        width: 105px;
+        height: 40px;
+      }
+      :nth-of-type(3) {
+        background: ${Maincolor.admintxt};
+        width: 105px;
+        height: 40px;
+      }
+      :nth-of-type(4) {
+        background: ${Maincolor.admintxt};
+        width: 105px;
         height: 40px;
       }
     }
   }
   .total-count {
-    padding-left: 10px;
     font-size: 14px;
     color: #888888;
     height: 14px;
     line-height: 14px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 `;
 export const CompanyTable = styled.div`
@@ -92,27 +107,27 @@ export const CompanyTable = styled.div`
   width: 100%;
   height: 52vh;
   text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid ${Maincolor.sectiontitle};
+  /* border-radius: 5px; */
   overflow: hidden;
   background: #fff;
-  box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
   box-sizing: border-box;
   > ul {
-    height: 1340px;
+    height: 1334px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(10, 43px);
     > li {
       line-height: 42px;
-      border-top: 1px solid #ccc;
+      border-top: 1px solid ${Maincolor.sectiontitle};
       :first-of-type {
-        background: #888888;
-        color: #fff;
+        background: ${Maincolor.search};
+        color: ${Maincolor.black};
         border-top: 0;
       }
       :last-of-type {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid ${Maincolor.sectiontitle};
       }
       > ul {
         height: 100%;
@@ -125,7 +140,7 @@ export const CompanyTable = styled.div`
             cursor: pointer;
           }
           :not(:last-of-type) {
-            border-right: 1px solid #ccc;
+            border-right: 1px solid ${Maincolor.sectiontitle};
           }
         }
       }

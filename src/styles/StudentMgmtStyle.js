@@ -8,14 +8,16 @@ export const StudentMgmtWrap = styled.div`
   justify-content: center;
   flex-direction: column;
   .student-title {
-    width: 94%;
+    width: 93%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     height: 80px;
     h3 {
+      margin: 30px 0;
       font-size: 24px;
-      padding-left: 10px;
+      letter-spacing: -0.96px;
+      color: ${Maincolor.black};
     }
   }
 `;
@@ -28,7 +30,7 @@ export const StudentMgmtInner = styled.div`
     width: 100%;
     height: 95px;
     border-radius: 5px;
-    background: #a4a4a4;
+    background: ${Maincolor.maingray};
     gap: 10px;
     /* > li {
       line-height: 1;
@@ -87,32 +89,42 @@ export const StudentMgmtInner = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 80px;
+    /* height: 80px; */
     gap: 5px;
-    margin-top: 14px;
+    margin-top: 40px;
+    margin-bottom: 0;
     button {
       color: #fff;
-      background: #6d6d6d;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       :first-of-type {
-        width: 150px;
+        background: ${Maincolor.input};
+        width: 105px;
         height: 40px;
       }
-      :not(:first-of-type) {
+      :nth-of-type(2) {
+        background: ${Maincolor.btn};
+        width: 143px;
+        height: 40px;
+      }
+      :nth-of-type(3) {
+        background: ${Maincolor.admintxt};
+        width: 143px;
+        height: 40px;
+      }
+      /* :not(:first-of-type) {
         width: 100px;
         height: 40px;
-      }
+      } */
     }
   }
   .total-count {
-    padding-left: 10px;
     font-size: 14px;
     color: #888888;
     height: 14px;
     line-height: 14px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 `;
 export const StudentTable = styled.div`
@@ -120,27 +132,27 @@ export const StudentTable = styled.div`
   width: 1544px;
   height: 470px;
   text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid ${Maincolor.sectiontitle};
+  /* border-radius: 5px; */
   overflow: hidden;
   background: #fff;
-  box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
   box-sizing: border-box;
   > ul {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(12, 42.5px);
+    grid-template-rows: repeat(12, 42.6px);
     > li {
       line-height: 42px;
-      border-top: 1px solid #ccc;
+      border-top: 1px solid ${Maincolor.sectiontitle};
       :first-of-type {
-        background: #888888;
-        color: #fff;
+        background: ${Maincolor.search};
+        color: ${Maincolor.black};
         border-top: 0;
       }
-      :last-of-type {
-        border-bottom: 1px solid #ccc;
-      }
+      /* :last-of-type {
+        border-bottom: 1px solid ${Maincolor.sectiontitle};
+      } */
       > ul {
         height: 100%;
         display: grid;
@@ -150,7 +162,7 @@ export const StudentTable = styled.div`
           ${ellipsis.one}
           cursor: pointer;
           :not(:last-of-type) {
-            border-right: 1px solid #ccc;
+            border-right: 1px solid ${Maincolor.sectiontitle};
           }
         }
       }

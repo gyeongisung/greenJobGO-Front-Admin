@@ -7,7 +7,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const SaveItemPaging = ({ page, setPage, count }) => {
-  console.log("보관함 페이지네이션");
   return (
     <PortfolioPagingSty>
       <Pagination
