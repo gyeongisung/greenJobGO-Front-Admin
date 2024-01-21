@@ -13,6 +13,8 @@ import JobManager from "./pages/JobManager";
 import { PrivateRoutes } from "./components/PrivateRoutes";
 import PermanentlyDelete from "./pages/PermanentlyDelete";
 import BulkDelete from "./pages/BulkDelete";
+import StudentInfo from "./components/studentmgmt/StudentInfo";
+import StudentPortF from "./components/studentmgmt/StudentPortF";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           {/* 수강생 관리 */}
           <Route path="/student" element={<StudentMgmt />} />
+          <Route path="/student/:istudent" element={<StudentInfo />} />
+          <Route path="/student/portfolioEdit" element={<StudentPortF />} />
           {/* 수강생 포트폴리오 관리 */}
           <Route path="/portfolio" element={<PortfolioMgmt />} />
           {/* 기업 관리 */}

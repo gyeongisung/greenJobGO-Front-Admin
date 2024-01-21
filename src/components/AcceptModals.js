@@ -123,7 +123,7 @@ export const DeleteAceeptModal = ({
   const handleOk = async () => {
     await handleDeleteCategory(categoryId);
     setDeleteOkModalOpen(false);
-    setEnrollModalOpen(false);
+    // setEnrollModalOpen(false);
   };
 
   const closeModal = () => {

@@ -153,11 +153,12 @@ export const StudentTable = styled.div`
       /* :last-of-type {
         border-bottom: 1px solid ${Maincolor.sectiontitle};
       } */
-      > ul {
+      ul {
         height: 100%;
         display: grid;
         grid-template-columns: 0.15fr 0.2fr 0.5fr 1.5fr 0.8fr 0.5fr 0.3fr 0.5fr 0.5fr 0.5fr 0.35fr 0.35fr 0.35fr;
         > li {
+          color: #222;
           padding: 0 5px;
           ${ellipsis.one}
           cursor: pointer;

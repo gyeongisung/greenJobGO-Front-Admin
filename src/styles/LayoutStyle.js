@@ -57,5 +57,6 @@ export const ContentWrap = styled.div`
     /* padding: 1%; */
     margin: 0 auto;
     border: 1px ${Maincolor.grayLight} solid;
+    overflow-y: hidden;
   }
 `;
