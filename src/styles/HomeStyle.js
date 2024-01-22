@@ -102,6 +102,7 @@ export const StudentAuthPostSty = styled.div`
     right: 40px;
     width: 136px;
     height: 50px;
+    background: ${Maincolor.btn};
   }
 `;
 
@@ -220,6 +221,7 @@ export const CompanyAuthPostSty = styled.div`
     right: 40px;
     width: 136px;
     height: 50px;
+    background: ${Maincolor.btn};
   }
 `;
 

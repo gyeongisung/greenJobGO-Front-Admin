@@ -150,7 +150,7 @@ export const deleteFile = async fileId => {
 export const putStudentInfo = async (studentId, userInfo) => {
   try {
     const res = await client.put(
-      `/admin/student?istudent=${studentId}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}`,
+      `/admin/student?istudent=${studentId}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&age=${userInfo.age}&gender=${userInfo.gender}`,
     );
     console.log(res.data.istudent);
     if (res.data.istudent) {

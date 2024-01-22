@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { v4 } from "uuid";
 
 const StudentList = ({
@@ -6,7 +7,7 @@ const StudentList = ({
   handleAllCheck,
   handleCheckBox,
   page,
-  handleInfoClick,
+  // handleInfoClick,
 }) => {
   return (
     <ul>
@@ -36,39 +37,41 @@ const StudentList = ({
       </li>
       {listData.length > 0 &&
         listData.map((item, index) => (
-          <li
-            key={item.istudent}
-            onClick={e =>
-              !e.target.classList.contains("check-box-li") &&
-              handleInfoClick(item)
-            }
+          <li key={item.istudent}
+          //  key={item.istudent}
+          // onClick={e =>
+          //   !e.target.classList.contains("check-box-li") &&
+          //   handleInfoClick(item)
+          // }
           >
-            <ul>
-              <li className="check-box-li">
-                <input
-                  type="checkbox"
-                  name="check-box"
-                  defaultChecked={false}
-                  className={`student-checkbox userId${item.istudent}`}
-                  onChange={e => handleCheckBox(e)}
-                  onClick={e => e.stopPropagation()}
-                />
-              </li>
-              <li>{(page - 1) * 10 + index + 1}</li>
-              <li>{item.classification}</li>
-              <li>{item.subjectName}</li>
-              <li>
-                {item.startedAt} ~ {item.endedAt}
-              </li>
-              <li>{item.name}</li>
-              <li>{item.gender}</li>
-              <li>{item.address}</li>
-              <li>{item.mobileNumber}</li>
-              <li>{item.education}</li>
-              <li>{item.certificate}</li>
-              <li>{item.file}</li>
-              <li>{item.file}</li>
-            </ul>
+            <Link to={`/student/${item.istudent}`}>
+              <ul className="student-list-content">
+                <li className="check-box-li">
+                  <input
+                    type="checkbox"
+                    name="check-box"
+                    defaultChecked={false}
+                    className={`student-checkbox userId${item.istudent}`}
+                    onChange={e => handleCheckBox(e)}
+                    onClick={e => e.stopPropagation()}
+                  />
+                </li>
+                <li>{(page - 1) * 10 + index + 1}</li>
+                <li>{item.classification}</li>
+                <li>{item.subjectName}</li>
+                <li>
+                  {item.startedAt} ~ {item.endedAt}
+                </li>
+                <li>{item.name}</li>
+                <li>{item.gender}</li>
+                <li>{item.address}</li>
+                <li>{item.mobileNumber}</li>
+                <li>{item.education}</li>
+                <li>{item.certificate}</li>
+                <li>{item.file}</li>
+                <li>{item.file}</li>
+              </ul>
+            </Link>
           </li>
         ))}
     </ul>

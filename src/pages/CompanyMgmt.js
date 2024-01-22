@@ -235,10 +235,10 @@ const CompanyMgmt = () => {
           />
         )}
         <div className="company-buttons">
-          <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
-          <button onClick={handleExcelDownLoad}>엑셀 다운로드</button>
-          <button onClick={handleModalOpen}>기업등록</button>
           <button onClick={handleDeleteClick}>삭제</button>
+          <button onClick={handleExcelDownLoad}>엑셀 다운로드</button>
+          <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
+          <button onClick={handleModalOpen}>기업등록</button>
         </div>
         <div className="total-count">
           <span>총 {count}개</span>

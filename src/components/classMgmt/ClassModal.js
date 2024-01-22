@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ClassAcceptModalWrap,
   EnrollCategoryWrap,
@@ -14,6 +14,10 @@ import ReactDatePicker from "react-datepicker";
 import { format, formatISO, parseISO } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import { AcceptModal, DeleteAceeptModal } from "../AcceptModals";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { getBigcate } from "../../api/portfolioAxios";
 
 export const DeleteClassModal = ({
   deleteModalOpen,
@@ -481,6 +485,8 @@ export const ClassEditModal = ({
 };
 
 export const EnrollCategoryModal = ({
+  isAdd,
+  setIsAdd,
   categoryData,
   enrollModalOpen,
   setEnrollModalOpen,
@@ -488,20 +494,15 @@ export const EnrollCategoryModal = ({
   handlePostCategory,
   categoryValue,
   setCategoryValue,
-  setAddItemValue,
   deleteOkModalOpen,
   setDeleteOkModalOpen,
 }) => {
+  const [isEdit, setIsEdit] = useState(false);
   const [addCategory, setAddCategory] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
 
   const handleAddCategory = () => {
-    const trimValue = categoryValue.trim();
-    if (trimValue !== "") {
-      setAddCategory(prevData => [...prevData, { classification: trimValue }]);
-      setAddItemValue(trimValue);
-      setCategoryValue("");
-    }
+    setIsAdd(true);
   };
 
   const handleDeleteButton = data => {
@@ -514,11 +515,22 @@ export const EnrollCategoryModal = ({
       );
     }
   };
-
+  
   const handleModalCancel = () => {
     setEnrollModalOpen(false);
     document.body.style.overflow = "unset";
   };
+
+  // const handleEditClick = data => {
+  //   // console.log("data", data);
+  //   if (data === ) {
+  //     setIsEdit(true);
+  //   } else {
+  //     setIsEdit(false);
+  //   }
+   
+  // };
+
   return (
     <>
       {enrollModalOpen && (
@@ -546,39 +558,81 @@ export const EnrollCategoryModal = ({
                 <h3>대분류명</h3>
               </div>
               <ul className="modal-btm">
-                <li>
-                  <div>
-                    <input
-                      type="text"
-                      value={categoryValue}
-                      onChange={e => setCategoryValue(e.target.value)}
-                      placeholder="대분류명을 입력해 주세요."
-                    />
-                  </div>
-                  <div>
-                    <button onClick={handleAddCategory}>+</button>
-                  </div>
-                </li>
+                {isAdd ? (
+                  <li>
+                    <div className="new-add">
+                      <input
+                        type="text"
+                        value={categoryValue}
+                        onChange={e => setCategoryValue(e.target.value)}
+                        placeholder="대분류명을 입력해 주세요."
+                      />
+                      <button className="saveBtn" onClick={handlePostCategory}>
+                        저장
+                      </button>{" "}
+                      <button
+                        className="cancelBtn"
+                        onClick={() => {
+                          setCategoryValue("");
+                          setIsAdd(false);
+                        }}
+                      >
+                        취소
+                      </button>
+                    </div>
+                  </li>
+                ) : (
+                  <></>
+                )}
                 {categoryData &&
                   [...categoryData, ...addCategory].map(item => (
                     <li key={item.iclassification}>
-                      <div>
-                        <input
-                          type="text"
-                          value={item.classification}
-                          readOnly
-                        />
-                      </div>
-                      <div>
-                        <button onClick={() => handleDeleteButton(item)}>
-                          -
-                        </button>
-                      </div>
+                      {isEdit ? (
+                        <>
+                          <div>
+                            <input type="text" value={item.classification} />
+                          </div>
+                          <div>
+                            <button
+                              className="saveBtn"
+                              onClick={handlePostCategory}
+                            >
+                              저장
+                            </button>
+                            <button
+                              className="cancelBtn"
+                              onClick={() => {
+                                setIsEdit(false);
+                              }}
+                            >
+                              취소
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div>
+                            <input
+                              type="text"
+                              value={item.classification}
+                              readOnly
+                            />
+                          </div>
+                          <div>
+                            {/* <button onClick={() => handleEditClick(item.classification)}>
+                              <FontAwesomeIcon icon={faPencil} />
+                            </button> */}
+                            <button onClick={() => handleDeleteButton(item)}>
+                              <FontAwesomeIcon icon={faCircleXmark} />
+                            </button>
+                          </div>
+                        </>
+                      )}
                     </li>
                   ))}
               </ul>
               <div className="accept-button">
-                <button onClick={handlePostCategory}>설정</button>
+                <button onClick={handleAddCategory}> + 대분류 추가 </button>
               </div>
             </div>
           </div>

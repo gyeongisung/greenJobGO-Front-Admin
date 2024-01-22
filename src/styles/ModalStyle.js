@@ -647,7 +647,6 @@ export const EnrollCategoryWrap = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  font-family: "Pretendard", sans-serif;
   .dim {
     position: fixed;
     top: 0;
@@ -689,6 +688,7 @@ export const EnrollCategoryWrap = styled.div`
         h2 {
           font-size: 20px;
           color: #000;
+          font-weight: 500;
         }
       }
     }
@@ -697,6 +697,7 @@ export const EnrollCategoryWrap = styled.div`
       padding: 35px 40px 15px 40px;
       h3 {
         font-size: 18px;
+        font-weight: 500;
       }
     }
     .modal-btm {
@@ -704,6 +705,22 @@ export const EnrollCategoryWrap = styled.div`
       padding: 0 40px;
       overflow-y: auto;
       margin-right: 32px;
+      .saveBtn {
+        background: ${Maincolor.sectiontitle};
+        color: #fff;
+        margin-left: 20px;
+        width: 65px;
+        height: 32px;
+        border-radius: 4px;
+      }
+      .cancelBtn {
+        width: 65px;
+        height: 32px;
+        border-radius: 4px;
+        border: 1px solid ${Maincolor.sectiontitle};
+        background: ${Maincolor.white};
+        color: ${Maincolor.sectiontitle};
+      }
       li {
         display: flex;
         align-items: center;
@@ -720,11 +737,15 @@ export const EnrollCategoryWrap = styled.div`
         button {
           width: 40px;
           height: 40px;
-          color: #fff;
-          background: #6d6d6d;
+          /* color: #fff; */
+          background: white;
           border: none;
-          border-radius: 6px;
+          /* border-radius: 6px; */
           cursor: pointer;
+          svg {
+            color: ${Maincolor.btn};
+            font-size: 20px;
+          }
         }
       }
     }
@@ -733,13 +754,14 @@ export const EnrollCategoryWrap = styled.div`
       justify-content: center;
       align-items: center;
       > button {
-        width: 150px;
+        width: 555px;
         height: 50px;
         font-size: 16px;
         color: #fff;
         background: #228fcf;
         border: none;
         border-radius: 6px;
+        cursor: pointer;
       }
     }
   }

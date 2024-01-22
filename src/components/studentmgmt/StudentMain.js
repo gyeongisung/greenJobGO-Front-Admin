@@ -188,12 +188,12 @@ const StudentMain = ({ handleInfoClick }) => {
           />
         )}
         <div className="student-buttons">
-          <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
-          <button onClick={handleExcelDownLoad}>엑셀 다운로드</button>
           <button onClick={handleDeleteClick}>삭제</button>
+          <button onClick={handleExcelDownLoad}>엑셀 다운로드</button>
+          <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
         </div>
         <div className="total-count">
-          <span>총 {count}개</span>
+          <span>[총 {count}개]</span>
         </div>
         <StudentTable>
           <StudentList

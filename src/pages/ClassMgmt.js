@@ -31,13 +31,14 @@ const ClassMgmt = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(0);
   const [categoryValue, setCategoryValue] = useState("");
+  const [isAdd, setIsAdd] = useState(false);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [enrollModalOpen, setEnrollModalOpen] = useState(false);
   const [deleteOkModalOpen, setDeleteOkModalOpen] = useState(false);
   const [uploadResult, setUpLoadResult] = useState(false);
-  const [AddItemValue, setAddItemValue] = useState("");
   const [payload, setPayload] = useState({
     courseSubjectName: "",
     iclassification: 0,
@@ -123,13 +124,15 @@ const ClassMgmt = () => {
   };
 
   const handlePostCategory = async () => {
-    const postData = { classification: AddItemValue };
+    console.log("categoryValue", categoryValue);
+    const postData = { classification: categoryValue };
     try {
       const result = await postCategory(postData);
       setUpLoadResult(result);
       if (result.success === true) {
         setAcceptOkModal(true);
         setCategoryValue("");
+        setIsAdd(false);
         await getCategory(setCategoryData);
       }
     } catch (error) {
@@ -216,10 +219,10 @@ const ClassMgmt = () => {
             setCategoryValue={setCategoryValue}
             handleDeleteCategory={handleDeleteCategory}
             handlePostCategory={handlePostCategory}
-            AddItemValue={AddItemValue}
-            setAddItemValue={setAddItemValue}
             deleteOkModalOpen={deleteOkModalOpen}
             setDeleteOkModalOpen={setDeleteOkModalOpen}
+            isAdd={isAdd}
+            setIsAdd={setIsAdd}
           />
         )}
         {acceptOkModal && (
@@ -252,11 +255,11 @@ const ClassMgmt = () => {
         )}
         <div className="class-buttons">
           <button onClick={handleEnrollModalOpen}>대분류 설정</button>
-          <button onClick={handleModalOpen}>과정등록</button>
           <button onClick={handleDeleteModalOpen}>삭제</button>
+          <button onClick={handleModalOpen}>과정등록</button>
         </div>
         <div className="total-count">
-          <span>총 {count}개</span>
+          <span>[총 {count}개]</span>
         </div>
         <ClassTable>
           <ClassList
