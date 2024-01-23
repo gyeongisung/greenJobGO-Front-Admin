@@ -11,6 +11,7 @@ const ClassList = ({
   uploadResult,
   setUpLoadResult,
   categoryData,
+  fetchData
 }) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [classInfo, setClassInfo] = useState(null);
@@ -90,6 +91,7 @@ const ClassList = ({
           setAcceptOkModal={setAcceptOkModal}
           uploadResult={uploadResult}
           setUpLoadResult={setUpLoadResult}
+          fetchData={fetchData}
         />
       )}
     </ul>

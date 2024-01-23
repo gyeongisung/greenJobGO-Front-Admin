@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+
 import { StudentAuthPostSty } from "../../styles/HomeStyle";
-import { DatePicker, Space } from "antd";
+import { ConfigProvider, DatePicker, Space } from "antd";
 import { BtnGlobal } from "../../styles/GlobalStyle";
 import {
   getStudentAuthData,
@@ -8,7 +9,10 @@ import {
   patchStudentAuthData,
 } from "../../api/homeAxios";
 import ConfirmModal from "../ConfirmModal";
+
 import dayjs from "dayjs";
+import locale from "antd/lib/locale/ko_KR";
+
 import { getBigcate } from "../../api/portfolioAxios";
 import { v4 } from "uuid";
 import OkModal from "../OkModal";
@@ -30,6 +34,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const { RangePicker } = DatePicker;
   const dateFormat = "YYYY-MM-DD";
+
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
@@ -100,6 +105,28 @@ const StudentPostAuth = ({ setAuthInfo }) => {
 
   useEffect(() => {
     getBigcate(setCategory);
+
+    // 데이트피커 한글로 변화
+    const th = document.querySelectorAll(".ant-picker-content th");
+    const day = [
+      "일",
+      "월",
+      "화",
+      "수",
+      "목",
+      "금",
+      "토",
+      "일",
+      "월",
+      "화",
+      "수",
+      "목",
+      "금",
+      "토",
+    ];
+    th.forEach((item, index) => {
+      item.innerHTML = day[index];
+    });
   }, []);
   useEffect(() => {
     getStudentSubject({ selectCate, setSubjectList });
@@ -141,18 +168,20 @@ const StudentPostAuth = ({ setAuthInfo }) => {
           </select>
         </li>
         <li>
-          <Space direction="vertical" size={12}>
-            <RangePicker
-              format={dateFormat}
-              onChange={onRangeChange}
-              id="student-auth-date"
-              disabledDate={disabledDate}
-              defaultValue={[dayjs(), endDate ? dayjs(endDate) : null]}
-              disabled={[true, false]}
-              value={[dayjs(), endDate ? dayjs(endDate) : null]}
-              placeholder={["시작 날짜", "종료 날짜"]}
-            />
-          </Space>
+          <ConfigProvider locale={locale}>
+            <Space direction="vertical" size={12}>
+              <RangePicker
+                format={dateFormat}
+                onChange={onRangeChange}
+                id="student-auth-date"
+                disabledDate={disabledDate}
+                defaultValue={[dayjs(), endDate ? dayjs(endDate) : null]}
+                disabled={[true, false]}
+                value={[dayjs(), endDate ? dayjs(endDate) : null]}
+                placeholder={["시작 날짜", "종료 날짜"]}
+              />
+            </Space>
+          </ConfigProvider>
         </li>
       </ul>
       <BtnGlobal className="auth-post" onClick={handleSummit}>

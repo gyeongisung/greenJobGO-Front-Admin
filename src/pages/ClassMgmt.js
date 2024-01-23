@@ -51,6 +51,17 @@ const ClassMgmt = () => {
     classTime: "",
   });
 
+  // 예외처리하기
+  const [cateError, setCateError] = useState("");
+  const [subjectError, setSubjectError] = useState("");
+  const [startDateError, setStartDateError] = useState("");
+  const [endDateError, setEndDateError] = useState("");
+  const [teacherError, setTeacherError] = useState("");
+  const [roundError, setRoundError] = useState("");
+  const [classTimeError, setClassTimeError] = useState("");
+  const [classroomError, setClassroomError] = useState("");
+
+
   let resultIdArray = saveCheckBox;
 
   const handleAllCheck = e => {
@@ -150,35 +161,63 @@ const ClassMgmt = () => {
     setEnrollModalOpen(true);
   };
 
+  console.log("payload",payload)
+  // 과정추가
   const handleModalAccept = async () => {
     const { classification, ...newPayload } = payload;
-    const formatData = {
-      ...newPayload,
-      startedAt: payload.startedAt
-        ? format(payload.startedAt, "yyyy-MM-dd")
-        : null,
-      endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
-    };
+    // const formatData = {
+    //   ...newPayload,
+    //   startedAt: payload.startedAt
+    //     ? format(payload.startedAt, "yyyy-MM-dd")
+    //     : null,
+    //   endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
+    // };
     try {
-      const result = await postClassSubject(formatData);
+      setCateError(
+        !payload.iclassification ? "카테고리를 선택 해 주세요." : "",
+      );
+      setSubjectError(
+        !payload.courseSubjectName ? "과정명을 선택 해 주세요." : "",
+      );
+      setStartDateError(!payload.startedAt ? "시작날짜를 선택 해 주세요." : "");
+      setEndDateError(!payload.endedAt ? "종료날짜를 선택 해 주세요." : "");
+      setRoundError(!payload.round ? "과정 회차를 입력 해 주세요." : "");
+      setClassTimeError(
+        !payload.classTime ? "수업 시간을 입력 해 주세요." : "",
+      );
+      setTeacherError(!payload.instructor ? "강사명을 입력 해 주세요." : "");
+      setClassroomError(!payload.lectureRoom ? "강의실을 입력 해 주세요." : "");
 
-      setUpLoadResult(result);
+      const isError =
+        !payload.iclassification ||
+        !payload.courseSubjectName ||
+        !payload.startedAt ||
+        !payload.endedAt ||
+        !payload.round ||
+        !payload.classTime ||
+        !payload.instructor ||
+        !payload.lectureRoom;
 
-      setModalOpen(false);
-      if (result.success === true) {
-        setAcceptOkModal(true);
-        setPayload({
-          courseSubjectName: "",
-          iclassification: 0,
-          classification: "",
-          startedAt: "",
-          endedAt: "",
-          instructor: "",
-          lectureRoom: "",
-          round: "",
-          classTime: "",
-        });
-        fetchData();
+      if (!isError) {
+        const result = await postClassSubject(payload);
+        setUpLoadResult(result);
+        setModalOpen(false);
+
+        if (result.success) {
+          setAcceptOkModal(true);
+          setPayload({
+            courseSubjectName: "",
+            iclassification: 0,
+            classification: "",
+            startedAt: "",
+            endedAt: "",
+            instructor: "",
+            lectureRoom: "",
+            round: "",
+            classTime: "",
+          });
+          fetchData();
+        }
       }
     } catch (error) {
       setAcceptOkModal(true);
@@ -241,6 +280,14 @@ const ClassMgmt = () => {
             setPayload={setPayload}
             handleModalAccept={handleModalAccept}
             categoryData={categoryData}
+            cateError={cateError}
+            subjectError={subjectError}
+            startDateError={startDateError}
+            endDateError={endDateError}
+            teacherError={teacherError}
+            roundError={roundError}
+            classTimeError={classTimeError}
+            classroomError={classroomError}
           />
         )}
         {deleteModalOpen && (
@@ -272,6 +319,7 @@ const ClassMgmt = () => {
             uploadResult={uploadResult}
             setUpLoadResult={setUpLoadResult}
             categoryData={categoryData}
+            fetchData={fetchData}
           />
         </ClassTable>
         <ClassPaging page={page} setPage={setPage} count={count} />

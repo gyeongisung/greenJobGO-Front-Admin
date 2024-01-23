@@ -18,6 +18,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { getBigcate } from "../../api/portfolioAxios";
+import { ConfigProvider, DatePicker, Space } from "antd";
+import dayjs from "dayjs";
+import locale from "antd/lib/locale/ko_KR";
+import { Maincolor } from "../../styles/GlobalStyle";
 
 export const DeleteClassModal = ({
   deleteModalOpen,
@@ -84,12 +88,33 @@ export const ClassAcceptModal = ({
   setPayload,
   handleModalAccept,
   categoryData,
+  cateError,
+  subjectError,
+  startDateError,
+  endDateError,
+  teacherError,
+  roundError,
+  classTimeError,
+  classroomError,
 }) => {
+  const dateFormat = "YYYY-MM-DD";
+
   const handleModalCancel = () => {
     setModalOpen(false);
     document.body.style.overflow = "unset";
   };
-
+  const onStartRangeChange = (date, dateStrings) => {
+    setPayload(payload => ({
+      ...payload,
+      startedAt: dateStrings ? dateStrings : null,
+    }));
+  };
+  const onEndRangeChange = (date, dateStrings) => {
+    setPayload(payload => ({
+      ...payload,
+      endedAt: dateStrings ? dateStrings : null,
+    }));
+  };
   console.log(modalOpen);
   return (
     <>
@@ -110,7 +135,7 @@ export const ClassAcceptModal = ({
                   <li>
                     <div>
                       <h3>대분류</h3>
-                      <div className="class-category-box">
+                      <div className="class-category-box select-wrap">
                         <select
                           name="category-state"
                           onChange={e => {
@@ -134,12 +159,18 @@ export const ClassAcceptModal = ({
                               </option>
                             ))}
                         </select>
+                        {cateError ? (
+                          <p className="error-class">{cateError}</p>
+                        ) : (
+                          <p className="error-class"></p>
+                        )}
                       </div>
                     </div>
                     <div className="class-name">
                       <h3>과정명</h3>
                       <input
                         type="text"
+                        maxLength={70}
                         value={payload.courseSubjectName}
                         onChange={e => {
                           setPayload(payload => ({
@@ -147,7 +178,12 @@ export const ClassAcceptModal = ({
                             courseSubjectName: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {subjectError ? (
+                        <p className="error-class">{subjectError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                   <li className="date-picker-wrap">
@@ -155,7 +191,35 @@ export const ClassAcceptModal = ({
                       <h3>수강기간</h3>
                     </div>
                     <div>
-                      <ReactDatePicker
+                      <ConfigProvider
+                        locale={locale}
+                        theme={{
+                          token: {
+                            colorPrimary: `${Maincolor.black}`,
+                            colorBorder: `${Maincolor.input}`,
+                          },
+                        }}
+                      >
+                        <Space direction="horizonal" size={15}>
+                          <DatePicker
+                            style={{
+                              width: "312px",
+                              height: "40px",
+                              marginRight: "5px",
+                            }}
+                            format={dateFormat}
+                            onChange={onStartRangeChange}
+                            placeholder={"시작 날짜"}
+                          />
+                          <DatePicker
+                            style={{ width: "312px", height: "40px" }}
+                            format={dateFormat}
+                            onChange={onEndRangeChange}
+                            placeholder={"종료 날짜"}
+                          />
+                        </Space>
+                      </ConfigProvider>
+                      {/* <ReactDatePicker
                         className="date-picker"
                         icon="fa fa-calendar"
                         locale={ko}
@@ -186,14 +250,27 @@ export const ClassAcceptModal = ({
                             endedAt: date,
                           }));
                         }}
-                      />
+                      /> */}
+                      <div className="date-error">
+                        {startDateError ? (
+                          <p className="error-class">{startDateError}</p>
+                        ) : (
+                          <p className="error-class"></p>
+                        )}
+                        {endDateError ? (
+                          <p className="error-class">{endDateError}</p>
+                        ) : (
+                          <p className="error-class"></p>
+                        )}
+                      </div>
                     </div>
                   </li>
                   <li>
                     <div>
                       <h3>수강시간</h3>
                       <input
-                        type="text"
+                        type="number"
+                        maxLength={10}
                         value={payload.classTime}
                         onChange={e => {
                           setPayload(payload => ({
@@ -201,12 +278,18 @@ export const ClassAcceptModal = ({
                             classTime: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {classTimeError ? (
+                        <p className="error-class">{classTimeError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>회차</h3>
                       <input
-                        type="text"
+                        type="number"
+                        maxLength={10}
                         value={payload.round}
                         onChange={e => {
                           setPayload(payload => ({
@@ -214,7 +297,12 @@ export const ClassAcceptModal = ({
                             round: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {roundError ? (
+                        <p className="error-class">{roundError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                   <li>
@@ -222,6 +310,7 @@ export const ClassAcceptModal = ({
                       <h3>강사명</h3>
                       <input
                         type="text"
+                        maxLength={20}
                         value={payload.instructor}
                         onChange={e => {
                           setPayload(payload => ({
@@ -229,12 +318,18 @@ export const ClassAcceptModal = ({
                             instructor: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {teacherError ? (
+                        <p className="error-class">{teacherError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>강의실</h3>
                       <input
                         type="text"
+                        maxLength={10}
                         value={payload.lectureRoom}
                         onChange={e => {
                           setPayload(payload => ({
@@ -242,7 +337,12 @@ export const ClassAcceptModal = ({
                             lectureRoom: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {classroomError ? (
+                        <p className="error-class">{classroomError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                 </ul>
@@ -268,6 +368,7 @@ export const ClassEditModal = ({
   setAcceptOkModal,
   uploadResult,
   setUpLoadResult,
+  fetchData,
 }) => {
   const [payload, setPayload] = useState({
     icourseSubject: classInfo.icourseSubject,
@@ -281,23 +382,77 @@ export const ClassEditModal = ({
     lectureRoom: classInfo.lectureRoom,
     classification: classInfo.classification,
   });
+  const dateFormat = "YYYY-MM-DD";
+
+  // 예외처리하기
+  const [cateError, setCateError] = useState("");
+  const [subjectError, setSubjectError] = useState("");
+  const [startDateError, setStartDateError] = useState("");
+  const [endDateError, setEndDateError] = useState("");
+  const [teacherError, setTeacherError] = useState("");
+  const [roundError, setRoundError] = useState("");
+  const [classTimeError, setClassTimeError] = useState("");
+  const [classroomError, setClassroomError] = useState("");
+
+  console.log("payload", payload);
+
+  const onStartRangeChange = dateStrings => {
+    setPayload(payload => ({
+      ...payload,
+      startedAt: dateStrings ? dateStrings : null,
+    }));
+  };
+  const onEndRangeChange = dateStrings => {
+    setPayload(payload => ({
+      ...payload,
+      endedAt: dateStrings ? dateStrings : null,
+    }));
+  };
+
   const handleModalAccept = async () => {
     const { classification, ...newPayload } = payload;
-    const formatData = {
-      ...newPayload,
-      startedAt: payload.startedAt
-        ? format(payload.startedAt, "yyyy-MM-dd")
-        : null,
-      endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
-    };
+    // const formatData = {
+    //   ...newPayload,
+    //   startedAt: payload.startedAt
+    //     ? format(payload.startedAt, "yyyy-MM-dd")
+    //     : null,
+    //   endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
+    // };
 
     try {
-      const result = await putClassSubject(formatData);
+      setCateError(
+        !payload.iclassification ? "카테고리를 선택 해 주세요." : "",
+      );
+      setSubjectError(
+        !payload.courseSubjectName ? "과정명을 선택 해 주세요." : "",
+      );
+      setStartDateError(!payload.startedAt ? "시작날짜를 선택 해 주세요." : "");
+      setEndDateError(!payload.endedAt ? "종료날짜를 선택 해 주세요." : "");
+      setRoundError(!payload.round ? "과정 회차를 입력 해 주세요." : "");
+      setClassTimeError(
+        !payload.classTime ? "수업 시간을 입력 해 주세요." : "",
+      );
+      setTeacherError(!payload.instructor ? "강사명을 입력 해 주세요." : "");
+      setClassroomError(!payload.lectureRoom ? "강의실을 입력 해 주세요." : "");
 
-      setUpLoadResult(result);
-      if (result.success) {
-        setEditModalOpen(false);
-        setAcceptOkModal(true);
+      const isError =
+        !payload.iclassification ||
+        !payload.courseSubjectName ||
+        !payload.startedAt ||
+        !payload.endedAt ||
+        !payload.round ||
+        !payload.classTime ||
+        !payload.instructor ||
+        !payload.lectureRoom;
+
+      if (!isError) {
+        const result = await putClassSubject(payload);
+        setUpLoadResult(result);
+        if (result.success) {
+          setEditModalOpen(false);
+          setAcceptOkModal(true);
+          fetchData();
+        }
       }
     } catch (error) {
       setEditModalOpen(false);
@@ -313,7 +468,7 @@ export const ClassEditModal = ({
             <div className="class-modal-inner">
               <ul className="modal-top">
                 <li>
-                  <h2>과정 등록</h2>
+                  <h2>과정 수정</h2>
                 </li>
                 <li>
                   <span onClick={handleModalCancel}>✖</span>
@@ -324,7 +479,7 @@ export const ClassEditModal = ({
                   <li>
                     <div>
                       <h3>대분류</h3>
-                      <div className="class-category-box">
+                      <div className="class-category-box select-wrap">
                         <select
                           name="category-state"
                           onChange={e => {
@@ -351,12 +506,18 @@ export const ClassEditModal = ({
                               </option>
                             ))}
                         </select>
+                        {cateError ? (
+                          <p className="error-class">{cateError}</p>
+                        ) : (
+                          <p className="error-class"></p>
+                        )}
                       </div>
                     </div>
                     <div className="class-name">
                       <h3>과정명</h3>
                       <input
                         type="text"
+                        maxLength={70}
                         value={payload.courseSubjectName}
                         onChange={e => {
                           setPayload(payload => ({
@@ -365,6 +526,11 @@ export const ClassEditModal = ({
                           }));
                         }}
                       />
+                      {subjectError ? (
+                        <p className="error-class">{subjectError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                   <li className="date-picker-wrap">
@@ -372,7 +538,38 @@ export const ClassEditModal = ({
                       <h3>수강기간</h3>
                     </div>
                     <div>
-                      <ReactDatePicker
+                      <ConfigProvider
+                        locale={locale}
+                        theme={{
+                          token: {
+                            colorPrimary: `${Maincolor.black}`,
+                            colorBorder: `${Maincolor.input}`,
+                          },
+                        }}
+                      >
+                        <Space direction="horizonal" size={15}>
+                          <DatePicker
+                            style={{
+                              width: "312px",
+                              height: "40px",
+                              marginRight: "5px",
+                            }}
+                            format={dateFormat}
+                            onChange={onStartRangeChange}
+                            defaultValue={dayjs(payload.startedAt)}
+                            placeholder={"시작 날짜"}
+                          />
+                          <DatePicker
+                            style={{ width: "312px", height: "40px" }}
+                            format={dateFormat}
+                            onChange={onEndRangeChange}
+                            defaultValue={dayjs(payload.endedAt)}
+                            // value={[dayjs(), dayjs()]}
+                            placeholder={"종료 날짜"}
+                          />
+                        </Space>
+                      </ConfigProvider>
+                      {/* <ReactDatePicker
                         className="date-picker"
                         icon="fa fa-calendar"
                         locale={ko}
@@ -387,8 +584,8 @@ export const ClassEditModal = ({
                             startedAt: date ? formatISO(date) : null,
                           }));
                         }}
-                      />
-                      <ReactDatePicker
+                      /> */}
+                      {/* <ReactDatePicker
                         className="date-picker"
                         locale={ko}
                         selected={
@@ -405,14 +602,27 @@ export const ClassEditModal = ({
                             endedAt: date ? formatISO(date) : null,
                           }));
                         }}
-                      />
+                        /> */}
+                      <div className="date-error">
+                        {startDateError ? (
+                          <p className="error-class">{startDateError}</p>
+                        ) : (
+                          <p className="error-class"></p>
+                        )}
+                        {endDateError ? (
+                          <p className="error-class">{endDateError}</p>
+                        ) : (
+                          <p className="error-class"></p>
+                        )}
+                      </div>
                     </div>
                   </li>
                   <li>
                     <div>
                       <h3>수강시간</h3>
                       <input
-                        type="text"
+                        type="number"
+                        maxLength={10}
                         value={payload.classTime}
                         onChange={e => {
                           setPayload(payload => ({
@@ -421,11 +631,17 @@ export const ClassEditModal = ({
                           }));
                         }}
                       />
+                      {classTimeError ? (
+                        <p className="error-class">{classTimeError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>회차</h3>
                       <input
-                        type="text"
+                        type="number"
+                        maxLength={10}
                         value={payload.round}
                         onChange={e => {
                           setPayload(payload => ({
@@ -434,6 +650,11 @@ export const ClassEditModal = ({
                           }));
                         }}
                       />
+                      {roundError ? (
+                        <p className="error-class">{roundError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                   <li>
@@ -441,6 +662,7 @@ export const ClassEditModal = ({
                       <h3>강사명</h3>
                       <input
                         type="text"
+                        maxLength={20}
                         value={payload.instructor}
                         onChange={e => {
                           setPayload(payload => ({
@@ -448,12 +670,18 @@ export const ClassEditModal = ({
                             instructor: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {teacherError ? (
+                        <p className="error-class">{teacherError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>강의실</h3>
                       <input
                         type="text"
+                        maxLength={10}
                         value={payload.lectureRoom}
                         onChange={e => {
                           setPayload(payload => ({
@@ -462,6 +690,11 @@ export const ClassEditModal = ({
                           }));
                         }}
                       />
+                      {classroomError ? (
+                        <p className="error-class">{classroomError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                 </ul>
@@ -515,7 +748,7 @@ export const EnrollCategoryModal = ({
       );
     }
   };
-  
+
   const handleModalCancel = () => {
     setEnrollModalOpen(false);
     document.body.style.overflow = "unset";
@@ -528,7 +761,7 @@ export const EnrollCategoryModal = ({
   //   } else {
   //     setIsEdit(false);
   //   }
-   
+
   // };
 
   return (
