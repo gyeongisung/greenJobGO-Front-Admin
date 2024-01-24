@@ -90,8 +90,8 @@ const SaveItemSection = () => {
       <SaveItemContent
         fetchData={fetchData}
         nothing={nothing}
-        clickItems={clickItems}
-        setClickItems={setClickItems}
+          clickItems={clickItems}
+          setClickItems={setClickItems}
       />
       {/* 페이지네이션 */}
       <SaveItemPaging page={page} setPage={setPage} count={count} />

@@ -107,11 +107,7 @@ export const patchSendMain = async ({
   clickItems,
   mainYn,
   setErrorInfo,
-  setClickItems,
 }) => {
-  console.log("메인보내는 mainList 들어오니?", clickItems);
-  console.log("mainYn 들어오니?", mainYn);
-
   try {
     const queryString = clickItems.map(item => `istudent=${item}`).join("&");
     const res = await client.patch(
@@ -124,7 +120,6 @@ export const patchSendMain = async ({
   } catch (error) {
     console.log(error.response.data);
     setErrorInfo(error.response.data.message);
-    return setClickItems([]);
   }
 };
 // 메인 취소
@@ -132,7 +127,6 @@ export const patchCancelMain = async ({
   query,
   mainYn,
   setErrorCancelInfo,
-  setClickItems,
 }) => {
   console.log("메인 취소 들어오니?", query);
   console.log("mainYn 들어오니?", mainYn);
@@ -148,7 +142,6 @@ export const patchCancelMain = async ({
   } catch (error) {
     console.log(error.response.data.message);
     setErrorCancelInfo(error.response.data.message);
-    // setClickItems([]);
     return;
   }
 };

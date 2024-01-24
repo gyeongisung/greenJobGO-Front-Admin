@@ -7,7 +7,9 @@ import SaveItemCheckbox from "./SaveItemCheckbox";
 
 // // 메인클릭 정보 저장 recoil
 
-const SaveItemBox = ({ item, fetchData, clickItems, setClickItems }) => {
+const SaveItemBox = ({ item, fetchData,
+   clickItems, setClickItems 
+  }) => {
   const [savedItemNum, setSavedItemNum] = useState([]);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState();
@@ -34,8 +36,6 @@ const SaveItemBox = ({ item, fetchData, clickItems, setClickItems }) => {
       console.log("보관실패", error);
     }
   };
-
-  console.log("보관리스트 리랜더링~");
 
   return (
     <div className="pf-box">

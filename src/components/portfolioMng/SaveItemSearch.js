@@ -3,20 +3,11 @@ import { GoMainBtnSty, PfSearchWrap } from "../../styles/PortfolioStyle";
 import { BtnGlobal } from "../../styles/GlobalStyle";
 import { getBigcate, patchSendMain } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
-import { selector, useRecoilValue } from "recoil";
+import { selector, useRecoilState, useRecoilValue } from "recoil";
 import { clickMainRecoil } from "./SaveItemCheckbox";
 import OkModal from "../OkModal";
 import { readsavedListItems } from "./SaveItemContent";
 
-// 클릭한 포트폴리오 읽자
-// export const readClickItems = selector({
-//   key: "readClickItems",
-//   // 값을 읽겠다
-//   get: ({ get }) => {
-//     const result = get(clickMainRecoil);
-//     return result;
-//   },
-// });
 
 const SaveItemSearch = ({
   setPage,
@@ -57,14 +48,13 @@ const SaveItemSearch = ({
   // 메인적용 확인
   const handleMainConfirm = async () => {
     try {
-      await patchSendMain({
+      patchSendMain({
         clickItems,
         mainYn: 1,
         setErrorInfo,
-        setClickItems,
       });
       await setMainGoModalOpen(false);
-      setPage(1);
+      // setPage(1);
     } catch (error) {
       console.log("보관실패", error);
     }
@@ -74,10 +64,10 @@ const SaveItemSearch = ({
   const handleErrorOK = () => {
     setErrorModalOpen(false);
     setErrorInfo("");
-    setPage(1);
   };
-  const handleCancel =  () => {
-    setMainGoModalOpen(false)
+  const handleCancel = () => {
+    setClickItems([]);
+    setMainGoModalOpen(false);
   };
   useEffect(() => {
     getBigcate(setCategory);
@@ -85,16 +75,12 @@ const SaveItemSearch = ({
 
   useEffect(() => {
     if (errorInfo) {
-      // setClickItems(prev => []);
-      // fetchData();
       setErrorModalOpen(true);
     } else {
       setErrorModalOpen(false);
     }
   }, [errorInfo]);
 
-  console.log("clickItems", clickItems);
-  console.log("savedListRead", savedListRead);
   return (
     <div>
       <PfSearchWrap>

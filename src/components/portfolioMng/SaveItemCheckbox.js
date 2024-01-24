@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { atom, useRecoilState } from "recoil";
-import { v4 } from "uuid";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { patchCancelMain, patchSendMain } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
 import OkModal from "../OkModal";
-
-// 텍스트 저장 recoil
-// export const clickMainRecoil = atom({
-//   key: `clickMainRecoil/${v4()}`,
-//   default: [],
-// });
 
 const SaveItemCheckbox = ({
   item,
@@ -28,7 +20,7 @@ const SaveItemCheckbox = ({
   // 체크박스 변경 이벤트 핸들러
   const handleCheckBox = (checked, istudent) => {
     setClickItems(prev => {
-      if (!checked) {
+      if (!checked && item.companyMainYn === 1) {
         const query = `istudent=${istudent}`;
         setCancelMakeQuery(query);
       }
@@ -38,9 +30,10 @@ const SaveItemCheckbox = ({
         : prev.filter(item => item !== istudent);
     });
   };
-  // 메인취소하기 모달 취소 클릭
-  const handleCancelReject = () => {
-    setClickItems([]);
+  // 메인적용하기 모달 취소버튼 클릭
+  const handleCancelReject = async () => {
+    setClickItems(prev => []);
+    // await fetchData();
     setMainCancelModalOpen(false);
   };
 
@@ -51,7 +44,6 @@ const SaveItemCheckbox = ({
         query: cancelMakeQuery,
         mainYn: 0,
         setErrorCancelInfo,
-        setClickItems,
       });
       await setMainCancelModalOpen(false);
       setErrorModalOpen(true);
