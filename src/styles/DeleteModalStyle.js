@@ -39,13 +39,18 @@ export const DeleteModalWrap = styled.div`
     .header {
       display: flex;
       justify-content: flex-end;
-      font-size: 12px;
+      font-size: 14px;
       cursor: pointer;
+      & img {
+        width: 12px;
+        height: 12px;
+        object-fit: contain;
+      }
     }
     .content {
       display: flex;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .btns {
       display: flex;
@@ -116,6 +121,11 @@ export const HardDeleteModalWrap = styled.div`
         color: ${Maincolor.black};
         :last-of-type {
           cursor: pointer;
+        }
+        & img {
+          width: 12px;
+          height: 12px;
+          object-fit: contain;
         }
       }
     }

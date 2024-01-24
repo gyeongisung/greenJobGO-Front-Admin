@@ -75,7 +75,7 @@ export const deleteCompany = async checkedCompanyCode => {
 export const patchCompany = async companyData => {
   try {
     const res = await client.patch(
-      `/admin/companylist?companyCode=${companyData.companyCode}&area=${companyData.area}&companyName=${companyData.companyName}&manager=${companyData.manager}&leaderName=${companyData.leaderName}&jobField=${companyData.jobField}&phoneNumber=${companyData.phoneNumber}&dateConslusion=${companyData.dateConslusion}`,
+      `/admin/companylist?companyCode=${companyData.companyCode}&area=${companyData.area}&companyName=${companyData.companyName}&manager=${companyData.manager}&leaderName=${companyData.leaderName}&homepage=${companyData.homepage}&phoneNumber=${companyData.phoneNumber}&dateConslusion=${companyData.dateConslusion}`,
     );
     if (res.data.companyCode) {
       return { success: true };

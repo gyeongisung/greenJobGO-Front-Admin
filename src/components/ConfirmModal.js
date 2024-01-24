@@ -26,7 +26,7 @@ const ConfirmModal = ({
             onClick={e => stopPropagation(e)}
           >
             {/* 헤더내용 */}
-            <div className="modal-header">
+            <div className="confirm-modal-header">
               {header}
               <p className="close" onClick={close}>
                 <img

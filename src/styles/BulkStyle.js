@@ -113,10 +113,10 @@ export const BulkTable = styled.div`
   height: 52vh;
   text-align: center;
   border: 1px solid ${Maincolor.sectiontitle};
-  border-radius: 5px;
+  /* border-radius: 5px; */
   overflow: hidden;
   background: #fff;
-  box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
   box-sizing: border-box;
   > ul {
     width: 1300px;

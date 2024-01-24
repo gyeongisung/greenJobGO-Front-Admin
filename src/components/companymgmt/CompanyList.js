@@ -10,7 +10,9 @@ const CompanyList = ({
   setAcceptOkModal,
   uploadResult,
   setUpLoadResult,
+  fetchData
 }) => {
+
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [companyInfo, setCompanyInfo] = useState(null);
   const handleEditModalOpen = data => {
@@ -86,6 +88,7 @@ const CompanyList = ({
           setAcceptOkModal={setAcceptOkModal}
           uploadResult={uploadResult}
           setUpLoadResult={setUpLoadResult}
+          fetchData={fetchData}
         />
       )}
     </ul>

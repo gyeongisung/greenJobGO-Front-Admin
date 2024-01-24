@@ -4,6 +4,10 @@ import { CompanyAcceptModalWrap } from "../../styles/ModalStyle";
 import { useState } from "react";
 import { ExcelUploadModalWrap } from "../../styles/ExcelUploadStyle";
 import { AcceptModal } from "../AcceptModals";
+import { ConfigProvider, DatePicker, Space } from "antd";
+import locale from "antd/lib/locale/ko_KR";
+import { Maincolor } from "../../styles/GlobalStyle";
+import dayjs from "dayjs";
 
 export const ExcelUploadModal = ({
   excelModalOpen,
@@ -33,7 +37,12 @@ export const ExcelUploadModal = ({
                   <h2>엑셀 업로드</h2>
                 </li>
                 <li>
-                  <span onClick={handleCancel}>✖</span>
+                  <span onClick={handleCancel}>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                      alt="X"
+                    />
+                  </span>
                 </li>
               </ul>
               <div className="content">
@@ -58,7 +67,7 @@ export const ExcelUploadModal = ({
                 <input
                   className="upload-name"
                   value={selectedFile ? selectedFile.name : "첨부파일"}
-                  placeholder="첨부파일"
+                  placeholder="xlsx 파일 첨부"
                   readOnly
                 />
               </div>
@@ -116,7 +125,12 @@ export const DeleteCompanyModal = ({
           <div className="dim">
             <div className="content-wrap">
               <div className="header">
-                <span onClick={closeModal}>✖</span>
+                <span onClick={closeModal}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                    alt="X"
+                  />
+                </span>
               </div>
               <div className="content">
                 <span>해당 기업을 삭제 하시겠습니까?</span>
@@ -139,7 +153,22 @@ export const CompanyMgmtModal = ({
   payload,
   setPayload,
   handleModalAccept,
+  areaError,
+  companyNameError,
+  leaderNameError,
+  homepageError,
+  managerError,
+  phoneNumberError,
+  dateConslusionError,
 }) => {
+  const dateFormat = "YYYY-MM-DD";
+
+  const onDateChange = (date, dateStrings) => {
+    setPayload(payload => ({
+      ...payload,
+      dateConslusion: dateStrings ? dateStrings : null,
+    }));
+  };
   const handleModalCancel = () => {
     setModalOpen(false);
     document.body.style.overflow = "unset";
@@ -156,7 +185,13 @@ export const CompanyMgmtModal = ({
                   <h2>기업등록</h2>
                 </li>
                 <li>
-                  <span onClick={handleModalCancel}>✖</span>
+                  <span onClick={handleModalCancel}>
+                    {" "}
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                      alt="X"
+                    />
+                  </span>
                 </li>
               </ul>
               <div className="modal-btm">
@@ -166,6 +201,7 @@ export const CompanyMgmtModal = ({
                       <h3>기업명</h3>
                       <input
                         type="text"
+                        maxLength={20}
                         value={payload.companyName}
                         onChange={e => {
                           setPayload(payload => ({
@@ -174,11 +210,17 @@ export const CompanyMgmtModal = ({
                           }));
                         }}
                       />
+                      {companyNameError ? (
+                        <p className="error-class">{companyNameError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>지역</h3>
                       <input
                         type="text"
+                        maxLength={10}
                         value={payload.area}
                         onChange={e => {
                           setPayload(payload => ({
@@ -186,7 +228,12 @@ export const CompanyMgmtModal = ({
                             area: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {areaError ? (
+                        <p className="error-class">{areaError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                   <li>
@@ -194,6 +241,7 @@ export const CompanyMgmtModal = ({
                       <h3>대표명</h3>
                       <input
                         type="text"
+                        maxLength={20}
                         value={payload.leaderName}
                         onChange={e => {
                           setPayload(payload => ({
@@ -201,11 +249,44 @@ export const CompanyMgmtModal = ({
                             leaderName: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {leaderNameError ? (
+                        <p className="error-class">{leaderNameError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>체결일자</h3>
-                      <input
+                      <ConfigProvider
+                        locale={locale}
+                        theme={{
+                          token: {
+                            colorPrimary: `${Maincolor.black}`,
+                            colorBorder: `${Maincolor.input}`,
+                          },
+                        }}
+                      >
+                        <Space direction="horizonal" size={15}>
+                          <DatePicker
+                            style={{
+                              width: "325px",
+                              height: "39px",
+                              borderRadius: "4px",
+
+                              // marginRight: "5px",
+                            }}
+                            format={dateFormat}
+                            onChange={onDateChange}
+                          />
+                        </Space>
+                      </ConfigProvider>{" "}
+                      {dateConslusionError ? (
+                        <p className="error-class">{dateConslusionError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
+                      {/* <input
                         type="text"
                         value={payload.dateConslusion}
                         onChange={e => {
@@ -214,7 +295,7 @@ export const CompanyMgmtModal = ({
                             dateConslusion: e.target.value,
                           }));
                         }}
-                      />
+                      /> */}
                     </div>
                   </li>
                   <li>
@@ -222,6 +303,7 @@ export const CompanyMgmtModal = ({
                       <h3>담당자</h3>
                       <input
                         type="text"
+                        maxLength={20}
                         value={payload.manger}
                         onChange={e => {
                           setPayload(payload => ({
@@ -230,11 +312,17 @@ export const CompanyMgmtModal = ({
                           }));
                         }}
                       />
+                      {managerError ? (
+                        <p className="error-class">{managerError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>연락처</h3>
                       <input
-                        type="text"
+                        type="number"
+                        maxLength={13}
                         value={payload.phoneNumber}
                         onChange={e => {
                           setPayload(payload => ({
@@ -242,7 +330,12 @@ export const CompanyMgmtModal = ({
                             phoneNumber: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {phoneNumberError ? (
+                        <p className="error-class">{phoneNumberError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                 </ul>
@@ -250,6 +343,7 @@ export const CompanyMgmtModal = ({
                   <h3>홈페이지</h3>
                   <input
                     type="text"
+                    maxLength={70}
                     value={payload.homepage}
                     onChange={e => {
                       setPayload(payload => ({
@@ -257,7 +351,12 @@ export const CompanyMgmtModal = ({
                         homepage: e.target.value,
                       }));
                     }}
-                  />
+                  />{" "}
+                  {/* {homepageError ? (
+                    <p className="error-class">{homepageError}</p>
+                  ) : (
+                    <p className="error-class"></p>
+                  )} */}
                 </div>
               </div>
               <div className="modal-ok">
@@ -280,6 +379,7 @@ export const EdeitCompanyModal = ({
   setAcceptOkModal,
   uploadResult,
   setUpLoadResult,
+  fetchData,
 }) => {
   const [companyData, setCompanyData] = useState({
     companyCode: companyInfo.companyCode,
@@ -292,14 +392,63 @@ export const EdeitCompanyModal = ({
     dateConslusion: companyInfo.dateConslusion,
   });
 
+  // 예외처리하기
+  const [areaError, setAreaError] = useState("");
+  const [companyNameError, setCompanyNameError] = useState("");
+  const [leaderNameError, setLeaderNameError] = useState("");
+  // const [homepageError, setHomepageError] = useState("");
+  const [managerError, setManagerError] = useState("");
+  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [dateConslusionError, setDateConslusionError] = useState("");
+
+  const dateFormat = "YYYY-MM-DD";
+
+  console.log("companyData.homepage", companyData.homepage);
+
+  const onDateChange = (date, dateStrings) => {
+    setCompanyData(payload => ({
+      ...payload,
+      dateConslusion: dateStrings ? dateStrings : null,
+    }));
+  };
+
   const handleModalAccept = async () => {
     try {
-      const result = await patchCompany(companyData);
+      setCompanyNameError(
+        !companyData.companyName ? "기업명을 입력 해 주세요." : "",
+      );
+      setAreaError(!companyData.area ? "지역을 입력 해 주세요." : "");
+      setLeaderNameError(
+        !companyData.leaderName ? "대표명을 입력 해 주세요." : "",
+      );
+      // setHomepageError(!companyData.homepage ? "홈페이지를 입력 해 주세요." : "");
+      setManagerError(
+        !companyData.manager ? "담당자 이름을 입력 해 주세요." : "",
+      );
+      setPhoneNumberError(
+        !companyData.phoneNumber ? "연락처를 입력 해 주세요." : "",
+      );
+      setDateConslusionError(
+        !companyData.dateConslusion ? "체결일자를 선택 해 주세요." : "",
+      );
 
-      setUpLoadResult(result);
-      if (result.success) {
-        setEditModalOpen(false);
-        setAcceptOkModal(true);
+      const isError =
+        !companyData.companyName ||
+        !companyData.area ||
+        !companyData.leaderName ||
+        !companyData.manager ||
+        !companyData.phoneNumber ||
+        !companyData.dateConslusion;
+
+      if (!isError) {
+        const result = await patchCompany(companyData);
+        setUpLoadResult(result);
+
+        if (result.success) {
+          setEditModalOpen(false);
+          setAcceptOkModal(true);
+          fetchData();
+        }
       }
     } catch (error) {
       setEditModalOpen(false);
@@ -318,7 +467,13 @@ export const EdeitCompanyModal = ({
                   <h2>기업수정</h2>
                 </li>
                 <li>
-                  <span onClick={handleModalCancel}>✖</span>
+                  <span onClick={handleModalCancel}>
+                    {" "}
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                      alt="X"
+                    />
+                  </span>
                 </li>
               </ul>
               <div className="modal-btm">
@@ -335,7 +490,12 @@ export const EdeitCompanyModal = ({
                             companyName: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {companyNameError ? (
+                        <p className="error-class">{companyNameError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>지역</h3>
@@ -348,7 +508,12 @@ export const EdeitCompanyModal = ({
                             area: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {areaError ? (
+                        <p className="error-class">{areaError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                   <li>
@@ -364,10 +529,39 @@ export const EdeitCompanyModal = ({
                           }));
                         }}
                       />
+                      {leaderNameError ? (
+                        <p className="error-class">{leaderNameError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>체결일자</h3>
-                      <input
+                      <ConfigProvider
+                        locale={locale}
+                        theme={{
+                          token: {
+                            colorPrimary: `${Maincolor.black}`,
+                            colorBorder: `${Maincolor.input}`,
+                          },
+                        }}
+                      >
+                        <Space direction="horizontal" size={15}>
+                          <DatePicker
+                            style={{
+                              width: "325px",
+                              height: "39px",
+                              borderRadius: "4px",
+
+                              // marginRight: "5px",
+                            }}
+                            defaultValue={dayjs(companyData.dateConslusion)}
+                            format={dateFormat}
+                            onChange={onDateChange}
+                          />
+                        </Space>
+                      </ConfigProvider>
+                      {/* <input
                         type="text"
                         defaultValue={companyData.dateConslusion}
                         onChange={e => {
@@ -376,7 +570,12 @@ export const EdeitCompanyModal = ({
                             dateConslusion: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "} */}
+                      {dateConslusionError ? (
+                        <p className="error-class">{dateConslusionError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                   <li>
@@ -391,7 +590,12 @@ export const EdeitCompanyModal = ({
                             manager: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {managerError ? (
+                        <p className="error-class">{managerError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                     <div>
                       <h3>연락처</h3>
@@ -404,7 +608,12 @@ export const EdeitCompanyModal = ({
                             phoneNumber: e.target.value,
                           }));
                         }}
-                      />
+                      />{" "}
+                      {phoneNumberError ? (
+                        <p className="error-class">{phoneNumberError}</p>
+                      ) : (
+                        <p className="error-class"></p>
+                      )}
                     </div>
                   </li>
                 </ul>

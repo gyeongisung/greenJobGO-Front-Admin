@@ -1,20 +1,22 @@
 import React from "react";
-import { ConfirmModalWarp, ModalOkBtn } from "../styles/GlobalStyle";
+import {
+  ConfirmModalWarp,
+  ModalOkBtn,
+  OkModalWarp,
+} from "../styles/GlobalStyle";
 
 const OkModal = ({ header, open, close, onConfirm, children }) => {
   const stopPropagation = e => {
     e.stopPropagation();
   };
+  console.log("okmodal");
   return (
-    <ConfirmModalWarp onClick={close}>
-      <div className={open ? "openConfirmModal Confimmodal" : "Confirmmodal"}>
-        {open ? (
-          <div
-            className="modalConfirm-wrapper"
-            onClick={e => stopPropagation(e)}
-          >
+    <OkModalWarp onClick={close}>
+      <div className={open ? "openOkModal ok-modal" : "ok-modal"}>
+        {open && (
+          <div className="modalOk-wrapper" onClick={e => stopPropagation(e)}>
             {/* 헤더내용 */}
-            <div className="modal-header">
+            <div className="ok-modal-header">
               {header}
               <p className="close" onClick={close}>
                 <img
@@ -24,16 +26,16 @@ const OkModal = ({ header, open, close, onConfirm, children }) => {
               </p>
             </div>
             {/* 모달내용(컴포넌트 읽어오는부분) */}
-            <div className="modalConfirm-content">
+            <div className="modalOk-content">
               {children}
               <div>
                 <ModalOkBtn onClick={onConfirm}>확인</ModalOkBtn>
               </div>
             </div>
           </div>
-        ) : null}
+        )}
       </div>
-    </ConfirmModalWarp>
+    </OkModalWarp>
   );
 };
 

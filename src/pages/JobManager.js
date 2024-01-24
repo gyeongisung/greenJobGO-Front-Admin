@@ -37,6 +37,7 @@ const JobManager = () => {
           </div>
           <div className="maganer-add">
             <BtnGlobal onClick={openModal}>등록</BtnGlobal>
+          </div>
             {modalOpen && (
               <InputModal
                 open={modalOpen}
@@ -50,7 +51,6 @@ const JobManager = () => {
                 />
               </InputModal>
             )}
-          </div>
         </div>
       </div>
     </JobManagerWrap>

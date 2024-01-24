@@ -46,11 +46,16 @@ export const AcceptModalWrap = styled.div`
       justify-content: flex-end;
       font-size: 12px;
       cursor: pointer;
+      img {
+        width: 12px;
+        height: 12px;
+        object-fit: contain;
+      }
     }
     .content {
       display: flex;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .btns {
       display: flex;
@@ -83,7 +88,6 @@ export const CompanyAcceptModalWrap = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  font-family: "Pretendard", sans-serif;
   .dim {
     position: fixed;
     top: 0;
@@ -117,6 +121,12 @@ export const CompanyAcceptModalWrap = styled.div`
       border-radius: 10px 10px 0 0;
       box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
       li {
+        & img {
+          width: 18px;
+          height: 18px;
+          object-fit: contain;
+        }
+
         :last-of-type {
           position: absolute;
           top: 3%.5;
@@ -125,19 +135,24 @@ export const CompanyAcceptModalWrap = styled.div`
           cursor: pointer;
         }
         h2 {
-          font-size: 23px;
-          color: #000;
+          font-size: 20px;
+          color: #222;
+          font-weight: 500;
         }
       }
     }
     .modal-btm {
       width: 100%;
       padding: 0 50px;
+
       .company-info {
         > h3 {
           width: 0;
           font-size: 18px;
-          margin-top: 25px;
+          color: #222;
+          font-weight: 500;
+          margin-top: 10px;
+          margin-bottom: 15px;
         }
         > input {
           width: 100%;
@@ -151,19 +166,32 @@ export const CompanyAcceptModalWrap = styled.div`
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 25px;
+        gap: 10px;
         margin-top: 15px;
         li {
           width: 100%;
           display: flex;
           gap: 20px;
+
+          /* 에러처리 */
+          .error-class {
+            width: 200px;
+            text-align: left;
+            padding-left: 2px;
+            height: 14px;
+            margin-top: 3px;
+            font-size: 10px;
+            color: ${Maincolor.red};
+          }
+
           > div {
             width: 100%;
             border-radius: 6px;
             > h3 {
               width: 0;
               font-size: 18px;
-              margin-bottom: 5px;
+              font-weight: 500;
+              margin-bottom: 15px;
             }
             > input {
               width: 100%;
@@ -179,10 +207,12 @@ export const CompanyAcceptModalWrap = styled.div`
     .modal-ok {
       padding-top: 45px;
       button {
+        font-weight: 500;
+        font-size: 16px;
         width: 150px;
         height: 50px;
         color: #fff;
-        background: #6d6d6d;
+        background: ${Maincolor.admintxt};
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -197,7 +227,6 @@ export const ClassAcceptModalWrap = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  font-family: "Pretendard", sans-serif;
   .dim {
     position: fixed;
     top: 0;
@@ -233,14 +262,19 @@ export const ClassAcceptModalWrap = styled.div`
       li {
         :last-of-type {
           position: absolute;
-          top: 3%.5;
+          top: 3.5%;
           right: 3.5%;
-          font-size: 21px;
           cursor: pointer;
+          & img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+          }
         }
         h2 {
-          font-size: 23px;
-          color: #000;
+          font-size: 20px;
+          color: #222;
+          font-weight: 500;
         }
       }
     }
@@ -251,18 +285,52 @@ export const ClassAcceptModalWrap = styled.div`
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 5px;
         margin-top: 15px;
+        .select-wrap {
+          /* border-radius: 6px; */
+          background: ${Maincolor.white};
+          & > p {
+            width: 200px;
+          }
+          select {
+            width: 155px;
+            height: 40px;
+            -o-appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 1px solid ${Maincolor.input};
+            background: url(${process.env.PUBLIC_URL}/assets/Arrowdown.png)
+              no-repeat calc(100% - 12px) 50%/11px auto;
+            padding: 0 28px 0 10px;
+          }
+          select::-ms-expand {
+            display: none;
+          }
+        }
         > li {
+          height: 100%;
           display: flex;
           width: 100%;
           gap: 20px;
+          margin-bottom: 5px;
+          /* 에러처리 */
+          .error-class {
+            width: 200px;
+            text-align: left;
+            padding-left: 2px;
+            height: 14px;
+            margin-top: 3px;
+            font-size: 10px;
+            color: ${Maincolor.red};
+          }
           .class-name {
             > input {
-              width: 450px;
+              width: 440px;
               height: 40px;
               border: 1px solid #a4a4a4;
-              border-radius: 6px;
+              border-radius: 4px;
               padding: 0px 10px;
             }
           }
@@ -272,45 +340,57 @@ export const ClassAcceptModalWrap = styled.div`
             .class-category-box {
               width: 0;
               > select {
-                width: 145px;
+                /* width: 145px; */
                 height: 40px;
-                border-radius: 6px;
-                border: 1px solid #a4a4a4;
+                border-radius: 4px;
+                border: 1px solid ${Maincolor.input};
                 cursor: pointer;
+                :first-of-type {
+                  width: 155px;
+                }
               }
             }
             > h3 {
               width: 0;
               font-size: 18px;
-              margin-bottom: 5px;
+              font-weight: 500;
+              margin-bottom: 10px;
             }
             > input {
               width: 100%;
               height: 40px;
-              border: 1px solid #a4a4a4;
-              border-radius: 6px;
+              border: 1px solid ${Maincolor.input};
+              border-radius: 4px;
               padding: 0px 10px;
             }
           }
         }
         .date-picker-wrap {
           width: 100%;
-          height: 100%;
           display: flex;
           flex-direction: column;
-          align-items: center;
-          gap: 0;
+          gap: 0px;
+          /* align-items: center; */
           > div {
             width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            .date-picker {
+            /* display: flex; */
+            /* align-items: end; */
+            .datePicker {
+              /* display: flex;
+              flex-direction: column; */
+              /* flex-wrap: wrap; */
+            }
+            .date-error {
+              display: flex;
+              gap: 130px;
+              justify-content: left;
+            }
+            /* .date-picker {
               width: 100%;
               height: 40px;
-              border: 1px solid #a4a4a4;
+              border: 1px solid ${Maincolor.input};
               text-align: center;
-              border-radius: 6px;
+              border-radius: 4px;
               padding: 0px 80px;
             }
             .react-datepicker__day:nth-of-type(1) {
@@ -326,11 +406,13 @@ export const ClassAcceptModalWrap = styled.div`
               color: #8685ff;
             }
           }
+        } */
+          }
         }
       }
     }
     .modal-ok {
-      margin-top: 70px;
+      margin-top: 35px;
       > button {
         width: 150px;
         height: 50px;
@@ -350,7 +432,6 @@ export const StudentAcceptModalWrap = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  font-family: "Pretendard", sans-serif;
   .dim {
     position: fixed;
     top: 0;
@@ -500,7 +581,6 @@ export const PortFolioAddWrap = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  font-family: "Pretendard", sans-serif;
   .dim {
     position: fixed;
     top: 0;

@@ -10,6 +10,7 @@ import {
 } from "../api/bulkAxios";
 import { getCategory } from "../api/bulkAxios";
 import { BulkDeletetModal } from "../components/AcceptModals";
+import OkModal from "../components/OkModal";
 
 const BulkDelete = () => {
   const [listData, setListData] = useState([]);
@@ -21,11 +22,16 @@ const BulkDelete = () => {
   const [count, setCount] = useState(0);
   const [category, setCategory] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorInfo, setErrorInfo] = useState("");
   const [uploadResult, setUpLoadResult] = useState(false);
 
   const fetchData = () => {
     getBulkStudentList(setListData, page, setCount, category, searchsubj);
   };
+
+  console.log("listData", listData);
+  console.log("errorInfo", errorInfo);
 
   useEffect(() => {
     fetchData();
@@ -52,21 +58,45 @@ const BulkDelete = () => {
     setModalOpen(true);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (keyData) {
       const { icourseSubject, iclassification } = keyData;
-      deleteStudent(icourseSubject, iclassification);
+      try {
+        deleteStudent(icourseSubject, iclassification, setErrorInfo);
+        setErrorModalOpen(true);
+      } catch (error) {
+        console.log("error", error);
+      }
     }
   };
+  // useEffect(() => {
+  //   setErrorModalOpen(true);
+  // }, [errorInfo]);
 
   return (
     <BulkWrap>
+      {/* 삭제진행 유무 모달 */}
       {modalOpen && (
         <BulkDeletetModal
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
           handleDelete={handleDelete}
         />
+      )}
+      {/* 삭제처리 확인모달 */}
+      {errorModalOpen && (
+        <OkModal
+          header={""}
+          open={errorModalOpen}
+          close={() => {
+            setErrorModalOpen(false), setErrorInfo("");
+          }}
+          onConfirm={() => {
+            setErrorModalOpen(false), setErrorInfo("");
+          }}
+        >
+          <span>{errorInfo}</span>
+        </OkModal>
       )}
       <div className="delete-title">
         <h3>일괄 삭제</h3>

@@ -47,12 +47,22 @@ export const getCategory = async setCategoryData => {
   }
 };
 
-export const deleteStudent = async (icourseSubject, iclassification) => {
+export const deleteStudent = async (
+  icourseSubject,
+  iclassification,
+  setErrorInfo,
+) => {
   try {
     const res = await client.delete(
       `/admin/student/student-list?iclassification=${iclassification}&icourseSubject=${icourseSubject}`,
     );
+    const result = res.data;
+    console.log("삭제성공", res);
+    if (res.status === 200) {
+    setErrorInfo("삭제가 완료되었습니다.");
+    }
   } catch (error) {
-    console.log(error);
+    console.log("삭제실패", error);
+    setErrorInfo("삭제가 정상적으로 처리되지 않았습니다.");
   }
 };

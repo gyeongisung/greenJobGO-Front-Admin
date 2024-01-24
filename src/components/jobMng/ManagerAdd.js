@@ -139,7 +139,8 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
         <li>
           <h3>이름</h3>
           <input
-            type="text"
+            type="text"            maxLength={20}
+
             placeholder="이름"
             value={addInfo.name}
             onChange={e => handleInfoAdd(e, "name")}
@@ -168,7 +169,8 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
         <li>
           <h3>상담전화</h3>
           <input
-            type="text"
+            type="text"            maxLength={13}
+
             placeholder="상담전화"
             value={addInfo.counselingNumber}
             onChange={e => handleInfoAdd(e, "counselingNumber")}
@@ -182,7 +184,8 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
         <li>
           <h3>모바일</h3>
           <input
-            type="text"
+            type="text"            maxLength={13}
+
             placeholder="모바일"
             value={addInfo.phoneNumber}
             onChange={e => handleInfoAdd(e, "phoneNumber")}
@@ -196,7 +199,8 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
         <li className="email-input">
           <h3>이메일</h3>
           <input
-            type="text"
+            type="text"            maxLength={25}
+
             placeholder="이메일"
             value={addInfo.email}
             onChange={e => handleInfoAdd(e, "email")}

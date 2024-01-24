@@ -60,7 +60,7 @@ export const ModalWarp = styled.div`
   }
 
   /* 모달 헤더 */
-  .modal-header {
+  & .modal-header {
     position: relative;
     height: 70px;
     padding: 20px 40px;
@@ -124,7 +124,7 @@ export const ConfirmModalWarp = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 999;
+    z-index: 200;
     background-color: rgba(0, 0, 0, 0.3);
   }
   .modalConfirm-wrapper {
@@ -141,7 +141,7 @@ export const ConfirmModalWarp = styled.div`
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.12);
   }
   /* 모달 헤더 */
-  .modal-header {
+  .confirm-modal-header {
     height: 45px;
     position: relative;
     padding: 15px 20px;
@@ -222,6 +222,104 @@ export const ConfirmModalContent = styled.div`
     }
   }
 `;
+
+
+//공통) Ok 모달스타일
+export const OkModalWarp = styled.div`
+  .ok-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 201;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .modalOk-wrapper {
+    position: relative;
+    width: 410px;
+    height: 140px;
+    margin: 0 auto;
+    border-radius: 6px;
+    border: 1px solid ${Maincolor.grayLight2};
+    background-color: ${Maincolor.white};
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-co-show 0.1s;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.12);
+  }
+  /* 모달 헤더 */
+  .ok-modal-header {
+    height: 45px;
+    position: relative;
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 500;
+    p {
+      position: absolute;
+      top: 15px;
+      right: 0px;
+      width: 30px;
+      height: 14px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: ${Maincolor.black};
+      cursor: pointer;
+      img {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        object-fit: contain;
+      }
+    }
+  }
+  /* 모달 내용 */
+  .modalOk-content {
+    /* position: absolute; */
+    /* top: 50px;
+    left: 20px; */
+    height: 100%;
+    padding: 0px 20px 0px 30px;
+    font-size: 14px;
+    color: #515151;
+    & > div {
+      margin-top: 20px;
+      text-align: right;
+      & button {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .ok-modal.openOkModal {
+    display: flex;
+    align-items: center;
+    animation: modal-co-bg-show 0.1s;
+  }
+
+  @keyframes modal-co-show {
+    from {
+      opacity: 0;
+      margin-top: -50px;
+    }
+    to {
+      opacity: 1;
+      margin-top: 0;
+    }
+  }
+  @keyframes modal-co-bg-show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+`;
+
 
 /* 공통 확인버튼 */
 export const BtnGlobal = styled.button`
