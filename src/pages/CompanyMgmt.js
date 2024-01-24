@@ -300,6 +300,7 @@ const CompanyMgmt = () => {
             setAcceptOkModal={setAcceptOkModal}
             uploadResult={uploadResult}
             setUpLoadResult={setUpLoadResult}
+            fetchData={fetchData}
           />
         </CompanyTable>
         <Paging page={page} setPage={setPage} count={count} />

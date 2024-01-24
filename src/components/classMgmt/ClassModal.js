@@ -118,7 +118,6 @@ export const ClassAcceptModal = ({
     }));
   };
 
-
   return (
     <>
       {modalOpen && (
@@ -130,7 +129,12 @@ export const ClassAcceptModal = ({
                   <h2>과정 등록</h2>
                 </li>
                 <li>
-                  <span onClick={handleModalCancel}>✖</span>
+                  <span onClick={handleModalCancel}>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                      alt="X"
+                    />
+                  </span>
                 </li>
               </ul>
               <div className="modal-btm">
@@ -206,8 +210,9 @@ export const ClassAcceptModal = ({
                         <Space direction="horizonal" size={15}>
                           <DatePicker
                             style={{
-                              width: "312px",
+                              width: "295px",
                               height: "40px",
+                              borderRadius: "4px",
                               marginRight: "5px",
                             }}
                             format={dateFormat}
@@ -215,7 +220,11 @@ export const ClassAcceptModal = ({
                             placeholder={"시작 날짜"}
                           />
                           <DatePicker
-                            style={{ width: "312px", height: "40px" }}
+                            style={{
+                              width: "295px",
+                              height: "40px",
+                              borderRadius: "4px",
+                            }}
                             format={dateFormat}
                             disabledDate={disabledDate}
                             onChange={onEndRangeChange}
@@ -554,8 +563,9 @@ export const ClassEditModal = ({
                         <Space direction="horizonal" size={15}>
                           <DatePicker
                             style={{
-                              width: "312px",
+                              width: "295px",
                               height: "40px",
+                              borderRadius: "4px",
                               marginRight: "5px",
                             }}
                             format={dateFormat}
@@ -564,7 +574,11 @@ export const ClassEditModal = ({
                             placeholder={"시작 날짜"}
                           />
                           <DatePicker
-                            style={{ width: "312px", height: "40px" }}
+                            style={{
+                              width: "295px",
+                              height: "40px",
+                              borderRadius: "4px",
+                            }}
                             format={dateFormat}
                             onChange={onEndRangeChange}
                             defaultValue={dayjs(payload.endedAt)}

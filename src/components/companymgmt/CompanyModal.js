@@ -272,6 +272,8 @@ export const CompanyMgmtModal = ({
                             style={{
                               width: "325px",
                               height: "39px",
+                              borderRadius: "4px",
+
                               // marginRight: "5px",
                             }}
                             format={dateFormat}
@@ -377,6 +379,7 @@ export const EdeitCompanyModal = ({
   setAcceptOkModal,
   uploadResult,
   setUpLoadResult,
+  fetchData,
 }) => {
   const [companyData, setCompanyData] = useState({
     companyCode: companyInfo.companyCode,
@@ -389,7 +392,6 @@ export const EdeitCompanyModal = ({
     dateConslusion: companyInfo.dateConslusion,
   });
 
-  console.log("companyData", companyData);
   // 예외처리하기
   const [areaError, setAreaError] = useState("");
   const [companyNameError, setCompanyNameError] = useState("");
@@ -400,6 +402,8 @@ export const EdeitCompanyModal = ({
   const [dateConslusionError, setDateConslusionError] = useState("");
 
   const dateFormat = "YYYY-MM-DD";
+
+  console.log("companyData.homepage", companyData.homepage);
 
   const onDateChange = (date, dateStrings) => {
     setCompanyData(payload => ({
@@ -443,6 +447,7 @@ export const EdeitCompanyModal = ({
         if (result.success) {
           setEditModalOpen(false);
           setAcceptOkModal(true);
+          fetchData();
         }
       }
     } catch (error) {
@@ -546,6 +551,8 @@ export const EdeitCompanyModal = ({
                             style={{
                               width: "325px",
                               height: "39px",
+                              borderRadius: "4px",
+
                               // marginRight: "5px",
                             }}
                             defaultValue={dayjs(companyData.dateConslusion)}

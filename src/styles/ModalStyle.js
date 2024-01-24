@@ -262,10 +262,14 @@ export const ClassAcceptModalWrap = styled.div`
       li {
         :last-of-type {
           position: absolute;
-          top: 3%.5;
+          top: 3.5%;
           right: 3.5%;
-          font-size: 21px;
           cursor: pointer;
+          & img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+          }
         }
         h2 {
           font-size: 20px;
@@ -323,7 +327,7 @@ export const ClassAcceptModalWrap = styled.div`
           }
           .class-name {
             > input {
-              width: 470px;
+              width: 440px;
               height: 40px;
               border: 1px solid #a4a4a4;
               border-radius: 4px;
