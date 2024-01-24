@@ -11,7 +11,7 @@ export const AuthStateAtom = atom({
     accessToken: null,
     role: "",
     id: "",
+    name: "",
   },
   effects_UNSTABLE: [persistAtom],
 });
-

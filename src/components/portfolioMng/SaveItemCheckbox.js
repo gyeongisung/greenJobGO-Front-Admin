@@ -25,8 +25,6 @@ const SaveItemCheckbox = ({
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorCancelInfo, setErrorCancelInfo] = useState("");
 
-
-  
   // 체크박스 변경 이벤트 핸들러
   const handleCheckBox = (checked, istudent) => {
     setClickItems(prev => {
@@ -88,7 +86,7 @@ const SaveItemCheckbox = ({
             type="checkbox"
             id={`check${item.istudent}`}
             value={item.istudent}
-            defaultChecked={
+            checked={
               item.companyMainYn === 1 || clickItems.includes(item.istudent)
             }
             onChange={e => {
