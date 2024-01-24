@@ -5,6 +5,7 @@ import {
   deleteStudent,
   getStudentDetail,
   postStudentFileUpload,
+  postStudentResumeUpload,
   putStudentCertificate,
   putStudentInfo,
 } from "../../api/studentAxios";
@@ -16,11 +17,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faFilePdf } from "@fortawesome/free-regular-svg-icons";
 import { faCrown, faLink } from "@fortawesome/free-solid-svg-icons";
 import { DeleteSingleStudentModal, PortFolioAdd } from "./StudentModal";
-import { AcceptModal, EditAceeptModal } from "../AcceptModals";
+import { AcceptModal, DeleteOkModal, EditAceeptModal } from "../AcceptModals";
 import { useNavigate, useParams } from "react-router";
 import StudentPortF from "./StudentPortF";
+import StudentBase from "./StduenDetail/StudentBase";
+import StudentResume from "./StduenDetail/StudentResume";
+import StudentPofol from "./StduenDetail/StudentPofol";
 
-const StudentInfo = ({ studentInfo }) => {
+const StudentInfo = () => {
   const { istudent } = useParams();
 
   const navigate = useNavigate();
@@ -45,10 +49,12 @@ const StudentInfo = ({ studentInfo }) => {
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteOkModal, setDeleteOkModal] = useState(false);
   const [uploadResult, setUpLoadResult] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [resumeFile, setResumeFile] = useState("");
+  const [resumeOneWord, setResumeOneWord] = useState("");
   // const [selectedFile, setSelectedFile] = useState(null);
-  // const [description, setDescription] = useState("");
   // const [linkUrl, setLinkUrl] = useState("");
   // const [isTrue, setIsTrue] = useRecoilState(changeComponent);
 
@@ -58,6 +64,31 @@ const StudentInfo = ({ studentInfo }) => {
 
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
+  };
+  const handleResumeFileChange = e => {
+    const file = e.target.files[0];
+
+    if (file) {
+      setResumeFile(file);
+    }
+  };
+  const handleResumeUpload = async () => {
+    const formData = new FormData();
+    formData.append("file", resumeFile);
+    try {
+      const result = await postStudentResumeUpload(
+        istudent,
+        resumeOneWord,
+        formData,
+      );
+      setUpLoadResult(result);
+      if (result.success === true) {
+        setAcceptOkModal(true);
+      }
+      getStudentDetail(istudent, setUserInfo, setUserFile);
+    } catch (error) {
+      setAcceptOkModal(true);
+    }
   };
 
   const handleUpdate = async () => {
@@ -127,7 +158,7 @@ const StudentInfo = ({ studentInfo }) => {
     // } else {
     //   setIsTrue(true);
     // }
-    navigate("/student");
+    navigate(-1);
   };
 
   const handleCancel = () => {
@@ -138,13 +169,23 @@ const StudentInfo = ({ studentInfo }) => {
     // setIsTrue(true);
   };
 
+  const handleOkClick = async () => {
+    deleteFile(userFile?.resume?.ifile);
+    setDeleteOkModal(false);
+    getStudentDetail(istudent, setUserInfo, setUserFile);
+  };
+
+  const handleCancelClick = () => {
+    setDeleteOkModal(false);
+  };
+
   const handleDeleteClick = () => {
-    setDeleteModalOpen(true);
+    setDeleteOkModal(true);
   };
 
   const handleDeleteFile = async fileId => {
     await deleteFile(fileId);
-    await getStudentDetail(istudent, setUserInfo, setUserFile);
+    getStudentDetail(istudent, setUserInfo, setUserFile);
     console.log(fileId);
   };
 
@@ -173,6 +214,13 @@ const StudentInfo = ({ studentInfo }) => {
           handleFileUpload={handleFileUpload}
         />
       )} */}
+      {deleteOkModal && (
+        <DeleteOkModal
+          deleteOkModal={deleteOkModal}
+          handleOkClick={handleOkClick}
+          handleCancelClick={handleCancelClick}
+        />
+      )}
       {acceptOkModal && (
         <AcceptModal
           acceptOkModal={acceptOkModal}
@@ -198,380 +246,39 @@ const StudentInfo = ({ studentInfo }) => {
         <h2>수강생 상세 정보</h2>
       </div>
       <div className="info-contain">
-        <ul className="info-content">
-          <li>
-            {userFile && userFile.thumbNail ? (
-              <img
-                src={`http://112.222.157.156/img/student/${istudent}/${userFile.thumbNail}`}
-                alt="썸네일"
-              />
-            ) : (
-              <img src={NoImage} alt="썸네일" />
-            )}
-          </li>
-          <li className="info-content-left">
-            <div>
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="studentName"
-                  value={userInfo.userDetail.name}
-                  onChange={e => {
-                    setUserInfo(userInfo => ({
-                      ...userInfo,
-                      userDetail: {
-                        ...userInfo.userDetail,
-                        name: e.target.value,
-                      },
-                    }));
-                  }}
-                />
-              ) : (
-                <p className="student-name">{userInfo.userDetail.name}</p>
-              )}
-              <p className="student-age">
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    name="gender"
-                    value={userInfo.userDetail.gender}
-                    onChange={e => {
-                      setUserInfo(userInfo => ({
-                        ...userInfo,
-                        userDetail: {
-                          ...userInfo.userDetail,
-                          gender: e.target.value,
-                        },
-                      }));
-                    }}
-                  />
-                ) : (
-                  <p>{userInfo.userDetail.gender}</p>
-                )}
-                <p>{userInfo.birth}년생</p>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    name="age"
-                    value={userInfo.userDetail.age}
-                    onChange={e => {
-                      setUserInfo(userInfo => ({
-                        ...userInfo,
-                        userDetail: {
-                          ...userInfo.userDetail,
-                          age: e.target.value,
-                        },
-                      }));
-                    }}
-                  />
-                ) : (
-                  <p>만 {userInfo.userDetail.age}세</p>
-                )}
-              </p>
-            </div>
-            <div>
-              <span>과정명</span>
-              <span>{userInfo.subject.subjectName}</span>
-            </div>
-            <div>
-              <span>주소</span>
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="address"
-                  value={userInfo.userDetail.address}
-                  onChange={e => {
-                    setUserInfo(userInfo => ({
-                      ...userInfo,
-                      userDetail: {
-                        ...userInfo.userDetail,
-                        address: e.target.value,
-                      },
-                    }));
-                  }}
-                />
-              ) : (
-                <span>{userInfo.userDetail.address}</span>
-              )}
-            </div>
-            <div>
-              <span>Email</span>
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="email"
-                  value={userInfo.userDetail.email}
-                  onChange={e => {
-                    setUserInfo(userInfo => ({
-                      ...userInfo,
-                      userDetail: {
-                        ...userInfo.userDetail,
-                        email: e.target.value,
-                      },
-                    }));
-                  }}
-                />
-              ) : (
-                <span>{userInfo.userDetail.email}</span>
-              )}
-            </div>
-            <div>
-              <span>자격증</span>
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="email"
-                  value={userInfo.certificateValue}
-                  onChange={e => {
-                    setUserInfo(userInfo => ({
-                      ...userInfo,
-                      certificateValue: e.target.value,
-                    }));
-                  }}
-                />
-              ) : (
-                <span>{userInfo.certificateValue}</span>
-              )}
-            </div>
-          </li>
-          <li className="info-content-right">
-            <div>
-              <span>취업여부</span>
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="email"
-                  value={userInfo.userDetail.huntJobYn}
-                  onChange={e => {
-                    setUserInfo(userInfo => ({
-                      ...userInfo,
-                      userDetail: {
-                        ...userInfo.userDetail,
-                        huntJobYn: e.target.value,
-                      },
-                    }));
-                  }}
-                />
-              ) : (
-                <span>{userInfo.userDetail.huntJobYn}</span>
-              )}
-            </div>
-            <div>
-              <span>수료기간</span>
-              <span>
-                {userInfo.userDetail.startedAt} ~ {userInfo.userDetail.endedAt}
-              </span>
-            </div>
-            <div>
-              <span>연락처</span>
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="mobileNumber"
-                  value={userInfo.userDetail.mobileNumber}
-                  onChange={e => {
-                    setUserInfo(userInfo => ({
-                      ...userInfo,
-                      userDetail: {
-                        ...userInfo.userDetail,
-                        mobileNumber: e.target.value,
-                      },
-                    }));
-                  }}
-                />
-              ) : (
-                <span>{userInfo.userDetail.mobileNumber}</span>
-              )}
-            </div>
-            <div>
-              <span>학력</span>
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="education"
-                  value={userInfo.userDetail.education}
-                  onChange={e => {
-                    setUserInfo(userInfo => ({
-                      ...userInfo,
-                      userDetail: {
-                        ...userInfo.userDetail,
-                        education: e.target.value,
-                      },
-                    }));
-                  }}
-                />
-              ) : (
-                <span>{userInfo.userDetail.education}</span>
-              )}
-            </div>
-          </li>
-        </ul>
-        <div className="info-resume">
-          <ul>
-            <li>
-              <h2>이력서 및 자기소개서</h2>
-            </li>
-            <li>
-              <h3>한줄 소개</h3>
-              {userFile && userFile.resume && userFile.resume.oneWord ? (
-                <span>&nbsp;{userFile.resume.oneWord}</span>
-              ) : (
-                <span>&nbsp;한줄 소개를 작성하지 않았습니다.</span>
-              )}
-            </li>
-            <li>
-              <h3>이력서 및 자기소개서</h3>
-              {userFile &&
-              userFile.resume &&
-              // userFile.resume.oneWord &&
-              userFile.resume.resume ? (
-                <div>
-                  <div>
-                    <p>
-                      <FontAwesomeIcon icon={faFilePdf} />
-                    </p>
-                    <a
-                      href={`http://${userFile.resume.resume}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      &nbsp;
-                      {userFile.resume.resume}
-                    </a>
-                  </div>
-                  {isEditMode ? (
-                    <div>
-                      <p>
-                        <FontAwesomeIcon
-                          onClick={() =>
-                            handleDeleteFile(userFile.resume.ifile)
-                          }
-                          icon={faCircleXmark}
-                          style={{ color: "#6d6d6d" }}
-                        />
-                      </p>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              ) : (
-                <span>&nbsp;이력서가 등록되어 있지 않습니다.</span>
-              )}
-            </li>
-          </ul>
-        </div>
-        {isEditMode ? (
-          <></>
-        ) : (
-          <ul className="portfolio-list">
-            <li>
-              <h2>포트폴리오</h2>
-            </li>
-            <></>
-            <li>
-              <div>
-                {userFile &&
-                userFile.portFolio &&
-                userFile.portFolio.length > 0 ? (
-                  userFile.portFolio.map(item => (
-                    <div className="portfolio-box" key={v4()}>
-                      <div>
-                        <div>
-                          <p>
-                            <FontAwesomeIcon icon={faFilePdf} />
-                          </p>
-                          <a
-                            href={`http://${item.file}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            &nbsp;
-                            {item.file}
-                          </a>
-                        </div>
-                        <div className="portfolio-icons">
-                          {item.mainYn === 1 ? (
-                            <p>
-                              <FontAwesomeIcon
-                                icon={faCrown}
-                                style={{ color: "#228FCF" }}
-                              />
-                            </p>
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                      </div>
-                      <span>{item.oneWord}</span>
-                    </div>
-                  ))
-                ) : (
-                  <div>
-                    <div className="portfolio-zero">
-                      <span>등록된 포트폴리오 PDF 파일이 없습니다.</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div>
-                {userFile &&
-                userFile.fileLinks &&
-                userFile.fileLinks.length > 0 ? (
-                  userFile.fileLinks.map(item => (
-                    <div className="portfolio-box" key={v4()}>
-                      <div>
-                        <div>
-                          <p>
-                            <FontAwesomeIcon icon={faLink} />
-                          </p>
-                          <a
-                            href={`http://${item.fileLink}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            &nbsp;{item.fileLink}
-                          </a>
-                        </div>
-                      </div>
-                      <span>{item.oneWord}</span>
-                    </div>
-                  ))
-                ) : (
-                  <div>
-                    <div className="portfolio-zero">
-                      <span>등록된 포트폴리오 링크가 없습니다.</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </li>
-          </ul>
-        )}
+        <StudentBase
+          userFile={userFile}
+          istudent={istudent}
+          isEditMode={isEditMode}
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+        />
+        <StudentResume
+          userFile={userFile}
+          isEditMode={isEditMode}
+          handleDeleteClick={handleDeleteClick}
+          resumeOneWord={resumeOneWord}
+          setResumeOneWord={setResumeOneWord}
+          resumeFile={resumeFile}
+          handleResumeFileChange={handleResumeFileChange}
+          handleResumeUpload={handleResumeUpload}
+          userInfo={userInfo}
+        />
+        {!isEditMode && <StudentPofol userFile={userFile} />}
       </div>
       <div className="buttons">
-        <div>
-          {isEditMode ? (
-            <div className="spacer" />
-          ) : (
-            <>
-              <button onClick={handleDeleteClick}>삭제</button>
-            </>
-          )}
-        </div>
-        <div>
-          {isEditMode ? (
-            <>
-              <button onClick={handleCancel}>취소</button>
-              <button onClick={handleUpdate}>저장</button>
-            </>
-          ) : (
-            <>
-              <button onClick={handleBack}>돌아가기</button>
-              <button onClick={handleEditMode}>수정</button>
-            </>
-          )}
-        </div>
+        {isEditMode ? (
+          <>
+            <button onClick={handleCancel}>취소</button>
+            <button onClick={handleUpdate}>저장</button>
+          </>
+        ) : (
+          <>
+            <button onClick={handleBack}>돌아가기</button>
+            <button onClick={handleEditMode}>수정</button>
+          </>
+        )}
+        {/* </div> */}
       </div>
     </StudentInfoWrap>
   );

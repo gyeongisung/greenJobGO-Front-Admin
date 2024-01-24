@@ -19,7 +19,7 @@ import { ExcelUploadModal } from "../companymgmt/CompanyModal";
 
 const StudentMain = ({ handleInfoClick }) => {
   const [listData, setListData] = useState([]);
-  const [saveCheckBox, setSaveCheckBox] = useState([]);
+  // const [saveCheckBox, setSaveCheckBox] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
@@ -34,37 +34,40 @@ const StudentMain = ({ handleInfoClick }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [excelDownload, setExcelDownload] = useState(null);
 
-  let resultIdArray = saveCheckBox;
+  // let resultIdArray = saveCheckBox;
 
-  const handleAllCheck = e => {
-    const allCheckBox = document.querySelectorAll(".student-checkbox");
-    resultIdArray = [];
-    if (e.target.checked === true) {
-      allCheckBox.forEach(item => {
-        item.checked = true;
-        resultIdArray.push(parseInt(item.classList[1].slice(6)));
-      });
-    } else {
-      allCheckBox.forEach(item => {
-        item.checked = false;
-      });
-      resultIdArray = [];
-    }
-    setSaveCheckBox(resultIdArray);
-  };
+  // 체크박스 전체 선택
+  // const handleAllCheck = e => {
+  //   const allCheckBox = document.querySelectorAll(".student-checkbox");
+  //   resultIdArray = [];
+  //   if (e.target.checked === true) {
+  //     allCheckBox.forEach(item => {
+  //       item.checked = true;
+  //       resultIdArray.push(parseInt(item.classList[1].slice(6)));
+  //     });
+  //   } else {
+  //     allCheckBox.forEach(item => {
+  //       item.checked = false;
+  //     });
+  //     resultIdArray = [];
+  //   }
+  //   setSaveCheckBox(resultIdArray);
+  // };
 
-  const handleCheckBox = e => {
-    const clickList = e.currentTarget;
-    const companyCode = parseInt(clickList.classList[1].slice(6));
-    if (e.target.checked === true) {
-      resultIdArray.push(companyCode);
-    } else {
-      resultIdArray = resultIdArray.filter(item => item !== companyCode);
-    }
-    setSaveCheckBox(resultIdArray);
-    console.log(saveCheckBox);
-  };
+  // 체크박스 개별 선택
+  // const handleCheckBox = e => {
+  //   const clickList = e.currentTarget;
+  //   const companyCode = parseInt(clickList.classList[1].slice(6));
+  //   if (e.target.checked === true) {
+  //     resultIdArray.push(companyCode);
+  //   } else {
+  //     resultIdArray = resultIdArray.filter(item => item !== companyCode);
+  //   }
+  //   setSaveCheckBox(resultIdArray);
+  //   console.log(saveCheckBox);
+  // };
 
+  // GET API
   const fetchData = () => {
     getStudentList(setListData, setCount, page, search, category);
   };
@@ -74,41 +77,33 @@ const StudentMain = ({ handleInfoClick }) => {
     getCategory(setCategoryData);
   }, [page]);
 
-  useEffect(() => {
-    document.querySelector(".all-checkbox-btn").checked = false;
-    document
-      .querySelectorAll(".student-checkbox")
-      .forEach(item => (item.checked = false));
-    setSaveCheckBox([]);
-  }, [listData]);
+  // useEffect(() => {
+  //   document.querySelector(".all-checkbox-btn").checked = false;
+  //   document
+  //     .querySelectorAll(".student-checkbox")
+  //     .forEach(item => (item.checked = false));
+  //   setSaveCheckBox([]);
+  // }, [listData]);
 
+  // 검색 버튼
   const handleSearch = () => {
     setPage(1);
     fetchData();
   };
+
+  // 대분류 선택
   const handleCategoryFiiter = e => {
     setCategory(e.target.value);
     setPage(1);
     console.log(category);
   };
 
-  const handleModalOpen = () => {
-    setModalOpen(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const handleDeleteClick = () => {
-    if (saveCheckBox.length >= 1) {
-      setDeleteModalOpen(true);
-    } else {
-      console.log("삭제할 훈련생을 선택해주세요.");
-    }
-  };
-
+  // 엑셀 업로드 버튼
   const handleExcelModalOpen = () => {
     setExcelModalOpen(true);
   };
 
+  // 엑셀 업로드 POST API
   const handleExcelUpload = async () => {
     if (selectedFile) {
       let formData = new FormData();
@@ -131,6 +126,7 @@ const StudentMain = ({ handleInfoClick }) => {
     }
   };
 
+  // 엑셀 다운로드 버튼
   const handleExcelDownLoad = async () => {
     getStudenListDownload(setExcelDownload);
   };
@@ -177,7 +173,7 @@ const StudentMain = ({ handleInfoClick }) => {
             uploadResult={uploadResult}
           />
         )}
-        {deleteModalOpen && (
+        {/* {deleteModalOpen && (
           <DeleteStudnetModal
             deleteModalOpen={deleteModalOpen}
             setDeleteModalOpen={setDeleteModalOpen}
@@ -186,9 +182,8 @@ const StudentMain = ({ handleInfoClick }) => {
             setListData={setListData}
             fetchData={fetchData}
           />
-        )}
+        )} */}
         <div className="student-buttons">
-          <button onClick={handleDeleteClick}>삭제</button>
           <button onClick={handleExcelDownLoad}>엑셀 다운로드</button>
           <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
         </div>
@@ -198,8 +193,8 @@ const StudentMain = ({ handleInfoClick }) => {
         <StudentTable>
           <StudentList
             listData={listData}
-            handleAllCheck={handleAllCheck}
-            handleCheckBox={handleCheckBox}
+            // handleAllCheck={handleAllCheck}
+            // handleCheckBox={handleCheckBox}
             page={page}
             handleInfoClick={handleInfoClick}
           />

@@ -12,6 +12,17 @@
   } */
 }
 
+html {
+  font-size: 16px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
 ul {
   list-style: none;
 }
@@ -24,10 +35,6 @@ img {
   vertical-align: middle;
   border: 0;
   pointer-events: none;
-}
-
-html {
-  font-size: 16px;
 }
 
 body {

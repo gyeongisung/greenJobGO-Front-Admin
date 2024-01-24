@@ -9,7 +9,7 @@ import { AcceptModal } from "../AcceptModals";
 import {
   deleteFile,
   getStudentDetail,
-  postStudentFileUpload,
+  postStudentPofolUpload,
 } from "../../api/studentAxios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -58,7 +58,7 @@ const StudentPortF = () => {
       let formData = new FormData();
       formData.append("file", selectedFile);
       try {
-        const result = await postStudentFileUpload(
+        const result = await postStudentPofolUpload(
           userSendInfo.istudent,
           iFile,
           formData,

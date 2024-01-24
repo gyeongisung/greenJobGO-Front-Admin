@@ -61,7 +61,6 @@ export const AcceptModal = ({
             <div className="content-wrap">
               <div className="header">
                 <span>
-                  {" "}
                   <img
                     src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
                     alt="X"
@@ -128,6 +127,39 @@ export const EditAceeptModal = ({
   );
 };
 
+export const DeleteOkModal = ({
+  deleteOkModal,
+  handleOkClick,
+  handleCancelClick,
+}) => {
+  return (
+    <>
+      {deleteOkModal && (
+        <DeleteModalWrap>
+          <div className="dim">
+            <div className="content-wrap">
+              <div className="header">
+                <span onClick={handleCancelClick}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                    alt="X"
+                  />
+                </span>
+              </div>
+              <div className="content">
+                <span>해당 항목을 삭제 하시겠습니까?</span>
+              </div>
+              <div className="btns">
+                <button onClick={handleCancelClick}>취소</button>
+                <button onClick={handleOkClick}>확인</button>
+              </div>
+            </div>
+          </div>
+        </DeleteModalWrap>
+      )}
+    </>
+  );
+};
 export const DeleteAceeptModal = ({
   deleteOkModalOpen,
   setDeleteOkModalOpen,

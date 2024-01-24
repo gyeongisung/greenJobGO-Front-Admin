@@ -94,8 +94,33 @@ export const postExcelSign = async formData => {
     console.log(error);
   }
 };
+export const postStudentResumeUpload = async (
+  istudent,
+  resumeOneWord,
+  formData,
+) => {
+  try {
+    const res = await client.post(
+      `/admin/student/file?istudent=${istudent}&iFileCategory=1&introducedLine=${resumeOneWord}`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      },
+    );
+    console.log("이력서 전송 성공", res.data);
+    console.log("이력서 전송 성공", res.status);
+    const result = res.status;
 
-export const postStudentFileUpload = async (
+    if (result === 200) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const postStudentPofolUpload = async (
   studentId,
   iFile,
   formData,

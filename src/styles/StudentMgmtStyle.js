@@ -141,7 +141,7 @@ export const StudentTable = styled.div`
   > ul {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(12, 42.6px);
+    grid-template-rows: repeat(11, 42.6px);
     > li {
       line-height: 42px;
       border-top: 1px solid ${Maincolor.sectiontitle};
@@ -150,13 +150,13 @@ export const StudentTable = styled.div`
         color: ${Maincolor.black};
         border-top: 0;
       }
-      /* :last-of-type {
+      :last-of-type {
         border-bottom: 1px solid ${Maincolor.sectiontitle};
-      } */
+      }
       ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.2fr 0.5fr 1.5fr 0.8fr 0.5fr 0.3fr 0.5fr 0.5fr 0.5fr 0.35fr 0.35fr 0.35fr;
+        grid-template-columns: 0.2fr 0.5fr 1.5fr 0.8fr 0.5fr 0.3fr 0.5fr 0.5fr 0.5fr 0.35fr 0.35fr 0.35fr;
         > li {
           color: #222;
           padding: 0 5px;
