@@ -35,6 +35,16 @@ const CompanyMgmt = () => {
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [uploadResult, setUpLoadResult] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  // 예외처리하기
+  const [areaError, setAreaError] = useState("");
+  const [companyNameError, setCompanyNameError] = useState("");
+  const [leaderNameError, setLeaderNameError] = useState("");
+  // const [homepageError, setHomepageError] = useState("");
+  const [managerError, setManagerError] = useState("");
+  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [dateConslusionError, setDateConslusionError] = useState("");
+
   const [payload, setPayload] = useState({
     area: "",
     companyName: "",
@@ -138,26 +148,51 @@ const CompanyMgmt = () => {
     }
   };
 
+  // 기업등록버튼
   const handleModalAccept = async () => {
     try {
-      const result = await postCompanyAccept(payload);
+      setCompanyNameError(
+        !payload.companyName ? "기업명을 입력 해 주세요." : "",
+      );
+      setAreaError(!payload.area ? "지역을 입력 해 주세요." : "");
+      setLeaderNameError(!payload.leaderName ? "대표명을 입력 해 주세요." : "");
+      // setHomepageError(!payload.homepage ? "홈페이지를 입력 해 주세요." : "");
+      setManagerError(!payload.manager ? "담당자 이름을 입력 해 주세요." : "");
+      setPhoneNumberError(
+        !payload.phoneNumber ? "연락처를 입력 해 주세요." : "",
+      );
+      setDateConslusionError(
+        !payload.dateConslusion ? "체결일자를 선택 해 주세요." : "",
+      );
 
-      setUpLoadResult(result);
+      const isError =
+        !payload.companyName ||
+        !payload.area ||
+        !payload.leaderName ||
+        !payload.manager ||
+        !payload.phoneNumber ||
+        !payload.dateConslusion;
 
-      if (result.success) {
+      if (!isError) {
+        const result = await postCompanyAccept(payload);
+        setUpLoadResult(result);
         setModalOpen(false);
-        setAcceptOkModal(true);
-        setPayload({
-          area: "",
-          companyName: "",
-          leaderName: "",
-          homepage: "",
-          manager: "",
-          phoneNumber: "",
-          dateConslusion: "",
-        });
+
+        if (result.success) {
+          setModalOpen(false);
+          setAcceptOkModal(true);
+          setPayload({
+            area: "",
+            companyName: "",
+            leaderName: "",
+            homepage: "",
+            manager: "",
+            phoneNumber: "",
+            dateConslusion: "",
+          });
+          fetchData();
+        }
       }
-      fetchData();
     } catch (error) {
       setModalOpen(false);
       setAcceptOkModal(true);
@@ -190,6 +225,7 @@ const CompanyMgmt = () => {
           setSearch={setSearch}
           handleSearch={handleSearch}
         />
+        {/* 기업등록 모달 */}
         {modalOpen && (
           <CompanyMgmtModal
             modalOpen={modalOpen}
@@ -197,8 +233,16 @@ const CompanyMgmt = () => {
             payload={payload}
             setPayload={setPayload}
             handleModalAccept={handleModalAccept}
+            areaError={areaError}
+            companyNameError={companyNameError}
+            leaderNameError={leaderNameError}
+            // homepageError={homepageError}
+            managerError={managerError}
+            phoneNumberError={phoneNumberError}
+            dateConslusionError={dateConslusionError}
           />
         )}
+        {/* 등록확인모달 */}
         {acceptOkModal && (
           <AcceptModal
             acceptOkModal={acceptOkModal}
@@ -206,6 +250,7 @@ const CompanyMgmt = () => {
             uploadResult={uploadResult}
           />
         )}
+        {/* 엑셀업로드 모달 */}
         {excelModalOpen && (
           <ExcelUploadModal
             excelModalOpen={excelModalOpen}
@@ -217,6 +262,7 @@ const CompanyMgmt = () => {
             setExcelOkModal={setExcelOkModal}
           />
         )}
+        {/* 기업삭제모달 */}
         {deleteModalOpen && (
           <DeleteCompanyModal
             deleteModalOpen={deleteModalOpen}
@@ -227,6 +273,7 @@ const CompanyMgmt = () => {
             fetchData={fetchData}
           />
         )}
+        {/* 엑셀업로드 확인모달 */}
         {excelOkModal && (
           <ExcelAcceptModal
             excelOkModal={excelOkModal}

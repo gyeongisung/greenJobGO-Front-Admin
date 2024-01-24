@@ -106,27 +106,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   useEffect(() => {
     getBigcate(setCategory);
 
-    // 데이트피커 한글로 변화
-    const th = document.querySelectorAll(".ant-picker-content th");
-    const day = [
-      "일",
-      "월",
-      "화",
-      "수",
-      "목",
-      "금",
-      "토",
-      "일",
-      "월",
-      "화",
-      "수",
-      "목",
-      "금",
-      "토",
-    ];
-    th.forEach((item, index) => {
-      item.innerHTML = day[index];
-    });
   }, []);
   useEffect(() => {
     getStudentSubject({ selectCate, setSubjectList });

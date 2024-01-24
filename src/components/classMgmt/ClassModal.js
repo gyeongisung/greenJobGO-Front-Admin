@@ -9,9 +9,8 @@ import {
   postClassSubject,
   putClassSubject,
 } from "../../api/classAxios";
-import { ko } from "date-fns/locale";
-import ReactDatePicker from "react-datepicker";
-import { format, formatISO, parseISO } from "date-fns";
+// import ReactDatePicker from "react-datepicker";
+// import { format, formatISO, parseISO } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import { AcceptModal, DeleteAceeptModal } from "../AcceptModals";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -98,6 +97,9 @@ export const ClassAcceptModal = ({
   classroomError,
 }) => {
   const dateFormat = "YYYY-MM-DD";
+  const disabledDate = current => {
+    return current < dayjs(payload.startedAt).startOf("day");
+  };
 
   const handleModalCancel = () => {
     setModalOpen(false);
@@ -115,7 +117,8 @@ export const ClassAcceptModal = ({
       endedAt: dateStrings ? dateStrings : null,
     }));
   };
-  console.log(modalOpen);
+
+
   return (
     <>
       {modalOpen && (
@@ -214,6 +217,7 @@ export const ClassAcceptModal = ({
                           <DatePicker
                             style={{ width: "312px", height: "40px" }}
                             format={dateFormat}
+                            disabledDate={disabledDate}
                             onChange={onEndRangeChange}
                             placeholder={"종료 날짜"}
                           />
@@ -394,21 +398,21 @@ export const ClassEditModal = ({
   const [classTimeError, setClassTimeError] = useState("");
   const [classroomError, setClassroomError] = useState("");
 
-  console.log("payload", payload);
-
-  const onStartRangeChange = dateStrings => {
+  const onStartRangeChange = (date, dateStrings) => {
     setPayload(payload => ({
       ...payload,
       startedAt: dateStrings ? dateStrings : null,
     }));
   };
-  const onEndRangeChange = dateStrings => {
+  const onEndRangeChange = (date, dateStrings) => {
     setPayload(payload => ({
       ...payload,
       endedAt: dateStrings ? dateStrings : null,
     }));
   };
-
+  const disabledDate = current => {
+    return current < dayjs(payload.startedAt).startOf("day");
+  };
   const handleModalAccept = async () => {
     const { classification, ...newPayload } = payload;
     // const formatData = {
@@ -564,7 +568,7 @@ export const ClassEditModal = ({
                             format={dateFormat}
                             onChange={onEndRangeChange}
                             defaultValue={dayjs(payload.endedAt)}
-                            // value={[dayjs(), dayjs()]}
+                            disabledDate={disabledDate}
                             placeholder={"종료 날짜"}
                           />
                         </Space>

@@ -7,7 +7,6 @@ export const ExcelUploadModalWrap = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  font-family: "Pretendard", sans-serif;
   .dim {
     position: fixed;
     top: 0;
@@ -36,11 +35,16 @@ export const ExcelUploadModalWrap = styled.div`
       justify-content: center;
       align-items: center;
       height: 70px;
-      padding: 30px 0 30px 0;
+      padding: 40px 0 40px 0;
       margin-bottom: 30px;
       border-radius: 10px 10px 0 0;
       box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.15);
       li {
+        & img {
+          width: 18px;
+          height: 18px;
+          object-fit: contain;
+        }
         :last-of-type {
           position: absolute;
           top: 3%.5;
@@ -49,8 +53,9 @@ export const ExcelUploadModalWrap = styled.div`
           cursor: pointer;
         }
         h2 {
-          font-size: 23px;
-          color: #000;
+          font-size: 20px;
+          color: #222;
+          font-weight: 500;
         }
       }
     }
@@ -59,8 +64,12 @@ export const ExcelUploadModalWrap = styled.div`
       text-align: start;
       padding: 0 70px;
       margin-bottom: 30px;
+      font-size: 14px;
+      font-weight: 400;
       > h3 {
         margin-bottom: 15px;
+        font-size: 20px;
+        font-weight: 500;
       }
     }
     .file-box {
@@ -102,8 +111,10 @@ export const ExcelUploadModalWrap = styled.div`
       button {
         width: 150px;
         height: 50px;
+        font-weight: 500;
         color: #fff;
-        background: #6d6d6d;
+        font-size: 16px;
+        background: ${Maincolor.admintxt};
         border: none;
         border-radius: 5px;
         cursor: pointer;

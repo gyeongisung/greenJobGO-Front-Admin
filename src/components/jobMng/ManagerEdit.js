@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
   const [editManager, setEditManager] = useState(item);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
-  const [selectImg, setSelectImg] = useState();
+  const [selectImg, setSelectImg] = useState(item.profilePic);
   const [isImg, setIsImg] = useState(item.profilePic);
 
   // 입력 에러 처리
@@ -51,8 +51,10 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
   // 이미지업로드
   const handleImageUpload = e => {
     e.preventDefault();
+    console.log("e.", e);
     const file = e.target.files[0];
     setSelectImg(file);
+    setIsImg(e.target.value);
     console.log("img_ref", img_ref);
     if (img_ref.current.value !== "") {
       const fileName = img_ref.current.value;
@@ -61,10 +63,8 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
       console.log("데이터가 없다는디");
     }
   };
-  //이미지 수정
-  const handleImgDel = () => {
-    setIsImg("");
-  };
+
+  console.log("ConfirmModalOpen", confirmModalOpen);
 
   const handleInfoEdit = (e, fieldName) => {
     setEditManager({ ...editManager, [fieldName]: e.target.value });
@@ -103,7 +103,7 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
     );
 
     setAddImgError(
-      selectImg === undefined || selectImg === ""
+      isImg === undefined || isImg === ""
         ? "프로필 이미지를 입력 해 주세요."
         : "",
     );
@@ -113,7 +113,7 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
       editManager.counselingNumber &&
       editManager.phoneNumber &&
       editManager.email &&
-      selectImg
+      isImg
     ) {
       setConfirmModalOpen(true);
     }
@@ -155,6 +155,7 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
           <h3>이름</h3>
           <input
             type="text"
+            maxLength={20}
             placeholder="이름"
             value={editManager.name}
             onChange={e => handleInfoEdit(e, "name")}
@@ -184,6 +185,7 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
           <h3>상담전화</h3>
           <input
             type="text"
+            maxLength={13}
             placeholder="상담전화"
             value={editManager.counselingNumber}
             onChange={e => handleInfoEdit(e, "counselingNumber")}
@@ -198,6 +200,7 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
           <h3>모바일</h3>
           <input
             type="text"
+            maxLength={13}
             placeholder="모바일"
             value={editManager.phoneNumber}
             onChange={e => handleInfoEdit(e, "phoneNumber")}
@@ -212,6 +215,7 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
           <h3>이메일</h3>
           <input
             type="text"
+            maxLength={25}
             placeholder="이메일"
             value={editManager.email}
             onChange={e => handleInfoEdit(e, "email")}
@@ -224,31 +228,23 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
         </li>
         <li className="photo-upload">
           <h3>프로필 이미지</h3>
-          {isImg ? (
-            <div className="file-edit-wrap">
-              <span className="isFile">{isImg}</span>
-              <button onClick={handleImgDel}>
-                <FontAwesomeIcon icon={faXmark} />
-              </button>
-            </div>
-          ) : (
-            <div className="upload-area">
-              <input
-                className="file-place-hold"
-                placeholder={placeholder}
-                disabled
-              />
-              <input
-                type="file"
-                name="job-mng-img"
-                id="job-img-upload"
-                ref={img_ref}
-                accept="image/gif,image/jpeg,image/jpg,image/png"
-                // placeholder="JPG,PNG,JPEG,GIF 파일 첨부"
-                onChange={handleImageUpload}
-              />
-            </div>
-          )}
+          <div className="upload-area">
+            <input
+              className="file-place-hold"
+              value={isImg}
+              // onChange={handleImg}
+              disabled
+            />
+            <input
+              type="file"
+              name="job-mng-img"
+              id="job-img-upload"
+              ref={img_ref}
+              accept="image/gif,image/jpeg,image/jpg,image/png"
+              // placeholder="JPG,PNG,JPEG,GIF 파일 첨부"
+              onChange={handleImageUpload}
+            />
+          </div>
           {addImgError ? (
             <p className="error-class">{addImgError}</p>
           ) : (
@@ -259,17 +255,18 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
       </ul>
       <div className="add-accept">
         <BtnGlobal onClick={handleEditOK}> 수정 </BtnGlobal>
-        {confirmModalOpen && (
-          <ConfirmModal
-            open={confirmModalOpen}
-            close={() => setConfirmModalOpen(false)}
-            onConfirm={handleConfirm}
-            onCancel={() => setConfirmModalOpen(false)}
-          >
-            <span>수정 하시겠습니까?</span>
-          </ConfirmModal>
-        )}
       </div>
+      {confirmModalOpen && (
+        <ConfirmModal
+          header={""}
+          open={confirmModalOpen}
+          close={() => setConfirmModalOpen(false)}
+          onConfirm={handleConfirm}
+          onCancel={() => setConfirmModalOpen(false)}
+        >
+          <span>수정 하시겠습니까?</span>
+        </ConfirmModal>
+      )}
     </JobManagerAddSty>
   );
 };

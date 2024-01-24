@@ -150,7 +150,7 @@ export const JobManagerAddSty = styled.div`
     justify-content: left;
     flex-wrap: wrap;
     gap: 10px 20px;
-    padding: 40px 40px 15px 40px;
+    padding: 40px 50px 15px 50px;
     li {
       h3 {
         font-size: 18px;
@@ -160,7 +160,7 @@ export const JobManagerAddSty = styled.div`
         margin-bottom: 15px;
       }
       input {
-        width: 292px;
+        width: 282px;
         height: 40px;
         padding: 10px;
         border-radius: 4px;
@@ -170,7 +170,7 @@ export const JobManagerAddSty = styled.div`
     }
     .email-input {
       input {
-        width: 604px;
+        width: 584px;
         height: 40px;
       }
     }
@@ -190,7 +190,7 @@ export const JobManagerAddSty = styled.div`
       }
       input {
         margin-left: 120px;
-        width: 486px;
+        width: 466px;
         height: 38px;
         border: 1px solid ${Maincolor.grayMedium};
         border-radius: 4px;

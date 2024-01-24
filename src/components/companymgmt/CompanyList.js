@@ -11,6 +11,7 @@ const CompanyList = ({
   uploadResult,
   setUpLoadResult,
 }) => {
+
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [companyInfo, setCompanyInfo] = useState(null);
   const handleEditModalOpen = data => {

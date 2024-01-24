@@ -1,4 +1,7 @@
-import { DeleteModalWrap, HardDeleteModalWrap } from "../styles/DeleteModalStyle";
+import {
+  DeleteModalWrap,
+  HardDeleteModalWrap,
+} from "../styles/DeleteModalStyle";
 import { ExcelAcceptModalWrap } from "../styles/ExcelUploadStyle";
 import { AcceptModalWrap } from "../styles/ModalStyle";
 
@@ -57,7 +60,13 @@ export const AcceptModal = ({
           <div className="dim">
             <div className="content-wrap">
               <div className="header">
-                <span>✖</span>
+                <span>
+                  {" "}
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                    alt="X"
+                  />
+                </span>
               </div>
               <div className="content">
                 <span>
@@ -93,7 +102,13 @@ export const EditAceeptModal = ({
           <div className="dim">
             <div className="content-wrap">
               <div className="header">
-                <span>✖</span>
+                <span>
+                  {" "}
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                    alt="X"
+                  />
+                </span>
               </div>
               <div className="content">
                 <span>
@@ -137,7 +152,13 @@ export const DeleteAceeptModal = ({
           <div className="dim">
             <div className="content-wrap">
               <div className="header">
-                <span onClick={closeModal}>✖</span>
+                <span onClick={closeModal}>
+                  {" "}
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                    alt="X"
+                  />
+                </span>
               </div>
               <div className="content">
                 <span>해당 항목을 삭제 하시겠습니까?</span>
@@ -172,14 +193,21 @@ export const BulkDeletetModal = ({ modalOpen, setModalOpen, handleDelete }) => {
             <div className="content-wrap">
               <div className="header">
                 <span>항목을 삭제하시겠습니까?</span>
-                <span onClick={closeModal}>✖</span>
+                <span onClick={closeModal}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                    alt="X"
+                  />
+                </span>
               </div>
               <div className="content">
                 <img
                   src={`${process.env.PUBLIC_URL}/assets/bxs_error.png`}
                   alt="경고"
                 />
-                <span>확인 버튼 클릭 시 해당 항목이 영구적으로 삭제됩니다.</span>
+                <span>
+                  확인 버튼 클릭 시 해당 항목이 영구적으로 삭제됩니다.
+                </span>
               </div>
               <div className="btns">
                 <button onClick={closeModal}>취소</button>
