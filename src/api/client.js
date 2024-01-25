@@ -66,8 +66,7 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
 
     const { data } = res;
 
-    const { role, refreshToken, accessToken, id } = data;
-
+    const { role, refreshToken, accessToken, id, name } = data;
     if (role === "ROLE_ADMIN" && refreshToken && accessToken) {
       const cookieOptions = {
         path: "/",
@@ -80,19 +79,28 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
       setCookie("accessToken", accessToken, cookieOptions);
       setErrorCancelInfo("");
 
-      return { role, accessToken, id };
+      return { role, accessToken, id, name };
     } else {
       throw new Error("잘못된 응답 형식");
     }
   } catch (error) {
-    if (error.response.status === 433) {
-      setErrorCancelInfo("아이디를 다시 확인 해 주세요.");
-    }
-    if (error.response.status === 434) {
-      setErrorCancelInfo("비밀번호를 다시 확인 해 주세요");
-    }
-    if (error.response.status === 500) {
-      setErrorCancelInfo("서버오류 입니다.");
+    const { status } = error.response;
+    if (error.response) {
+      switch (status) {
+        case 433:
+          setErrorCancelInfo("아이디를 다시 확인 해 주세요.");
+          break;
+        case 434:
+          setErrorCancelInfo("비밀번호를 다시 확인 해 주세요");
+          break;
+        case 500:
+          setErrorCancelInfo("서버오류 입니다.");
+          break;
+        default:
+          setErrorCancelInfo("로그인에 실패했습니다.");
+      }
+    } else {
+      setErrorCancelInfo("네트워크 오류 또는 서버 응답이 없습니다.");
     }
     throw new Error("로그인에 실패했습니다.");
   }

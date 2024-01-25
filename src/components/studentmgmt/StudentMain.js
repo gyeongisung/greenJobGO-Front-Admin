@@ -16,15 +16,32 @@ import {
 import { getCategory } from "../../api/classAxios";
 import { AcceptModal, ExcelAcceptModal } from "../AcceptModals";
 import { ExcelUploadModal } from "../companymgmt/CompanyModal";
+import { atom, useRecoilState } from "recoil";
+import { useNavigate } from "react-router";
+import { v4 } from "uuid";
+
+export const StudentPageAtom = atom({
+  // key: "authState",
+  key: `StudentPageAtom/${v4()}`,
+  default: {
+    page: 1,
+    count: 0,
+    search: "",
+    category: "",
+  },
+  // effects_UNSTABLE: [persistAtom],
+});
 
 const StudentMain = ({ handleInfoClick }) => {
+  const navigate = useNavigate();
+
   const [listData, setListData] = useState([]);
   // const [saveCheckBox, setSaveCheckBox] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
-  const [page, setPage] = useState(1);
-  const [count, setCount] = useState(0);
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
+  // const [page, setPage] = useState(1);
+  // const [count, setCount] = useState(0);
+  // const [search, setSearch] = useState("");
+  // const [category, setCategory] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [excelModalOpen, setExcelModalOpen] = useState(false);
@@ -34,6 +51,10 @@ const StudentMain = ({ handleInfoClick }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [excelDownload, setExcelDownload] = useState(null);
 
+  const [pageState, setPageState] = useRecoilState(StudentPageAtom);
+  const { page, count, search, category } = pageState;
+
+  
   // let resultIdArray = saveCheckBox;
 
   // 체크박스 전체 선택
@@ -69,7 +90,8 @@ const StudentMain = ({ handleInfoClick }) => {
 
   // GET API
   const fetchData = () => {
-    getStudentList(setListData, setCount, page, search, category);
+    // getStudentList(setListData, setCount, page, search, category);
+    getStudentList(setListData, setPageState, page, search, category);
   };
 
   useEffect(() => {
@@ -87,14 +109,19 @@ const StudentMain = ({ handleInfoClick }) => {
 
   // 검색 버튼
   const handleSearch = () => {
-    setPage(1);
+    setPageState(prev => ({ ...prev, page: 1 }));
+
+    // setPage(1);
     fetchData();
   };
 
   // 대분류 선택
   const handleCategoryFiiter = e => {
-    setCategory(e.target.value);
-    setPage(1);
+    // setCategory(e.target.value);
+    // setPage(1);
+    setPageState(prev => ({ ...prev, category: e.target.value }));
+    setPageState(prev => ({ ...prev, page: 1 }));
+
     console.log(category);
   };
 
@@ -141,7 +168,7 @@ const StudentMain = ({ handleInfoClick }) => {
           category={category}
           handleCategoryFiiter={handleCategoryFiiter}
           search={search}
-          setSearch={setSearch}
+          // setSearch={setSearch}
           handleSearch={handleSearch}
           categoryData={categoryData}
         />
@@ -201,7 +228,7 @@ const StudentMain = ({ handleInfoClick }) => {
         </StudentTable>
         <StudentPaging
           page={page}
-          setPage={setPage}
+          // setPage={setPage}
           count={count}
           pgge={page}
         />

@@ -14,6 +14,8 @@ import {
 import NoListItem from "../components/NoListItem";
 import ConfirmModal from "../components/ConfirmModal";
 import OkModal from "../components/OkModal";
+import { useResetRecoilState } from "recoil";
+import { StudentPageAtom } from "../components/studentmgmt/StudentMain";
 
 const PermanentlyDelete = () => {
   const [nothing, setNothing] = useState(false);

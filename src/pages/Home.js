@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CompanyAuth from "../components/main/CompanyAuth";
 import StudentAuth from "../components/main/StudentAuth";
 import { MainWrapSty } from "../styles/HomeStyle";

@@ -26,6 +26,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const [selectCate, setSelectCate] = useState(0);
   const [subjectList, setSubjectList] = useState([]);
 
+
   // 에러처리 state
   const [cateError, setCateError] = useState("");
   const [subjectError, setSubjectError] = useState("");
@@ -34,7 +35,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const { RangePicker } = DatePicker;
   const dateFormat = "YYYY-MM-DD";
-
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
@@ -105,7 +105,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
 
   useEffect(() => {
     getBigcate(setCategory);
-
   }, []);
   useEffect(() => {
     getStudentSubject({ selectCate, setSubjectList });

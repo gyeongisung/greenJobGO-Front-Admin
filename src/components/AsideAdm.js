@@ -9,15 +9,19 @@ import {
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { postLogout } from "../api/client";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import { changeComponent } from "../recoil/atoms/ChangeState";
 import { AuthStateAtom } from "../recoil/atoms/AuthState";
 import ConfirmModal from "./ConfirmModal";
+import { StudentPageAtom } from "./studentmgmt/StudentMain";
 
 const AsideAdm = () => {
+  // 수강생페이지 리코일정보 reset하기
+  const ResetStudentPageRecoil = useResetRecoilState(StudentPageAtom);
+
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
-  const [isTrue, setIsTrue] = useRecoilState(changeComponent);
+  // const [isTrue, setIsTrue] = useRecoilState(changeComponent);
   const [authState, setAuthState] = useRecoilState(AuthStateAtom);
 
   const { isLogin, role, id, name } = authState;
@@ -34,7 +38,9 @@ const AsideAdm = () => {
   }, [location]);
 
   const handleIsTrue = () => {
-    setIsTrue(true);
+    // setIsTrue(true);
+    // 클릭할 때 수강생등록페이지 리코일정보를 reset해라
+    ResetStudentPageRecoil();
   };
 
   const handleLogoutClick = () => {

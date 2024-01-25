@@ -37,13 +37,18 @@ const Login = () => {
       return;
     } else {
       try {
-        const { role, accessToken, id } = await fetchLogin(adminId, password,setErrorCancelInfo);
+        const { role, accessToken, id, name } = await fetchLogin(
+          adminId,
+          password,
+          setErrorCancelInfo,
+        );
         if (role === "ROLE_ADMIN" && accessToken) {
           setAuthState({
             isLogin: true,
             accessToken: accessToken,
             role: role,
             id: id,
+            name: name,
           });
           navigate("/home");
         } else {
