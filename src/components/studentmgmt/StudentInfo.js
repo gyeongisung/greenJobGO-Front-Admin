@@ -62,9 +62,12 @@ const StudentInfo = () => {
     getStudentDetail(istudent, setUserInfo, setUserFile);
   }, [istudent, isEditMode]);
 
+  // 수정모드 변경 버튼
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
   };
+
+  // 파일 이름 표시
   const handleResumeFileChange = e => {
     const file = e.target.files[0];
 
@@ -72,6 +75,8 @@ const StudentInfo = () => {
       setResumeFile(file);
     }
   };
+  
+  // 이력서 등록 버튼
   const handleResumeUpload = async () => {
     const formData = new FormData();
     formData.append("file", resumeFile);
@@ -91,6 +96,7 @@ const StudentInfo = () => {
     }
   };
 
+  // 수강생 기본정보, 자격증 수정 버튼
   const handleUpdate = async () => {
     try {
       let result;
@@ -152,6 +158,7 @@ const StudentInfo = () => {
   //   }
   // };
 
+  // 돌아가기 버튼
   const handleBack = () => {
     // if (isEditMode) {
     //   setIsEditMode(!isEditMode);
@@ -161,6 +168,7 @@ const StudentInfo = () => {
     navigate(-1);
   };
 
+  // 수정 취소 버튼
   const handleCancel = () => {
     setIsEditMode(false);
   };
@@ -169,6 +177,7 @@ const StudentInfo = () => {
   //   // setIsTrue(true);
   // };
 
+  // 파일 삭제 확인 버튼
   const handleOkClick = async () => {
     try {
       const result = await deleteFile(userFile?.resume?.ifile);
@@ -186,10 +195,12 @@ const StudentInfo = () => {
     }
   };
 
+  // 모달 취소 버튼
   const handleCancelClick = () => {
     setDeleteOkModal(false);
   };
 
+  // 파일 삭제 모달 버튼
   const handleDeleteClick = () => {
     setDeleteOkModal(true);
   };
