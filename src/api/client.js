@@ -85,7 +85,15 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
       throw new Error("잘못된 응답 형식");
     }
   } catch (error) {
-    setErrorCancelInfo(error.response.data.message);
+    if (error.response.status === 433) {
+      setErrorCancelInfo("아이디를 다시 확인 해 주세요.");
+    }
+    if (error.response.status === 434) {
+      setErrorCancelInfo("비밀번호를 다시 확인 해 주세요");
+    }
+    if (error.response.status === 500) {
+      setErrorCancelInfo("서버오류 입니다.");
+    }
     throw new Error("로그인에 실패했습니다.");
   }
 };

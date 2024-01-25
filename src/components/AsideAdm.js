@@ -11,14 +11,16 @@ import {
 import { postLogout } from "../api/client";
 import { useRecoilState } from "recoil";
 import { changeComponent } from "../recoil/atoms/ChangeState";
-import { AuthStateAtom,  } from "../recoil/atoms/AuthState";
+import { AuthStateAtom } from "../recoil/atoms/AuthState";
+import ConfirmModal from "./ConfirmModal";
 
 const AsideAdm = () => {
-  const [isTrue, setIsTrue] = useRecoilState(changeComponent);
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
+  const [isTrue, setIsTrue] = useRecoilState(changeComponent);
   const [authState, setAuthState] = useRecoilState(AuthStateAtom);
 
-  const { isLogin, role, id } = authState;
+  const { isLogin, role, id, name } = authState;
 
   const navigate = useNavigate();
 
@@ -35,16 +37,21 @@ const AsideAdm = () => {
     setIsTrue(true);
   };
 
-  const handleLogout = () => {
+  const handleLogoutClick = () => {
+    setLogoutModalOpen(true);
+  };
+  const handleLogoutConfirm = () => {
     postLogout();
-
     setAuthState(prevAuthState => ({
       ...prevAuthState,
       isLogin: false,
       accessToken: null,
       role: "",
       id: "",
+      name: "",
     }));
+    setLogoutModalOpen(false);
+
     navigate("/");
   };
 
@@ -109,14 +116,29 @@ const AsideAdm = () => {
           <div className="end-menu">
             <ul>
               <li className="end-m-id">{id}</li>
-              <li className="end-m-role">{role}</li>
-              <li className="end-m-logout" onClick={handleLogout}>
+              <li className="end-m-role">{name || role}</li>
+              <li className="end-m-logout" onClick={handleLogoutClick}>
                 로그아웃 <FontAwesomeIcon icon={faArrowRightFromBracket} />
               </li>
             </ul>
           </div>
         </Sider>
       ) : null}
+      {/* 메인취소모달 */}
+      {logoutModalOpen && (
+        <ConfirmModal
+          open={logoutModalOpen}
+          close={() => {
+            setLogoutModalOpen(false);
+          }}
+          onConfirm={handleLogoutConfirm}
+          onCancel={() => {
+            setLogoutModalOpen(false);
+          }}
+        >
+          <span>로그아웃 하시겠습니까?</span>
+        </ConfirmModal>
+      )}
     </SideMenuWrap>
   );
 };
