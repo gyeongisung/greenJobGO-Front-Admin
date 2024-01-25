@@ -54,7 +54,7 @@ export const LoginInner = styled.ul`
             font-size: 16px;
             font-weight: 600;
             color: ${Maincolor.white};
-            background: #6d6d6d;
+            background: ${Maincolor.admintxt};
             border: 1px solid ${Maincolor.admintxt};
             border-radius: 6px;
             cursor: pointer;

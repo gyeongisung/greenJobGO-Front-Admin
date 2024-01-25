@@ -128,29 +128,42 @@ export const postStudentPofolUpload = async (
   linkUrl,
 ) => {
   try {
-    let res;
-    if (iFile === 2) {
-      res = await client.post(
-        `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        },
-      );
-    } else if (iFile === 3) {
-      res = await client.post(
-        `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}&fileLink=${linkUrl}`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        },
-      );
+    const baseUrl = `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}`;
+    let apiUrl;
+    switch (iFile) {
+      case 2:
+        apiUrl = `${baseUrl}`;
+        break;
+      case 3:
+        apiUrl = `${baseUrl}&fileLink=${linkUrl}`;
+        break;
     }
+    const res = await client.post(apiUrl, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
     if (res.data.res.ifile) {
       return { success: true };
     } else {
       return { success: false };
     }
+    // if (iFile === 2) {
+    //   res = await client.post(
+    //     `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}`,
+    //     formData,
+    //     {
+    //       headers: { "Content-Type": "multipart/form-data" },
+    //     },
+    //   );
+    // } else if (iFile === 3) {
+    //   res = await client.post(
+    //     `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}&fileLink=${linkUrl}`,
+    //     formData,
+    //     {
+    //       headers: { "Content-Type": "multipart/form-data" },
+    //     },
+    //   );
+    // }
   } catch (error) {
     console.log(error);
   }
