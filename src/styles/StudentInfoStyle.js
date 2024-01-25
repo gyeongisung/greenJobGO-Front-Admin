@@ -29,13 +29,13 @@ export const StudentInfoWrap = styled.div`
     > button {
       width: 131px;
       height: 50px;
-      color: #fff;
+      color: ${Maincolor.white};
       background: ${Maincolor.admintxt};
       border: none;
       border-radius: 4px;
       cursor: pointer;
       :first-of-type {
-        color: #fff;
+        color: ${Maincolor.white};
         background: ${Maincolor.btn};
       }
     }
@@ -45,16 +45,17 @@ export const InfoBaseWrap = styled.ul`
   display: flex;
   gap: 40px;
   padding-bottom: 40px;
-  border-bottom: 1px solid #7b7b7b;
+  border-bottom: 1px solid ${Maincolor.header};
   color: #222;
   li:first-of-type {
-    width: 300px;
+    max-width: 300px;
     height: 240px;
     img {
       width: 100%;
     }
   }
   .info-content-left {
+    width: 450px;
     div {
       :not(:last-of-type) {
         margin-bottom: 20px;
@@ -91,7 +92,7 @@ export const InfoBaseWrap = styled.ul`
           gap: 10px;
           font-size: 16px;
           font-weight: 500;
-          color: #6d6d6d;
+          color: ${Maincolor.btn};
           letter-spacing: -0.24px;
           input {
             border: 1px solid ${Maincolor.input};
@@ -107,17 +108,22 @@ export const InfoBaseWrap = styled.ul`
       :nth-of-type(2) {
         display: flex;
         align-items: center;
-        gap: 18px;
+        gap: 21px;
       }
       :nth-of-type(3) {
         display: flex;
         align-items: center;
-        gap: 34px;
+        gap: 21px;
+        > span {
+          :first-of-type {
+            margin-right: 15.4px;
+          }
+        }
         > input {
           border: 1px solid ${Maincolor.input};
           border-radius: 4px;
           padding: 2px 8px;
-          width: 100%;
+          width: 350px;
           height: 22px;
           padding-left: 3px;
           line-height: 20px;
@@ -126,12 +132,12 @@ export const InfoBaseWrap = styled.ul`
       :nth-of-type(4) {
         display: flex;
         align-items: center;
-        gap: 28px;
+        gap: 21.6px;
         > input {
           border: 1px solid ${Maincolor.input};
           border-radius: 4px;
           padding: 2px 8px;
-          width: 100%;
+          width: 350px;
           height: 22px;
           padding-left: 3px;
           line-height: 20px;
@@ -140,12 +146,12 @@ export const InfoBaseWrap = styled.ul`
       :nth-of-type(5) {
         display: flex;
         align-items: center;
-        gap: 18px;
+        gap: 21px;
         > input {
           border: 1px solid ${Maincolor.input};
           border-radius: 4px;
           padding: 2px 8px;
-          width: 100%;
+          width: 350px;
           height: 22px;
           padding-left: 3px;
           line-height: 20px;
@@ -154,13 +160,13 @@ export const InfoBaseWrap = styled.ul`
     }
   }
   .info-content-right {
-    padding-left: 30px;
+    width: 50%;
     div {
       > input {
         border: 1px solid ${Maincolor.input};
         border-radius: 4px;
         padding: 2px 8px;
-        width: 100%;
+        width: 350px;
         height: 22px;
         padding-left: 3px;
         line-height: 20px;
@@ -202,7 +208,7 @@ export const InfoBaseWrap = styled.ul`
 `;
 export const InfoResumeWrap = styled.div`
   height: 310px;
-  border-bottom: 1px solid #7b7b7b;
+  border-bottom: 1px solid ${Maincolor.header};
   padding: 40px 0;
   > ul {
     > li {
@@ -242,7 +248,7 @@ export const InfoResumeWrap = styled.div`
           width: 690px;
           height: 40px;
           line-height: 40px;
-          background: #e6e6e6;
+          background: ${Maincolor.search};
           border-radius: 6px;
           padding: 0px 13px 0 10px;
           a {
@@ -333,8 +339,8 @@ export const InfoPofolWrap = styled.ul`
         height: 40px;
         font-weight: 500;
         color: #fff;
-        background: #6d6d6d;
-        border: 1px solid #6d6d6d;
+        background: ${Maincolor.btn};
+        border: 1px solid ${Maincolor.btn};
         border-radius: 6px;
         cursor: pointer;
       }
@@ -359,14 +365,14 @@ export const InfoPofolWrap = styled.ul`
         .portfolio-box {
           width: 690px;
           height: 100px;
-          border: 1px solid #e6e6e6;
+          border: 1px solid ${Maincolor.search};
           border-radius: 6px;
           margin-bottom: 14px;
           > div {
             width: 100%;
             height: 40px;
             line-height: 40px;
-            background-color: #e6e6e6;
+            background: ${Maincolor.search};
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -443,8 +449,8 @@ export const StudentPFeditSty = styled.div`
           height: 40px;
           font-weight: 500;
           color: #fff;
-          background: #6d6d6d;
-          border: 1px solid #6d6d6d;
+          background: ${Maincolor.btn};
+          border: 1px solid ${Maincolor.btn};
           border-radius: 6px;
           cursor: pointer;
         }
@@ -469,14 +475,14 @@ export const StudentPFeditSty = styled.div`
           .portfolio-box {
             width: 690px;
             height: 90px;
-            border: 1px solid #e6e6e6;
+            border: 1px solid ${Maincolor.search};
             border-radius: 6px;
             margin-bottom: 14px;
             > div {
               width: 100%;
               height: 40px;
               line-height: 40px;
-              background-color: #e6e6e6;
+              background-color: ${Maincolor.search};
               display: flex;
               align-items: center;
               justify-content: space-between;

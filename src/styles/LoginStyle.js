@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Maincolor } from "./GlobalStyle";
 
 export const LoginWrap = styled.div`
   width: 100%;
@@ -52,9 +53,9 @@ export const LoginInner = styled.ul`
             height: 50px;
             font-size: 16px;
             font-weight: 600;
-            color: #fff;
+            color: ${Maincolor.white};
             background: #6d6d6d;
-            border: 1px solid black;
+            border: 1px solid ${Maincolor.admintxt};
             border-radius: 6px;
             cursor: pointer;
           }

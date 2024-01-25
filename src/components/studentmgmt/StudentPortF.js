@@ -5,7 +5,7 @@ import {
 } from "../../styles/StudentInfoStyle";
 import { v4 } from "uuid";
 import { PortFolioAdd } from "./StudentModal";
-import { AcceptModal } from "../AcceptModals";
+import { AcceptModal, DeleteOkModal } from "../AcceptModals";
 import {
   deleteFile,
   getStudentDetail,
@@ -29,8 +29,10 @@ const StudentPortF = () => {
   const [description, setDescription] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [iFile, setIFile] = useState(2);
+  const [fileId, setFileId] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
+  const [deleteOkModal, setDeleteOkModal] = useState(false);
 
   const [userInfo, setUserInfo] = useState({
     userDetail: "",
@@ -66,7 +68,7 @@ const StudentPortF = () => {
           linkUrl,
         );
         setUpLoadResult(result);
-        if (result.success) {
+        if (result.success === true) {
           setModalOpen(false);
           setAcceptOkModal(true);
           setIFile(2);
@@ -96,14 +98,38 @@ const StudentPortF = () => {
   const handleUpdate = () => {
     navigate(`/student/${userSendInfo.istudent}`);
   };
+
   const handleDeleteFile = async fileId => {
-    await deleteFile(fileId);
-    await getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
-    console.log(fileId);
+    setFileId(fileId);
+    setDeleteOkModal(true);
+  };
+
+  const handleOkClick = async () => {
+    try {
+      const result = await deleteFile(fileId);
+      if (result.success === true) {
+        setDeleteOkModal(false);
+        getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
+      }
+    } catch (error) {
+      setDeleteOkModal(false);
+      alert("실패했지..롱?");
+    }
+  };
+
+  const handleCancelClick = () => {
+    setDeleteOkModal(false);
   };
 
   return (
     <StudentPFeditSty>
+      {deleteOkModal && (
+        <DeleteOkModal
+          deleteOkModal={deleteOkModal}
+          handleOkClick={handleOkClick}
+          handleCancelClick={handleCancelClick}
+        />
+      )}
       <ul className="portfolio-list">
         <li>
           <h2>포트폴리오</h2>

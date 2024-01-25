@@ -162,8 +162,11 @@ const StudentBase = ({
                 }));
               }}
             >
-              <option name="employment-status" value="">
-                선택
+              <option
+                name="employment-status"
+                value={userInfo?.userDetail?.huntJobYn === 1 ? 1 : 0}
+              >
+                {userInfo?.userDetail?.huntJobYn === 1 ? "취업" : "미취업"}
               </option>
               <option name="employment-status" value={1}>
                 취업

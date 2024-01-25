@@ -167,6 +167,13 @@ export const deleteStudent = async istudent => {
 export const deleteFile = async fileId => {
   try {
     const res = await client.delete(`/admin/student/file?ifile=${fileId}`);
+    const result = res;
+    console.log(result.status);
+    if (result.status === 200) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
   } catch (error) {
     console.log(error);
   }

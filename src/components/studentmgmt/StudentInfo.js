@@ -44,16 +44,16 @@ const StudentInfo = () => {
 
   console.log(userInfo);
   console.log(userFile);
-  // const [iFile, setIFile] = useState(2);
-  const [modalOpen, setModalOpen] = useState(false);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteOkModal, setDeleteOkModal] = useState(false);
   const [uploadResult, setUpLoadResult] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [resumeFile, setResumeFile] = useState("");
   const [resumeOneWord, setResumeOneWord] = useState("");
+  // const [modalOpen, setModalOpen] = useState(false);
+  // const [iFile, setIFile] = useState(2);
+  // const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   // const [selectedFile, setSelectedFile] = useState(null);
   // const [linkUrl, setLinkUrl] = useState("");
   // const [isTrue, setIsTrue] = useRecoilState(changeComponent);
@@ -164,15 +164,26 @@ const StudentInfo = () => {
   const handleCancel = () => {
     setIsEditMode(false);
   };
-  const handleDelete = () => {
-    deleteStudent(istudent);
-    // setIsTrue(true);
-  };
+  // const handleDelete = () => {
+  //   deleteStudent(istudent);
+  //   // setIsTrue(true);
+  // };
 
   const handleOkClick = async () => {
-    deleteFile(userFile?.resume?.ifile);
-    setDeleteOkModal(false);
-    getStudentDetail(istudent, setUserInfo, setUserFile);
+    try {
+      const result = await deleteFile(userFile?.resume?.ifile);
+      if (result.success === true) {
+        setDeleteOkModal(false);
+        setResumeFile("");
+        setResumeOneWord("");
+        getStudentDetail(istudent, setUserInfo, setUserFile);
+      }
+    } catch (error) {
+      setDeleteOkModal(false);
+      alert("실패했지..롱?");
+      setResumeFile("");
+      setResumeOneWord("");
+    }
   };
 
   const handleCancelClick = () => {
@@ -183,11 +194,11 @@ const StudentInfo = () => {
     setDeleteOkModal(true);
   };
 
-  const handleDeleteFile = async fileId => {
-    await deleteFile(fileId);
-    getStudentDetail(istudent, setUserInfo, setUserFile);
-    console.log(fileId);
-  };
+  // const handleDeleteFile = async fileId => {
+  //   await deleteFile(fileId);
+  //   getStudentDetail(istudent, setUserInfo, setUserFile);
+  //   console.log(fileId);
+  // };
 
   // const handleAddButton = () => {
   //   setModalOpen(true);
@@ -228,13 +239,13 @@ const StudentInfo = () => {
           uploadResult={uploadResult}
         />
       )}
-      {deleteModalOpen && (
+      {/* {deleteModalOpen && (
         <DeleteSingleStudentModal
           handleDelete={handleDelete}
           deleteModalOpen={deleteModalOpen}
           setDeleteModalOpen={setDeleteModalOpen}
         />
-      )}
+      )} */}
       {editModal && (
         <EditAceeptModal
           editModal={editModal}
