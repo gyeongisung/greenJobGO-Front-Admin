@@ -223,7 +223,6 @@ export const ConfirmModalContent = styled.div`
   }
 `;
 
-
 //공통) Ok 모달스타일
 export const OkModalWarp = styled.div`
   .ok-modal {
@@ -320,6 +319,98 @@ export const OkModalWarp = styled.div`
   }
 `;
 
+//공통) 에러 모달스타일
+export const ErrorModalWarp = styled.div`
+  .error-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 202;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .modalError-wrapper {
+    position: relative;
+    width: 410px;
+    height: 140px;
+    margin: 0 auto;
+    border-radius: 6px;
+    border: 1px solid ${Maincolor.grayLight2};
+    background-color: ${Maincolor.white};
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-co-show 0.1s;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.12);
+  }
+  /* 모달 헤더 */
+  .error-modal-header {
+    height: 45px;
+    position: relative;
+    padding: 10px 20px;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 500;
+    p {
+      position: absolute;
+      top: 15px;
+      right: 0px;
+      width: 30px;
+      height: 14px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: ${Maincolor.black};
+      cursor: pointer;
+      img {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        object-fit: contain;
+      }
+    }
+  }
+  /* 모달 내용 */
+  .modalError-content {
+    height: 70px;
+    padding: 0px 20px 0px 30px;
+    font-size: 14px;
+    color: #515151;
+    & > div {
+      margin-top: 20px;
+      text-align: right;
+      & button {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .error-modal.openErrorModal {
+    display: flex;
+    align-items: center;
+    animation: modal-co-bg-show 0.1s;
+  }
+
+  @keyframes modal-co-show {
+    from {
+      opacity: 0;
+      margin-top: -50px;
+    }
+    to {
+      opacity: 1;
+      margin-top: 0;
+    }
+  }
+  @keyframes modal-co-bg-show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+`;
 
 /* 공통 확인버튼 */
 export const BtnGlobal = styled.button`

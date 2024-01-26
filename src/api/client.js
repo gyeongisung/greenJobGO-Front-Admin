@@ -50,7 +50,6 @@ client.interceptors.response.use(
         console.log("토큰 갱신 실패:", error);
       }
     }
-
     console.error("요청 실패:", error);
     return Promise.reject(error);
   },

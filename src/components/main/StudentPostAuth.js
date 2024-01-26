@@ -16,6 +16,7 @@ import locale from "antd/lib/locale/ko_KR";
 import { getBigcate } from "../../api/portfolioAxios";
 import { v4 } from "uuid";
 import OkModal from "../OkModal";
+import ErrorModal from "../ErrorModal";
 
 const StudentPostAuth = ({ setAuthInfo }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -26,7 +27,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const [selectCate, setSelectCate] = useState(0);
   const [subjectList, setSubjectList] = useState([]);
 
-
   // 에러처리 state
   const [cateError, setCateError] = useState("");
   const [subjectError, setSubjectError] = useState("");
@@ -35,6 +35,10 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const { RangePicker } = DatePicker;
   const dateFormat = "YYYY-MM-DD";
+
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
@@ -60,9 +64,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
     setEndDate(dateStrings[1]);
   };
 
-  console.log("startDate", startDate);
-  console.log("endDate", endDate);
-
   // 권한기간 수정 버튼
   const handleSummit = () => {
     setCateError(!selectCate ? "카테고리를 선택 해 주세요." : "");
@@ -84,11 +85,21 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   };
   const handleSummitConfirm = async () => {
     try {
-      await patchStudentAuthData({ subjectPk, startDate, endDate });
-      await updateData();
+      await patchStudentAuthData({
+        subjectPk,
+        startDate,
+        endDate,
+        setErrorApiInfo,
+      });
       setModalOpen(false);
+      await updateData();
+      // if (errorApiInfo) {
+      //   setApiErrorModalOpen(true);
+      // } else {
+      //   setApiErrorModalOpen(false);
+      // }
     } catch (error) {
-      console.log("변경실패", error);
+      setErrorApiInfo("수강생 권한 변경이 정상처리되지 않았습니다.");
     }
   };
   // api 요청 성공할 때 화면 리랜더링
@@ -108,7 +119,12 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   }, []);
   useEffect(() => {
     getStudentSubject({ selectCate, setSubjectList });
-  }, [selectCate]);
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [selectCate, errorApiInfo]);
   return (
     <StudentAuthPostSty>
       <ul className="click-content">
@@ -139,7 +155,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
             </option>
             {subjectList?.map(item => (
               <option key={v4()} value={item.icourseSubject}>
-                {item.round !== 0 && `(${item.round}기)`}
+                {item.round && `(${item.round}기)`}
                 {item.subjectName}
               </option>
             ))}
@@ -189,6 +205,21 @@ const StudentPostAuth = ({ setAuthInfo }) => {
             {cateError || subjectError || startDateError || endDateError}
           </span>
         </OkModal>
+      )}
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false), setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false), setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
       )}
     </StudentAuthPostSty>
   );

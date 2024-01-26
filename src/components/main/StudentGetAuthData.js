@@ -12,7 +12,7 @@ const StudentGetAuthData = ({ authInfo }) => {
               <ul key={`${item.subjectName}` + `${item.round}`}>
                 <li>
                   <span className="title">
-                    {item.round !== 0 && `(${item.round}기)`}
+                    {item.round && `(${item.round}기)`}
                     {item.subjectName}
                   </span>
                   <span className="date">
