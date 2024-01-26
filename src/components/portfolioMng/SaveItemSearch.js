@@ -34,7 +34,7 @@ const SaveItemSearch = ({
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
-    setPage(1);
+    // setPage(1);
     console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
     setSearchSubj("");

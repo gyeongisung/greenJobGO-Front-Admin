@@ -18,9 +18,7 @@ export const getStudentList = async (
         `/admin/student?page=${page}&size=10&sort=istudent%2CASC&subjectName=${search}`,
       );
     }
-    console.log(category);
     setListData(res.data.res);
-    // setCount(res.data.page.idx);
     setPageState(prev => ({ ...prev, count: res.data.page.idx }));
   } catch (error) {
     console.log(error);

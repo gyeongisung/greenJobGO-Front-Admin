@@ -30,7 +30,7 @@ export const getPortFolioList = async ({
     );
 
     const result = await res.data;
-    console.log("포트폴리오리스트", result);
+    // console.log("포트폴리오리스트", res.config.url);
     setStudentPFList(result);
     setCount(result.page.idx);
     setNothing(false);
@@ -51,8 +51,6 @@ export const patchSendSaved = async ({
   isSaved,
   setErrorInfo,
 }) => {
-  console.log("savedItemNum 들어오니?", savedItemNum);
-  console.log("isSaved 들어오니?", isSaved);
 
   try {
     const res = await client.patch(
@@ -103,11 +101,7 @@ export const getSavedPFList = async ({
 };
 
 // 메인 보내기
-export const patchSendMain = async ({
-  clickItems,
-  mainYn,
-  setErrorInfo,
-}) => {
+export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
   try {
     const queryString = clickItems.map(item => `istudent=${item}`).join("&");
     const res = await client.patch(
