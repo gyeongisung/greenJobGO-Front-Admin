@@ -19,6 +19,8 @@ import {
   ExcelUploadModal,
 } from "../components/companymgmt/CompanyModal";
 import { AcceptModal, ExcelAcceptModal } from "../components/AcceptModals";
+import { useResetRecoilState } from "recoil";
+import { StudentPageAtom } from "../components/studentmgmt/StudentMain";
 
 const CompanyMgmt = () => {
   const [listData, setListData] = useState([]);

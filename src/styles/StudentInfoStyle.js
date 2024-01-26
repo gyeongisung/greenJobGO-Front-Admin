@@ -72,7 +72,7 @@ export const InfoBaseWrap = styled.ul`
         display: flex;
         align-items: end;
         gap: 8px;
-        margin-bottom: 40px;
+        /* margin-bottom: 40px; */
         > input {
           border: 1px solid ${Maincolor.input};
           border-radius: 4px;

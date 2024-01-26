@@ -5,11 +5,12 @@ import ManagerAdd from "../components/jobMng/ManagerAdd";
 import InputModal from "../components/InputModal";
 import { getJobManagerInfo } from "../api/jobMngAxiois";
 import { BtnGlobal } from "../styles/GlobalStyle";
+import { StudentPageAtom } from "../components/studentmgmt/StudentMain";
+import { useResetRecoilState } from "recoil";
 
 const JobManager = () => {
   const [mngProflieData, setmngProflieData] = useState([]);
   const [modalOpen, setAddModalOpen] = useState(false);
-
   const openModal = () => {
     setAddModalOpen(true);
   };
@@ -38,19 +39,19 @@ const JobManager = () => {
           <div className="maganer-add">
             <BtnGlobal onClick={openModal}>등록</BtnGlobal>
           </div>
-            {modalOpen && (
-              <InputModal
-                open={modalOpen}
-                close={closeModal}
-                header="취업 담당자 등록"
-              >
-                <ManagerAdd
-                  setAddModalOpen={setAddModalOpen}
-                  mngProflieData={mngProflieData}
-                  setmngProflieData={setmngProflieData}
-                />
-              </InputModal>
-            )}
+          {modalOpen && (
+            <InputModal
+              open={modalOpen}
+              close={closeModal}
+              header="취업 담당자 등록"
+            >
+              <ManagerAdd
+                setAddModalOpen={setAddModalOpen}
+                mngProflieData={mngProflieData}
+                setmngProflieData={setmngProflieData}
+              />
+            </InputModal>
+          )}
         </div>
       </div>
     </JobManagerWrap>

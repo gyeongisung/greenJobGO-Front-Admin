@@ -17,7 +17,7 @@ export const getStudentSubject = async ({ selectCate, setSubjectList }) => {
 };
 
 // 학생 권한 리스트 get
-export const getStudentAuthData = async setAuthInfo => {
+export const getStudentAuthData = async (setAuthInfo, setErrorApiInfo) => {
   console.log("학생권한정보 불러옵니다");
 
   try {
@@ -27,6 +27,8 @@ export const getStudentAuthData = async setAuthInfo => {
     return result;
   } catch (error) {
     console.log(error);
+    setErrorApiInfo(`[${error.message}]`);
+    return error;
   }
 };
 // 학생권한 수정
@@ -34,26 +36,23 @@ export const patchStudentAuthData = async ({
   subjectPk,
   startDate,
   endDate,
-  isAuthEdit,
+  setErrorApiInfo,
 }) => {
-  console.log("subjectPk", subjectPk);
-  console.log("startDate", startDate);
-  console.log("endDate", endDate);
-
   try {
     const res = await client.patch(
       `/admin/student/editable-yn?icourseSubject=${subjectPk}&startedAt=${startDate}&endedAt=${endDate}`,
     );
     const result = res.data;
     console.log("학생권한정보 수정 성공", result);
+    setErrorApiInfo("수강생 권한이 정상적으로 변경 되었습니다");
     return result;
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`[${error.message}]`);
   }
 };
 
 // 기업권한 리스트 get
-export const getCompanyAuthData = async setAuthInfo => {
+export const getCompanyAuthData = async (setAuthInfo, setErrorApiInfo) => {
   console.log("기업권한정보 불러옵니다");
 
   try {
@@ -62,7 +61,7 @@ export const getCompanyAuthData = async setAuthInfo => {
     setAuthInfo(result);
     return result;
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`[${error.message}]`);
   }
 };
 
@@ -71,21 +70,17 @@ export const patchCompanyAuthData = async ({
   icompany,
   startDate,
   endDate,
+  setErrorApiInfo,
 }) => {
-  console.log("icompany", icompany);
-
-  console.log("startDate", startDate);
-
-  console.log("endDate", endDate);
-
   try {
     const res = await client.patch(
       `/admin/company?icompany=${icompany}&startedAt=${startDate}&endedAt=${endDate}`,
     );
     const result = res.data;
     console.log("기업권한수정 성공", result);
+    setErrorApiInfo("기업 권한이 정상적으로 변경 되었습니다.");
     return result;
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`[${error.message}]`);
   }
 };

@@ -18,16 +18,17 @@ import { faCircleXmark, faFilePdf } from "@fortawesome/free-regular-svg-icons";
 import { faCrown, faLink } from "@fortawesome/free-solid-svg-icons";
 import { DeleteSingleStudentModal, PortFolioAdd } from "./StudentModal";
 import { AcceptModal, DeleteOkModal, EditAceeptModal } from "../AcceptModals";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import StudentPortF from "./StudentPortF";
 import StudentBase from "./StduenDetail/StudentBase";
 import StudentResume from "./StduenDetail/StudentResume";
 import StudentPofol from "./StduenDetail/StudentPofol";
+import { StudentPageAtom } from "./StudentMain";
 
 const StudentInfo = () => {
+  const navigate = useNavigate();
   const { istudent } = useParams();
 
-  const navigate = useNavigate();
   // const [studentId, setIstudentId] = useState(studentInfo.istudent);
   const [userInfo, setUserInfo] = useState({
     userDetail: "",
@@ -44,6 +45,7 @@ const StudentInfo = () => {
 
   console.log(userInfo);
   console.log(userFile);
+
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteOkModal, setDeleteOkModal] = useState(false);
@@ -57,6 +59,7 @@ const StudentInfo = () => {
   // const [selectedFile, setSelectedFile] = useState(null);
   // const [linkUrl, setLinkUrl] = useState("");
   // const [isTrue, setIsTrue] = useRecoilState(changeComponent);
+  const [pageState, setPageState] = useRecoilState(StudentPageAtom);
 
   useEffect(() => {
     getStudentDetail(istudent, setUserInfo, setUserFile);
@@ -75,7 +78,7 @@ const StudentInfo = () => {
       setResumeFile(file);
     }
   };
-  
+
   // 이력서 등록 버튼
   const handleResumeUpload = async () => {
     const formData = new FormData();
@@ -165,7 +168,8 @@ const StudentInfo = () => {
     // } else {
     //   setIsTrue(true);
     // }
-    navigate(-1);
+    navigate("/student");
+    // navigate(-1);
   };
 
   // 수정 취소 버튼

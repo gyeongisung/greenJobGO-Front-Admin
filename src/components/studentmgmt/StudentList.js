@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const StudentList = ({
   listData,
@@ -8,6 +8,12 @@ const StudentList = ({
   page,
   // handleInfoClick,
 }) => {
+  const navigate = useNavigate();
+
+  const handleClickList = istudent => {
+    navigate(`/student/${istudent}`);
+  };
+  
   return (
     <ul>
       <li className="student-list">
@@ -44,9 +50,12 @@ const StudentList = ({
             //   handleInfoClick(item)
             // }
           >
-            <Link to={`/student/${item.istudent}`}>
-              <ul className="student-list-content">
-                {/* <li className="check-box-li">
+            {/* <Link to={`/student/${item.istudent}`}> */}
+            <ul
+              className="student-list-content"
+              onClick={() => handleClickList(item.istudent)}
+            >
+              {/* <li className="check-box-li">
                   <input
                     type="checkbox"
                     name="check-box"
@@ -56,22 +65,22 @@ const StudentList = ({
                     onClick={e => e.stopPropagation()}
                   />
                 </li> */}
-                <li>{(page - 1) * 10 + index + 1}</li>
-                <li>{item.classification}</li>
-                <li>{item.subjectName}</li>
-                <li>
-                  {item.startedAt} ~ {item.endedAt}
-                </li>
-                <li>{item.name}</li>
-                <li>{item.gender}</li>
-                <li>{item.address}</li>
-                <li>{item.mobileNumber}</li>
-                <li>{item.education}</li>
-                <li>{item.certificate}개</li>
-                <li>{item.file}개</li>
-                <li>{item.huntJobYn === 1 ? "취업" : "미취업"}</li>
-              </ul>
-            </Link>
+              <li>{(page - 1) * 10 + index + 1}</li>
+              <li>{item.classification}</li>
+              <li>{item.subjectName}</li>
+              <li>
+                {item.startedAt} ~ {item.endedAt}
+              </li>
+              <li>{item.name}</li>
+              <li>{item.gender}</li>
+              <li>{item.address}</li>
+              <li>{item.mobileNumber}</li>
+              <li>{item.education}</li>
+              <li>{item.certificate}개</li>
+              <li>{item.file}개</li>
+              <li>{item.huntJobYn === 1 ? "취업" : "미취업"}</li>
+            </ul>
+            {/* </Link> */}
           </li>
         ))}
     </ul>

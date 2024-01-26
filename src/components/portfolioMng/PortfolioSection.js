@@ -5,6 +5,8 @@ import PortfolioContent from "./PortfolioContent";
 import PortfolioPaging from "./PortfolioPaging";
 import { PortFolioContentWrap } from "../../styles/PortfolioStyle";
 import NoListItem from "../NoListItem";
+import { StudentPageAtom } from "../studentmgmt/StudentMain";
+import { useResetRecoilState } from "recoil";
 
 const PortfolioSection = () => {
   const [page, setPage] = useState(1);
@@ -15,7 +17,6 @@ const PortfolioSection = () => {
   const [searchsubj, setSearchSubj] = useState("");
   const [searchname, setSearchname] = useState("");
   const [selectCate, setSelectCate] = useState("");
-
   // url을 만들자
   const makeUrl = () => {
     let query = "";

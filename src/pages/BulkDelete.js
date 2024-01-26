@@ -11,6 +11,8 @@ import {
 import { getCategory } from "../api/bulkAxios";
 import { BulkDeletetModal } from "../components/AcceptModals";
 import OkModal from "../components/OkModal";
+import { StudentPageAtom } from "../components/studentmgmt/StudentMain";
+import { useResetRecoilState } from "recoil";
 
 const BulkDelete = () => {
   const [listData, setListData] = useState([]);
@@ -25,6 +27,7 @@ const BulkDelete = () => {
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorInfo, setErrorInfo] = useState("");
   const [uploadResult, setUpLoadResult] = useState(false);
+
 
   const fetchData = () => {
     getBulkStudentList(setListData, page, setCount, category, searchsubj);

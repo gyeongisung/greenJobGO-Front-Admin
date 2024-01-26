@@ -1,5 +1,7 @@
 import React from "react";
+import { useRecoilState } from "recoil";
 import { v4 } from "uuid";
+import { StudentPageAtom } from "./StudentMain";
 
 const StudentSearch = ({
   category,
@@ -9,6 +11,8 @@ const StudentSearch = ({
   handleSearch,
   categoryData,
 }) => {
+  const [pageState, setPageState] = useRecoilState(StudentPageAtom);
+
   return (
     <ul className="student-search">
       <li className="select-wrap">
@@ -38,7 +42,10 @@ const StudentSearch = ({
             placeholder="훈련 과정명을 검색하세요."
             name="category-state"
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={e => 
+              // setSearch(e.target.value)
+              setPageState(prev => ({ ...prev, search: e.target.value }))
+            }
             onKeyDown={e => {
               if (e.key === "Enter") {
                 handleSearch();

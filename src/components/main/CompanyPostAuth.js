@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CompanyAuthPostSty, StudentAuthPostSty } from "../../styles/HomeStyle";
 import { ConfigProvider, DatePicker, Space } from "antd";
 import { BtnGlobal } from "../../styles/GlobalStyle";
@@ -6,6 +6,7 @@ import { getCompanyAuthData, patchCompanyAuthData } from "../../api/homeAxios";
 import ConfirmModal from "../ConfirmModal";
 import dayjs from "dayjs";
 import OkModal from "../OkModal";
+import ErrorModal from "../ErrorModal";
 
 const CompanyPostAuth = ({ setAuthInfo }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,6 +18,10 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
   const [startDateError, setStartDateError] = useState("");
   const [endDateError, setEndDateError] = useState("");
   const [errorModalOpen, setErrorModalOpen] = useState(false);
+
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
 
   const { RangePicker } = DatePicker;
   const dateFormat = "YYYY-MM-DD";
@@ -47,9 +52,16 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
   };
   const handleSummitConfirm = async () => {
     try {
-      await patchCompanyAuthData({ icompany, startDate, endDate });
-      await updateData();
+      await patchCompanyAuthData({
+        icompany,
+        startDate,
+        endDate,
+        setErrorApiInfo,
+      });
       setModalOpen(false);
+      await updateData();
+      setStartDate("");
+      setEndDate("");
     } catch (error) {
       console.log("변경실패", error);
     }
@@ -62,6 +74,15 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
       console.error("데이터 업데이트 에러:", error);
     }
   };
+
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
+
   return (
     <CompanyAuthPostSty>
       <ul className="click-content">
@@ -112,6 +133,21 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
         >
           <span>{startDateError || endDateError}</span>
         </OkModal>
+      )}
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false)
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false)
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
       )}
     </CompanyAuthPostSty>
   );

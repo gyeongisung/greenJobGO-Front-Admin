@@ -2,7 +2,7 @@ import { client } from "./client";
 
 export const getStudentList = async (
   setListData,
-  setCount,
+  setPageState,
   page,
   search,
   category,
@@ -20,7 +20,8 @@ export const getStudentList = async (
     }
     console.log(category);
     setListData(res.data.res);
-    setCount(res.data.page.idx);
+    // setCount(res.data.page.idx);
+    setPageState(prev => ({ ...prev, count: res.data.page.idx }));
   } catch (error) {
     console.log(error);
   }
@@ -35,10 +36,10 @@ export const getStudentDetail = async (istudent, setUserInfo, setUserFile) => {
     const birthYear = birthday.split("-", 1);
 
     setUserFile({
-      thumbNail: res.data.file.img.img,
-      resume: res.data.file.resume,
-      portFolio: res.data.file.portfolio,
-      fileLinks: res.data.file.fileLinks,
+      thumbNail: res.data.file.img?.img,
+      resume: res.data.file?.resume,
+      portFolio: res.data.file?.portfolio,
+      fileLinks: res.data.file?.fileLinks,
     });
 
     console.log(res.data.file.img);

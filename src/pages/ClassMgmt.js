@@ -19,7 +19,6 @@ import {
   postCategory,
   postClassSubject,
 } from "../api/classAxios";
-import { format } from "date-fns";
 import { AcceptModal } from "../components/AcceptModals";
 
 const ClassMgmt = () => {
@@ -60,7 +59,6 @@ const ClassMgmt = () => {
   const [roundError, setRoundError] = useState("");
   const [classTimeError, setClassTimeError] = useState("");
   const [classroomError, setClassroomError] = useState("");
-
 
   let resultIdArray = saveCheckBox;
 
@@ -161,7 +159,7 @@ const ClassMgmt = () => {
     setEnrollModalOpen(true);
   };
 
-  console.log("payload",payload)
+  console.log("payload", payload);
   // 과정추가
   const handleModalAccept = async () => {
     const { classification, ...newPayload } = payload;

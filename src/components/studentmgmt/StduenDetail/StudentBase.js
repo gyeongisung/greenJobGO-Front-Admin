@@ -41,7 +41,7 @@ const StudentBase = ({
           ) : (
             <p className="student-name">{userInfo.userDetail.name}</p>
           )}
-          <p className="student-age">
+          <div className="student-age">
             {isEditMode ? (
               <input
                 type="text"
@@ -79,7 +79,7 @@ const StudentBase = ({
             ) : (
               <p>만 {userInfo.userDetail.age}세</p>
             )}
-          </p>
+          </div>
         </div>
         <div>
           <span>과정명</span>
