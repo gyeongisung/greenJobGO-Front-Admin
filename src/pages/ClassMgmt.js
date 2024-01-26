@@ -20,6 +20,7 @@ import {
   postClassSubject,
 } from "../api/classAxios";
 import { AcceptModal } from "../components/AcceptModals";
+import OkModal from "../components/OkModal";
 
 const ClassMgmt = () => {
   const [listData, setListData] = useState([]);
@@ -60,6 +61,7 @@ const ClassMgmt = () => {
   const [classTimeError, setClassTimeError] = useState("");
   const [classroomError, setClassroomError] = useState("");
 
+  const [checkModalOpen, setCheckModalOpen] = useState(false);
   let resultIdArray = saveCheckBox;
 
   const handleAllCheck = e => {
@@ -127,7 +129,7 @@ const ClassMgmt = () => {
     if (saveCheckBox.length >= 1) {
       setDeleteModalOpen(true);
     } else {
-      alert("삭제하실 과정을 선택해주세요.");
+      setCheckModalOpen(true);
     }
     document.body.style.overflow = "hidden";
   };
@@ -160,6 +162,7 @@ const ClassMgmt = () => {
   };
 
   console.log("payload", payload);
+
   // 과정추가
   const handleModalAccept = async () => {
     const { classification, ...newPayload } = payload;
@@ -322,6 +325,20 @@ const ClassMgmt = () => {
         </ClassTable>
         <ClassPaging page={page} setPage={setPage} count={count} />
       </ClassMgmtInner>
+      {checkModalOpen && (
+        <OkModal
+          header={""}
+          open={checkModalOpen}
+          close={() => {
+            setCheckModalOpen(false);
+          }}
+          onConfirm={() => {
+            setCheckModalOpen(false);
+          }}
+        >
+          <span>삭제하실 과정을 선택해주세요.</span>
+        </OkModal>
+      )}
     </ClassMgmtWrap>
   );
 };

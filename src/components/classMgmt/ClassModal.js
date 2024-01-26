@@ -21,6 +21,7 @@ import { ConfigProvider, DatePicker, Space } from "antd";
 import dayjs from "dayjs";
 import locale from "antd/lib/locale/ko_KR";
 import { Maincolor } from "../../styles/GlobalStyle";
+import ConfirmModal from "../ConfirmModal";
 
 export const DeleteClassModal = ({
   deleteModalOpen,
@@ -80,6 +81,7 @@ export const DeleteClassModal = ({
   );
 };
 
+// 과정등록 모달
 export const ClassAcceptModal = ({
   modalOpen,
   setModalOpen,
@@ -96,11 +98,16 @@ export const ClassAcceptModal = ({
   classTimeError,
   classroomError,
 }) => {
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+
   const dateFormat = "YYYY-MM-DD";
   const disabledDate = current => {
     return current < dayjs(payload.startedAt).startOf("day");
   };
-
+  // 등록 여부 확인 모달
+  const handleSummitConfirm = () => {
+    setConfirmModalOpen(true);
+  };
   const handleModalCancel = () => {
     setModalOpen(false);
     document.body.style.overflow = "unset";
@@ -361,16 +368,29 @@ export const ClassAcceptModal = ({
                 </ul>
               </div>
               <div className="modal-ok">
-                <button onClick={handleModalAccept}>등록</button>
+                <button onClick={handleSummitConfirm}>등록</button>
               </div>
             </div>
           </div>
+          {/* 권한 변경 확인모달 */}
+          {confirmModalOpen && (
+            <ConfirmModal
+              header={""}
+              open={confirmModalOpen}
+              close={() => setConfirmModalOpen(false)}
+              onConfirm={handleModalAccept}
+              onCancel={() => setConfirmModalOpen(false)}
+            >
+              <span>새로운 과정을 등록 하시겠습니까?</span>
+            </ConfirmModal>
+          )}
         </ClassAcceptModalWrap>
       )}
     </>
   );
 };
 
+// 과정수정 모달
 export const ClassEditModal = ({
   classInfo,
   editModalOpen,
