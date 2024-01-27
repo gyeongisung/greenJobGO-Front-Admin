@@ -16,7 +16,7 @@ import {
 import { getCategory } from "../../api/classAxios";
 import { AcceptModal, ExcelAcceptModal } from "../AcceptModals";
 import { ExcelUploadModal } from "../companymgmt/CompanyModal";
-import { atom, useRecoilState } from "recoil";
+import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router";
 import { v4 } from "uuid";
 
@@ -28,6 +28,7 @@ export const StudentPageAtom = atom({
     count: 0,
     search: "",
     category: "",
+    render: true,
   },
   // effects_UNSTABLE: [persistAtom],
 });
@@ -37,7 +38,6 @@ const StudentMain = ({ handleInfoClick }) => {
 
   const [listData, setListData] = useState([]);
   // const [saveCheckBox, setSaveCheckBox] = useState([]);
-  const [categoryData, setCategoryData] = useState([]);
   // const [page, setPage] = useState(1);
   // const [count, setCount] = useState(0);
   // const [search, setSearch] = useState("");
@@ -51,10 +51,12 @@ const StudentMain = ({ handleInfoClick }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [excelDownload, setExcelDownload] = useState(null);
 
+  const [cateValue, setCateValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
-  const { page, count, search, category } = pageState;
+  const { page, count, search, category, render } = pageState;
 
-  
+  console.log("pageState", pageState);
   // let resultIdArray = saveCheckBox;
 
   // 체크박스 전체 선택
@@ -96,8 +98,8 @@ const StudentMain = ({ handleInfoClick }) => {
 
   useEffect(() => {
     fetchData();
-    getCategory(setCategoryData);
-  }, [page]);
+    // getCategory(setCategoryData);
+  }, [page, render]);
 
   // useEffect(() => {
   //   document.querySelector(".all-checkbox-btn").checked = false;
@@ -108,21 +110,30 @@ const StudentMain = ({ handleInfoClick }) => {
   // }, [listData]);
 
   // 검색 버튼
-  const handleSearch = () => {
-    setPageState(prev => ({ ...prev, page: 1 }));
+  const handleSearch = async () => {
+    setPageState(prev => ({
+      ...prev,
+      page: 1,
+      category,
+      search,
+      render: false,
+    }));
 
     // setPage(1);
-    fetchData();
+    await fetchData();
   };
 
   // 대분류 선택
   const handleCategoryFiiter = e => {
     // setCategory(e.target.value);
-    // setPage(1);
-    setPageState(prev => ({ ...prev, category: e.target.value }));
-    setPageState(prev => ({ ...prev, page: 1 }));
-
-    console.log(category);
+    // setCateValue(e.target.value);
+    // setSearchValue("");
+    setPageState(prev => ({
+      ...prev,
+      // page: 1,
+      category: e.target.value,
+      search: "",
+    }));
   };
 
   // 엑셀 업로드 버튼
@@ -166,11 +177,14 @@ const StudentMain = ({ handleInfoClick }) => {
       <StudentMgmtInner>
         <StudentSearch
           category={category}
+          // cateValue={cateValue}
+          // setSearchValue={setSearchValue}
           handleCategoryFiiter={handleCategoryFiiter}
           search={search}
           // setSearch={setSearch}
           handleSearch={handleSearch}
-          categoryData={categoryData}
+          // categoryData={categoryData}
+          // setCategoryData={setCategoryData}
         />
         {modalOpen && (
           <StudentModal modalOpen={modalOpen} setModalOpen={setModalOpen} />

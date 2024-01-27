@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { v4 } from "uuid";
 import { StudentPageAtom } from "./StudentMain";
+import { getCategory } from "../../api/classAxios";
 
 const StudentSearch = ({
   category,
   handleCategoryFiiter,
   search,
-  setSearch,
   handleSearch,
-  categoryData,
+  // categoryData,
+  // setCategoryData,
 }) => {
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
+  const [categoryData, setCategoryData] = useState([]);
+
+  useEffect(() => {
+    getCategory(setCategoryData);
+  }, []);
 
   return (
     <ul className="student-search">
@@ -19,14 +25,15 @@ const StudentSearch = ({
         <select
           value={category}
           name="category-state"
-          onChange={handleCategoryFiiter}
+          onChange={e => handleCategoryFiiter(e)}
         >
           <option name="category-state" value="">
             선택
           </option>
           {categoryData.map(item => (
             <option
-              key={v4()}
+              // key={v4()}
+              key={`cate${item.iclassification}`}
               name="category-state"
               value={item.iclassification}
             >
@@ -42,9 +49,11 @@ const StudentSearch = ({
             placeholder="훈련 과정명을 검색하세요."
             name="category-state"
             value={search}
-            onChange={e => 
-              // setSearch(e.target.value)
-              setPageState(prev => ({ ...prev, search: e.target.value }))
+            onChange={
+              e =>
+                // setSearch(e.target.value)
+                setPageState(prev => ({ ...prev, search: e.target.value }))
+              // setSearchValue(e.target.value)
             }
             onKeyDown={e => {
               if (e.key === "Enter") {

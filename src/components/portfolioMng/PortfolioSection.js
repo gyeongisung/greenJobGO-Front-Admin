@@ -5,8 +5,6 @@ import PortfolioContent from "./PortfolioContent";
 import PortfolioPaging from "./PortfolioPaging";
 import { PortFolioContentWrap } from "../../styles/PortfolioStyle";
 import NoListItem from "../NoListItem";
-import { StudentPageAtom } from "../studentmgmt/StudentMain";
-import { useResetRecoilState } from "recoil";
 
 const PortfolioSection = () => {
   const [page, setPage] = useState(1);

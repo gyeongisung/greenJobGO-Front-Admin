@@ -39,6 +39,7 @@ const AsideAdm = () => {
 
   const handleIsTrue = () => {
     // setIsTrue(true);
+    
     // 클릭할 때 수강생등록페이지 리코일정보를 reset해라
     ResetStudentPageRecoil();
   };
