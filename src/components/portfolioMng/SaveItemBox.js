@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NoImage from "../../assets/NoImage.jpg";
 import { patchSendSaved } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
 import { CheckToMainSt } from "../../styles/PortfolioStyle";
 import SaveItemCheckbox from "./SaveItemCheckbox";
+import OkModal from "../OkModal";
 
 // // 메인클릭 정보 저장 recoil
 
-const SaveItemBox = ({ item, fetchData,
-   clickItems, setClickItems 
-  }) => {
+const SaveItemBox = ({ item, fetchData, clickItems, setClickItems }) => {
   const [savedItemNum, setSavedItemNum] = useState([]);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
-  const [isSaved, setIsSaved] = useState();
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorInfo, setErrorInfo] = useState("");
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -27,15 +27,24 @@ const SaveItemBox = ({ item, fetchData,
   // 보관취소 컨펌
   const handleCancelConfirm = async () => {
     try {
-      let update = 0;
-      setIsSaved(update);
-      await patchSendSaved({ savedItemNum, isSaved: update });
-      await fetchData();
+      await patchSendSaved({
+        savedItemNum,
+        isSaved: 0,
+        setErrorInfo
+      });
       setCancelModalOpen(false);
     } catch (error) {
       console.log("보관실패", error);
+      setErrorModalOpen(true);
     }
   };
+  useEffect(() => {
+    if (errorInfo) {
+      setErrorModalOpen(true);
+    } else {
+      setErrorModalOpen(false);
+    }
+  }, [errorInfo]);
 
   return (
     <div className="pf-box">
@@ -68,12 +77,32 @@ const SaveItemBox = ({ item, fetchData,
       {cancelModalOpen && (
         <ConfirmModal
           open={cancelModalOpen}
-          close={() => setCancelModalOpen(false)}
+          close={() => {
+            setCancelModalOpen(false);
+          }}
           onConfirm={handleCancelConfirm}
-          onCancel={() => setCancelModalOpen(false)}
+          onCancel={() => {
+            setCancelModalOpen(false);
+          }}
         >
           <span>해당 포트폴리오 보관을 취소 하시겠습니까?</span>
         </ConfirmModal>
+      )}
+
+      {/* api 에러 확인모달 */}
+      {errorModalOpen && (
+        <OkModal
+          header={""}
+          open={errorModalOpen}
+          close={() => {
+            setErrorModalOpen(false), setErrorInfo("");
+          }}
+          onConfirm={() => {
+            setErrorModalOpen(false), setErrorInfo("");
+          }}
+        >
+          <span>{errorInfo}</span>
+        </OkModal>
       )}
     </div>
   );

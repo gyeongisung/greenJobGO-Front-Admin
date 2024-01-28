@@ -116,11 +116,11 @@ const SaveItemCheckbox = ({
           open={errorModalOpen}
           close={() => {
             setErrorModalOpen(false);
-            fetchData();
+            setErrorCancelInfo("");
           }}
           onConfirm={() => {
             setErrorModalOpen(false);
-            fetchData();
+            setErrorCancelInfo("");
           }}
         >
           <span>{errorCancelInfo}</span>

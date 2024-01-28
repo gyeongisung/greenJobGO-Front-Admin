@@ -132,7 +132,7 @@ export const HardDeleteModalWrap = styled.div`
     .content {
       display: flex;
       gap: 5px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 400;
     }
     .btns {

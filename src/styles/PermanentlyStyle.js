@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { Maincolor, ellipsis } from "./GlobalStyle";
 
 export const PermanentlyWrap = styled.div`
+  position: relative;
+
   width: 100%;
   display: flex;
   align-items: center;
@@ -33,6 +35,7 @@ export const PermanentlyWrap = styled.div`
       }
     }
   }
+
 `;
 
 export const PermanentlyInner = styled.div`
@@ -150,6 +153,7 @@ export const PermanentlyInner = styled.div`
     line-height: 14px;
     margin-bottom: 10px;
   }
+
 `;
 export const DeleteTable = styled.div`
   position: relative;

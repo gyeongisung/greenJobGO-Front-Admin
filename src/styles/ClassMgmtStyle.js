@@ -55,7 +55,7 @@ export const ClassMgmtInner = styled.div`
         -moz-appearance: none;
         appearance: none;
         border: 1px solid ${Maincolor.input};
-
+        border-radius: 0;
         background: url(${process.env.PUBLIC_URL}/assets/Arrowdown.png)
           no-repeat calc(100% - 12px) 50%/11px auto;
         padding: 0 28px 0 10px;

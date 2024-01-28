@@ -304,6 +304,7 @@ export const ClassAcceptModalWrap = styled.div`
             background: url(${process.env.PUBLIC_URL}/assets/Arrowdown.png)
               no-repeat calc(100% - 12px) 50%/11px auto;
             padding: 0 28px 0 10px;
+            border-radius: 0;
           }
           select::-ms-expand {
             display: none;
