@@ -7,7 +7,7 @@ import {
   StudentMgmtWrap,
   StudentTable,
 } from "../../styles/StudentMgmtStyle";
-import { DeleteStudnetModal, StudentModal } from "../studentmgmt/StudentModal";
+import { DeleteStudnetModal, StudentExcelUploadModal, StudentModal } from "../studentmgmt/StudentModal";
 import {
   getStudenListDownload,
   getStudentList,
@@ -197,7 +197,7 @@ const StudentMain = ({ handleInfoClick }) => {
           />
         )}
         {excelModalOpen && (
-          <ExcelUploadModal
+          <StudentExcelUploadModal
             excelModalOpen={excelModalOpen}
             setExcelModalOpen={setExcelModalOpen}
             handleExcelUpload={handleExcelUpload}
@@ -237,7 +237,7 @@ const StudentMain = ({ handleInfoClick }) => {
             // handleAllCheck={handleAllCheck}
             // handleCheckBox={handleCheckBox}
             page={page}
-            handleInfoClick={handleInfoClick}
+            // handleInfoClick={handleInfoClick}
           />
         </StudentTable>
         <StudentPaging

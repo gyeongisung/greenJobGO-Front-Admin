@@ -1,6 +1,7 @@
 import React from "react";
 import NoImage from "../../../assets/NoImage.jpg";
 import { InfoBaseWrap } from "../../../styles/StudentInfoStyle";
+import HashTag from "./HashTag";
 
 const StudentBase = ({
   userFile,
@@ -8,6 +9,13 @@ const StudentBase = ({
   isEditMode,
   userInfo,
   setUserInfo,
+  formatPhoneNumber,
+  hashTag,
+  hashSave,
+  handleAddHashTag,
+  handleRemoveHashTag,
+  handleHashChange,
+  handleKeyDown,
 }) => {
   return (
     <InfoBaseWrap>
@@ -130,19 +138,22 @@ const StudentBase = ({
         <div>
           <span>자격증</span>
           {isEditMode ? (
-            <input
-              type="text"
-              name="email"
-              value={userInfo.certificateValue}
-              onChange={e => {
-                setUserInfo(userInfo => ({
-                  ...userInfo,
-                  certificateValue: e.target.value,
-                }));
-              }}
+            <HashTag
+              hashTag={hashTag}
+              hashSave={hashSave}
+              handleAddHashTag={handleAddHashTag}
+              handleRemoveHashTag={handleRemoveHashTag}
+              handleHashChange={handleHashChange}
+              handleKeyDown={handleKeyDown}
             />
           ) : (
-            <span>{userInfo.certificateValue}</span>
+            <div className="read-hashtag">
+              {hashSave?.map(item => (
+                <div key={item.icertificate}>
+                  <span>{item.certificate}</span>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </li>
@@ -193,7 +204,7 @@ const StudentBase = ({
             <input
               type="text"
               name="mobileNumber"
-              value={userInfo.userDetail.mobileNumber}
+              value={formatPhoneNumber}
               onChange={e => {
                 setUserInfo(userInfo => ({
                   ...userInfo,

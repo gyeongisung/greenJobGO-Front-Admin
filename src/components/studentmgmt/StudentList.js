@@ -11,9 +11,9 @@ const StudentList = ({
   const navigate = useNavigate();
 
   const handleClickList = istudent => {
-    navigate(`/student/${istudent}`);
+    navigate(`/admin/student/${istudent}`);
   };
-  
+
   return (
     <ul>
       <li className="student-list">

@@ -50,9 +50,9 @@ const Login = () => {
             id: id,
             name: name,
           });
-          navigate("/home");
+          navigate("/admin/home");
         } else {
-          navigate("/");
+          navigate("/admin/");
         }
       } catch (error) {
         console.error(error);

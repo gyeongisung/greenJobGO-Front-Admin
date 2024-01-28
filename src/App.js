@@ -21,29 +21,32 @@ function App() {
     <>
       <Routes>
         {/* 로그인 페이지 */}
-        <Route path="/" element={<Login />} />
+        <Route path="/admin/" element={<Login />} />
         {/* <Route element={<PrivateRoutes element={<AdminLayout />} />}> */}
         <Route element={<PrivateRoutes element={<AdminLayout />} />}>
           {/* 관리자 인트로 */}
-          <Route path="/home" element={<Home />} />
+          <Route path="/admin/home" element={<Home />} />
           {/* 수업 과정 관리 */}
-          <Route path="/class" element={<ClassMgmt />} />
+          <Route path="/admin/class" element={<ClassMgmt />} />
           {/* 취업담당자 관리 */}
-          <Route path="/jobmanager" element={<JobManager />} />
+          <Route path="/admin/jobmanager" element={<JobManager />} />
           {/* 수강생 등록 */}
-          <Route path="/register" element={<Register />} />
+          <Route path="/admin/register" element={<Register />} />
           {/* 수강생 관리 */}
-          <Route path="/student" element={<StudentMgmt />} />
-          <Route path="/student/:istudent" element={<StudentInfo />} />
-          <Route path="/student/portfolioEdit" element={<StudentPortF />} />
+          <Route path="/admin/student" element={<StudentMgmt />} />
+          <Route path="/admin/student/:istudent" element={<StudentInfo />} />
+          <Route
+            path="/admin/student/portfolioEdit"
+            element={<StudentPortF />}
+          />
           {/* 수강생 포트폴리오 관리 */}
-          <Route path="/portfolio" element={<PortfolioMgmt />} />
+          <Route path="/admin/portfolio" element={<PortfolioMgmt />} />
           {/* 기업 관리 */}
-          <Route path="/company" element={<CompanyMgmt />} />
+          <Route path="/admin/company" element={<CompanyMgmt />} />
           {/* 일괄 삭제 */}
-          <Route path="/bulk" element={<BulkDelete />} />
+          <Route path="/admin/bulk" element={<BulkDelete />} />
           {/* 영구 삭제 */}
-          <Route path="/permanently" element={<PermanentlyDelete />} />
+          <Route path="/admin/permanently" element={<PermanentlyDelete />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

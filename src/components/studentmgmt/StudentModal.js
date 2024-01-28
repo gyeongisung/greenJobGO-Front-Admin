@@ -7,6 +7,7 @@ import {
 import { ko } from "date-fns/locale";
 import ReactDatePicker from "react-datepicker";
 import { deleteStudent } from "../../api/studentAxios";
+import { ExcelUploadModalWrap } from "../../styles/ExcelUploadStyle";
 
 export const DeleteStudnetModal = ({
   deleteModalOpen,
@@ -232,6 +233,82 @@ export const StudentModal = ({ modalOpen, setModalOpen }) => {
     </>
   );
 };
+
+export const StudentExcelUploadModal = ({
+  excelModalOpen,
+  setExcelModalOpen,
+  handleExcelUpload,
+  selectedFile,
+  setSelectedFile,
+}) => {
+  const handleFileChange = e => {
+    const file = e.target.files[0];
+
+    if (file) {
+      setSelectedFile(file);
+    }
+  };
+  const handleCancel = () => {
+    setExcelModalOpen(false);
+  };
+  return (
+    <>
+      {excelModalOpen && (
+        <ExcelUploadModalWrap>
+          <div className="dim">
+            <div className="modal-inner">
+              <ul className="modal-top">
+                <li>
+                  <h2>엑셀 업로드</h2>
+                </li>
+                <li>
+                  <span onClick={handleCancel}>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/btn_menu_close.png`}
+                      alt="X"
+                    />
+                  </span>
+                </li>
+              </ul>
+              <div className="content">
+                <h3>수강생 등록</h3>
+                <div>
+                  <span>
+                    엑셀을 업로드하여 다수의 수강생 정보를 한번에 입력할 수
+                    있습니다.
+                    <br />
+                    양식에 맞춰 정보를 입력한 뒤 업로드해주세요.
+                  </span>
+                </div>
+              </div>
+              <div className="file-box">
+                <input
+                  type="file"
+                  id="file"
+                  accept=".xlsx, .xls, .csv"
+                  onChange={handleFileChange}
+                />
+                <label htmlFor="file">파일첨부</label>
+                <input
+                  className="upload-name"
+                  value={selectedFile ? selectedFile.name : "첨부파일"}
+                  placeholder="xlsx 파일 첨부"
+                  readOnly
+                />
+              </div>
+              <div className="btn">
+                <button onClick={e => handleExcelUpload(e.target.files)}>
+                  확인
+                </button>
+              </div>
+            </div>
+          </div>
+        </ExcelUploadModalWrap>
+      )}
+    </>
+  );
+};
+
 export const DeleteSingleStudentModal = ({
   deleteModalOpen,
   setDeleteModalOpen,
