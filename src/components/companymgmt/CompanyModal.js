@@ -160,6 +160,7 @@ export const CompanyMgmtModal = ({
   managerError,
   phoneNumberError,
   dateConslusionError,
+  formatPhoneNumber,
 }) => {
   const dateFormat = "YYYY-MM-DD";
 
@@ -321,9 +322,9 @@ export const CompanyMgmtModal = ({
                     <div>
                       <h3>연락처</h3>
                       <input
-                        type="number"
+                        type="text"
                         maxLength={13}
-                        value={payload.phoneNumber}
+                        value={formatPhoneNumber}
                         onChange={e => {
                           setPayload(payload => ({
                             ...payload,

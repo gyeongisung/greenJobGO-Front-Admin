@@ -10,7 +10,7 @@ export const PrivateRoutes = ({ element }) => {
 
   useEffect(() => {
     if (!isLogin) {
-      navigate("/");
+      navigate("/admin/");
     }
   }, [isLogin, navigate]);
 

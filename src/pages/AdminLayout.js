@@ -49,7 +49,7 @@ const AdminLayout = () => {
   // 관리자페이지 - 네비게이션 데이터
   const breadcrumbItems = [
     {
-      title: <Link to="/home">Home</Link>,
+      title: <Link to="/admin/home">Home</Link>,
     },
     {
       title: breadCrumbGnb,

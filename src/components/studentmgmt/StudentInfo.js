@@ -111,7 +111,7 @@ const StudentInfo = () => {
       if (result.success) {
         await setAcceptOkModal(true);
         await setIsEditMode(false);
-        navigate("/student/portfolioEdit", {
+        navigate("/admin/student/portfolioEdit", {
           state: {
             istudent,
             // setUserInfo,
@@ -168,7 +168,7 @@ const StudentInfo = () => {
     // } else {
     //   setIsTrue(true);
     // }
-    navigate("/student");
+    navigate("/admin/student");
     // navigate(-1);
   };
 
@@ -223,6 +223,25 @@ const StudentInfo = () => {
   //   setModalOpen(false);
   // };
 
+  const phoneFormatter = num => {
+    try {
+      num = num.replace(/\s/gi, "");
+
+      if (num.length === 11) {
+        return num.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+      } else if (num.length === 10) {
+        return num.replace(/(\d{3})(\d{4})(\d{3})/, "$1-$2-$3");
+      } else if (/^02/.test(num) && num.length === 9) {
+        return num.replace(/(\d{2})(\d{3})(\d{4})/, "$1-$2-$3");
+      } else {
+        return num;
+      }
+    } catch (err) {
+      return num;
+    }
+  };
+
+  const formatPhoneNumber = phoneFormatter(userInfo.userDetail.mobileNumber);
   return (
     <StudentInfoWrap>
       {/* {modalOpen && (
@@ -278,6 +297,7 @@ const StudentInfo = () => {
           isEditMode={isEditMode}
           userInfo={userInfo}
           setUserInfo={setUserInfo}
+          formatPhoneNumber={formatPhoneNumber}
         />
         <StudentResume
           userFile={userFile}

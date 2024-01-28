@@ -117,7 +117,7 @@ export const CompanyTable = styled.div`
     height: 1334px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(10, 43px);
+    grid-template-rows: repeat(11, 44.5px);
     > li {
       line-height: 42px;
       border-top: 1px solid ${Maincolor.sectiontitle};

@@ -123,7 +123,7 @@ export const BulkTable = styled.div`
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(10, 43px);
+    grid-template-rows: repeat(11, 44.6px);
     > li {
       line-height: 42px;
       border-top: 1px solid ${Maincolor.sectiontitle};

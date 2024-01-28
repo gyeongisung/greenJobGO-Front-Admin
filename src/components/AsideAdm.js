@@ -59,7 +59,7 @@ const AsideAdm = () => {
     }));
     setLogoutModalOpen(false);
 
-    navigate("/");
+    navigate("/admin/");
   };
 
   function getItem(label, key, icon, children) {
@@ -71,24 +71,24 @@ const AsideAdm = () => {
     };
   }
   const menuItems2 = [
-    getItem(<Link to="/home">홈</Link>, "/home", null),
+    getItem(<Link to="/admin/home">홈</Link>, "/admin/home", null),
     getItem("과정관리", "sub1", null, [
-      getItem(<Link to="/class">과정등록 • 관리</Link>, "/class"),
-      getItem(<Link to="/jobmanager">취업 담당자 관리</Link>, "/jobmanager"),
+      getItem(<Link to="/admin/class">과정등록 • 관리</Link>, "/admin/class"),
+      getItem(<Link to="/admin/jobmanager">취업 담당자 관리</Link>, "/admin/jobmanager"),
     ]),
     getItem("수강생 관리", "sub2", null, [
       getItem(
-        <Link onClick={handleIsTrue} to="/student">
+        <Link onClick={handleIsTrue} to="/admin/student">
           수강생 등록 • 관리
         </Link>,
-        "/student",
+        "/admin/student",
       ),
-      getItem(<Link to="/portfolio">포트폴리오 관리</Link>, "/portfolio"),
+      getItem(<Link to="/admin/portfolio">포트폴리오 관리</Link>, "/admin/portfolio"),
     ]),
-    getItem(<Link to="/company">기업등록 • 관리</Link>, "/company", null),
+    getItem(<Link to="/admin/company">기업등록 • 관리</Link>, "/admin/company", null),
     getItem("데이터 삭제", "sub3", null, [
-      getItem(<Link to="/bulk">일괄 삭제</Link>, "/bulk"),
-      getItem(<Link to="/permanently">영구 삭제</Link>, "/permanently"),
+      getItem(<Link to="/admin/bulk">일괄 삭제</Link>, "/admin/bulk"),
+      getItem(<Link to="/admin/permanently">영구 삭제</Link>, "/admin/permanently"),
     ]),
   ];
 

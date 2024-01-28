@@ -96,7 +96,7 @@ const StudentPortF = () => {
   };
 
   const handleUpdate = () => {
-    navigate(`/student/${userSendInfo.istudent}`);
+    navigate(`/admin/student/${userSendInfo.istudent}`);
   };
 
   const handleDeleteFile = async fileId => {

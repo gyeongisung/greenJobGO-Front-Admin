@@ -150,6 +150,25 @@ const CompanyMgmt = () => {
     }
   };
 
+  const phoneFormatter = num => {
+    try {
+      num = num.replace(/\s/gi, "");
+
+      if (num.length === 11) {
+        return num.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+      } else if (num.length === 10) {
+        return num.replace(/(\d{3})(\d{4})(\d{3})/, "$1-$2-$3");
+      } else if (/^02/.test(num) && num.length === 9) {
+        return num.replace(/(\d{2})(\d{3})(\d{4})/, "$1-$2-$3");
+      } else {
+        return num;
+      }
+    } catch (err) {
+      return num;
+    }
+  };
+  const formatPhoneNumber = phoneFormatter(payload.phoneNumber);
+
   // 기업등록버튼
   const handleModalAccept = async () => {
     try {
@@ -242,6 +261,7 @@ const CompanyMgmt = () => {
             managerError={managerError}
             phoneNumberError={phoneNumberError}
             dateConslusionError={dateConslusionError}
+            formatPhoneNumber={formatPhoneNumber}
           />
         )}
         {/* 등록확인모달 */}

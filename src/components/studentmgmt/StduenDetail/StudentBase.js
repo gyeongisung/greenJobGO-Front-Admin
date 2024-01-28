@@ -8,6 +8,7 @@ const StudentBase = ({
   isEditMode,
   userInfo,
   setUserInfo,
+  formatPhoneNumber,
 }) => {
   return (
     <InfoBaseWrap>
@@ -193,7 +194,7 @@ const StudentBase = ({
             <input
               type="text"
               name="mobileNumber"
-              value={userInfo.userDetail.mobileNumber}
+              value={formatPhoneNumber}
               onChange={e => {
                 setUserInfo(userInfo => ({
                   ...userInfo,
