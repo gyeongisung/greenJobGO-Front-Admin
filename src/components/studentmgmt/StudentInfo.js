@@ -24,8 +24,13 @@ import StudentBase from "./StduenDetail/StudentBase";
 import StudentResume from "./StduenDetail/StudentResume";
 import StudentPofol from "./StduenDetail/StudentPofol";
 import { StudentPageAtom } from "./StudentMain";
+import ErrorModal from "../ErrorModal";
 
 const StudentInfo = () => {
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
+
   const navigate = useNavigate();
   const { istudent } = useParams();
 
@@ -193,7 +198,7 @@ const StudentInfo = () => {
       }
     } catch (error) {
       setDeleteOkModal(false);
-      alert("실패했지..롱?");
+      setErrorApiInfo("파일삭제가 제대로 되지 않았습니다.");
       setResumeFile("");
       setResumeOneWord("");
     }
@@ -222,7 +227,13 @@ const StudentInfo = () => {
   // const handlePofolModalCancel = () => {
   //   setModalOpen(false);
   // };
-
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
   return (
     <StudentInfoWrap>
       {/* {modalOpen && (
@@ -306,6 +317,21 @@ const StudentInfo = () => {
         )}
         {/* </div> */}
       </div>
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
+      )}
     </StudentInfoWrap>
   );
 };

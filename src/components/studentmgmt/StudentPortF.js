@@ -19,8 +19,13 @@ import {
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router";
+import ErrorModal from "../ErrorModal";
 
 const StudentPortF = () => {
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
+
   const navigate = useNavigate();
 
   const [uploadResult, setUpLoadResult] = useState(false);
@@ -113,13 +118,21 @@ const StudentPortF = () => {
       }
     } catch (error) {
       setDeleteOkModal(false);
-      alert("실패했지..롱?");
+      setErrorApiInfo("정상적으로 처리 되지 않았습니다.");
     }
   };
 
   const handleCancelClick = () => {
     setDeleteOkModal(false);
   };
+
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
 
   return (
     <StudentPFeditSty>
@@ -255,6 +268,21 @@ const StudentPortF = () => {
           setAcceptOkModal={setAcceptOkModal}
           uploadResult={uploadResult}
         />
+      )}
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
       )}
     </StudentPFeditSty>
   );

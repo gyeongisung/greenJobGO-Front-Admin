@@ -8,7 +8,6 @@ import { clickMainRecoil } from "./SaveItemCheckbox";
 import OkModal from "../OkModal";
 import { readsavedListItems } from "./SaveItemContent";
 
-
 const SaveItemSearch = ({
   setPage,
   selectCate,
@@ -43,7 +42,12 @@ const SaveItemSearch = ({
 
   // 메인 포트폴리오 적용 버튼 클릭
   const handleGoMain = () => {
-    setMainGoModalOpen(true);
+    if (clickItems.length === 0) {
+      setErrorInfo("메인 포트폴리오를 선택하세요.");
+      return;
+    } else {
+      setMainGoModalOpen(true);
+    }
   };
   // 메인적용 확인
   const handleMainConfirm = async () => {

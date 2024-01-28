@@ -213,7 +213,7 @@ export const PortFolioContentWrap = styled.div`
   /* 포트폴리오리스트 -> 마우스 호버 */
   .pf-box:hover .pf-img-hover {
     display: block;
-    z-index: 888;
+    z-index: 99;
   }
 
   .pf-img-hover {
@@ -263,7 +263,7 @@ export const CheckToMainSt = styled.div`
     .side-info {
       position: relative;
       .pf-subject {
-        width: 260px;
+        width: 257px;
         ${ellipsis.one}
       }
       /* 보관함에 있는 포트폴리오 하트 */
