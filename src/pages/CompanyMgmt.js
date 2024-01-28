@@ -19,8 +19,7 @@ import {
   ExcelUploadModal,
 } from "../components/companymgmt/CompanyModal";
 import { AcceptModal, ExcelAcceptModal } from "../components/AcceptModals";
-import { useResetRecoilState } from "recoil";
-import { StudentPageAtom } from "../components/studentmgmt/StudentMain";
+import ErrorModal from "../components/ErrorModal";
 
 const CompanyMgmt = () => {
   const [listData, setListData] = useState([]);
@@ -46,6 +45,10 @@ const CompanyMgmt = () => {
   const [managerError, setManagerError] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [dateConslusionError, setDateConslusionError] = useState("");
+
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
 
   const [payload, setPayload] = useState({
     area: "",
@@ -121,7 +124,7 @@ const CompanyMgmt = () => {
     if (saveCheckBox.length >= 1) {
       setDeleteModalOpen(true);
     } else {
-      alert("삭제하실 기업을 선택해주세요.");
+      setErrorApiInfo("삭제하실 기업을 선택해주세요.");
     }
   };
 
@@ -213,6 +216,13 @@ const CompanyMgmt = () => {
   const handleExcelDownLoad = async () => {
     getCompanyListDownload(setExcelDownload);
   };
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
 
   return (
     <CompanyMgmtWrap>
@@ -307,6 +317,22 @@ const CompanyMgmt = () => {
         </CompanyTable>
         <Paging page={page} setPage={setPage} count={count} />
       </CompanyMgmtInner>
+
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
+      )}
     </CompanyMgmtWrap>
   );
 };

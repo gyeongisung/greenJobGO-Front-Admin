@@ -51,24 +51,22 @@ export const patchSendSaved = async ({
   isSaved,
   setErrorInfo,
 }) => {
-
   try {
     const res = await client.patch(
       `/admin/student/storage?istudent=${savedItemNum}&storageYn=${isSaved}`,
     );
-    const result = await res.data;
+    const result = res.data;
     console.log("보관함 patchㅋ", result);
-    {
-      isSaved === 1
-        ? setErrorInfo("보관함 이동이 완료되었습니다.")
-        : isSaved === 0
-          ? setErrorInfo("보관함 취소가 완료되었습니다.")
-          : null;
-    }
+
+    isSaved === 1
+      ? setErrorInfo("보관함 이동이 완료되었습니다.")
+      : isSaved === 0
+        ? setErrorInfo("보관함 취소가 완료되었습니다.")
+        : null;
     return result;
   } catch (error) {
     console.log(error);
-    setErrorInfo(error);
+    // setErrorInfo(error.message);
   }
 };
 

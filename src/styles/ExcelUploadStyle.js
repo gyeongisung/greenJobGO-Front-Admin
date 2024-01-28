@@ -172,7 +172,7 @@ export const ExcelAcceptModalWrap = styled.div`
     .content {
       display: flex;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .btns {
       display: flex;

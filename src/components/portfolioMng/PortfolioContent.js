@@ -149,11 +149,12 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
           open={errorModalOpen}
           close={() => {
             setErrorModalOpen(false);
-            fetchData();
+            // fetchData();
+            setErrorInfo("");
           }}
           onConfirm={() => {
             setErrorModalOpen(false);
-            fetchData();
+            setErrorInfo("");
           }}
         >
           <span>{errorInfo}</span>

@@ -176,6 +176,8 @@ export const ConfirmModalWarp = styled.div`
     padding: 0px 20px 0px 30px;
     font-size: 14px;
     color: #515151;
+    font-weight: 400;
+
     & > div {
       margin-top: 20px;
       text-align: right;
@@ -283,6 +285,8 @@ export const OkModalWarp = styled.div`
     height: 100%;
     padding: 0px 20px 0px 30px;
     font-size: 14px;
+    font-weight: 400;
+
     color: #515151;
     & > div {
       margin-top: 20px;
@@ -377,6 +381,8 @@ export const ErrorModalWarp = styled.div`
     padding: 0px 20px 0px 30px;
     font-size: 14px;
     color: #515151;
+    font-weight: 400;
+
     & > div {
       margin-top: 20px;
       text-align: right;

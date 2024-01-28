@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { Maincolor, ellipsis } from "./GlobalStyle";
 
 export const PermanentlyWrap = styled.div`
+  position: relative;
+
   width: 100%;
   display: flex;
   align-items: center;
@@ -33,6 +35,7 @@ export const PermanentlyWrap = styled.div`
       }
     }
   }
+
 `;
 
 export const PermanentlyInner = styled.div`
@@ -150,6 +153,7 @@ export const PermanentlyInner = styled.div`
     line-height: 14px;
     margin-bottom: 10px;
   }
+
 `;
 export const DeleteTable = styled.div`
   position: relative;
@@ -162,7 +166,8 @@ export const DeleteTable = styled.div`
   /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
   /* box-sizing: border-box; */
   .list-border {
-    border: 1px solid ${Maincolor.sectiontitle};
+    /* border: 1px solid ${Maincolor.sectiontitle}; */
+
     .class-table-th {
       color: ${Maincolor.black};
       text-align: center;
@@ -177,11 +182,15 @@ export const DeleteTable = styled.div`
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: repeat(10, 43px);
+      border-top: 1px solid ${Maincolor.sectiontitle};
 
       > li {
-        line-height: 43px;
+        line-height: 42px;
         /* height: 44px; */
-        border-top: 1px solid ${Maincolor.sectiontitle};
+        border: 1px solid ${Maincolor.sectiontitle};
+        border-bottom: none;
+
+
         :first-of-type {
           background: ${Maincolor.search};
           color: ${Maincolor.black};
@@ -203,6 +212,7 @@ export const DeleteTable = styled.div`
           }
           > li:last-of-type {
             border-bottom: none;
+            /* border-bottom: 1px solid ${Maincolor.sectiontitle}; */
           }
         }
       }
