@@ -25,7 +25,12 @@ export const getStudentList = async (
   }
 };
 
-export const getStudentDetail = async (istudent, setUserInfo, setUserFile) => {
+export const getStudentDetail = async (
+  istudent,
+  setUserInfo,
+  setUserFile,
+  setHashSave,
+) => {
   try {
     const res = await client.get(`/admin/student/detail?istudent=${istudent}`);
 
@@ -41,13 +46,13 @@ export const getStudentDetail = async (istudent, setUserInfo, setUserFile) => {
     });
 
     console.log(res.data.file.img);
-    const certificateResult = certificates
-      .map(item => item.certificate)
-      .join(", ");
-
+    // const certificateResult = certificates
+    //   .map(item => item.certificate)
+    //   .join(", ");
+    setHashSave(certificates);
     setUserInfo({
       userDetail: userInfoDetail,
-      certificateValue: certificateResult,
+      certificateValue: certificates,
       birth: birthYear,
       subject: subject,
     });
@@ -191,13 +196,13 @@ export const deleteFile = async fileId => {
   }
 };
 
-export const putStudentInfo = async (studentId, userInfo) => {
+export const deleteCertificate = async (istudent, icertificate) => {
   try {
-    const res = await client.put(
-      `/admin/student?istudent=${studentId}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&age=${userInfo.age}&gender=${userInfo.gender}`,
+    const res = await client.delete(
+      `/admin/student/certificate?istudent=${istudent}&icertificate=${icertificate}`,
     );
-    console.log(res.data.istudent);
-    if (res.data.istudent) {
+    const result = res;
+    if (result.status === 200) {
       return { success: true };
     } else {
       return { success: false };
@@ -207,13 +212,31 @@ export const putStudentInfo = async (studentId, userInfo) => {
   }
 };
 
-export const putStudentCertificate = async (studentId, certificateValue) => {
+export const putStudentInfo = async (istudent, userInfo) => {
   try {
     const res = await client.put(
-      `/admin/student/certificate-list?certificate=${certificateValue}&istudent=${studentId}`,
+      `/admin/student?istudent=${istudent}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&age=${userInfo.age}&gender=${userInfo.gender}`,
     );
-    console.log(res.data.istudent);
-    if (res.data.istudent) {
+
+    const result = res;
+    if (result.status === 200) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postStudentCertificate = async (studentId, newHashTag) => {
+  try {
+    const res = await client.post(
+      `/admin/student/certificate?istudent=${studentId}&certificates=${newHashTag}`,
+    );
+
+    const result = res;
+    if (result.status === 200) {
       return { success: true };
     } else {
       return { success: false };

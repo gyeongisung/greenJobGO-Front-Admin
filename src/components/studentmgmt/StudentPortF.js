@@ -33,7 +33,6 @@ const StudentPortF = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [deleteOkModal, setDeleteOkModal] = useState(false);
-
   const [userInfo, setUserInfo] = useState({
     userDetail: "",
     birth: "",
@@ -120,7 +119,6 @@ const StudentPortF = () => {
   const handleCancelClick = () => {
     setDeleteOkModal(false);
   };
-
   return (
     <StudentPFeditSty>
       {deleteOkModal && (

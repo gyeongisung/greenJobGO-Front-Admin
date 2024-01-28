@@ -34,7 +34,7 @@ a {
 img {
   vertical-align: middle;
   border: 0;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 body {

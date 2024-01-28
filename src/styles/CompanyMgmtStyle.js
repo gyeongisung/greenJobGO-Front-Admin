@@ -107,20 +107,23 @@ export const CompanyTable = styled.div`
   width: 100%;
   height: 52vh;
   text-align: center;
-  border: 1px solid ${Maincolor.sectiontitle};
+  /* border: 1px solid ${Maincolor.sectiontitle}; */
   /* border-radius: 5px; */
   overflow: hidden;
   background: #fff;
   /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   > ul {
     height: 1334px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(11, 44.5px);
+    border-top: 1px solid ${Maincolor.sectiontitle};
     > li {
       line-height: 42px;
-      border-top: 1px solid ${Maincolor.sectiontitle};
+      /* border-top: 1px solid ${Maincolor.sectiontitle}; */
+      border: 1px solid ${Maincolor.sectiontitle};
+      border-bottom: none;
       :first-of-type {
         background: ${Maincolor.search};
         color: ${Maincolor.black};
@@ -140,6 +143,7 @@ export const CompanyTable = styled.div`
             cursor: pointer;
           }
           :not(:last-of-type) {
+            border-bottom: none;
             border-right: 1px solid ${Maincolor.sectiontitle};
           }
         }

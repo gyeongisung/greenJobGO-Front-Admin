@@ -55,6 +55,7 @@ export const InfoBaseWrap = styled.ul`
     }
   }
   .info-content-left {
+    font-size: 16px;
     width: 450px;
     div {
       :not(:last-of-type) {
@@ -108,6 +109,9 @@ export const InfoBaseWrap = styled.ul`
       :nth-of-type(2) {
         display: flex;
         align-items: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         gap: 21px;
       }
       :nth-of-type(3) {
@@ -145,23 +149,73 @@ export const InfoBaseWrap = styled.ul`
       }
       :nth-of-type(5) {
         display: flex;
-        align-items: center;
-        gap: 21px;
-        > input {
-          border: 1px solid ${Maincolor.input};
-          border-radius: 4px;
-          padding: 2px 8px;
-          width: 350px;
-          height: 22px;
-          padding-left: 3px;
-          line-height: 20px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 980px;
+        height: 26px;
+        > span {
+          margin-right: 21px;
+        }
+        .hash-tag-wrap {
+          .hash-tag-inner {
+            > .hash-tag-input {
+              padding: 5px 3px 3px 0;
+              font-size: 16px;
+              width: 300px;
+              display: inline-flex;
+              cursor: text;
+              height: 26px;
+              border: none;
+            }
+            > .tags {
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-start;
+              gap: 5px;
+              font-size: 16px;
+              font-weight: 400;
+              color: ${Maincolor.black};
+              background: ${Maincolor.search};
+              border-radius: 6px;
+              padding: 5px 5px 5px 10px;
+              margin: 0;
+              > img {
+                width: 11px;
+                height: 11px;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+        .read-hashtag {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          flex-wrap: wrap;
+          > div {
+            height: 26px;
+            display: flex;
+            align-items: center;
+            color: ${Maincolor.black};
+            background: ${Maincolor.search};
+            border-radius: 6px;
+            padding: 5px 10px;
+            margin: 0;
+            > span {
+              font-size: 16px;
+              font-weight: 400;
+              margin: 0;
+            }
+          }
         }
       }
     }
   }
   .info-content-right {
     width: 50%;
+    height: 22%;
     div {
+      font-size: 16px;
       > input {
         border: 1px solid ${Maincolor.input};
         border-radius: 4px;
@@ -186,7 +240,7 @@ export const InfoBaseWrap = styled.ul`
         display: flex;
         align-items: end;
         gap: 18px;
-        margin-bottom: 40px;
+        margin-bottom: 26px;
       }
       :nth-of-type(2) {
         display: flex;

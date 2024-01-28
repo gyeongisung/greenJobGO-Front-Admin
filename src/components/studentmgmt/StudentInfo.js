@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { StudentInfoWrap } from "../../styles/StudentInfoStyle";
 import {
+  deleteCertificate,
   deleteFile,
   deleteStudent,
   getStudentDetail,
+  postStudentCertificate,
   postStudentFileUpload,
   postStudentResumeUpload,
   putStudentCertificate,
   putStudentInfo,
 } from "../../api/studentAxios";
 import { useRecoilState } from "recoil";
-import { changeComponent } from "../../recoil/atoms/ChangeState";
-import { v4 } from "uuid";
-import NoImage from "../../assets/NoImage.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faFilePdf } from "@fortawesome/free-regular-svg-icons";
-import { faCrown, faLink } from "@fortawesome/free-solid-svg-icons";
-import { DeleteSingleStudentModal, PortFolioAdd } from "./StudentModal";
 import { AcceptModal, DeleteOkModal, EditAceeptModal } from "../AcceptModals";
-import { useLocation, useNavigate, useParams } from "react-router";
-import StudentPortF from "./StudentPortF";
+import { useNavigate, useParams } from "react-router";
 import StudentBase from "./StduenDetail/StudentBase";
 import StudentResume from "./StduenDetail/StudentResume";
 import StudentPofol from "./StduenDetail/StudentPofol";
@@ -33,7 +27,7 @@ const StudentInfo = () => {
   const [userInfo, setUserInfo] = useState({
     userDetail: "",
     birth: "",
-    certificateValue: "",
+    certificateValue: [],
     subject: "",
   });
   const [userFile, setUserFile] = useState({
@@ -46,6 +40,8 @@ const StudentInfo = () => {
   console.log(userInfo);
   console.log(userFile);
 
+  const [hashTag, setHashTag] = useState("");
+  const [hashSave, setHashSave] = useState([]);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteOkModal, setDeleteOkModal] = useState(false);
@@ -53,16 +49,10 @@ const StudentInfo = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [resumeFile, setResumeFile] = useState("");
   const [resumeOneWord, setResumeOneWord] = useState("");
-  // const [modalOpen, setModalOpen] = useState(false);
-  // const [iFile, setIFile] = useState(2);
-  // const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const [linkUrl, setLinkUrl] = useState("");
-  // const [isTrue, setIsTrue] = useRecoilState(changeComponent);
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
 
   useEffect(() => {
-    getStudentDetail(istudent, setUserInfo, setUserFile);
+    getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
   }, [istudent, isEditMode]);
 
   // 수정모드 변경 버튼
@@ -105,7 +95,7 @@ const StudentInfo = () => {
       let result;
       console.log("result", result);
       result = await putStudentInfo(istudent, userInfo.userDetail);
-      result = await putStudentCertificate(istudent, userInfo.certificateValue);
+      // result = await putStudentCertificate(istudent, userInfo.certificateValue);
       setUpLoadResult(result);
 
       if (result.success) {
@@ -126,40 +116,6 @@ const StudentInfo = () => {
       // setIsEditMode(false);
     }
   };
-
-  // const handleFileUpload = async () => {
-  //   if (iFile && (iFile === 2 || iFile === 3)) {
-  //     let formData = new FormData();
-  //     formData.append("file", selectedFile);
-  //     try {
-  //       const result = await postStudentFileUpload(
-  //         studentId,
-  //         iFile,
-  //         formData,
-  //         description,
-  //         linkUrl,
-  //       );
-  //       setUpLoadResult(result);
-  //       if (result.success) {
-  //         setModalOpen(false);
-  //         setAcceptOkModal(true);
-  //         setIFile(2);
-  //         setSelectedFile(null);
-  //         setLinkUrl("");
-  //         setDescription("");
-  //         getStudentDetail(studentId, setUserInfo, setUserFile);
-  //       }
-  //     } catch (error) {
-  //       setModalOpen(false);
-  //       setAcceptOkModal(true);
-  //       setIFile(2);
-  //       setSelectedFile(null);
-  //       setLinkUrl("");
-  //       setDescription("");
-  //       getStudentDetail(studentId, setUserInfo, setUserFile);
-  //     }
-  //   }
-  // };
 
   // 돌아가기 버튼
   const handleBack = () => {
@@ -209,20 +165,6 @@ const StudentInfo = () => {
     setDeleteOkModal(true);
   };
 
-  // const handleDeleteFile = async fileId => {
-  //   await deleteFile(fileId);
-  //   getStudentDetail(istudent, setUserInfo, setUserFile);
-  //   console.log(fileId);
-  // };
-
-  // const handleAddButton = () => {
-  //   setModalOpen(true);
-  // };
-
-  // const handlePofolModalCancel = () => {
-  //   setModalOpen(false);
-  // };
-
   const phoneFormatter = num => {
     try {
       num = num.replace(/\s/gi, "");
@@ -241,24 +183,74 @@ const StudentInfo = () => {
     }
   };
 
+  const handleAddHashTag = async e => {
+    const command = ["Comma", "Enter", "NumpadEnter"];
+    if (!command.includes(e.code)) return;
+
+    const inputValue = e.target.value?.trim();
+
+    if (!inputValue || inputValue === "") {
+      setHashTag("");
+      return;
+    }
+
+    let newHashTag = inputValue;
+
+    const regExp = /[{}[\].;:|)*~`!^_+<>@#$%&\\=('"]/g;
+
+    if (regExp.test(newHashTag)) {
+      newHashTag = newHashTag.replace(regExp, "");
+    }
+
+    if (newHashTag.includes(",")) {
+      newHashTag = newHashTag.split(",").join("");
+    }
+
+    if (newHashTag === "") return;
+
+    if (hashSave.length >= 6) {
+      setHashTag("");
+      return;
+    }
+
+    if (!hashSave.includes(newHashTag)) {
+      try {
+        setHashSave(prevHashTags => [...prevHashTags, newHashTag]);
+        await postStudentCertificate(istudent, newHashTag);
+        getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    console.log(hashSave);
+
+    setHashTag("");
+  };
+
+  const handleKeyDown = e => {
+    if (e.code !== "Enter" && e.code !== "NumpadEnter") return;
+    e.preventDefault();
+
+    const regExp = /^[a-z|A-Z|가-힣|ㄱ-ㅎ|ㅏ-ㅣ|0-9| \t|]+$/g;
+    if (!regExp.test(e.currentTarget.value)) {
+      setHashTag("");
+    }
+  };
+
+  const handleHashChange = e => {
+    setHashTag(e.target.value);
+  };
+
+  const handleRemoveHashTag = async icertificate => {
+    await deleteCertificate(istudent, icertificate);
+    getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
+  };
+
   const formatPhoneNumber = phoneFormatter(userInfo.userDetail.mobileNumber);
+  
   return (
     <StudentInfoWrap>
-      {/* {modalOpen && (
-        <PortFolioAdd
-          modalOpen={modalOpen}
-          handlePofolModalCancel={handlePofolModalCancel}
-          iFile={iFile}
-          setIFile={setIFile}
-          selectedFile={selectedFile}
-          setSelectedFile={setSelectedFile}
-          description={description}
-          setDescription={setDescription}
-          linkUrl={linkUrl}
-          setLinkUrl={setLinkUrl}
-          handleFileUpload={handleFileUpload}
-        />
-      )} */}
       {deleteOkModal && (
         <DeleteOkModal
           deleteOkModal={deleteOkModal}
@@ -273,13 +265,6 @@ const StudentInfo = () => {
           uploadResult={uploadResult}
         />
       )}
-      {/* {deleteModalOpen && (
-        <DeleteSingleStudentModal
-          handleDelete={handleDelete}
-          deleteModalOpen={deleteModalOpen}
-          setDeleteModalOpen={setDeleteModalOpen}
-        />
-      )} */}
       {editModal && (
         <EditAceeptModal
           editModal={editModal}
@@ -298,6 +283,12 @@ const StudentInfo = () => {
           userInfo={userInfo}
           setUserInfo={setUserInfo}
           formatPhoneNumber={formatPhoneNumber}
+          hashTag={hashTag}
+          hashSave={hashSave}
+          handleAddHashTag={handleAddHashTag}
+          handleRemoveHashTag={handleRemoveHashTag}
+          handleHashChange={handleHashChange}
+          handleKeyDown={handleKeyDown}
         />
         <StudentResume
           userFile={userFile}
