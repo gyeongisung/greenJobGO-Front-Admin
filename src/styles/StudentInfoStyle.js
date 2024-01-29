@@ -262,7 +262,7 @@ export const InfoBaseWrap = styled.ul`
 `;
 export const InfoResumeWrap = styled.div`
   height: 310px;
-  border-bottom: 1px solid ${Maincolor.header};
+  /* border-bottom: 1px solid ${Maincolor.header}; */
   padding: 40px 0;
   > ul {
     > li {

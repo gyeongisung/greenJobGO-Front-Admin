@@ -6,15 +6,13 @@ import {
 } from "../styles/GlobalStyle";
 
 const OkModal = ({ header, open, close, onConfirm, children }) => {
-  const stopPropagation = e => {
-    e.stopPropagation();
-  };
+
   console.log("okmodal");
   return (
-    <OkModalWarp onClick={close}>
+    <OkModalWarp>
       <div className={open ? "openOkModal ok-modal" : "ok-modal"}>
         {open && (
-          <div className="modalOk-wrapper" onClick={e => stopPropagation(e)}>
+          <div className="modalOk-wrapper">
             {/* 헤더내용 */}
             <div className="ok-modal-header">
               {header}

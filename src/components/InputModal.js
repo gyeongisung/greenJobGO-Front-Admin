@@ -8,11 +8,8 @@ const InputModal = ({ open, close, header, children }) => {
     e.stopPropagation();
   };
   return (
-    <ModalWarp onClick={close}>
-      <div
-        className={open ? "openModal modal" : "modal"}
-        onClick={e => stopPropagation(e)}
-      >
+    <ModalWarp>
+      <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <div className="modal-wrapper">
             {/* 헤더내용 */}

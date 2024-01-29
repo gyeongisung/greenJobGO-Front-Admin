@@ -76,7 +76,12 @@ const PermanentlyDelete = () => {
 
   // 삭제버튼 클릭
   const handleDelete = () => {
-    setModalOpen(true);
+    if (clickItems.length === 0) {
+      setErrorInfo("삭제할 내용을 선택하세요.");
+      return;
+    } else {
+      setModalOpen(true);
+    }
   };
 
   // 삭제컨펌
