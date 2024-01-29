@@ -68,6 +68,7 @@ const SaveItemSearch = ({
   const handleErrorOK = () => {
     setErrorModalOpen(false);
     setErrorInfo("");
+    fetchData();
   };
   const handleCancel = () => {
     setClickItems([]);

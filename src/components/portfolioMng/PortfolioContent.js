@@ -32,7 +32,7 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
       // let update = 1;
       // setIsSaved(update);
       await patchSendSaved({ savedItemNum, isSaved: 1, setErrorInfo });
-      // await fetchData();
+      fetchData();
       await setModalOpen(false);
       setErrorModalOpen(true);
     } catch (error) {
@@ -51,7 +51,7 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
       // let update = 0;
       // setIsSaved(update);
       await patchSendSaved({ savedItemNum, isSaved: 0, setErrorInfo });
-      // await fetchData();
+      fetchData();
       await setCancelModalOpen(false);
       setErrorModalOpen(true);
     } catch (error) {

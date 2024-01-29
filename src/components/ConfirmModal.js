@@ -18,12 +18,12 @@ const ConfirmModal = ({
     e.stopPropagation();
   };
   return (
-    <ConfirmModalWarp onClick={close}>
+    <ConfirmModalWarp>
       <div className={open ? "openConfirmModal Confimmodal" : "Confirmmodal"}>
         {open ? (
           <div
             className="modalConfirm-wrapper"
-            onClick={e => stopPropagation(e)}
+            // onClick={e => stopPropagation(e)}
           >
             {/* 헤더내용 */}
             <div className="confirm-modal-header">
