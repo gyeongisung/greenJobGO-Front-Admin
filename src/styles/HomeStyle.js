@@ -57,8 +57,8 @@ export const StudentAuthPostSty = styled.div`
       appearance: none;
       background: url(${process.env.PUBLIC_URL}/assets/Arrowdown.png) no-repeat
         calc(100% - 12px) 50%/11px auto;
-      padding: 0 28px 0 10px;        border-radius: 0;
-
+      padding: 0 28px 0 10px;
+      border-radius: 0;
     }
     select::-ms-expand {
       display: none;
@@ -154,14 +154,17 @@ export const StudentAuthgetListSty = styled.div`
         & > li {
           background: ${Maincolor.search};
           border-radius: 6px;
-          padding: 11px;
+          padding: 10px;
           width: 100%;
           .title {
+            display: inline-block;
             text-align: left;
-            width: 440px;
+            width: 500px;
+            margin-right: 10px;
             ${ellipsis.one}
           }
           .date {
+            display: block;
             float: right;
             width: 160px;
             ${ellipsis.one}
