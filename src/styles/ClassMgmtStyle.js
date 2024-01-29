@@ -129,7 +129,7 @@ export const ClassMgmtInner = styled.div`
 export const ClassTable = styled.div`
   position: relative;
   width: 100%;
-  height: 52vh;
+  height: 50vh;
   text-align: center;
   /* border: 1px solid #ccc; */
   /* border: 1px solid ${Maincolor.sectiontitle}; */
@@ -143,7 +143,7 @@ export const ClassTable = styled.div`
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(11, 44.6px);
+    grid-template-rows: repeat(11, 42.8px);
     border-top: 1px solid ${Maincolor.sectiontitle};
     > li {
       line-height: 42px;

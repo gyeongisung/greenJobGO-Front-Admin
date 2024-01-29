@@ -100,8 +100,8 @@ export const CompanyAcceptModalWrap = styled.div`
   }
   .company-modal-inner {
     position: absolute;
-    width: 40%;
-    height: 70%;
+    width: 700px;
+    height: 640px;
     top: 50%;
     left: 50%;
     text-align: center;
@@ -111,6 +111,7 @@ export const CompanyAcceptModalWrap = styled.div`
     transform: translate(-50%, -50%);
     animation: modal-show 0.3s;
     z-index: 99;
+    /* padding-bottom: 40px; */
     .modal-top {
       display: flex;
       justify-content: center;
@@ -205,7 +206,7 @@ export const CompanyAcceptModalWrap = styled.div`
       }
     }
     .modal-ok {
-      padding-top: 45px;
+      padding: 40px 0;
       button {
         font-weight: 500;
         font-size: 16px;
@@ -239,8 +240,8 @@ export const ClassAcceptModalWrap = styled.div`
   }
   .class-modal-inner {
     position: absolute;
-    width: 36%;
-    height: 70%;
+    width: 700px;
+    height: 640px;
     top: 50%;
     left: 50%;
     text-align: center;
@@ -413,12 +414,12 @@ export const ClassAcceptModalWrap = styled.div`
       }
     }
     .modal-ok {
-      margin-top: 35px;
+      padding: 30px 0;
       > button {
         width: 150px;
         height: 50px;
         color: #fff;
-        background: #6d6d6d;
+        background: ${Maincolor.admintxt};
         border: none;
         border-radius: 5px;
         cursor: pointer;

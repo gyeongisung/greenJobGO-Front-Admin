@@ -179,11 +179,11 @@ const StudentBase = ({
               >
                 {userInfo?.userDetail?.huntJobYn === 1 ? "취업" : "미취업"}
               </option>
-              <option name="employment-status" value={1}>
-                취업
-              </option>
-              <option name="employment-status" value={0}>
-                미취업
+              <option
+                name="employment-status"
+                value={userInfo?.userDetail?.huntJobYn === 0 ? 1 : 0}
+              >
+                {userInfo?.userDetail?.huntJobYn === 0 ? "취업" : "미취업"}
               </option>
             </select>
           ) : (
