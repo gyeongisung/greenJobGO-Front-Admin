@@ -151,23 +151,6 @@ export const postStudentPofolUpload = async (
     } else {
       return { success: false };
     }
-    // if (iFile === 2) {
-    //   res = await client.post(
-    //     `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}`,
-    //     formData,
-    //     {
-    //       headers: { "Content-Type": "multipart/form-data" },
-    //     },
-    //   );
-    // } else if (iFile === 3) {
-    //   res = await client.post(
-    //     `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}&fileLink=${linkUrl}`,
-    //     formData,
-    //     {
-    //       headers: { "Content-Type": "multipart/form-data" },
-    //     },
-    //   );
-    // }
   } catch (error) {
     console.log(error);
   }
@@ -235,6 +218,22 @@ export const postStudentCertificate = async (studentId, newHashTag) => {
       `/admin/student/certificate?istudent=${studentId}&certificates=${newHashTag}`,
     );
 
+    const result = res;
+    if (result.status === 200) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const patchMainPofolSelected = async (istudent, mainCheck, mainYn) => {
+  try {
+    const res = await client.patch(
+      `/admin/student/portfolio-main?istudent=${istudent}&ifile=${mainCheck}&mainYn=${mainYn}`,
+    );
     const result = res;
     if (result.status === 200) {
       return { success: true };

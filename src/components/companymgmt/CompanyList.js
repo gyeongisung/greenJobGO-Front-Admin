@@ -10,9 +10,8 @@ const CompanyList = ({
   setAcceptOkModal,
   uploadResult,
   setUpLoadResult,
-  fetchData
+  fetchData,
 }) => {
-
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [companyInfo, setCompanyInfo] = useState(null);
   const handleEditModalOpen = data => {
@@ -74,7 +73,15 @@ const CompanyList = ({
               <li>{item.manager}</li>
               <li>{item.phoneNumber}</li>
               <li>{item.dateConslusion}</li>
-              <li>{item.homepage}</li>
+              <li className="check-box-li" onClick={e => e.stopPropagation()}>
+                <a
+                  href={`https://${item.homepage}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.homepage}
+                </a>
+              </li>
             </ul>
           </li>
         ))}

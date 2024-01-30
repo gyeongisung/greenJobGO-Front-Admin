@@ -8,12 +8,12 @@ export const BulkWrap = styled.div`
   justify-content: center;
   flex-direction: column;
   .delete-title {
-    width: 1300px;
+    width: 1350px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
-    padding: 30px 0;
+    padding: 30px 0 10px 0;
     h3 {
       font-size: 24px;
       padding-left: 10px;
@@ -31,7 +31,7 @@ export const BulkInner = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1300px;
+    width: 1350px;
     height: 100px;
     border-radius: 5px;
     background: ${Maincolor.search};
@@ -110,7 +110,7 @@ export const BulkInner = styled.div`
 export const BulkTable = styled.div`
   position: relative;
   width: 100%;
-  height: 52vh;
+  height: 54vh;
   text-align: center;
   /* border: 1px solid ${Maincolor.sectiontitle}; */
   /* border-radius: 5px; */
@@ -119,7 +119,7 @@ export const BulkTable = styled.div`
   /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
   /* box-sizing: border-box; */
   > ul {
-    width: 1300px;
+    width: 1350px;
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -141,7 +141,7 @@ export const BulkTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.4fr 1.3fr 0.2fr 0.55fr 0.4fr;
+        grid-template-columns: 0.15fr 0.4fr 1.3fr 0.2fr 0.55fr 0.3fr;
         > li {
           padding: 0 5px;
           ${ellipsis.one}

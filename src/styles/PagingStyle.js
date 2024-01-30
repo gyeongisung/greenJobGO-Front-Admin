@@ -5,7 +5,7 @@ export const PagiWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 25px;
+    padding-top: 20px;
     li {
       display: inline-block;
       width: 25px;

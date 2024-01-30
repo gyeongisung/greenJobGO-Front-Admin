@@ -115,3 +115,12 @@ export const postLogout = async (accessToken, refreshToken) => {
     console.log(error);
   }
 };
+
+export const getLoginPic = async setLoginPic => {
+  try {
+    const res = await client.get(`/admin/sign/loginpic`);
+    setLoginPic(res.data);
+  } catch (error) {
+    console.log("깜짝놀랬찌?");
+  }
+};

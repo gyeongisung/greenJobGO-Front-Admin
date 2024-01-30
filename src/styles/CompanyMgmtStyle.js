@@ -3,16 +3,17 @@ import { Maincolor, ellipsis } from "./GlobalStyle";
 
 export const CompanyMgmtWrap = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   .company-title {
-    width: 80%;
+    width: 1400px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 80px;
+    height: 60px;
     h3 {
       margin: 30px 0;
       font-size: 24px;
@@ -28,7 +29,7 @@ export const CompanyMgmtInner = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1334px;
+    width: 1400px;
     height: 95px;
     border-radius: 6px;
     background: ${Maincolor.search};
@@ -104,8 +105,8 @@ export const CompanyMgmtInner = styled.div`
 `;
 export const CompanyTable = styled.div`
   position: relative;
-  width: 100%;
-  height: 52vh;
+  width: 1400px;
+  height: 54vh;
   text-align: center;
   /* border: 1px solid ${Maincolor.sectiontitle}; */
   /* border-radius: 5px; */
@@ -114,10 +115,9 @@ export const CompanyTable = styled.div`
   /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
   /* box-sizing: border-box; */
   > ul {
-    height: 1334px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(11, 44.5px);
+    grid-template-rows: repeat(11, 43px);
     border-top: 1px solid ${Maincolor.sectiontitle};
     > li {
       line-height: 42px;
@@ -137,9 +137,15 @@ export const CompanyTable = styled.div`
         display: grid;
         grid-template-columns: 0.15fr 0.25fr 0.6fr 1fr 0.4fr 0.4fr 0.45fr 0.55fr 1fr;
         > li {
+          > a {
+            color: ${Maincolor.black};
+            :hover {
+              color: ${Maincolor.admintxt};
+            }
+          }
           padding: 0 5px;
           ${ellipsis.one}
-          :not(:first-of-type) {
+          :not(:first-of-type,:last-of-type) {
             cursor: pointer;
           }
           :not(:last-of-type) {

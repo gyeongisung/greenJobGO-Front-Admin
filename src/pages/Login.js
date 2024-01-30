@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LoginInner, LoginWrap } from "../styles/LoginStyle";
-import { fetchLogin } from "../api/client";
+import { fetchLogin, getLoginPic } from "../api/client";
 import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { AuthStateAtom } from "../recoil/atoms/AuthState";
@@ -9,6 +9,7 @@ import OkModal from "../components/OkModal";
 const Login = () => {
   const [adminId, setAdmminId] = useState("greendg01");
   const [password, setPassword] = useState("green1234");
+  const [loginPic, setLoginPic] = useState("");
   const [errmsg, setErrMsg] = useState(false);
 
   // 로그인 오류 메세지 받아오는 state.
@@ -60,6 +61,7 @@ const Login = () => {
     }
   };
   useEffect(() => {
+    getLoginPic(setLoginPic);
     if (errorCancelInfo) {
       setErrorModalOpen(true);
     } else {
@@ -71,7 +73,7 @@ const Login = () => {
     <LoginWrap>
       <LoginInner>
         <li>
-          <img src="../../assets/Login.png" alt="LoginImage" />
+          <img src={`https://greenjobgo.kr${loginPic}`} alt="LoginImage" />
         </li>
         <li>
           <div className="login-title">

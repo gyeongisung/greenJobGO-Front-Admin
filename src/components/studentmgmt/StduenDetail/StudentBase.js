@@ -22,7 +22,7 @@ const StudentBase = ({
       <li>
         {userFile && userFile.thumbNail ? (
           <img
-            src={`http://112.222.157.156/img/student/${istudent}/${userFile.thumbNail}`}
+            src={`https://greenjobgo.kr/img/student/${istudent}/${userFile.thumbNail}`}
             alt="썸네일"
           />
         ) : (

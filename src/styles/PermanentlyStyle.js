@@ -15,7 +15,7 @@ export const PermanentlyWrap = styled.div`
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
-    padding: 30px 0;
+    padding: 30px 0 10px 0;
     h3 {
       font-size: 24px;
       padding-left: 10px;
@@ -35,7 +35,6 @@ export const PermanentlyWrap = styled.div`
       }
     }
   }
-
 `;
 
 export const PermanentlyInner = styled.div`
@@ -43,7 +42,7 @@ export const PermanentlyInner = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1536px;
+    width: 1500px;
     height: 100px;
     border-radius: 5px;
     background: ${Maincolor.search};
@@ -153,13 +152,11 @@ export const PermanentlyInner = styled.div`
     line-height: 14px;
     margin-bottom: 10px;
   }
-
 `;
 export const DeleteTable = styled.div`
   position: relative;
   width: 100%;
-  /* height: 58vh; */
-  height: 475px;
+  height: 54vh;
   text-align: center;
   overflow: hidden;
   background: #fff;
@@ -177,11 +174,11 @@ export const DeleteTable = styled.div`
     }
     > ul {
       /* width: 1500px; */
-      width: 1536px;
+      width: 1500px;
       height: 100%;
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: repeat(10, 43px);
+      grid-template-rows: repeat(11, 43px);
       border-top: 1px solid ${Maincolor.sectiontitle};
 
       > li {
@@ -189,7 +186,6 @@ export const DeleteTable = styled.div`
         /* height: 44px; */
         border: 1px solid ${Maincolor.sectiontitle};
         border-bottom: none;
-
 
         :first-of-type {
           background: ${Maincolor.search};

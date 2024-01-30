@@ -9,6 +9,7 @@ import { AcceptModal, DeleteOkModal } from "../AcceptModals";
 import {
   deleteFile,
   getStudentDetail,
+  patchMainPofolSelected,
   postStudentPofolUpload,
 } from "../../api/studentAxios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,6 +21,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router";
 import ErrorModal from "../ErrorModal";
+import ConfirmModal from "../ConfirmModal";
 
 const StudentPortF = () => {
   // api 오류 메세지 받아오는 state.
@@ -38,6 +40,9 @@ const StudentPortF = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [deleteOkModal, setDeleteOkModal] = useState(false);
+  const [mainYn, setMainYn] = useState(0);
+  const [mainCheck, setMainCheck] = useState("");
+  const [mainYnModal, setMainYnModal] = useState(false);
   const [userInfo, setUserInfo] = useState({
     userDetail: "",
     birth: "",
@@ -125,6 +130,25 @@ const StudentPortF = () => {
     setDeleteOkModal(false);
   };
 
+  const handleCheckboxChange = (e, ifile) => {
+    if (e.target.checked) {
+      setMainCheck([ifile]);
+      setMainYn(0);
+      setMainYnModal(true);
+      console.log(mainCheck);
+    } else {
+      setMainCheck([ifile]);
+      setMainYn(1);
+      setMainYnModal(true);
+      console.log(mainCheck);
+    }
+  };
+
+  const handleMainPofolOk = () => {
+    patchMainPofolSelected(userSendInfo.istudent, mainCheck, mainYn);
+    setMainYnModal(false);
+  };
+
   useEffect(() => {
     if (errorApiInfo) {
       setApiErrorModalOpen(true);
@@ -142,6 +166,17 @@ const StudentPortF = () => {
           handleCancelClick={handleCancelClick}
         />
       )}
+      {/* 보관확인모달 */}
+      {mainYnModal && (
+        <ConfirmModal
+          open={mainYnModal}
+          close={() => setMainYnModal(false)}
+          onConfirm={handleMainPofolOk}
+          onCancel={() => setMainYnModal(false)}
+        >
+          <span>대표 포트폴리오로 등록 하시겠습니까?</span>
+        </ConfirmModal>
+      )}
       <ul className="portfolio-list">
         <li>
           <h2>포트폴리오</h2>
@@ -154,41 +189,49 @@ const StudentPortF = () => {
             {userFile && userFile.portFolio && userFile.portFolio.length > 0 ? (
               userFile.portFolio.map(item => (
                 <div className="portfolio-box" key={v4()}>
-                  <div>
-                    <div>
-                      <p>
-                        <FontAwesomeIcon icon={faFilePdf} />
-                      </p>
-                      <a
-                        href={`http://${item.file}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        &nbsp;
-                        {item.file}
-                      </a>
-                    </div>
-                    <div className="portfolio-icons">
-                      {item.mainYn === 1 ? (
+                  <div className="portfolio-inner">
+                    <div className="portfolio-top">
+                      <div>
                         <p>
+                          <FontAwesomeIcon icon={faFilePdf} />
+                        </p>
+                        <a
+                          href={`https://${item.file}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          &nbsp;
+                          {item.file}
+                        </a>
+                      </div>
+                      <div className="portfolio-icons">
+                        {item.mainYn === 0 ? (
+                          <p className="main-pofol-icon">
+                            <FontAwesomeIcon icon={faCrown} />
+                          </p>
+                        ) : (
+                          ""
+                        )}
+                        <p className="delete-icon">
                           <FontAwesomeIcon
-                            icon={faCrown}
-                            style={{ color: "#228FCF" }}
+                            onClick={() => handleDeleteFile(item.ifile)}
+                            icon={faCircleXmark}
                           />
                         </p>
-                      ) : (
-                        ""
-                      )}
-                      <p className="delete-icon">
-                        <FontAwesomeIcon
-                          onClick={() => handleDeleteFile(item.ifile)}
-                          icon={faCircleXmark}
-                          style={{ color: "#6d6d6d" }}
-                        />
-                      </p>
+                      </div>
+                    </div>
+                    <div className="portfolio-btm">
+                      <span>{item.oneWord}</span>
                     </div>
                   </div>
-                  <span>{item.oneWord}</span>
+                  <div className="main-check">
+                    <input
+                      type="checkbox"
+                      value={item.ifile}
+                      checked={item.mainYn === 1}
+                      onChange={e => handleCheckboxChange(e, item.ifile)}
+                    />
+                  </div>
                 </div>
               ))
             ) : (
@@ -203,30 +246,42 @@ const StudentPortF = () => {
             {userFile && userFile.fileLinks && userFile.fileLinks.length > 0 ? (
               userFile.fileLinks.map(item => (
                 <div className="portfolio-box" key={v4()}>
-                  <div>
-                    <div>
-                      <p>
-                        <FontAwesomeIcon icon={faLink} />
-                      </p>
-                      <a
-                        href={`http://${item.fileLink}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        &nbsp;{item.fileLink}
-                      </a>
+                  <div className="portfolio-inner">
+                    <div className="portfolio-top">
+                      <div>
+                        <p>
+                          <FontAwesomeIcon icon={faLink} />
+                        </p>
+                        <a
+                          href={`https://${item.fileLink}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          &nbsp;{item.fileLink}
+                        </a>
+                      </div>
+                      <div>
+                        <p className="delete-icon">
+                          <FontAwesomeIcon
+                            onClick={() => handleDeleteFile(item.ifile)}
+                            icon={faCircleXmark}
+                            style={{ color: "#6d6d6d" }}
+                          />
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="delete-icon">
-                        <FontAwesomeIcon
-                          onClick={() => handleDeleteFile(item.ifile)}
-                          icon={faCircleXmark}
-                          style={{ color: "#6d6d6d" }}
-                        />
-                      </p>
+                    <div className="portfolio-btm">
+                      <span>{item.oneWord}</span>
                     </div>
                   </div>
-                  <span>{item.oneWord}</span>
+                  <div className="main-check">
+                    <input
+                      type="checkbox"
+                      value={item.ifile}
+                      checked={item.mainYn === 1}
+                      onChange={e => handleCheckboxChange(e, item.ifile)}
+                    />
+                  </div>
                 </div>
               ))
             ) : (

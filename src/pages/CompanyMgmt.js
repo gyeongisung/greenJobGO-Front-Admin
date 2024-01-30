@@ -185,17 +185,17 @@ const CompanyMgmt = () => {
       setPhoneNumberError(
         !payload.phoneNumber ? "연락처를 입력 해 주세요." : "",
       );
-      setDateConslusionError(
-        !payload.dateConslusion ? "체결일자를 선택 해 주세요." : "",
-      );
+      // setDateConslusionError(
+      //   !payload.dateConslusion ? "체결일자를 선택 해 주세요." : "",
+      // );
 
       const isError =
         !payload.companyName ||
         !payload.area ||
         !payload.leaderName ||
         !payload.manager ||
-        !payload.phoneNumber ||
-        !payload.dateConslusion;
+        !payload.phoneNumber
+        // !payload.dateConslusion;
 
       if (!isError) {
         const result = await postCompanyAccept(payload);

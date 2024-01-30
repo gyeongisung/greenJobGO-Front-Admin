@@ -512,6 +512,7 @@ export const StudentPFeditSty = styled.div`
       :last-of-type {
         display: flex;
         justify-content: space-between;
+        gap: 40px;
         > div {
           .portfolio-zero {
             width: 690px;
@@ -527,53 +528,53 @@ export const StudentPFeditSty = styled.div`
             }
           }
           .portfolio-box {
-            width: 690px;
-            height: 90px;
-            border: 1px solid ${Maincolor.search};
-            border-radius: 6px;
+            display: flex;
+            gap: 10px;
             margin-bottom: 14px;
-            > div {
-              width: 100%;
-              height: 40px;
-              line-height: 40px;
-              background-color: ${Maincolor.search};
+            .portfolio-inner {
+              width: 650px;
               display: flex;
-              align-items: center;
-              justify-content: space-between;
-              > div {
+              flex-direction: column;
+              border: 1px solid ${Maincolor.search};
+              border-radius: 6px;
+              .portfolio-top {
                 display: flex;
+                justify-content: space-between;
                 align-items: center;
-                padding: 0 13px 0 10px;
-                a {
-                  color: ${Maincolor.black};
-                  font-size: 14px;
-                  font-weight: 400;
-                  margin-left: 5px;
-                }
-                p {
-                  font-size: 18px;
-                  height: 21px;
-                  line-height: 21px;
+                background: ${Maincolor.search};
+                height: 40px;
+                div {
+                  :first-of-type {
+                    display: flex;
+                    align-items: center;
+                    gap: 3px;
+                    padding-left: 10px;
+                  }
+                  :last-of-type {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding-right: 10px;
+                    .main-pofol-icon {
+                      width: 20px;
+                      font-size: 18px;
+                      color: ${Maincolor.admintxt};
+                    }
+                    .delete-icon {
+                      font-size: 18px;
+                      color: ${Maincolor.btn};
+                    }
+                  }
                 }
               }
+              .portfolio-btm {
+                width: 690px;
+                height: 60px;
+                padding: 10px;
+              }
             }
-            .portfolio-icons {
-              display: flex;
-              gap: 15px;
-              font-size: 21px;
-              line-height: 21px;
-            }
-            .delete-icon {
-              font-size: 21px;
-              line-height: 21px;
-              cursor: pointer;
-            }
-            > span {
-              display: block;
-              padding-left: 5px;
-              font-size: 14px;
-              font-weight: 400;
-              padding: 10px;
+            .main-check {
+              line-height: 45px;
             }
           }
         }

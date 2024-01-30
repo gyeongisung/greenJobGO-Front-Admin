@@ -3,15 +3,17 @@ import { Maincolor, ellipsis } from "./GlobalStyle";
 
 export const ClassMgmtWrap = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   .class-title {
-    width: 86%;
+    width: 1450px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    height: 60px;
     h3 {
       margin: 30px 0;
       font-size: 24px;
@@ -27,7 +29,7 @@ export const ClassMgmtInner = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1434px;
+    width: 1450px;
     height: 95px;
     border-radius: 5px;
     background: ${Maincolor.maingray};
@@ -129,7 +131,7 @@ export const ClassMgmtInner = styled.div`
 export const ClassTable = styled.div`
   position: relative;
   width: 100%;
-  height: 50vh;
+  height: 54vh;
   text-align: center;
   /* border: 1px solid #ccc; */
   /* border: 1px solid ${Maincolor.sectiontitle}; */
@@ -139,11 +141,11 @@ export const ClassTable = styled.div`
   /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
   /* box-sizing: border-box; */
   > ul {
-    width: 1434px;
+    width: 1450px;
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(11, 42.8px);
+    grid-template-rows: repeat(11, 43px);
     border-top: 1px solid ${Maincolor.sectiontitle};
     > li {
       line-height: 42px;

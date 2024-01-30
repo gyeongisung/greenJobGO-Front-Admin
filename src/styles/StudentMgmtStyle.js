@@ -3,16 +3,17 @@ import { Maincolor, ellipsis } from "./GlobalStyle";
 
 export const StudentMgmtWrap = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   .student-title {
-    width: 93%;
+    width: 1500px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 80px;
+    height: 60px;
     h3 {
       margin: 30px 0;
       font-size: 24px;
@@ -129,8 +130,8 @@ export const StudentMgmtInner = styled.div`
 `;
 export const StudentTable = styled.div`
   position: relative;
-  width: 1544px;
-  height: 470px;
+  width: 1500px;
+  height: 54vh;
   text-align: center;
   /* border: 1px solid ${Maincolor.sectiontitle}; */
   /* border-radius: 5px; */
@@ -141,7 +142,7 @@ export const StudentTable = styled.div`
   > ul {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(11, 42.6px);
+    grid-template-rows: repeat(11, 43px);
     border-top: 1px solid ${Maincolor.sectiontitle};
     > li {
       line-height: 42px;

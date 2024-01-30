@@ -3,7 +3,7 @@ import { Maincolor } from "./GlobalStyle";
 
 export const PortfolioPagingSty = styled.div`
   ul {
-    margin-top: 25px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;

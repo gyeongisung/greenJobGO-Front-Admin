@@ -282,11 +282,11 @@ export const CompanyMgmtModal = ({
                           />
                         </Space>
                       </ConfigProvider>{" "}
-                      {dateConslusionError ? (
+                      {/* {dateConslusionError ? (
                         <p className="error-class">{dateConslusionError}</p>
                       ) : (
                         <p className="error-class"></p>
-                      )}
+                      )} */}
                       {/* <input
                         type="text"
                         value={payload.dateConslusion}
