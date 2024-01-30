@@ -87,10 +87,10 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
     if (error.response) {
       switch (status) {
         case 433:
-          setErrorCancelInfo("아이디를 다시 확인 해 주세요.");
+          setErrorCancelInfo("아이디를 확인 해 주세요.");
           break;
         case 434:
-          setErrorCancelInfo("비밀번호를 다시 확인 해 주세요");
+          setErrorCancelInfo("비밀번호를 확인 해 주세요");
           break;
         case 500:
           setErrorCancelInfo("서버오류 입니다.");
