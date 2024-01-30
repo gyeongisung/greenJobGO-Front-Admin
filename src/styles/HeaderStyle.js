@@ -3,7 +3,7 @@ import { Maincolor } from "./GlobalStyle";
 
 export const HeaderWrap = styled.div`
   background: ${Maincolor.white};
-  /* width: calc(100vw - 200px); */
+  width: calc(100vw - 250px);
   height: 60px;
   .breadcrumb-wrap {
     position: absolute;

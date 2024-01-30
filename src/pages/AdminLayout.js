@@ -10,39 +10,47 @@ const AdminLayout = () => {
   const { Header, Content } = Layout;
 
   const { pathname } = useLocation();
-
+  console.log("pathname", pathname);
   const listPathName = pathname.substring(1);
 
   // 네비게이션 gnb state
   const [breadCrumbGnb, setBreadCrumbGnb] = useState("");
 
   // 네비게이션 lnb title state
-  const [breadCrumbLnbTitle, setBreadCrumbLnbTitle] = useState("");
+  const [breadCrumbLnbTitle, setBreadCrumbLnbTitle] = useState("초기화");
 
   // 네비게이션 lnb path state
-  const [breadCrumbLnbPath, setBreadCrumbLnbPath] = useState("");
+  const [breadCrumbLnbPath, setBreadCrumbLnbPath] = useState("초기화");
 
   // 관리자페이지 - lnb 데이터
   const lnbData = [
     {
       title: "과정등록 • 관리",
-      path: "class",
+      path: "admin/class",
     },
     {
       title: "취업 담당자 관리",
-      path: "jobmanager",
+      path: "admin/jobmanager",
     },
     {
       title: "수강생 등록 • 관리",
-      path: "student",
+      path: "admin/student",
     },
     {
       title: "포트폴리오 관리",
-      path: "portfolio",
+      path: "admin/portfolio",
     },
     {
       title: "기업등록 • 관리",
-      path: "company",
+      path: "admin/company",
+    },
+    {
+      title: "일괄 삭제",
+      path: "admin/bulk",
+    },
+    {
+      title: "영구 삭제",
+      path: "admin/permanently",
     },
   ];
 
@@ -58,9 +66,9 @@ const AdminLayout = () => {
       title: breadCrumbLnbTitle,
     },
   ];
-  const findPath = lnbData.find(item => item.path === listPathName);
   useEffect(() => {
-    findPath;
+    const findPath = lnbData.find(item => item.path === listPathName);
+    // findPath;
     // gnb 데이터 갱신
     if (pathname.includes("class")) {
       setBreadCrumbGnb("과정 관리");
@@ -72,6 +80,10 @@ const AdminLayout = () => {
       setBreadCrumbGnb("수강생 관리");
     } else if (pathname.includes("company")) {
       setBreadCrumbGnb("기업 관리");
+    } else if (pathname.includes("bulk")) {
+      setBreadCrumbGnb("데이터 삭제");
+    } else if (pathname.includes("permanently")) {
+      setBreadCrumbGnb("데이터 삭제");
     } else {
       setBreadCrumbGnb("");
     }
