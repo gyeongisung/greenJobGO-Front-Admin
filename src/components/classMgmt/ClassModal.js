@@ -30,12 +30,13 @@ export const DeleteClassModal = ({
   setListData,
   setSaveCheckBox,
   fetchData,
+  setErrorApiInfo,
 }) => {
   const handleDeleteSubject = async () => {
     const checkedSubjectCode = saveCheckBox;
 
     try {
-      await deleteClassSubject(checkedSubjectCode);
+      await deleteClassSubject(checkedSubjectCode, setErrorApiInfo);
       setListData(prevListData =>
         prevListData.filter(
           item => !checkedSubjectCode.includes(item.icourseSubject),
@@ -402,6 +403,7 @@ export const ClassEditModal = ({
   uploadResult,
   setUpLoadResult,
   fetchData,
+  setErrorApiInfo,
 }) => {
   const [payload, setPayload] = useState({
     icourseSubject: classInfo.icourseSubject,
@@ -479,17 +481,15 @@ export const ClassEditModal = ({
         !payload.lectureRoom;
 
       if (!isError) {
-        const result = await putClassSubject(payload);
+        const result = await putClassSubject(payload, setErrorApiInfo);
         setUpLoadResult(result);
-        if (result.success) {
-          setEditModalOpen(false);
-          setAcceptOkModal(true);
-          fetchData();
-        }
+        setEditModalOpen(false);
+        // setAcceptOkModal(true);
+        fetchData();
       }
     } catch (error) {
       setEditModalOpen(false);
-      setAcceptOkModal(true);
+      // setAcceptOkModal(true);
     }
   };
 

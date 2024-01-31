@@ -33,7 +33,7 @@ export const MainLeftSty = styled.div`
   }
   & > div {
     display: grid;
-    grid-template-rows: repeat(2, minmax(335px, auto));
+    grid-template-rows: repeat(2, minmax(310px, auto));
   }
 `;
 
@@ -198,7 +198,7 @@ export const MainRightSty = styled.div`
   & > div {
     display: grid;
     /* grid-template-rows: 1fr 1fr; */
-    grid-template-rows: repeat(2, minmax(335px, auto));
+    grid-template-rows: repeat(2, minmax(310px, auto));
   }
 `;
 

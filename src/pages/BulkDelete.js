@@ -13,8 +13,11 @@ import { BulkDeletetModal } from "../components/AcceptModals";
 import OkModal from "../components/OkModal";
 import { StudentPageAtom } from "../components/studentmgmt/StudentMain";
 import { useResetRecoilState } from "recoil";
+import NoListItem from "../components/NoListItem";
 
 const BulkDelete = () => {
+  const [nothing, setNothing] = useState(false);
+
   const [listData, setListData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [subjData, setSubjData] = useState([]);
@@ -28,17 +31,21 @@ const BulkDelete = () => {
   const [errorInfo, setErrorInfo] = useState("");
   const [uploadResult, setUpLoadResult] = useState(false);
 
-
   const fetchData = () => {
-    getBulkStudentList(setListData, page, setCount, category, searchsubj);
+    getBulkStudentList(
+      setListData,
+      page,
+      setCount,
+      category,
+      searchsubj,
+      setErrorInfo,
+      setNothing,
+    );
   };
-
-  console.log("listData", listData);
-  console.log("errorInfo", errorInfo);
 
   useEffect(() => {
     fetchData();
-    getCategory(setCategoryData);
+    getCategory(setCategoryData, setErrorInfo);
   }, [page]);
 
   const handleSearch = () => {
@@ -48,7 +55,7 @@ const BulkDelete = () => {
   const handleCategoryFiiter = async e => {
     const newCtegory = e.target.value;
     setCategory(newCtegory);
-    await getClassificationList(newCtegory, setSubjData);
+    await getClassificationList(newCtegory, setSubjData, setErrorInfo);
     setPage(1);
   };
   const handleSubjectFilter = e => {
@@ -120,6 +127,7 @@ const BulkDelete = () => {
           <span>총 {count}개</span>
         </div>
         <BulkTable>
+          {nothing && <NoListItem />}
           <BulkList
             listData={listData}
             page={page}

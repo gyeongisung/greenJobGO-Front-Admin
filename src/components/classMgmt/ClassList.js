@@ -11,7 +11,8 @@ const ClassList = ({
   uploadResult,
   setUpLoadResult,
   categoryData,
-  fetchData
+  fetchData,
+  setErrorApiInfo
 }) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [classInfo, setClassInfo] = useState(null);
@@ -46,8 +47,8 @@ const ClassList = ({
           <li className="class-table-th">강의실</li>
         </ul>
       </li>
-      {listData.length > 0 &&
-        listData.map((item, index) => (
+      {listData?.length > 0 &&
+        listData?.map((item, index) => (
           <li
             key={item.icourseSubject}
             onClick={e =>
@@ -92,6 +93,7 @@ const ClassList = ({
           uploadResult={uploadResult}
           setUpLoadResult={setUpLoadResult}
           fetchData={fetchData}
+          setErrorApiInfo={setErrorApiInfo}
         />
       )}
     </ul>

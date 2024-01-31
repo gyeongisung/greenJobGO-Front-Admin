@@ -56,8 +56,7 @@ const Login = () => {
           navigate("/admin/");
         }
       } catch (error) {
-        console.error(error);
-        alert(error);
+        setErrorCancelInfo(error);
       }
     }
   };

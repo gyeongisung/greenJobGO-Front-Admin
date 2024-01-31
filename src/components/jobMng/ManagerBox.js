@@ -9,22 +9,26 @@ import {
 } from "../../api/jobMngAxiois";
 import ConfirmModal from "../ConfirmModal";
 import { Link } from "react-router-dom";
+import OkModal from "../OkModal";
 
-const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
+const ManagerBox = ({
+  mngProflieData,
+  setmngProflieData,
+  updateData,
+  setErrorApiInfo,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [deleteNum, setDeleteNum] = useState("");
 
-  console.log("취업담당자 box 리랜더링");
+  // // api 오류 메세지 받아오는 state.
+  // const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  // const [errorApiInfo, setErrorApiInfo] = useState("");
+
   // 이미지 없을 때 error처리
   const onImgError = e => {
     e.target.src = NoImage;
-  };
-
-  //수정 모달 닫음
-  const closeModal = () => {
-    setModalOpen(false);
   };
 
   // 수정하기
@@ -37,7 +41,7 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
   // 삭제하기
   const handleDeleteConfirm = async () => {
     try {
-      await deleteJobManagerInfo(deleteNum);
+      await deleteJobManagerInfo(deleteNum, setErrorApiInfo);
       await updateData();
       setConfirmModalOpen(false);
     } catch (error) {
@@ -50,68 +54,62 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
     setConfirmModalOpen(true);
   };
 
-  // 변경있을때마다 자료 새로고침
-  const updateData = async () => {
-    try {
-      const newData = await getJobManagerInfo(setmngProflieData);
-    } catch (error) {
-      console.error("데이터 업데이트 에러:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (mngProflieData !== undefined) {
-      console.log("mngProflieData가 변경됨:", mngProflieData);
-    }
-  }, [mngProflieData]);
+  // useEffect(() => {
+  //   if (errorApiInfo) {
+  //     setApiErrorModalOpen(true);
+  //   } else {
+  //     setApiErrorModalOpen(false);
+  //   }
+  // }, [errorApiInfo]);
   return (
     <JobManagerBoxWrap>
-      {mngProflieData?.map(item => (
-        <div className="manager-profile" key={item.iemply}>
-          <img
-            // src={`/home/download/Employee/${item.iemply}/${item.profilePic}`}
-            src={`${item.profilePic}`}
-            alt="job manager"
-            onError={onImgError}
-            className="manager-img"
-          />
-          <div className="manager-details">
-            <p className="manager-word">{item.oneWord}</p>
-            <p className="manager-name">{item.name} 취업지원실장</p>
-            <ul className="manager-contact">
+      {mngProflieData &&
+        mngProflieData?.map(item => (
+          <div className="manager-profile" key={item.iemply}>
+            <img
+              // src={`/home/download/Employee/${item.iemply}/${item.profilePic}`}
+              src={`${item.profilePic}`}
+              alt="job manager"
+              onError={onImgError}
+              className="manager-img"
+            />
+            <div className="manager-details">
+              <p className="manager-word">{item.oneWord}</p>
+              <p className="manager-name">{item.name} 취업지원실장</p>
+              <ul className="manager-contact">
+                <li>
+                  <span>상담전화</span>
+                  <span>{item.counselingNumber}</span>
+                </li>
+                <li>
+                  <span>모바일</span>
+                  <span>{item.phoneNumber}</span>
+                </li>
+                <li>
+                  <span>이메일</span>
+                  <span>{item.email}</span>
+                </li>
+              </ul>
+            </div>
+            <ul className="btn-group">
               <li>
-                <span>상담전화</span>
-                <span>{item.counselingNumber}</span>
+                <button
+                  className="del-btn"
+                  onClick={() => {
+                    handleDelete(item.iemply);
+                  }}
+                >
+                  삭제
+                </button>
               </li>
               <li>
-                <span>모바일</span>
-                <span>{item.phoneNumber}</span>
-              </li>
-              <li>
-                <span>이메일</span>
-                <span>{item.email}</span>
+                <button className="edit-btn" onClick={() => handleEdit(item)}>
+                  수정
+                </button>
               </li>
             </ul>
           </div>
-          <ul className="btn-group">
-            <li>
-              <button
-                className="del-btn"
-                onClick={() => {
-                  handleDelete(item.iemply);
-                }}
-                >
-                삭제
-              </button>
-            </li>
-            <li>
-              <button className="edit-btn" onClick={() => handleEdit(item)}>
-                수정
-              </button>
-            </li>
-          </ul>
-        </div>
-      ))}
+        ))}
       {modalOpen && (
         <InputModal
           open={modalOpen}
@@ -123,6 +121,8 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
             setEditModalOpen={setModalOpen}
             mngProflieData={mngProflieData}
             setmngProflieData={setmngProflieData}
+            updateData={updateData}
+            setErrorApiInfo={setErrorApiInfo}
           />
         </InputModal>
       )}
@@ -140,8 +140,25 @@ const ManagerBox = ({ mngProflieData, setmngProflieData }) => {
       {mngProflieData && mngProflieData.length === 0 && (
         <div>취업담당자의 정보를 등록해주세요</div>
       )}
+      {/* api 에러 확인모달
+      {apiErrorModalOpen && (
+        <OkModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </OkModal>
+      )} */}
     </JobManagerBoxWrap>
   );
 };
 
-export default React.memo(ManagerBox);
+export default ManagerBox;

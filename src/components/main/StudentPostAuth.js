@@ -137,7 +137,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
             <option value="" defaultValue>
               선택
             </option>
-            {category?.map(item => (
+            {category.length && category.map(item => (
               <option key={v4()} value={item.iclassification}>
                 {item.classification}
               </option>

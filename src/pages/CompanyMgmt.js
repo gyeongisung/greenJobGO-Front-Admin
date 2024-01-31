@@ -20,8 +20,11 @@ import {
 } from "../components/companymgmt/CompanyModal";
 import { AcceptModal, ExcelAcceptModal } from "../components/AcceptModals";
 import ErrorModal from "../components/ErrorModal";
+import NoListItem from "../components/NoListItem";
 
 const CompanyMgmt = () => {
+  const [nothing, setNothing] = useState(false);
+
   const [listData, setListData] = useState([]);
   const [saveCheckBox, setSaveCheckBox] = useState([]);
   const [page, setPage] = useState(1);
@@ -91,7 +94,14 @@ const CompanyMgmt = () => {
   };
 
   const fetchData = async () => {
-    await getCompanyList(setListData, setCount, page, search);
+    await getCompanyList(
+      setListData,
+      setCount,
+      page,
+      search,
+      setErrorApiInfo,
+      setNothing,
+    );
   };
 
   useEffect(() => {
@@ -138,7 +148,7 @@ const CompanyMgmt = () => {
       formData.append("companyfile", selectedFile);
 
       try {
-        const result = await postCompanyExcel(formData);
+        const result = await postCompanyExcel(formData, setErrorApiInfo);
 
         setUpLoadResult(result);
 
@@ -148,7 +158,7 @@ const CompanyMgmt = () => {
           setSelectedFile(null);
         }
       } catch (error) {
-        console.error("파일 업로드에 실패했습니다.", error);
+        setErrorApiInfo("파일업로드에 실패했습니다.");
       }
     }
   };
@@ -194,11 +204,11 @@ const CompanyMgmt = () => {
         !payload.area ||
         !payload.leaderName ||
         !payload.manager ||
-        !payload.phoneNumber
-        // !payload.dateConslusion;
+        !payload.phoneNumber;
+      // !payload.dateConslusion;
 
       if (!isError) {
-        const result = await postCompanyAccept(payload);
+        const result = await postCompanyAccept(payload, setErrorApiInfo);
         setUpLoadResult(result);
         setModalOpen(false);
 
@@ -219,7 +229,7 @@ const CompanyMgmt = () => {
       }
     } catch (error) {
       setModalOpen(false);
-      setAcceptOkModal(true);
+      // setAcceptOkModal(true);
       setPayload({
         area: "",
         companyName: "",
@@ -303,6 +313,7 @@ const CompanyMgmt = () => {
             setSaveCheckBox={setSaveCheckBox}
             setListData={setListData}
             fetchData={fetchData}
+            setErrorApiInfo={setErrorApiInfo}
           />
         )}
         {/* 엑셀업로드 확인모달 */}
@@ -323,6 +334,8 @@ const CompanyMgmt = () => {
           <span>총 {count}개</span>
         </div>
         <CompanyTable>
+          {nothing && <NoListItem />}
+
           <CompanyList
             listData={listData}
             handleAllCheck={handleAllCheck}
@@ -333,6 +346,7 @@ const CompanyMgmt = () => {
             uploadResult={uploadResult}
             setUpLoadResult={setUpLoadResult}
             fetchData={fetchData}
+            setErrorApiInfo={setErrorApiInfo}
           />
         </CompanyTable>
         <Paging page={page} setPage={setPage} count={count} />

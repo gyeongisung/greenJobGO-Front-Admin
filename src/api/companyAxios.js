@@ -1,14 +1,26 @@
 import { client } from "./client";
 
-export const getCompanyList = async (setListData, setCount, page, search) => {
+export const getCompanyList = async (
+  setListData,
+  setCount,
+  page,
+  search,
+  setErrorApiInfo,
+  setNothing,
+) => {
   try {
     const res = await client.get(
       `/admin/companylist?page=${page}&size=10&companyName=${search}`,
     );
     setListData(res.data.list);
     setCount(res.data.totalcount);
+
+    setNothing(false);
+    if (res.data.list.length === 0) {
+      setNothing(true);
+    }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Company List : ${error.message}`);
   }
 };
 
@@ -35,7 +47,7 @@ export const getCompanyListDownload = async () => {
   }
 };
 
-export const postCompanyExcel = async companyfile => {
+export const postCompanyExcel = async (companyfile, setErrorApiInfo) => {
   try {
     const res = await client.post("/admin/companylist/excel", companyfile, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -46,11 +58,16 @@ export const postCompanyExcel = async companyfile => {
       return { success: false };
     }
   } catch (err) {
-    console.error(err);
+    const { status } = err.response;
+    if (status === 453) {
+      setErrorApiInfo("파일을 업로드 할 수 없습니다.");
+    } else {
+      setErrorApiInfo(`Excel upload : ${err.message}`);
+    }
   }
 };
 
-export const postCompanyAccept = async payload => {
+export const postCompanyAccept = async (payload, setErrorApiInfo) => {
   try {
     const res = await client.post("/admin/companylist", payload);
     if (res.data.companyCode) {
@@ -59,20 +76,20 @@ export const postCompanyAccept = async payload => {
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Company add : ${error.message}`);
   }
 };
 
-export const deleteCompany = async checkedCompanyCode => {
+export const deleteCompany = async (checkedCompanyCode, setErrorApiInfo) => {
   try {
     const res = await client.delete(`/admin/companylist/${checkedCompanyCode}`);
-    console.log("삭제가 됬노?", res.data);
+    setErrorApiInfo("삭제가 정상적으로 처리되었습니다.");
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Company Delete: ${error.message}`);
   }
 };
 
-export const patchCompany = async companyData => {
+export const patchCompany = async (companyData, setErrorApiInfo) => {
   try {
     const res = await client.patch(
       `/admin/companylist?companyCode=${companyData.companyCode}&area=${companyData.area}&companyName=${companyData.companyName}&manager=${companyData.manager}&leaderName=${companyData.leaderName}&homepage=${companyData.homepage}&phoneNumber=${companyData.phoneNumber}&dateConslusion=${companyData.dateConslusion}`,
@@ -83,6 +100,6 @@ export const patchCompany = async companyData => {
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Company Edit: ${error.message}`);
   }
 };

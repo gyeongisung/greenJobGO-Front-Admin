@@ -5,6 +5,7 @@ import SaveItemSearch from "./SaveItemSearch";
 import SaveItemPaging from "./SaveItemPaging";
 import { atom, useRecoilState } from "recoil";
 import { v4 } from "uuid";
+import ErrorModal from "../../components/ErrorModal";
 
 // 보관함리스트 저장 recoil
 export const savedListRecoil = atom({
@@ -24,6 +25,9 @@ const SaveItemSection = () => {
 
   // 보관함 리스트 recoil
   const [savedPFList, setSavedPFList] = useRecoilState(savedListRecoil);
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
 
   // 메인 보낼 list
   const [clickItems, setClickItems] = useState([]);
@@ -53,6 +57,7 @@ const SaveItemSection = () => {
       setCount,
       resultUrl,
       setNothing,
+      setErrorApiInfo,
     });
   };
 
@@ -70,6 +75,14 @@ const SaveItemSection = () => {
     fetchData();
   }, [page]);
 
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
+
   return (
     <div>
       {/* 검색화면 */}
@@ -85,16 +98,34 @@ const SaveItemSection = () => {
         fetchData={fetchData}
         clickItems={clickItems}
         setClickItems={setClickItems}
+        setErrorApiInfo={setErrorApiInfo}
       />
       {/* 보관함 리스트 화면 */}
       <SaveItemContent
         fetchData={fetchData}
         nothing={nothing}
-          clickItems={clickItems}
-          setClickItems={setClickItems}
+        clickItems={clickItems}
+        setClickItems={setClickItems}
       />
       {/* 페이지네이션 */}
       <SaveItemPaging page={page} setPage={setPage} count={count} />
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
+      )}
     </div>
   );
 };

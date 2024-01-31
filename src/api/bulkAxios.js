@@ -6,6 +6,8 @@ export const getBulkStudentList = async (
   setCount,
   category,
   searchsubj,
+  setErrorInfo,
+  setNothing,
 ) => {
   try {
     let apiUrl = `/admin/student/sub-category-list?page=${page}&size=10&sort=icourseSubject%2CDESC`;
@@ -18,15 +20,22 @@ export const getBulkStudentList = async (
       apiUrl += `&icourseSubject=${searchsubj}`;
     }
     const res = await client.get(apiUrl);
-
     setListData(res.data.subject);
     setCount(res.data.page.idx);
+    setNothing(false);
+    if (res.data.subject.length === 0) {
+      setNothing(true);
+    }
   } catch (error) {
-    console.log(error);
+    setErrorInfo(`Bulk Delete List: ${error.message}`);
   }
 };
 
-export const getClassificationList = async (category, setSubjData) => {
+export const getClassificationList = async (
+  category,
+  setSubjData,
+  setErrorInfo,
+) => {
   try {
     const res = await client.get(
       `/admin/student/dropbox-category?iclassification=${category}`,
@@ -34,16 +43,16 @@ export const getClassificationList = async (category, setSubjData) => {
     console.log(res.data.res);
     setSubjData(res.data.res);
   } catch (error) {
-    console.log(error);
+    setErrorInfo(`Bulk Delete Cate List: ${error.message}`);
   }
 };
 
-export const getCategory = async setCategoryData => {
+export const getCategory = async (setCategoryData, setErrorInfo) => {
   try {
     const res = await client.get(`/admin/category`);
     setCategoryData(res.data);
   } catch (error) {
-    console.log(error);
+    setErrorInfo(`Category: ${error.message}`);
   }
 };
 
@@ -59,7 +68,7 @@ export const deleteStudent = async (
     const result = res.data;
     console.log("삭제성공", res);
     if (res.status === 200) {
-    setErrorInfo("삭제가 완료되었습니다.");
+      setErrorInfo("삭제가 완료되었습니다.");
     }
   } catch (error) {
     console.log("삭제실패", error);

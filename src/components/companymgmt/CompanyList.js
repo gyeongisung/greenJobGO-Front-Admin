@@ -11,6 +11,7 @@ const CompanyList = ({
   uploadResult,
   setUpLoadResult,
   fetchData,
+  setErrorApiInfo
 }) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -96,6 +97,7 @@ const CompanyList = ({
           uploadResult={uploadResult}
           setUpLoadResult={setUpLoadResult}
           fetchData={fetchData}
+          setErrorApiInfo={setErrorApiInfo}
         />
       )}
     </ul>

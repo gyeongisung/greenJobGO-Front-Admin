@@ -12,6 +12,7 @@ const DeleteSearch = ({
   setSearchsubj,
   setSelectCate,
   selectCate,
+  setErrorInfo
 }) => {
   const [category, setCategory] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
@@ -34,7 +35,7 @@ const DeleteSearch = ({
   }, []);
 
   useEffect(() => {
-    getSubjectInfo({ selectCate, setSubjectList });
+    getSubjectInfo({ selectCate, setSubjectList, setErrorInfo });
   }, [selectCate]);
   return (
     <ul className="delete-search">

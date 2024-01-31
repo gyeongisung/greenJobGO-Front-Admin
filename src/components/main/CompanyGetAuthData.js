@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { CompanyAuthgetListSty } from "../../styles/HomeStyle";
-import { getCompanyAuthData } from "../../api/homeAxios";
 import { v4 } from "uuid";
 
 const CompanyGetAuthData = ({authInfo}) => {

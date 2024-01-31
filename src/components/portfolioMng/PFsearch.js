@@ -11,6 +11,7 @@ const PFsearch = ({
   setSearchSubj,
   searchname,
   setSearchname,
+  setErrorApiInfo,
 }) => {
   const [category, setCategory] = useState([]);
 
@@ -23,7 +24,7 @@ const PFsearch = ({
   };
 
   useEffect(() => {
-    getBigcate(setCategory);
+    getBigcate(setCategory, setErrorApiInfo);
   }, []);
 
   return (
@@ -39,7 +40,7 @@ const PFsearch = ({
             <option value="" defaultValue>
               전체
             </option>
-            {category?.map(item => (
+            {category.length && category.map(item => (
               <option
                 key={`cate${item.iclassification}`}
                 value={item.iclassification}

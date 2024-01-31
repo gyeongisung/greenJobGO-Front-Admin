@@ -21,8 +21,12 @@ import {
 } from "../api/classAxios";
 import { AcceptModal } from "../components/AcceptModals";
 import OkModal from "../components/OkModal";
+import ErrorModal from "../components/ErrorModal";
+import NoListItem from "../components/NoListItem";
 
 const ClassMgmt = () => {
+  const [nothing, setNothing] = useState(false);
+
   const [listData, setListData] = useState([]);
   const [saveCheckBox, setSaveCheckBox] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
@@ -61,6 +65,10 @@ const ClassMgmt = () => {
   const [classTimeError, setClassTimeError] = useState("");
   const [classroomError, setClassroomError] = useState("");
 
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
+
   const [checkModalOpen, setCheckModalOpen] = useState(false);
   let resultIdArray = saveCheckBox;
 
@@ -94,12 +102,20 @@ const ClassMgmt = () => {
   };
 
   const fetchData = () => {
-    getClassSubject(setListData, setCount, page, search, category);
+    getClassSubject(
+      setListData,
+      setCount,
+      page,
+      search,
+      category,
+      setErrorApiInfo,
+      setNothing,
+    );
   };
 
   useEffect(() => {
     fetchData();
-    getCategory(setCategoryData);
+    getCategory(setCategoryData, setErrorApiInfo);
   }, [page]);
 
   useEffect(() => {
@@ -108,7 +124,13 @@ const ClassMgmt = () => {
       .querySelectorAll(".class-checkbox")
       .forEach(item => (item.checked = false));
     setSaveCheckBox([]);
-  }, [listData]);
+
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [listData, errorApiInfo]);
 
   const handleSearch = () => {
     setPage(1);
@@ -134,34 +156,30 @@ const ClassMgmt = () => {
     document.body.style.overflow = "hidden";
   };
 
+  // 카테고리 추가
   const handlePostCategory = async () => {
-    console.log("categoryValue", categoryValue);
     const postData = { classification: categoryValue };
     try {
-      const result = await postCategory(postData);
+      const result = await postCategory(postData, setErrorApiInfo);
       setUpLoadResult(result);
-      if (result.success === true) {
-        setAcceptOkModal(true);
-        setCategoryValue("");
-        setIsAdd(false);
-        await getCategory(setCategoryData);
-      }
+      setCategoryValue("");
+      setIsAdd(false);
+      await getCategory(setCategoryData, setErrorApiInfo);
     } catch (error) {
-      setAcceptOkModal(true);
+      // setAcceptOkModal(true);
       setCategoryValue("");
     }
   };
 
+  // 카테고리 삭제
   const handleDeleteCategory = async data => {
-    await deleteCategory(data);
-    await getCategory(setCategoryData);
+    await deleteCategory(data, setErrorApiInfo);
+    await getCategory(setCategoryData, setErrorApiInfo);
   };
 
   const handleEnrollModalOpen = () => {
     setEnrollModalOpen(true);
   };
-
-  console.log("payload", payload);
 
   // 과정추가
   const handleModalAccept = async () => {
@@ -200,7 +218,7 @@ const ClassMgmt = () => {
         !payload.lectureRoom;
 
       if (!isError) {
-        const result = await postClassSubject(payload);
+        const result = await postClassSubject(payload, setErrorApiInfo);
         setUpLoadResult(result);
         setModalOpen(false);
 
@@ -299,6 +317,7 @@ const ClassMgmt = () => {
             setSaveCheckBox={setSaveCheckBox}
             setListData={setListData}
             fetchData={fetchData}
+            setErrorApiInfo={setErrorApiInfo}
           />
         )}
         <div className="class-buttons">
@@ -310,6 +329,7 @@ const ClassMgmt = () => {
           <span>[총 {count}개]</span>
         </div>
         <ClassTable>
+          {nothing && <NoListItem />}
           <ClassList
             listData={listData}
             handleAllCheck={handleAllCheck}
@@ -321,7 +341,8 @@ const ClassMgmt = () => {
             setUpLoadResult={setUpLoadResult}
             categoryData={categoryData}
             fetchData={fetchData}
-          />
+            setErrorApiInfo={setErrorApiInfo}
+            />
         </ClassTable>
         <ClassPaging page={page} setPage={setPage} count={count} />
       </ClassMgmtInner>
@@ -338,6 +359,24 @@ const ClassMgmt = () => {
         >
           <span>삭제하실 과정을 선택해주세요.</span>
         </OkModal>
+      )}
+
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
       )}
     </ClassMgmtWrap>
   );

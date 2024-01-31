@@ -1,7 +1,11 @@
 import { client } from "../api/client";
 
 // 수강과목 불러오기
-export const getSubjectInfo = async ({ selectCate, setSubjectList }) => {
+export const getSubjectInfo = async ({
+  selectCate,
+  setSubjectList,
+  setErrorInfo,
+}) => {
   try {
     // const res = await client.get(
     //   `/admin/student/dropbox-category?${
@@ -13,10 +17,9 @@ export const getSubjectInfo = async ({ selectCate, setSubjectList }) => {
     );
     const result = await res.data;
     setSubjectList(result.res);
-    console.log("수강과목 불러옵니다 subject list", result);
     return result;
   } catch (error) {
-    console.log("수강과목 에러", error);
+    setErrorInfo(`Subject List: ${error.message}`);
   }
 };
 
@@ -27,6 +30,7 @@ export const getCompleteDeleteList = async ({
   page,
   resultUrl,
   setNothing,
+  setErrorInfo,
 }) => {
   try {
     const res = await client.get(
@@ -43,7 +47,7 @@ export const getCompleteDeleteList = async ({
     }
     return result;
   } catch (error) {
-    console.log(error);
+    setErrorInfo(`Permanent Delete List: ${error.message}`);
   }
 };
 

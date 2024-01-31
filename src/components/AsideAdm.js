@@ -4,9 +4,7 @@ import Sider from "antd/es/layout/Sider";
 import { Menu } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRightFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { postLogout } from "../api/client";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { AuthStateAtom } from "../recoil/atoms/AuthState";
@@ -37,6 +35,7 @@ const AsideAdm = () => {
   // 클릭할 때 수강생등록페이지 리코일정보를 reset
   const handleIsTrue = () => {
     ResetStudentPageRecoil();
+
   };
 
   const handleLogoutClick = () => {

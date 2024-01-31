@@ -7,8 +7,13 @@ import {
 } from "../../styles/GlobalStyle";
 import ConfirmModal from "../ConfirmModal";
 import { getJobManagerInfo, postManagerInfo } from "../../api/jobMngAxiois";
+import OkModal from "../OkModal";
 
-const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
+const ManagerAdd = ({
+  setAddModalOpen,
+  updateData,
+  setErrorApiInfo
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectImg, setSelectImg] = useState();
   const [addInfo, setAddInfo] = useState({
@@ -18,6 +23,10 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
     phoneNumber: "",
     email: "",
   });
+
+  // // api 오류 메세지 받아오는 state.
+  // const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  // const [errorApiInfo, setErrorApiInfo] = useState("");
 
   // 입력 에러 처리
   const [addNameError, setAddNameError] = useState("");
@@ -95,8 +104,6 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
   };
 
   const handleInfoAdd = (e, fieldName) => {
-    console.log("e", e.target.value);
-    console.log("fieldName", fieldName);
     setAddInfo({ ...addInfo, [fieldName]: e.target.value });
   };
 
@@ -109,29 +116,23 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
     formData.append("phoneNumber", addInfo.phoneNumber);
     formData.append("email", addInfo.email);
     try {
-      await postManagerInfo(formData);
-      await setModalOpen(false);
+      await postManagerInfo(formData, setErrorApiInfo);
+      setModalOpen(false);
       await updateData();
-      await setAddModalOpen(false);
+      setAddModalOpen(false);
     } catch (error) {
-      console.error("취업 담당자 등록 에러:", error);
+      setErrorApiInfo(`Job manager upload: ${error.message}`);
     }
   };
 
-  // 변경있을때마다 자료 새로고침
-  const updateData = async () => {
-    try {
-      const newData = await getJobManagerInfo(setmngProflieData);
-    } catch (error) {
-      console.error("데이터 업데이트 에러:", error);
-    }
-  };
+  // useEffect(() => {
+  //   if (errorApiInfo) {
+  //     setApiErrorModalOpen(true);
+  //   } else {
+  //     setApiErrorModalOpen(false);
+  //   }
+  // }, [errorApiInfo]);
 
-  useEffect(() => {
-    if (mngProflieData !== undefined) {
-      console.log("mngProflieData가 변경됨:", mngProflieData);
-    }
-  }, [mngProflieData]);
   return (
     <JobManagerAddSty>
       <ul>
@@ -248,6 +249,23 @@ const ManagerAdd = ({ setAddModalOpen, mngProflieData, setmngProflieData }) => {
             <span>등록 하시겠습니까?</span>
           </ConfirmModal>
         )}
+        {/* api 에러 확인모달
+        {apiErrorModalOpen && (
+          <OkModal
+            header={""}
+            open={apiErrorModalOpen}
+            close={() => {
+              setApiErrorModalOpen(false);
+              setErrorApiInfo("");
+            }}
+            onConfirm={() => {
+              setApiErrorModalOpen(false);
+              setErrorApiInfo("");
+            }}
+          >
+            <span>{errorApiInfo}</span>
+          </OkModal>
+        )} */}
       </div>
     </JobManagerAddSty>
   );
