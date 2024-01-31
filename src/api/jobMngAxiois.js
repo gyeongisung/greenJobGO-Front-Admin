@@ -1,39 +1,43 @@
 import { client } from "./client";
 
 //  취업담당자 리스트 불러오기
-export const getJobManagerInfo = async setmngProflieData => {
+export const getJobManagerInfo = async (setmngProflieData, setErrorApiInfo) => {
   try {
     const res = await client.get(`/admin/profile`);
     const result = await res.data;
-
-    console.log("job mng 정보 들어옴", result);
     setmngProflieData(result);
     return result;
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Job Manager: ${error.message}`);
+    // return error
   }
 };
 
 // post
-export const postManagerInfo = async formData => {
+export const postManagerInfo = async (formData, setErrorApiInfo) => {
   try {
     const res = await client.post(`/admin/profile`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-
-console.log("formData", formData);
     const result = res.data;
+    setErrorApiInfo(`성공적으로 처리되었습니다`);
 
-    console.log("취업 담당자 등록", result);
+    return result;
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Job manager upload: ${error.message}`);
+    // return error
   }
 };
 
 // patch
-export const patchManagerEdit = async ({ formData, editManager, query }) => {
+export const patchManagerEdit = async ({
+  formData,
+  editManager,
+  query,
+  setErrorApiInfo,
+}) => {
   try {
     const res = await client.patch(
       `/admin/profile?iemply=${editManager.iemply}&${query}`,
@@ -44,24 +48,25 @@ export const patchManagerEdit = async ({ formData, editManager, query }) => {
         },
       },
     );
-
-    console.log("formData", formData);
     const result = res.data;
+    setErrorApiInfo(`성공적으로 처리되었습니다`);
 
-    console.log("취업 담당자 수정", result);
+    return result;
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Job manager edit: ${error.message}`);
   }
 };
 
 // DELETE
-export const deleteJobManagerInfo = async iemply => {
+export const deleteJobManagerInfo = async (iemply, setErrorApiInfo) => {
   try {
     const res = await client.delete(`/admin/profile/${iemply}`);
     const result = res.data;
     console.log("삭제성공", result);
+    setErrorApiInfo(`성공적으로 처리되었습니다`);
+
     return result;
   } catch (err) {
-    console.log("이미지 DELETE 실패", err);
+    setErrorApiInfo(`Job manager delete: ${err.message}`);
   }
 };

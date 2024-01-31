@@ -15,7 +15,7 @@ const CompanyAuth = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await getCompanyAuthData(setAuthInfo, setErrorApiInfo);
+        await getCompanyAuthData(setAuthInfo, setErrorApiInfo, setErrorApiInfo);
       } catch (error) {
         setErrorApiInfo(`[${error.message}]`);
       }

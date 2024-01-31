@@ -5,23 +5,47 @@ import ManagerAdd from "../components/jobMng/ManagerAdd";
 import InputModal from "../components/InputModal";
 import { getJobManagerInfo } from "../api/jobMngAxiois";
 import { BtnGlobal } from "../styles/GlobalStyle";
-import { StudentPageAtom } from "../components/studentmgmt/StudentMain";
-import { useResetRecoilState } from "recoil";
+import OkModal from "../components/OkModal";
+import ErrorModal from "../components/ErrorModal";
 
 const JobManager = () => {
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
+
   const [mngProflieData, setmngProflieData] = useState([]);
   const [modalOpen, setAddModalOpen] = useState(false);
+
   const openModal = () => {
     setAddModalOpen(true);
   };
   const closeModal = () => {
     setAddModalOpen(false);
   };
+  // 변경있을때마다 자료 새로고침
+  const updateData = async () => {
+    try {
+      const newData = await getJobManagerInfo(
+        setmngProflieData,
+        setErrorApiInfo,
+      );
+    } catch (error) {
+      setErrorApiInfo(`Job Manager: ${error.message}`);
+    }
+  };
 
   useEffect(() => {
     // 취업담당자 정보 get
-    getJobManagerInfo(setmngProflieData);
+    updateData();
   }, []);
+
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
 
   return (
     <JobManagerWrap>
@@ -34,6 +58,8 @@ const JobManager = () => {
             <ManagerBox
               mngProflieData={mngProflieData}
               setmngProflieData={setmngProflieData}
+              updateData={updateData}
+              setErrorApiInfo={setErrorApiInfo}
             />
           </div>
           <div className="maganer-add">
@@ -47,13 +73,30 @@ const JobManager = () => {
             >
               <ManagerAdd
                 setAddModalOpen={setAddModalOpen}
-                mngProflieData={mngProflieData}
-                setmngProflieData={setmngProflieData}
+                updateData={updateData}
+                setErrorApiInfo={setErrorApiInfo}
               />
             </InputModal>
           )}
         </div>
       </div>
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
+      )}
     </JobManagerWrap>
   );
 };

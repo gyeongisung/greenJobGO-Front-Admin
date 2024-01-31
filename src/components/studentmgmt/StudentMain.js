@@ -33,7 +33,7 @@ import { v4 } from "uuid";
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
-const { persistAtom } = recoilPersist();
+// const { persistAtom } = recoilPersist();
 
 export const StudentPageAtom = atom({
   // key: `StudentPageAtom`,
@@ -45,7 +45,7 @@ export const StudentPageAtom = atom({
     category: "",
     render: true,
   },
-  effects_UNSTABLE: [persistAtom],
+  // effects_UNSTABLE: [persistAtom],
 });
 
 const StudentMain = ({ handleInfoClick }) => {

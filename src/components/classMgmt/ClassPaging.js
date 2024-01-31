@@ -5,8 +5,7 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ClassPaging = ({ page, setPage, count }) => {
-  console.log(page);
-  console.log(count);
+
   return (
     <PortfolioPagingSty>
       <Pagination

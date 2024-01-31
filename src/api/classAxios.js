@@ -1,11 +1,11 @@
 import { client } from "./client";
 
-export const getCategory = async setCategoryData => {
+export const getCategory = async (setCategoryData, setErrorApiInfo) => {
   try {
     const res = await client.get(`/admin/category`);
     setCategoryData(res.data);
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Category Data: ${error.message}`);
   }
 };
 
@@ -15,6 +15,7 @@ export const getClassSubject = async (
   page,
   search,
   category,
+  setErrorApiInfo,
 ) => {
   try {
     let res;
@@ -31,67 +32,62 @@ export const getClassSubject = async (
     setListData(res.data.res);
     setCount(res.data.page.idx);
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Subject List: ${error.message}`);
   }
 };
 
-export const postCategory = async postData => {
+export const postCategory = async (postData, setErrorApiInfo) => {
   try {
     const res = await client.post(`/admin/category`, postData);
     if (res.data.iclassification) {
-      return { success: true };
-    } else {
-      return { success: false };
+      setErrorApiInfo(`카테고리 추가가 완료 되었습니다.`);
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Category add: ${error.message}`);
   }
 };
 
-export const postClassSubject = async payload => {
+export const postClassSubject = async (payload, setErrorApiInfo) => {
   try {
     const res = await client.post("/admin/subject", payload);
 
     if (res.data.icourseSubject) {
-      return { success: true };
-    } else {
-      return { success: false };
+      setErrorApiInfo(`과목추가가 완료 되었습니다.`);
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`New subject add : ${error.message}`);
   }
 };
 
-export const deleteCategory = async data => {
+export const deleteCategory = async (data, setErrorApiInfo) => {
   try {
     const res = await client.delete(`/admin/category?iclassification=${data}`);
-    console.log(res);
+    setErrorApiInfo(`삭제가 완료 되었습니다.`);
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Category Delete: ${error.message}`);
   }
 };
 
-export const deleteClassSubject = async icourseSubject => {
+export const deleteClassSubject = async (icourseSubject, setErrorApiInfo) => {
   try {
     const res = await client.delete(
       `/admin/subject?icourseSubject=${icourseSubject}`,
     );
+    setErrorApiInfo(`삭제가 완료 되었습니다.`);
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Subject Delete: ${error.message}`);
   }
 };
 
-export const putClassSubject = async payload => {
+export const putClassSubject = async (payload, setErrorApiInfo) => {
   try {
     const res = await client.put(
       `/admin/subject?icourseSubject=${payload.icourseSubject}&iclassification=${payload.iclassification}&courseSubjectName=${payload.courseSubjectName}&startedAt=${payload.startedAt}&endedAt=${payload.endedAt}&instructor=${payload.instructor}&lectureRoom=${payload.lectureRoom}&round=${payload.round}&classTime=${payload.classTime}`,
     );
     if (res.data.icourseSubject) {
-      return { success: true };
-    } else {
-      return { success: false };
+      setErrorApiInfo(`수정이 완료 되었습니다.`);
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Subject Edit: ${error.message}`);
   }
 };

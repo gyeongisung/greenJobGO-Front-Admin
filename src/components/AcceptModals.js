@@ -70,7 +70,7 @@ export const AcceptModal = ({
               <div className="content">
                 <span>
                   {uploadResult
-                    ? "등록이 완료되었습니다."
+                    ? "정상적으로 차리 되었습니다."
                     : "정상적으로 등록 되지 않았습니다."}
                 </span>
               </div>
@@ -165,7 +165,7 @@ export const DeleteAceeptModal = ({
   setDeleteOkModalOpen,
   handleDeleteCategory,
   categoryId,
-  setEnrollModalOpen,
+  setEnrollModalOpen
 }) => {
   const handleOk = async () => {
     await handleDeleteCategory(categoryId);

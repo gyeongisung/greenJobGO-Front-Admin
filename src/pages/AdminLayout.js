@@ -10,7 +10,6 @@ const AdminLayout = () => {
   const { Header, Content } = Layout;
 
   const { pathname } = useLocation();
-  console.log("pathname", pathname);
   const listPathName = pathname.substring(1);
 
   // 네비게이션 gnb state

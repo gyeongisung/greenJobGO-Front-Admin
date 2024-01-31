@@ -5,8 +5,15 @@ import { getJobManagerInfo, patchManagerEdit } from "../../api/jobMngAxiois";
 import ConfirmModal from "../ConfirmModal";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import OkModal from "../OkModal";
 
-const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
+const ManagerEdit = ({
+  item,
+  setEditModalOpen,
+  setmngProflieData,
+  updateData,
+  setErrorApiInfo,
+}) => {
   const [editManager, setEditManager] = useState(item);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [selectImg, setSelectImg] = useState(item.profilePic);
@@ -20,6 +27,10 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
   const [addEmailError, setAddEmailError] = useState("");
   const [addImgError, setAddImgError] = useState("");
   const [placeholder, setPlaceholder] = useState("JPG,PNG,JPEG,GIF 파일 첨부");
+
+  // // api 오류 메세지 받아오는 state.
+  // const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  // const [errorApiInfo, setErrorApiInfo] = useState("");
 
   const img_ref = useRef(null);
 
@@ -125,28 +136,13 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
     formData.append("pic", selectImg);
     const query = makeUrl();
     try {
-      await patchManagerEdit({ formData, editManager, query });
+      await patchManagerEdit({ formData, editManager, query, setErrorApiInfo });
       await updateData();
       setEditModalOpen(false);
     } catch (error) {
       console.error("취업 담당자 등록 에러:", error);
     }
   };
-
-  // 변경있을때마다 자료 새로고침
-  const updateData = async () => {
-    try {
-      const newData = await getJobManagerInfo(setmngProflieData);
-    } catch (error) {
-      console.error("데이터 업데이트 에러:", error);
-    }
-  };
-
-  // useEffect(() => {
-  //   if (mngProflieData !== undefined) {
-  //     console.log("mngProflieData가 변경됨:", mngProflieData);
-  //   }
-  // }, [mngProflieData]);
 
   return (
     <JobManagerAddSty>
@@ -267,8 +263,25 @@ const ManagerEdit = ({ item, setEditModalOpen, setmngProflieData }) => {
           <span>수정 하시겠습니까?</span>
         </ConfirmModal>
       )}
+      {/* api 에러 확인모달
+      {apiErrorModalOpen && (
+        <OkModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </OkModal>
+      )} */}
     </JobManagerAddSty>
   );
 };
 
-export default React.memo(ManagerEdit);
+export default ManagerEdit;

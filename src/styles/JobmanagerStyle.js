@@ -26,7 +26,7 @@ export const JobManagerWrap = styled.div`
 
       /* 담당자 등록 버튼 */
       .maganer-add {
-        margin-top: 30px;
+        margin-top: 20px;
         & > button {
           float: right;
           width: 105px;
@@ -45,7 +45,7 @@ export const JobManagerBoxWrap = styled.div`
   gap: 40px;
   .manager-profile {
     width: 440px;
-    height: 623px;
+    height: 610px;
     border-radius: 12px;
     border: 1px ${Maincolor.grayLight2} solid;
     padding: 40px;
@@ -241,12 +241,5 @@ export const JobManagerAddSty = styled.div`
         }
       }
     }
-  }
-  .loading-box {
-    position: fixed;
-    top: calc(50% - 15px);
-    left: calc(50% - 15px);
-    align-items: center;
-    justify-content: center;
   }
 `;

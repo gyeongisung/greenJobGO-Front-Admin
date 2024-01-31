@@ -38,6 +38,7 @@ export const ellipsis = {
 
 //공통)입력 모달스타일
 export const ModalWarp = styled.div`
+  position: absolute;
   .modal {
     display: none;
     position: fixed;
@@ -380,6 +381,7 @@ export const ErrorModalWarp = styled.div`
   }
   /* 모달 내용 */
   .modalError-content {
+    position: relative;
     height: 70px;
     padding: 0px 20px 0px 30px;
     font-size: 14px;
@@ -387,7 +389,10 @@ export const ErrorModalWarp = styled.div`
     font-weight: 400;
 
     & > div {
-      margin-top: 20px;
+      position: absolute;
+      bottom: -10px;
+      right: 10px;
+      margin-top: 15px;
       text-align: right;
       & button {
         margin-left: 5px;
