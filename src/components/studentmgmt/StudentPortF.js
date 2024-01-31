@@ -205,7 +205,7 @@ const StudentPortF = () => {
                         </a>
                       </div>
                       <div className="portfolio-icons">
-                        {item.mainYn === 0 ? (
+                        {item.mainYn === 1 ? (
                           <p className="main-pofol-icon">
                             <FontAwesomeIcon icon={faCrown} />
                           </p>

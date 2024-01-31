@@ -2,18 +2,18 @@ import styled from "@emotion/styled";
 import { Maincolor } from "./GlobalStyle";
 
 export const AcceptModalWrap = styled.div`
-  position: absolute;
+  /* position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
+  left: 0; */
   .dim {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 50;
+    z-index: 99;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
   }
@@ -94,7 +94,7 @@ export const CompanyAcceptModalWrap = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 50;
+    z-index: 99;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
   }
@@ -223,18 +223,18 @@ export const CompanyAcceptModalWrap = styled.div`
 `;
 
 export const ClassAcceptModalWrap = styled.div`
-  position: absolute;
+  /* position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
+  left: 0; */
   .dim {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 50;
+    z-index: 99;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
   }
