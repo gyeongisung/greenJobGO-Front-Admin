@@ -28,15 +28,16 @@ import {
   RecoilEnv,
 } from "recoil";
 import { useNavigate } from "react-router";
-import { v4 } from "uuid";
 import { recoilPersist } from "recoil-persist";
+import { v4 } from "uuid";
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 const { persistAtom } = recoilPersist();
 
 export const StudentPageAtom = atom({
-  key: `StudentPageAtom`,
+  // key: `StudentPageAtom`,
+  key: `StudentPageAtom/${v4()}`,
   default: {
     page: 1,
     count: 0,

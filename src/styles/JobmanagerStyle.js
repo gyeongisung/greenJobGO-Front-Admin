@@ -242,4 +242,11 @@ export const JobManagerAddSty = styled.div`
       }
     }
   }
+  .loading-box {
+    position: fixed;
+    top: calc(50% - 15px);
+    left: calc(50% - 15px);
+    align-items: center;
+    justify-content: center;
+  }
 `;
