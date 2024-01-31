@@ -70,7 +70,7 @@ export const AcceptModal = ({
               <div className="content">
                 <span>
                   {uploadResult
-                    ? "정상적으로 차리 되었습니다."
+                    ? "정상적으로 처리 되었습니다."
                     : "정상적으로 등록 되지 않았습니다."}
                 </span>
               </div>

@@ -30,6 +30,7 @@ import {
 import { useNavigate } from "react-router";
 import { recoilPersist } from "recoil-persist";
 import { v4 } from "uuid";
+import NoListItem from "../NoListItem";
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
@@ -51,6 +52,8 @@ export const StudentPageAtom = atom({
 const StudentMain = ({ handleInfoClick }) => {
   const navigate = useNavigate();
 
+  const [nothing, setNothing] = useState(false);
+  console.log("nothing", nothing);
   const [listData, setListData] = useState([]);
   // const [saveCheckBox, setSaveCheckBox] = useState([]);
   // const [page, setPage] = useState(1);
@@ -108,7 +111,14 @@ const StudentMain = ({ handleInfoClick }) => {
   // GET API
   const fetchData = () => {
     // getStudentList(setListData, setCount, page, search, category);
-    getStudentList(setListData, setPageState, page, search, category);
+    getStudentList(
+      setListData,
+      setPageState,
+      page,
+      search,
+      category,
+      setNothing,
+    );
   };
 
   useEffect(() => {
@@ -247,6 +257,7 @@ const StudentMain = ({ handleInfoClick }) => {
           <span>[총 {count}개]</span>
         </div>
         <StudentTable>
+          {nothing && <NoListItem />}
           <StudentList
             listData={listData}
             // handleAllCheck={handleAllCheck}

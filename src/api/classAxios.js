@@ -16,6 +16,7 @@ export const getClassSubject = async (
   search,
   category,
   setErrorApiInfo,
+  setNothing,
 ) => {
   try {
     let res;
@@ -28,9 +29,13 @@ export const getClassSubject = async (
         `/admin/subject?page=${page}&size=10&sort=icourseSubject%2CASC&subjectName=${search}&condition=0&delYn=0`,
       );
     }
-
     setListData(res.data.res);
     setCount(res.data.page.idx);
+    setNothing(false);
+
+    if (res.data.res.length === 0) {
+      setNothing(true);
+    }
   } catch (error) {
     setErrorApiInfo(`Subject List: ${error.message}`);
   }

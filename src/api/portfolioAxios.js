@@ -1,7 +1,7 @@
 import { client } from "./client";
 
 //  대분류 카테고리 불러오기
-export const getBigcate = async setCategory => {
+export const getBigcate = async (setCategory, setErrorApiInfo) => {
   console.log("카테정보 불러옵니다");
 
   try {
@@ -10,7 +10,7 @@ export const getBigcate = async setCategory => {
     setCategory(result);
     return result;
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Category: ${error.message}`);
   }
 };
 
@@ -21,6 +21,7 @@ export const getPortFolioList = async ({
   setCount,
   resultUrl,
   setNothing,
+  setErrorApiInfo,
 }) => {
   // console.log("query들어오냐 ㅋ ", resultUrl);
 
@@ -30,18 +31,15 @@ export const getPortFolioList = async ({
     );
 
     const result = await res.data;
-    // console.log("포트폴리오리스트", res.config.url);
     setStudentPFList(result);
     setCount(result.page.idx);
     setNothing(false);
     if (result.res.length === 0) {
       setNothing(true);
-      // console.log("결과 없어요");
     }
     return result;
   } catch (error) {
-    console.log(error);
-    // setNothing(true);
+    setErrorApiInfo(`Category: ${error.message}`);
   }
 };
 
@@ -50,6 +48,7 @@ export const patchSendSaved = async ({
   savedItemNum,
   isSaved,
   setErrorInfo,
+  setErrorApiInfo,
 }) => {
   try {
     const res = await client.patch(
@@ -65,8 +64,7 @@ export const patchSendSaved = async ({
         : null;
     return result;
   } catch (error) {
-    console.log(error);
-    // setErrorInfo(error.message);
+    setErrorApiInfo(`Saved: ${error.message}`);
   }
 };
 
@@ -77,6 +75,7 @@ export const getSavedPFList = async ({
   setCount,
   resultUrl,
   setNothing,
+  setErrorApiInfo,
 }) => {
   try {
     const res = await client.get(
@@ -94,7 +93,7 @@ export const getSavedPFList = async ({
     }
     return result;
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Saved List: ${error.message}`);
   }
 };
 
@@ -106,11 +105,9 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
       `/admin/student/main?${queryString}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
-    console.log("메인보내기patch성공", result);
     setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
     return result;
   } catch (error) {
-    console.log(error.response.data);
     setErrorInfo(error.response.data.message);
   }
 };
@@ -120,9 +117,6 @@ export const patchCancelMain = async ({
   mainYn,
   setErrorCancelInfo,
 }) => {
-  console.log("메인 취소 들어오니?", query);
-  console.log("mainYn 들어오니?", mainYn);
-
   try {
     const res = await client.patch(
       `/admin/student/main?${query}&companyMainYn=${mainYn}`,

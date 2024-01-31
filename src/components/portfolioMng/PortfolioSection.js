@@ -5,6 +5,7 @@ import PortfolioContent from "./PortfolioContent";
 import PortfolioPaging from "./PortfolioPaging";
 import { PortFolioContentWrap } from "../../styles/PortfolioStyle";
 import NoListItem from "../NoListItem";
+import ErrorModal from "../ErrorModal";
 
 const PortfolioSection = () => {
   const [page, setPage] = useState(1);
@@ -15,6 +16,10 @@ const PortfolioSection = () => {
   const [searchsubj, setSearchSubj] = useState("");
   const [searchname, setSearchname] = useState("");
   const [selectCate, setSelectCate] = useState("");
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
+
   // url을 만들자
   const makeUrl = () => {
     let query = "";
@@ -40,6 +45,7 @@ const PortfolioSection = () => {
       setCount,
       resultUrl,
       setNothing,
+      setErrorApiInfo,
     });
   };
 
@@ -56,6 +62,14 @@ const PortfolioSection = () => {
   useEffect(() => {
     fetchData();
   }, [page]);
+
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
   return (
     <div>
       {/* 검색창 화면*/}
@@ -67,6 +81,7 @@ const PortfolioSection = () => {
         setSearchSubj={setSearchSubj}
         searchname={searchname}
         setSearchname={setSearchname}
+        setErrorApiInfo={setErrorApiInfo}
       />
       {/* 포트폴리오 리스트 화면 */}
       <PortFolioContentWrap>
@@ -80,11 +95,29 @@ const PortfolioSection = () => {
             setPage={setPage}
             nothing={nothing}
             fetchData={fetchData}
+            setErrorApiInfo={setErrorApiInfo}
           />
         ))}
       </PortFolioContentWrap>
       {/* 페이지네이션 */}
       <PortfolioPaging page={page} setPage={setPage} count={count} />
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
+      )}
     </div>
   );
 };

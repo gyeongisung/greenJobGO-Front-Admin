@@ -22,8 +22,11 @@ import {
 import { AcceptModal } from "../components/AcceptModals";
 import OkModal from "../components/OkModal";
 import ErrorModal from "../components/ErrorModal";
+import NoListItem from "../components/NoListItem";
 
 const ClassMgmt = () => {
+  const [nothing, setNothing] = useState(false);
+
   const [listData, setListData] = useState([]);
   const [saveCheckBox, setSaveCheckBox] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
@@ -106,6 +109,7 @@ const ClassMgmt = () => {
       search,
       category,
       setErrorApiInfo,
+      setNothing,
     );
   };
 
@@ -325,6 +329,7 @@ const ClassMgmt = () => {
           <span>[총 {count}개]</span>
         </div>
         <ClassTable>
+          {nothing && <NoListItem />}
           <ClassList
             listData={listData}
             handleAllCheck={handleAllCheck}
@@ -337,7 +342,7 @@ const ClassMgmt = () => {
             categoryData={categoryData}
             fetchData={fetchData}
             setErrorApiInfo={setErrorApiInfo}
-          />
+            />
         </ClassTable>
         <ClassPaging page={page} setPage={setPage} count={count} />
       </ClassMgmtInner>

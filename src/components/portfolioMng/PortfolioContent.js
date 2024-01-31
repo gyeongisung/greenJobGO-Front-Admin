@@ -7,7 +7,7 @@ import NoImage from "../../assets/NoImage.jpg";
 import ConfirmModal from "../ConfirmModal";
 import OkModal from "../OkModal";
 
-const PortfolioContent = ({ item, setPage, fetchData }) => {
+const PortfolioContent = ({ item, setPage, fetchData, setErrorApiInfo }) => {
   const [savedItemNum, setSavedItemNum] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
@@ -28,15 +28,17 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
   // 보관 컨펌
   const handleConfirm = async () => {
     try {
-      // await setPage(1);
-      // let update = 1;
-      // setIsSaved(update);
-      await patchSendSaved({ savedItemNum, isSaved: 1, setErrorInfo });
+      await patchSendSaved({
+        savedItemNum,
+        isSaved: 1,
+        setErrorInfo,
+        setErrorApiInfo,
+      });
       fetchData();
       await setModalOpen(false);
       setErrorModalOpen(true);
     } catch (error) {
-      console.log("보관실패", error);
+      setErrorApiInfo(`Saved: ${error.message}`);
     }
   };
 
@@ -48,14 +50,16 @@ const PortfolioContent = ({ item, setPage, fetchData }) => {
   // 보관취소 컨펌
   const handleCancelConfirm = async () => {
     try {
-      // let update = 0;
-      // setIsSaved(update);
-      await patchSendSaved({ savedItemNum, isSaved: 0, setErrorInfo });
+      await patchSendSaved({
+        savedItemNum,
+        isSaved: 0,
+        setErrorInfo,
+        setErrorApiInfo,
+      });
       fetchData();
       await setCancelModalOpen(false);
       setErrorModalOpen(true);
     } catch (error) {
-      console.log("보관실패", error);
       setErrorModalOpen(true);
     }
   };

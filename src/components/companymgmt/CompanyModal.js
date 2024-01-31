@@ -91,11 +91,12 @@ export const DeleteCompanyModal = ({
   setListData,
   setSaveCheckBox,
   fetchData,
+  setErrorApiInfo,
 }) => {
   const handleDeleteCompany = async () => {
     const checkedCompanyCode = saveCheckBox;
     try {
-      await deleteCompany(checkedCompanyCode);
+      await deleteCompany(checkedCompanyCode, setErrorApiInfo);
       setListData(prevListData =>
         prevListData.filter(
           item => !checkedCompanyCode.includes(item.companyCode),
@@ -105,7 +106,7 @@ export const DeleteCompanyModal = ({
 
       fetchData();
     } catch (error) {
-      console.error(error);
+      setErrorApiInfo(`Company Delete: ${error.message}`);
     }
   };
 
@@ -381,6 +382,7 @@ export const EdeitCompanyModal = ({
   uploadResult,
   setUpLoadResult,
   fetchData,
+  setErrorApiInfo,
 }) => {
   const [companyData, setCompanyData] = useState({
     companyCode: companyInfo.companyCode,
@@ -404,7 +406,6 @@ export const EdeitCompanyModal = ({
 
   const dateFormat = "YYYY-MM-DD";
 
-  console.log("companyData.homepage", companyData.homepage);
 
   const onDateChange = (date, dateStrings) => {
     setCompanyData(payload => ({
@@ -442,7 +443,7 @@ export const EdeitCompanyModal = ({
         !companyData.dateConslusion;
 
       if (!isError) {
-        const result = await patchCompany(companyData);
+        const result = await patchCompany(companyData, setErrorApiInfo);
         setUpLoadResult(result);
 
         if (result.success) {
@@ -453,7 +454,7 @@ export const EdeitCompanyModal = ({
       }
     } catch (error) {
       setEditModalOpen(false);
-      setAcceptOkModal(true);
+      // setAcceptOkModal(true);
     }
   };
 

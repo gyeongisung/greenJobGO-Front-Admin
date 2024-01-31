@@ -20,6 +20,7 @@ const SaveItemSearch = ({
   fetchData,
   clickItems,
   setClickItems,
+  setErrorApiInfo,
 }) => {
   const [category, setCategory] = useState([]);
 
@@ -75,7 +76,7 @@ const SaveItemSearch = ({
     setMainGoModalOpen(false);
   };
   useEffect(() => {
-    getBigcate(setCategory);
+    getBigcate(setCategory, setErrorApiInfo);
   }, []);
 
   useEffect(() => {

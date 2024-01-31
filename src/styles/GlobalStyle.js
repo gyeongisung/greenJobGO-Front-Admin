@@ -476,9 +476,10 @@ export const NoItemSty = styled.div`
   width: 100%;
   height: 100%;
   padding: 80px 0;
+  z-index: 9;
   & > div {
     margin: 0 auto;
-    width: 1400px;
+    width: 1300px;
     height: 270px;
     border-radius: 10px;
     /* border: 1px solid ${Maincolor.maingray}; */

@@ -60,6 +60,7 @@ const PermanentlyDelete = () => {
       page,
       resultUrl,
       setNothing,
+      setErrorInfo
     });
   };
 
@@ -134,6 +135,7 @@ const PermanentlyDelete = () => {
           setSearchsubj={setSearchsubj}
           selectCate={selectCate}
           setSelectCate={setSelectCate}
+          setErrorInfo={setErrorInfo}
         />
         <div className="delete-buttons">
           <button onClick={handleDelete}>삭제</button>
