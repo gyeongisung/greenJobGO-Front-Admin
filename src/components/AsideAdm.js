@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SideMenuWrap } from "../styles/AsideStyle";
 import Sider from "antd/es/layout/Sider";
 import { Menu } from "antd";
@@ -6,11 +6,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
-  faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { postLogout } from "../api/client";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { changeComponent } from "../recoil/atoms/ChangeState";
 import { AuthStateAtom } from "../recoil/atoms/AuthState";
 import ConfirmModal from "./ConfirmModal";
 import { StudentPageAtom } from "./studentmgmt/StudentMain";
@@ -21,7 +19,6 @@ const AsideAdm = () => {
 
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
-  // const [isTrue, setIsTrue] = useRecoilState(changeComponent);
   const [authState, setAuthState] = useRecoilState(AuthStateAtom);
 
   const { isLogin, role, id, name } = authState;
@@ -37,10 +34,8 @@ const AsideAdm = () => {
     setDefaultSelectedKeys(location.pathname);
   }, [location]);
 
+  // 클릭할 때 수강생등록페이지 리코일정보를 reset
   const handleIsTrue = () => {
-    // setIsTrue(true);
-    
-    // 클릭할 때 수강생등록페이지 리코일정보를 reset해라
     ResetStudentPageRecoil();
   };
 
@@ -61,7 +56,10 @@ const AsideAdm = () => {
 
     navigate("/admin/");
   };
-
+  const handleLogo = () => {
+    setDefaultSelectedKeys("/admin/home");
+    navigate("/admin/home");
+  };
   function getItem(label, key, icon, children) {
     return {
       key,
@@ -74,7 +72,10 @@ const AsideAdm = () => {
     getItem(<Link to="/admin/home">홈</Link>, "/admin/home", null),
     getItem("과정관리", "sub1", null, [
       getItem(<Link to="/admin/class">과정등록 • 관리</Link>, "/admin/class"),
-      getItem(<Link to="/admin/jobmanager">취업 담당자 관리</Link>, "/admin/jobmanager"),
+      getItem(
+        <Link to="/admin/jobmanager">취업 담당자 관리</Link>,
+        "/admin/jobmanager",
+      ),
     ]),
     getItem("수강생 관리", "sub2", null, [
       getItem(
@@ -83,12 +84,22 @@ const AsideAdm = () => {
         </Link>,
         "/admin/student",
       ),
-      getItem(<Link to="/admin/portfolio">포트폴리오 관리</Link>, "/admin/portfolio"),
+      getItem(
+        <Link to="/admin/portfolio">포트폴리오 관리</Link>,
+        "/admin/portfolio",
+      ),
     ]),
-    getItem(<Link to="/admin/company">기업등록 • 관리</Link>, "/admin/company", null),
+    getItem(
+      <Link to="/admin/company">기업등록 • 관리</Link>,
+      "/admin/company",
+      null,
+    ),
     getItem("데이터 삭제", "sub3", null, [
       getItem(<Link to="/admin/bulk">일괄 삭제</Link>, "/admin/bulk"),
-      getItem(<Link to="/admin/permanently">영구 삭제</Link>, "/admin/permanently"),
+      getItem(
+        <Link to="/admin/permanently">영구 삭제</Link>,
+        "/admin/permanently",
+      ),
     ]),
   ];
 
@@ -102,7 +113,7 @@ const AsideAdm = () => {
             }
           }
         >
-          <div className="sidemenu-logo-div">
+          <div className="sidemenu-logo-div" onClick={handleLogo}>
             <img
               src={`${process.env.PUBLIC_URL}/assets/LoginTitle.png`}
               alt="greenlogo"
@@ -115,7 +126,8 @@ const AsideAdm = () => {
               background: "#ffffff",
             }}
             defaultOpenKeys={["sub1", "sub2"]}
-            defaultSelectedKeys={[defaultSelectedKeys]}
+            // defaultSelectedKeys={[defaultSelectedKeys]}
+            selectedKeys={[defaultSelectedKeys]}
             mode={"inline"}
             theme={"light"}
             items={menuItems2}
@@ -131,7 +143,7 @@ const AsideAdm = () => {
           </div>
         </Sider>
       ) : null}
-      {/* 메인취소모달 */}
+      {/* 로그아웃모달 */}
       {logoutModalOpen && (
         <ConfirmModal
           open={logoutModalOpen}

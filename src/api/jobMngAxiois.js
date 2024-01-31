@@ -23,7 +23,7 @@ export const postManagerInfo = async formData => {
       },
     });
 
-    console.log("formData", formData);
+console.log("formData", formData);
     const result = res.data;
 
     console.log("취업 담당자 등록", result);

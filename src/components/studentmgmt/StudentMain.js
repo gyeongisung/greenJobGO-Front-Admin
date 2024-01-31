@@ -7,7 +7,11 @@ import {
   StudentMgmtWrap,
   StudentTable,
 } from "../../styles/StudentMgmtStyle";
-import { DeleteStudnetModal, StudentExcelUploadModal, StudentModal } from "../studentmgmt/StudentModal";
+import {
+  DeleteStudnetModal,
+  StudentExcelUploadModal,
+  StudentModal,
+} from "../studentmgmt/StudentModal";
 import {
   getStudenListDownload,
   getStudentList,
@@ -16,12 +20,23 @@ import {
 import { getCategory } from "../../api/classAxios";
 import { AcceptModal, ExcelAcceptModal } from "../AcceptModals";
 import { ExcelUploadModal } from "../companymgmt/CompanyModal";
-import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
+import {
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+  RecoilEnv,
+} from "recoil";
 import { useNavigate } from "react-router";
+import { recoilPersist } from "recoil-persist";
 import { v4 } from "uuid";
 
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+
+const { persistAtom } = recoilPersist();
+
 export const StudentPageAtom = atom({
-  // key: "authState",
+  // key: `StudentPageAtom`,
   key: `StudentPageAtom/${v4()}`,
   default: {
     page: 1,
@@ -30,7 +45,7 @@ export const StudentPageAtom = atom({
     category: "",
     render: true,
   },
-  // effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistAtom],
 });
 
 const StudentMain = ({ handleInfoClick }) => {

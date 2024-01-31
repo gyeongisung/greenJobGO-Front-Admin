@@ -14,6 +14,7 @@ export const SideMenuWrap = styled.div`
     width: 250px;
     height: 60px;
     background: ${Maincolor.white};
+    cursor: pointer;
     img {
       width: 190px;
       height: 15px;
