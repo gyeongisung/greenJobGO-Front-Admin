@@ -20,6 +20,7 @@ const AsideAdm = () => {
   const [authState, setAuthState] = useRecoilState(AuthStateAtom);
 
   const { isLogin, role, id, name } = authState;
+  const [pageState, setPageState] = useRecoilState(StudentPageAtom);
 
   const navigate = useNavigate();
 
@@ -35,7 +36,13 @@ const AsideAdm = () => {
   // 클릭할 때 수강생등록페이지 리코일정보를 reset
   const handleIsTrue = () => {
     ResetStudentPageRecoil();
-
+    // setPageState({
+    //   page: 1,
+    //   count: 0,
+    //   search: "",
+    //   category: "",
+    //   render: true,
+    // });
   };
 
   const handleLogoutClick = () => {
@@ -51,8 +58,15 @@ const AsideAdm = () => {
       id: "",
       name: "",
     }));
+    setPageState({
+      page: 1,
+      count: 0,
+      search: "",
+      category: "",
+      render: true,
+    });
+    // ResetStudentPageRecoil();
     setLogoutModalOpen(false);
-
     navigate("/admin/");
   };
   const handleLogo = () => {

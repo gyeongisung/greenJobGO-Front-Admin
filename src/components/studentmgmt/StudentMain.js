@@ -25,7 +25,7 @@ import {
   selector,
   useRecoilState,
   useRecoilValue,
-  RecoilEnv,
+  // RecoilEnv,
 } from "recoil";
 import { useNavigate } from "react-router";
 import { recoilPersist } from "recoil-persist";
@@ -33,13 +33,13 @@ import { v4 } from "uuid";
 import NoListItem from "../NoListItem";
 import ErrorModal from "../ErrorModal";
 
-RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+// RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
-// const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist();
 
 export const StudentPageAtom = atom({
   // key: `StudentPageAtom`,
-  key: `StudentPageAtom/${v4()}`,
+  key: `StudentPageAtom`,
   default: {
     page: 1,
     count: 0,
@@ -47,7 +47,7 @@ export const StudentPageAtom = atom({
     category: "",
     render: true,
   },
-  // effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistAtom],
 });
 
 const StudentMain = ({ handleInfoClick }) => {
@@ -179,7 +179,7 @@ const StudentMain = ({ handleInfoClick }) => {
 
         if (result.success) {
           setExcelModalOpen(false);
-          setExcelOkModal(true);
+          // setExcelOkModal(true);
           setSelectedFile(null);
         }
         fetchData();
@@ -191,8 +191,9 @@ const StudentMain = ({ handleInfoClick }) => {
 
   // 엑셀 다운로드 버튼
   const handleExcelDownLoad = async () => {
-    getStudenListDownload(setExcelDownload);
+    getStudenListDownload(setExcelDownload, setErrorApiInfo);
   };
+
   useEffect(() => {
     if (errorApiInfo) {
       setApiErrorModalOpen(true);

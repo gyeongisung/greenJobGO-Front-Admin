@@ -56,7 +56,6 @@ const StudentInfo = () => {
   const [resumeOneWord, setResumeOneWord] = useState("");
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
 
-
   // 수정모드 변경 버튼
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -80,6 +79,7 @@ const StudentInfo = () => {
         istudent,
         resumeOneWord,
         formData,
+        setErrorApiInfo,
       );
       setUpLoadResult(result);
       if (result.success === true) {
@@ -96,7 +96,11 @@ const StudentInfo = () => {
     try {
       let result;
       console.log("result", result);
-      result = await putStudentInfo(istudent, userInfo.userDetail);
+      result = await putStudentInfo(
+        istudent,
+        userInfo.userDetail,
+        setErrorApiInfo,
+      );
       // result = await putStudentCertificate(istudent, userInfo.certificateValue);
       setUpLoadResult(result);
 
@@ -142,7 +146,7 @@ const StudentInfo = () => {
   // 파일 삭제 확인 버튼
   const handleOkClick = async () => {
     try {
-      const result = await deleteFile(userFile?.resume?.ifile);
+      const result = await deleteFile(userFile?.resume?.ifile, setErrorApiInfo);
       if (result.success === true) {
         setDeleteOkModal(false);
         setResumeFile("");
@@ -188,7 +192,6 @@ const StudentInfo = () => {
   // const handlePofolModalCancel = () => {
   //   setModalOpen(false);
   // };
-  
 
   const handleAddHashTag = async e => {
     const command = ["Comma", "Enter", "NumpadEnter"];
@@ -255,7 +258,7 @@ const StudentInfo = () => {
   };
 
   const formatPhoneNumber = phoneFormatter(userInfo.userDetail.mobileNumber);
-  
+
   useEffect(() => {
     getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
   }, [istudent, isEditMode]);

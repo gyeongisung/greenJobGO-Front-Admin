@@ -75,6 +75,7 @@ const StudentPortF = () => {
           formData,
           description,
           linkUrl,
+          setErrorApiInfo,
         );
         setUpLoadResult(result);
         if (result.success === true) {
@@ -145,7 +146,12 @@ const StudentPortF = () => {
   };
 
   const handleMainPofolOk = () => {
-    patchMainPofolSelected(userSendInfo.istudent, mainCheck, mainYn);
+    patchMainPofolSelected(
+      userSendInfo.istudent,
+      mainCheck,
+      mainYn,
+      setErrorApiInfo,
+    );
     setMainYnModal(false);
   };
 
