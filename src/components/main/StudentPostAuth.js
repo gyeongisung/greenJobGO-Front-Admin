@@ -115,10 +115,10 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   };
 
   useEffect(() => {
-    getBigcate(setCategory);
+    getBigcate(setCategory, setErrorApiInfo);
   }, []);
   useEffect(() => {
-    getStudentSubject({ selectCate, setSubjectList });
+    getStudentSubject({ selectCate, setSubjectList, setErrorApiInfo });
     if (errorApiInfo) {
       setApiErrorModalOpen(true);
     } else {
@@ -137,11 +137,12 @@ const StudentPostAuth = ({ setAuthInfo }) => {
             <option value="" defaultValue>
               선택
             </option>
-            {category.length && category.map(item => (
-              <option key={v4()} value={item.iclassification}>
-                {item.classification}
-              </option>
-            ))}
+            {category.length &&
+              category.map(item => (
+                <option key={v4()} value={item.iclassification}>
+                  {item.classification}
+                </option>
+              ))}
           </select>
         </li>
         <li className="select-wrap">

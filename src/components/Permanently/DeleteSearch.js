@@ -3,6 +3,7 @@ import { getStudentSubject } from "../../api/homeAxios";
 import { v4 } from "uuid";
 import { getBigcate } from "../../api/portfolioAxios";
 import { getSubjectInfo } from "../../api/permanentlyAxios";
+import OkModal from "../OkModal";
 
 const DeleteSearch = ({
   handleSearch,
@@ -12,8 +13,12 @@ const DeleteSearch = ({
   setSearchsubj,
   setSelectCate,
   selectCate,
-  setErrorInfo
+  setErrorInfo,
 }) => {
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
+
   const [category, setCategory] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
 
@@ -31,8 +36,15 @@ const DeleteSearch = ({
   };
 
   useEffect(() => {
-    getBigcate(setCategory);
+    getBigcate(setCategory, setErrorApiInfo);
   }, []);
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
 
   useEffect(() => {
     getSubjectInfo({ selectCate, setSubjectList, setErrorInfo });
@@ -95,6 +107,23 @@ const DeleteSearch = ({
       <li className="search-btn">
         <button onClick={handleSearch}>조회</button>
       </li>
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <OkModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </OkModal>
+      )}
     </ul>
   );
 };

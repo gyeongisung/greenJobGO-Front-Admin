@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { v4 } from "uuid";
 import { StudentPageAtom } from "./StudentMain";
 import { getCategory } from "../../api/classAxios";
+import OkModal from "../../components/OkModal";
 
 const StudentSearch = ({
   category,
@@ -12,13 +13,23 @@ const StudentSearch = ({
   // categoryData,
   // setCategoryData,
 }) => {
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
   const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
-    getCategory(setCategoryData);
+    getCategory(setCategoryData, setErrorApiInfo);
   }, []);
 
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
   return (
     <ul className="student-search">
       <li className="select-wrap">
@@ -66,6 +77,23 @@ const StudentSearch = ({
       <li>
         <button onClick={handleSearch}>검색</button>
       </li>
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <OkModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </OkModal>
+      )}
     </ul>
   );
 };
