@@ -25,35 +25,35 @@ client.interceptors.request.use(
 );
 
 // 응답 인터셉터 설정
-// client.interceptors.response.use(
-//   response => {
-//     return response;
-//   },
-//   async error => {
-//     const { config, response } = error;
-//     const refreshToken = getCookie("refreshToken");
-//     if (response && response.status === 401 && refreshToken) {
-//       try {
-//         const { data } = await client.post(`/admin/sign/refresh-token`, {
-//           refreshToken,
-//         });
+client.interceptors.response.use(
+  response => {
+    return response;
+  },
+  async error => {
+    const { config, response } = error;
+    const refreshToken = getCookie("refreshToken");
+    if (response && response.status === 401 && refreshToken) {
+      try {
+        const { data } = await client.post(`/admin/sign/refresh-token`, {
+          refreshToken,
+        });
 
-//         const accessToken = data;
-//         setCookie("accessToken", accessToken);
+        const accessToken = data;
+        setCookie("accessToken", accessToken);
 
-//         if (config && config.headers && config.headers.Authorization) {
-//           config.headers.Authorization = `Bearer ${accessToken}`;
-//           const retryResponse = await client(config);
-//           return retryResponse;
-//         }
-//       } catch (error) {
-//         console.log("토큰 갱신 실패:", error);
-//       }
-//     }
-//     console.error("요청 실패:", error);
-//     return Promise.reject(error);
-//   },
-// );
+        if (config && config.headers && config.headers.Authorization) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+          const retryResponse = await client(config);
+          return retryResponse;
+        }
+      } catch (error) {
+        console.log("토큰 갱신 실패:", error);
+      }
+    }
+    console.error("요청 실패:", error);
+    return Promise.reject(error);
+  },
+);
 
 // 로그인 함수
 export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
@@ -118,6 +118,8 @@ export const postLogout = async (accessToken, refreshToken) => {
     const res = await client.post("/admin/sign/logout");
     removeCookie(accessToken);
     removeCookie(refreshToken);
+
+    return res;
   } catch (error) {
     console.log(error);
   }
