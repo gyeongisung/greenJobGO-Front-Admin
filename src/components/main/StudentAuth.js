@@ -27,13 +27,13 @@ const StudentAuth = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (errorApiInfo) {
-      setApiErrorModalOpen(true);
-    } else {
-      setApiErrorModalOpen(false);
-    }
-  }, [errorApiInfo]);
+  // useEffect(() => {
+  //   if (errorApiInfo) {
+  //     setApiErrorModalOpen(true);
+  //   } else {
+  //     setApiErrorModalOpen(false);
+  //   }
+  // }, [errorApiInfo]);
   return (
     <MainLeftSty>
       <div className="main-title-div">

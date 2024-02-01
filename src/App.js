@@ -1,8 +1,9 @@
 import "./App.css";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import Loading from "./components/Loading";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { PrivateRoutes } from "./components/PrivateRoutes";
+import { getCookie, removeCookie } from "./api/cookie";
 
 const Login = lazy(() => import("./pages/Login"));
 const AdminLayout = lazy(() => import("./pages/AdminLayout"));
@@ -21,7 +22,20 @@ const StudentPortF = lazy(
   () => import("./components/studentmgmt/StudentPortF"),
 );
 
-function App() {
+const App = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const accessToken = getCookie("accessToken");
+    const refreshToken = getCookie("refreshToken");
+    console.log("refreshToken", refreshToken);
+    console.log("accessToken", accessToken);
+    if (pathname === "/" && (accessToken || refreshToken)) {
+      removeCookie("accessToken");
+      removeCookie("refreshToken");
+    }
+  }, []);
+
   return (
     <>
       <Suspense fallback={<Loading />}>
@@ -59,6 +73,6 @@ function App() {
       </Suspense>
     </>
   );
-}
+};
 
 export default App;

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { AuthStateAtom } from "../recoil/atoms/AuthState";
 import OkModal from "../components/OkModal";
-import { removeCookie } from "../api/cookie";
 
 const Login = () => {
   const [adminId, setAdmminId] = useState("greendg01");

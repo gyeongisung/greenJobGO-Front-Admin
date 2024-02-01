@@ -25,59 +25,59 @@ client.interceptors.request.use(
 );
 
 // 응답 인터셉터 설정
-// client.interceptors.response.use(
-//   response => {
-//     return response;
-//   },
-//   async error => {
-//     const { config, response } = error;
-//     const refreshToken = getCookie("refreshToken");
-//     if (response && response.status === 401 && refreshToken) {
-//       try {
-//         removeCookie("refreshToken");
+client.interceptors.response.use(
+  response => {
+    return response;
+  },
+  async error => {
+    const { config, response } = error;
+    const refreshToken = getCookie("refreshToken");
+    if (response && response.status === 401 && refreshToken) {
+      try {
+        removeCookie("refreshToken");
 
-//         if (config && config.headers && config.headers.Authorization) {
-//           removeCookie("accessToken");
-//         }
+        if (config && config.headers && config.headers.Authorization) {
+          removeCookie("accessToken");
+        }
 
-//         this.props.history.push("/admin/");
-//       } catch (error) {
-//         console.log("토큰 삭제 실패:", error);
-//       }
-//     }
-//     console.error("요청 실패:", error);
-//     return Promise.reject(error);
-//   },
-// );
-// client.interceptors.response.use(
-//   response => {
-//     return response;
-//   },
-//   async error => {
-//     const { config, response } = error;
-//     const refreshToken = getCookie("refreshToken");
-//     if (response && response.status === 401 && refreshToken) {
-//       try {
-//         const { data } = await client.post(`/admin/sign/refresh-token`, {
-//           refreshToken,
-//         });
+        this.props.history.push("/admin/");
+      } catch (error) {
+        console.log("토큰 삭제 실패:", error);
+      }
+    }
+    console.error("요청 실패:", error);
+    return Promise.reject(error);
+  },
+);
+client.interceptors.response.use(
+  response => {
+    return response;
+  },
+  async error => {
+    const { config, response } = error;
+    const refreshToken = getCookie("refreshToken");
+    if (response && response.status === 401 && refreshToken) {
+      try {
+        const { data } = await client.post(`/admin/sign/refresh-token`, {
+          refreshToken,
+        });
 
-//         const accessToken = data;
-//         setCookie("accessToken", accessToken);
+        const accessToken = data;
+        setCookie("accessToken", accessToken);
 
-//         if (config && config.headers && config.headers.Authorization) {
-//           config.headers.Authorization = `Bearer ${accessToken}`;
-//           const retryResponse = await client(config);
-//           return retryResponse;
-//         }
-//       } catch (error) {
-//         console.log("토큰 갱신 실패:", error);
-//       }
-//     }
-//     console.error("요청 실패:", error);
-//     return Promise.reject(error);
-//   },
-// );
+        if (config && config.headers && config.headers.Authorization) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+          const retryResponse = await client(config);
+          return retryResponse;
+        }
+      } catch (error) {
+        console.log("토큰 갱신 실패:", error);
+      }
+    }
+    console.error("요청 실패:", error);
+    return Promise.reject(error);
+  },
+);
 
 // 로그인 함수
 export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
@@ -91,20 +91,22 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
     console.log(data);
 
     const { role, refreshToken, accessToken, id, name, accessTokenTime } = data;
-    const expiredTime = accessTokenTime / 1000;
+
     if (role === "ROLE_ADMIN" && refreshToken && accessToken) {
       const cookieOptions = {
-        path: "/admin/",
+        path: "/",
         secure: true,
         sameSite: "none",
-        httpOnly: true,
-        maxAge: expiredTime,
+        httpOnly: false,
+        maxAge: 180,
       };
 
       setCookie("refreshToken", refreshToken, cookieOptions);
       setCookie("accessToken", accessToken, cookieOptions);
       setErrorCancelInfo("");
-
+      console.log("Refresh Token:", refreshToken);
+      console.log("Access Token:", accessToken);
+      console.log(document.cookie);
       return { role, accessToken, refreshToken, id, name, accessTokenTime };
     } else {
       throw new Error("잘못된 응답 형식");
