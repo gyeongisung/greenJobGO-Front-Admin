@@ -4,22 +4,22 @@ import Loading from "./components/Loading";
 import { Suspense, lazy } from "react";
 import { PrivateRoutes } from "./components/PrivateRoutes";
 
-const Login = () => lazy(() => import("./pages/Login"));
-const AdminLayout = () => lazy(() => import("./pages/AdminLayout"));
-const Home = () => lazy(() => import("./pages/Home"));
-const ClassMgmt = () => lazy(() => import("./pages/ClassMgmt"));
-const StudentMgmt = () => lazy(() => import("./pages/StudentMgmt"));
-const CompanyMgmt = () => lazy(() => import("./pages/CompanyMgmt"));
-const PortfolioMgmt = () => lazy(() => import("./pages/PortfolioMgmt"));
-const Register = () => lazy(() => import("./pages/Register"));
-const JobManager = () => lazy(() => import("./pages/JobManager"));
-const PermanentlyDelete = () => lazy(() => import("./pages/PermanentlyDelete"));
-const BulkDelete = () => lazy(() => import("./pages/BulkDelete"));
-const NotFound = () => lazy(() => import("./pages/NotFound"));
-const StudentInfo = () =>
-  lazy(() => import("./components/studentmgmt/StudentInfo"));
-const StudentPortF = () =>
-  lazy(() => import("./components/studentmgmt/StudentPortF"));
+const Login = lazy(() => import("./pages/Login"));
+const AdminLayout = lazy(() => import("./pages/AdminLayout"));
+const Home = lazy(() => import("./pages/Home"));
+const ClassMgmt = lazy(() => import("./pages/ClassMgmt"));
+const StudentMgmt = lazy(() => import("./pages/StudentMgmt"));
+const CompanyMgmt = lazy(() => import("./pages/CompanyMgmt"));
+const PortfolioMgmt = lazy(() => import("./pages/PortfolioMgmt"));
+const Register = lazy(() => import("./pages/Register"));
+const JobManager = lazy(() => import("./pages/JobManager"));
+const PermanentlyDelete = lazy(() => import("./pages/PermanentlyDelete"));
+const BulkDelete = lazy(() => import("./pages/BulkDelete"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const StudentInfo = lazy(() => import("./components/studentmgmt/StudentInfo"));
+const StudentPortF = lazy(
+  () => import("./components/studentmgmt/StudentPortF"),
+);
 
 function App() {
   return (

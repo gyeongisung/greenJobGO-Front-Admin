@@ -38,15 +38,8 @@ const Login = () => {
       return;
     } else {
       try {
-        const {
-          role,
-          accessToken,
-          refreshToken,
-          id,
-          name,
-          refresh,
-          accessTokenTime,
-        } = await fetchLogin(adminId, password, setErrorCancelInfo);
+        const { role, accessToken, refreshToken, id, name, accessTokenTime } =
+          await fetchLogin(adminId, password, setErrorCancelInfo);
         if (role === "ROLE_ADMIN" && accessToken) {
           setAuthState({
             isLogin: true,
@@ -54,12 +47,11 @@ const Login = () => {
             role: role,
             id: id,
             name: name,
-            refresh: refresh,
           });
           navigate("/admin/home");
 
           setTimeout(() => {
-            if (refresh) {
+            if (refreshToken) {
               postLogout(accessToken, refreshToken);
               setAuthState({
                 isLogin: false,
@@ -67,7 +59,6 @@ const Login = () => {
                 role: "",
                 id: "",
                 name: "",
-                refresh: false,
               });
               navigate("/admin/");
             }

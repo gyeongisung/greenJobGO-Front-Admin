@@ -4,7 +4,8 @@ import { Maincolor } from "./GlobalStyle";
 export const LayoutWrapSty = styled.div`
   position: relative;
   width: 100vw;
-  height: auto;
+  height: 100vh;
+  /* height: auto; */
 `;
 
 export const ContentWrap = styled.div`

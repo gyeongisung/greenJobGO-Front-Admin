@@ -84,7 +84,6 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
         refreshToken,
         id,
         name,
-        refresh: true,
         accessTokenTime,
       };
     } else {
