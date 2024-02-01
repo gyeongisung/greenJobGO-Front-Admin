@@ -24,7 +24,7 @@ const StudentPortF = lazy(
 function App() {
   return (
     <>
-      <Suspense fallback={<Loading />}>
+      {/* <Suspense fallback={<Loading />}> */}
         <Routes>
           {/* 로그인 페이지 */}
           <Route path="/admin/" element={<Login />} />
@@ -56,7 +56,7 @@ function App() {
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Suspense>
+      {/* </Suspense> */}
     </>
   );
 }
