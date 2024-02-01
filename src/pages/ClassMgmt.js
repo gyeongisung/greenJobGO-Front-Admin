@@ -54,6 +54,7 @@ const ClassMgmt = () => {
     round: "",
     classTime: "",
   });
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
   // 예외처리하기
   const [cateError, setCateError] = useState("");
@@ -183,74 +184,53 @@ const ClassMgmt = () => {
 
   // 과정추가
   const handleModalAccept = async () => {
+    const result = await postClassSubject(payload, setErrorApiInfo);
+    setUpLoadResult(result);
+    setModalOpen(false);
+    setConfirmModalOpen(false);
+    // if (result.success) {
+    // setAcceptOkModal(true);
+    setPayload({
+      courseSubjectName: "",
+      iclassification: 0,
+      classification: "",
+      startedAt: "",
+      endedAt: "",
+      instructor: "",
+      lectureRoom: "",
+      round: "",
+      classTime: "",
+    });
+    fetchData();
+    // }
+  };
+
+  // 등록 여부 확인 모달
+  const handleSummitConfirm = () => {
     const { classification, ...newPayload } = payload;
-    // const formatData = {
-    //   ...newPayload,
-    //   startedAt: payload.startedAt
-    //     ? format(payload.startedAt, "yyyy-MM-dd")
-    //     : null,
-    //   endedAt: payload.endedAt ? format(payload.endedAt, "yyyy-MM-dd") : null,
-    // };
-    try {
-      setCateError(
-        !payload.iclassification ? "카테고리를 선택 해 주세요." : "",
-      );
-      setSubjectError(
-        !payload.courseSubjectName ? "과정명을 선택 해 주세요." : "",
-      );
-      setStartDateError(!payload.startedAt ? "시작날짜를 선택 해 주세요." : "");
-      setEndDateError(!payload.endedAt ? "종료날짜를 선택 해 주세요." : "");
-      setRoundError(!payload.round ? "과정 회차를 입력 해 주세요." : "");
-      setClassTimeError(
-        !payload.classTime ? "수업 시간을 입력 해 주세요." : "",
-      );
-      setTeacherError(!payload.instructor ? "강사명을 입력 해 주세요." : "");
-      setClassroomError(!payload.lectureRoom ? "강의실을 입력 해 주세요." : "");
+    setCateError(!payload.iclassification ? "카테고리를 선택 해 주세요." : "");
+    setSubjectError(
+      !payload.courseSubjectName ? "과정명을 선택 해 주세요." : "",
+    );
+    setStartDateError(!payload.startedAt ? "시작날짜를 선택 해 주세요." : "");
+    setEndDateError(!payload.endedAt ? "종료날짜를 선택 해 주세요." : "");
+    setRoundError(!payload.round ? "과정 회차를 입력 해 주세요." : "");
+    setClassTimeError(!payload.classTime ? "수업 시간을 입력 해 주세요." : "");
+    setTeacherError(!payload.instructor ? "강사명을 입력 해 주세요." : "");
+    setClassroomError(!payload.lectureRoom ? "강의실을 입력 해 주세요." : "");
 
-      const isError =
-        !payload.iclassification ||
-        !payload.courseSubjectName ||
-        !payload.startedAt ||
-        !payload.endedAt ||
-        !payload.round ||
-        !payload.classTime ||
-        !payload.instructor ||
-        !payload.lectureRoom;
+    const isError =
+      !payload.iclassification ||
+      !payload.courseSubjectName ||
+      !payload.startedAt ||
+      !payload.endedAt ||
+      !payload.round ||
+      !payload.classTime ||
+      !payload.instructor ||
+      !payload.lectureRoom;
 
-      if (!isError) {
-        const result = await postClassSubject(payload, setErrorApiInfo);
-        setUpLoadResult(result);
-        setModalOpen(false);
-
-        if (result.success) {
-          setAcceptOkModal(true);
-          setPayload({
-            courseSubjectName: "",
-            iclassification: 0,
-            classification: "",
-            startedAt: "",
-            endedAt: "",
-            instructor: "",
-            lectureRoom: "",
-            round: "",
-            classTime: "",
-          });
-          fetchData();
-        }
-      }
-    } catch (error) {
-      setAcceptOkModal(true);
-      setPayload({
-        courseSubjectName: "",
-        iclassification: 0,
-        classification: "",
-        startedAt: "",
-        endedAt: "",
-        instructor: "",
-        lectureRoom: "",
-        round: "",
-        classTime: "",
-      });
+    if (!isError) {
+      setConfirmModalOpen(true);
     }
   };
 
@@ -307,6 +287,9 @@ const ClassMgmt = () => {
             roundError={roundError}
             classTimeError={classTimeError}
             classroomError={classroomError}
+            handleSummitConfirm={handleSummitConfirm}
+            setConfirmModalOpen={setConfirmModalOpen}
+            confirmModalOpen={confirmModalOpen}
           />
         )}
         {deleteModalOpen && (
@@ -342,7 +325,7 @@ const ClassMgmt = () => {
             categoryData={categoryData}
             fetchData={fetchData}
             setErrorApiInfo={setErrorApiInfo}
-            />
+          />
         </ClassTable>
         <ClassPaging page={page} setPage={setPage} count={count} />
       </ClassMgmtInner>

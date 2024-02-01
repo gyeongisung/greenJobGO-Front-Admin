@@ -214,7 +214,7 @@ const CompanyMgmt = () => {
 
         if (result.success) {
           setModalOpen(false);
-          setAcceptOkModal(true);
+          // setAcceptOkModal(true);
           setPayload({
             area: "",
             companyName: "",

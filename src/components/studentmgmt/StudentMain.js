@@ -25,20 +25,21 @@ import {
   selector,
   useRecoilState,
   useRecoilValue,
-  RecoilEnv,
+  // RecoilEnv,
 } from "recoil";
 import { useNavigate } from "react-router";
 import { recoilPersist } from "recoil-persist";
 import { v4 } from "uuid";
 import NoListItem from "../NoListItem";
+import ErrorModal from "../ErrorModal";
 
-RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+// RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
-// const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist();
 
 export const StudentPageAtom = atom({
   // key: `StudentPageAtom`,
-  key: `StudentPageAtom/${v4()}`,
+  key: `StudentPageAtom`,
   default: {
     page: 1,
     count: 0,
@@ -46,14 +47,17 @@ export const StudentPageAtom = atom({
     category: "",
     render: true,
   },
-  // effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistAtom],
 });
 
 const StudentMain = ({ handleInfoClick }) => {
   const navigate = useNavigate();
 
+  // api 오류 메세지 받아오는 state.
+  const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
+  const [errorApiInfo, setErrorApiInfo] = useState("");
+
   const [nothing, setNothing] = useState(false);
-  console.log("nothing", nothing);
   const [listData, setListData] = useState([]);
   // const [saveCheckBox, setSaveCheckBox] = useState([]);
   // const [page, setPage] = useState(1);
@@ -74,7 +78,7 @@ const StudentMain = ({ handleInfoClick }) => {
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
   const { page, count, search, category, render } = pageState;
 
-  console.log("pageState", pageState);
+  // console.log("pageState", pageState);
   // let resultIdArray = saveCheckBox;
 
   // 체크박스 전체 선택
@@ -118,13 +122,9 @@ const StudentMain = ({ handleInfoClick }) => {
       search,
       category,
       setNothing,
+      setErrorApiInfo,
     );
   };
-
-  useEffect(() => {
-    fetchData();
-    // getCategory(setCategoryData);
-  }, [page, render]);
 
   // useEffect(() => {
   //   document.querySelector(".all-checkbox-btn").checked = false;
@@ -173,13 +173,13 @@ const StudentMain = ({ handleInfoClick }) => {
       formData.append("studentfile", selectedFile);
 
       try {
-        const result = await postExcelSign(formData);
+        const result = await postExcelSign(formData, setErrorApiInfo);
 
         setUpLoadResult(result);
 
         if (result.success) {
           setExcelModalOpen(false);
-          setExcelOkModal(true);
+          // setExcelOkModal(true);
           setSelectedFile(null);
         }
         fetchData();
@@ -191,8 +191,21 @@ const StudentMain = ({ handleInfoClick }) => {
 
   // 엑셀 다운로드 버튼
   const handleExcelDownLoad = async () => {
-    getStudenListDownload(setExcelDownload);
+    getStudenListDownload(setExcelDownload, setErrorApiInfo);
   };
+
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
+
+  useEffect(() => {
+    fetchData();
+    // getCategory(setCategoryData);
+  }, [page, render]);
 
   return (
     <StudentMgmtWrap>
@@ -273,6 +286,23 @@ const StudentMain = ({ handleInfoClick }) => {
           pgge={page}
         />
       </StudentMgmtInner>
+      {/* api 에러 확인모달 */}
+      {apiErrorModalOpen && (
+        <ErrorModal
+          header={""}
+          open={apiErrorModalOpen}
+          close={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+          onConfirm={() => {
+            setApiErrorModalOpen(false);
+            setErrorApiInfo("");
+          }}
+        >
+          <span>{errorApiInfo}</span>
+        </ErrorModal>
+      )}
     </StudentMgmtWrap>
   );
 };

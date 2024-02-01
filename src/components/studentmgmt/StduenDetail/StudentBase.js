@@ -205,6 +205,7 @@ const StudentBase = ({
               type="text"
               name="mobileNumber"
               value={formatPhoneNumber}
+              maxLength={13}
               onChange={e => {
                 setUserInfo(userInfo => ({
                   ...userInfo,

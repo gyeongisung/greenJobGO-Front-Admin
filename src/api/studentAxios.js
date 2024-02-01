@@ -7,6 +7,7 @@ export const getStudentList = async (
   search,
   category,
   setNothing,
+  setErrorApiInfo,
 ) => {
   try {
     let res;
@@ -27,7 +28,7 @@ export const getStudentList = async (
       setNothing(true);
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Student List : ${error.message}`);
   }
 };
 
@@ -67,7 +68,7 @@ export const getStudentDetail = async (
   }
 };
 
-export const getStudenListDownload = async () => {
+export const getStudenListDownload = async setErrorApiInfo => {
   try {
     const { data, headers } = await client.get(`/admin/sign/student-download`, {
       responseType: "blob",
@@ -85,29 +86,50 @@ export const getStudenListDownload = async () => {
     link.download = filename;
     link.click();
     URL.revokeObjectURL(blobUrl);
+    setErrorApiInfo("다운로드 됩니다.");
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`다운로드 실패: ${error.message}`);
   }
 };
 
-export const postExcelSign = async formData => {
+export const postExcelSign = async (formData, setErrorApiInfo) => {
   try {
     const res = await client.post(`/admin/sign/excel`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
+    console.log("res", res);
     if (res.data === 1) {
+      setErrorApiInfo("업로드 성공했습니다.");
       return { success: true };
     } else {
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    const { status } = error.response;
+    if (error.response) {
+      switch (status) {
+        case 437:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 438:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 445:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        default:
+          setErrorApiInfo("업로드에 실패했습니다.");
+      }
+    } else {
+      setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+    }
   }
 };
 export const postStudentResumeUpload = async (
   istudent,
   resumeOneWord,
   formData,
+  setErrorApiInfo,
 ) => {
   try {
     const res = await client.post(
@@ -127,7 +149,21 @@ export const postStudentResumeUpload = async (
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    const { status } = error.response;
+    if (error.response) {
+      switch (status) {
+        case 458:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 453:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        default:
+          setErrorApiInfo("업로드에 실패했습니다.");
+      }
+    } else {
+      setErrorApiInfo(`Resume Upload: ${error.message}`);
+    }
   }
 };
 export const postStudentPofolUpload = async (
@@ -136,6 +172,7 @@ export const postStudentPofolUpload = async (
   formData,
   description,
   linkUrl,
+  setErrorApiInfo,
 ) => {
   try {
     const baseUrl = `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}`;
@@ -158,7 +195,21 @@ export const postStudentPofolUpload = async (
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    const { status } = error.response;
+    if (error.response) {
+      switch (status) {
+        case 457:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 453:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        default:
+          setErrorApiInfo("업로드에 실패했습니다.");
+      }
+    } else {
+      setErrorApiInfo(`Portfolio Upload: ${error.message}`);
+    }
   }
 };
 
@@ -170,7 +221,7 @@ export const deleteStudent = async istudent => {
   }
 };
 
-export const deleteFile = async fileId => {
+export const deleteFile = async (fileId, setErrorApiInfo) => {
   try {
     const res = await client.delete(`/admin/student/file?ifile=${fileId}`);
     const result = res;
@@ -181,7 +232,19 @@ export const deleteFile = async fileId => {
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    const { status } = error.response;
+    if (error.response) {
+      switch (status) {
+        case 454:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+
+        default:
+          setErrorApiInfo("삭제에 실패했습니다.");
+      }
+    } else {
+      setErrorApiInfo(`File Delete: ${error.message}`);
+    }
   }
 };
 
@@ -201,7 +264,7 @@ export const deleteCertificate = async (istudent, icertificate) => {
   }
 };
 
-export const putStudentInfo = async (istudent, userInfo) => {
+export const putStudentInfo = async (istudent, userInfo, setErrorApiInfo) => {
   try {
     const res = await client.put(
       `/admin/student?istudent=${istudent}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&age=${userInfo.age}&gender=${userInfo.gender}`,
@@ -214,7 +277,7 @@ export const putStudentInfo = async (istudent, userInfo) => {
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Student Info Edit: ${error.message}`);
   }
 };
 
@@ -235,7 +298,12 @@ export const postStudentCertificate = async (studentId, newHashTag) => {
   }
 };
 
-export const patchMainPofolSelected = async (istudent, mainCheck, mainYn) => {
+export const patchMainPofolSelected = async (
+  istudent,
+  mainCheck,
+  mainYn,
+  setErrorApiInfo,
+) => {
   try {
     const res = await client.patch(
       `/admin/student/portfolio-main?istudent=${istudent}&ifile=${mainCheck}&mainYn=${mainYn}`,
@@ -247,6 +315,6 @@ export const patchMainPofolSelected = async (istudent, mainCheck, mainYn) => {
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Main Portfolio Select: ${error.message}`);
   }
 };

@@ -117,8 +117,8 @@ export const PortFolioContentWrap = styled.div`
   position: relative;
   width: 1600px;
   /* height: 630px; */
-  height: 570px;
-  padding: 30px 0 0 0;
+  height: 550px;
+  padding: 20px 0 0 0;
   display: flex;
   justify-content: left;
   /* align-items: center; */
