@@ -11,7 +11,7 @@ export const getStudentSubject = async ({ selectCate, setSubjectList, setErrorAp
     setSubjectList(result.res);
     return result;
   } catch (error) {
-    setErrorApiInfo(`Subject: ${error.message}`);
+    // setErrorApiInfo(`Subject: ${error.message}`);
   }
 };
 
