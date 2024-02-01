@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LoginInner, LoginWrap } from "../styles/LoginStyle";
-import { fetchLogin, getLoginPic } from "../api/client";
+import { fetchLogin, getLoginPic, postLogout } from "../api/client";
 import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { AuthStateAtom } from "../recoil/atoms/AuthState";
@@ -38,11 +38,15 @@ const Login = () => {
       return;
     } else {
       try {
-        const { role, accessToken, id, name } = await fetchLogin(
-          adminId,
-          password,
-          setErrorCancelInfo,
-        );
+        const {
+          role,
+          accessToken,
+          refreshToken,
+          id,
+          name,
+          refresh,
+          accessTokenTime,
+        } = await fetchLogin(adminId, password, setErrorCancelInfo);
         if (role === "ROLE_ADMIN" && accessToken) {
           setAuthState({
             isLogin: true,
@@ -50,8 +54,24 @@ const Login = () => {
             role: role,
             id: id,
             name: name,
+            refresh: refresh,
           });
           navigate("/admin/home");
+
+          setTimeout(() => {
+            if (refresh) {
+              postLogout(accessToken, refreshToken);
+              setAuthState({
+                isLogin: false,
+                accessToken: null,
+                role: "",
+                id: "",
+                name: "",
+                refresh: false,
+              });
+              navigate("/admin/");
+            }
+          }, accessTokenTime);
         } else {
           navigate("/admin/");
         }
