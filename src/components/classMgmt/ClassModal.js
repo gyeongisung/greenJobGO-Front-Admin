@@ -98,17 +98,18 @@ export const ClassAcceptModal = ({
   roundError,
   classTimeError,
   classroomError,
+  handleSummitConfirm,
+  setConfirmModalOpen,
+  confirmModalOpen,
 }) => {
-  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
-
   const dateFormat = "YYYY-MM-DD";
   const disabledDate = current => {
     return current < dayjs(payload.startedAt).startOf("day");
   };
-  // 등록 여부 확인 모달
-  const handleSummitConfirm = () => {
-    setConfirmModalOpen(true);
-  };
+  // // 등록 여부 확인 모달
+  // const handleSummitConfirm = () => {
+  //     setConfirmModalOpen(true);
+  // };
   const handleModalCancel = () => {
     setModalOpen(false);
     document.body.style.overflow = "unset";
@@ -373,7 +374,7 @@ export const ClassAcceptModal = ({
               </div>
             </div>
           </div>
-          {/* 권한 변경 확인모달 */}
+          {/* 등록 확인모달 */}
           {confirmModalOpen && (
             <ConfirmModal
               header={""}

@@ -56,9 +56,6 @@ const StudentInfo = () => {
   const [resumeOneWord, setResumeOneWord] = useState("");
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
 
-  useEffect(() => {
-    getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
-  }, [istudent, isEditMode]);
 
   // 수정모드 변경 버튼
   const handleEditMode = () => {
@@ -192,13 +189,7 @@ const StudentInfo = () => {
   //   setModalOpen(false);
   // };
   
-  useEffect(() => {
-    if (errorApiInfo) {
-      setApiErrorModalOpen(true);
-    } else {
-      setApiErrorModalOpen(false);
-    }
-  }, [errorApiInfo]);
+
   const handleAddHashTag = async e => {
     const command = ["Comma", "Enter", "NumpadEnter"];
     if (!command.includes(e.code)) return;
@@ -265,6 +256,18 @@ const StudentInfo = () => {
 
   const formatPhoneNumber = phoneFormatter(userInfo.userDetail.mobileNumber);
   
+  useEffect(() => {
+    getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
+  }, [istudent, isEditMode]);
+
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
+
   return (
     <StudentInfoWrap>
       {deleteOkModal && (

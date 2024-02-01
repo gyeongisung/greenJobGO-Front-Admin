@@ -57,8 +57,9 @@ export const postClassSubject = async (payload, setErrorApiInfo) => {
     const res = await client.post("/admin/subject", payload);
 
     if (res.data.icourseSubject) {
-      setErrorApiInfo(`과목추가가 완료 되었습니다.`);
+      setErrorApiInfo(`과정 추가가 완료 되었습니다.`);
     }
+    return res;
   } catch (error) {
     setErrorApiInfo(`New subject add : ${error.message}`);
   }

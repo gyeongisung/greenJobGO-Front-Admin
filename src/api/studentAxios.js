@@ -7,6 +7,7 @@ export const getStudentList = async (
   search,
   category,
   setNothing,
+  setErrorApiInfo,
 ) => {
   try {
     let res;
@@ -27,7 +28,7 @@ export const getStudentList = async (
       setNothing(true);
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Student List : ${error.message}`);
   }
 };
 
@@ -90,18 +91,19 @@ export const getStudenListDownload = async () => {
   }
 };
 
-export const postExcelSign = async formData => {
+export const postExcelSign = async (formData, setErrorApiInfo) => {
   try {
     const res = await client.post(`/admin/sign/excel`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
+    console.log("res", res)
     if (res.data === 1) {
       return { success: true };
     } else {
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    setErrorApiInfo(`Excel Upload: ${error.message}`);
   }
 };
 export const postStudentResumeUpload = async (

@@ -406,7 +406,6 @@ export const EdeitCompanyModal = ({
 
   const dateFormat = "YYYY-MM-DD";
 
-
   const onDateChange = (date, dateStrings) => {
     setCompanyData(payload => ({
       ...payload,
@@ -603,6 +602,7 @@ export const EdeitCompanyModal = ({
                       <h3>연락처</h3>
                       <input
                         type="text"
+                        maxLength={13}
                         defaultValue={companyData.phoneNumber}
                         onChange={e => {
                           setCompanyData(companyData => ({
