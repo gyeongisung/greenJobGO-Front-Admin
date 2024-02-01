@@ -25,35 +25,59 @@ client.interceptors.request.use(
 );
 
 // 응답 인터셉터 설정
-client.interceptors.response.use(
-  response => {
-    return response;
-  },
-  async error => {
-    const { config, response } = error;
-    const refreshToken = getCookie("refreshToken");
-    if (response && response.status === 401 && refreshToken) {
-      try {
-        const { data } = await client.post(`/admin/sign/refresh-token`, {
-          refreshToken,
-        });
+// client.interceptors.response.use(
+//   response => {
+//     return response;
+//   },
+//   async error => {
+//     const { config, response } = error;
+//     const refreshToken = getCookie("refreshToken");
+//     if (response && response.status === 401 && refreshToken) {
+//       try {
+//         removeCookie("refreshToken");
 
-        const accessToken = data;
-        setCookie("accessToken", accessToken);
+//         if (config && config.headers && config.headers.Authorization) {
+//           removeCookie("accessToken");
+//         }
 
-        if (config && config.headers && config.headers.Authorization) {
-          config.headers.Authorization = `Bearer ${accessToken}`;
-          const retryResponse = await client(config);
-          return retryResponse;
-        }
-      } catch (error) {
-        console.log("토큰 갱신 실패:", error);
-      }
-    }
-    console.error("요청 실패:", error);
-    return Promise.reject(error);
-  },
-);
+//         this.props.history.push("/admin/");
+//       } catch (error) {
+//         console.log("토큰 삭제 실패:", error);
+//       }
+//     }
+//     console.error("요청 실패:", error);
+//     return Promise.reject(error);
+//   },
+// );
+// client.interceptors.response.use(
+//   response => {
+//     return response;
+//   },
+//   async error => {
+//     const { config, response } = error;
+//     const refreshToken = getCookie("refreshToken");
+//     if (response && response.status === 401 && refreshToken) {
+//       try {
+//         const { data } = await client.post(`/admin/sign/refresh-token`, {
+//           refreshToken,
+//         });
+
+//         const accessToken = data;
+//         setCookie("accessToken", accessToken);
+
+//         if (config && config.headers && config.headers.Authorization) {
+//           config.headers.Authorization = `Bearer ${accessToken}`;
+//           const retryResponse = await client(config);
+//           return retryResponse;
+//         }
+//       } catch (error) {
+//         console.log("토큰 갱신 실패:", error);
+//       }
+//     }
+//     console.error("요청 실패:", error);
+//     return Promise.reject(error);
+//   },
+// );
 
 // 로그인 함수
 export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
@@ -64,28 +88,24 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
     });
 
     const { data } = res;
+    console.log(data);
 
     const { role, refreshToken, accessToken, id, name, accessTokenTime } = data;
+    const expiredTime = accessTokenTime / 1000;
     if (role === "ROLE_ADMIN" && refreshToken && accessToken) {
       const cookieOptions = {
-        path: "/",
+        path: "/admin/",
         secure: true,
         sameSite: "none",
         httpOnly: true,
+        maxAge: expiredTime,
       };
 
       setCookie("refreshToken", refreshToken, cookieOptions);
       setCookie("accessToken", accessToken, cookieOptions);
       setErrorCancelInfo("");
 
-      return {
-        role,
-        accessToken,
-        refreshToken,
-        id,
-        name,
-        accessTokenTime,
-      };
+      return { role, accessToken, refreshToken, id, name, accessTokenTime };
     } else {
       throw new Error("잘못된 응답 형식");
     }
@@ -118,14 +138,11 @@ export const postLogout = async (accessToken, refreshToken) => {
     const res = await client.post("/admin/sign/logout");
     removeCookie(accessToken);
     removeCookie(refreshToken);
-
-    return res;
   } catch (error) {
     console.log(error);
   }
 };
 
-// 로그인 페이지 이미지 받아오는 함수
 export const getLoginPic = async setLoginPic => {
   try {
     const res = await client.get(`/admin/sign/loginpic`);
