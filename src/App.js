@@ -42,7 +42,6 @@ const App = () => {
         <Routes>
           {/* 로그인 페이지 */}
           <Route path="/admin/" element={<Login />} />
-          {/* <Route element={<PrivateRoutes element={<AdminLayout />} />}> */}
           <Route element={<PrivateRoutes element={<AdminLayout />} />}>
             {/* 관리자 인트로 */}
             <Route path="/admin/home" element={<Home />} />
