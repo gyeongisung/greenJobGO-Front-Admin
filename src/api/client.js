@@ -31,8 +31,7 @@ client.interceptors.response.use(
   },
   async error => {
     const { config, response } = error;
-    const refreshToken = getCookie("refreshToken");
-    if (response && response.status === 401 && refreshToken) {
+    if (response && response.status === 401) {
       try {
         removeCookie("refreshToken");
 
@@ -49,35 +48,36 @@ client.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-client.interceptors.response.use(
-  response => {
-    return response;
-  },
-  async error => {
-    const { config, response } = error;
-    const refreshToken = getCookie("refreshToken");
-    if (response && response.status === 401 && refreshToken) {
-      try {
-        const { data } = await client.post(`/admin/sign/refresh-token`, {
-          refreshToken,
-        });
 
-        const accessToken = data;
-        setCookie("accessToken", accessToken);
+// client.interceptors.response.use(
+//   response => {
+//     return response;
+//   },
+//   async error => {
+//     const { config, response } = error;
+//     const refreshToken = getCookie("refreshToken");
+//     if (response && response.status === 401 && refreshToken) {
+//       try {
+//         const { data } = await client.post(`/admin/sign/refresh-token`, {
+//           refreshToken,
+//         });
 
-        if (config && config.headers && config.headers.Authorization) {
-          config.headers.Authorization = `Bearer ${accessToken}`;
-          const retryResponse = await client(config);
-          return retryResponse;
-        }
-      } catch (error) {
-        console.log("토큰 갱신 실패:", error);
-      }
-    }
-    console.error("요청 실패:", error);
-    return Promise.reject(error);
-  },
-);
+//         const accessToken = data;
+//         setCookie("accessToken", accessToken);
+
+//         if (config && config.headers && config.headers.Authorization) {
+//           config.headers.Authorization = `Bearer ${accessToken}`;
+//           const retryResponse = await client(config);
+//           return retryResponse;
+//         }
+//       } catch (error) {
+//         console.log("토큰 갱신 실패:", error);
+//       }
+//     }
+//     console.error("요청 실패:", error);
+//     return Promise.reject(error);
+//   },
+// );
 
 // 로그인 함수
 export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
@@ -93,20 +93,32 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
     const { role, refreshToken, accessToken, id, name, accessTokenTime } = data;
 
     if (role === "ROLE_ADMIN" && refreshToken && accessToken) {
-      const cookieOptions = {
+      // 빌드 전 secure는 전부 true, httpOnly는 access만 true
+      // maxAge는 토큰 시간에 맞춰서 설정하기
+      // const cookieOptions = {
+      //   path: "/",
+      //   secure: true,
+      //   sameSite: "none",
+      //   httpOnly: false,
+      //   maxAge: 180,
+      // };
+
+      setCookie("refreshToken", refreshToken, {
+        path: "/",
+        secure: true,
+        sameSite: "none",
+        httpOnly: true,
+        maxAge: 180,
+      });
+      setCookie("accessToken", accessToken, {
         path: "/",
         secure: true,
         sameSite: "none",
         httpOnly: false,
         maxAge: 180,
-      };
-
-      setCookie("refreshToken", refreshToken, cookieOptions);
-      setCookie("accessToken", accessToken, cookieOptions);
+      });
       setErrorCancelInfo("");
-      console.log("Refresh Token:", refreshToken);
-      console.log("Access Token:", accessToken);
-      console.log(document.cookie);
+
       return { role, accessToken, refreshToken, id, name, accessTokenTime };
     } else {
       throw new Error("잘못된 응답 형식");

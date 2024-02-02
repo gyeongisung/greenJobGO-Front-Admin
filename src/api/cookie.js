@@ -5,10 +5,6 @@ const cookies = new Cookies();
 export const setCookie = (name, value) => {
   return cookies.set(name, value, {
     path: "/",
-    secure: true,
-    sameSite: "none",
-    httpOnly: false,
-    maxAge: 180,
   });
 };
 
