@@ -107,14 +107,14 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
         path: "/",
         secure: true,
         sameSite: "none",
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 180,
       });
       setCookie("accessToken", accessToken, {
         path: "/",
         secure: true,
         sameSite: "none",
-        httpOnly: false,
+        httpOnly: true,
         maxAge: 180,
       });
       setErrorCancelInfo("");
