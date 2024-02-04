@@ -21,7 +21,7 @@ const StudentPofol = ({ userFile }) => {
                       <FontAwesomeIcon icon={faFilePdf} />
                     </p>
                     <a
-                      href={`http://${item.file}`}
+                      href={`https://greenjobgo.kr/${item.file}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

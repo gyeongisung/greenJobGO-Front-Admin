@@ -52,7 +52,7 @@ const StudentResume = ({
                   <FontAwesomeIcon icon={faFilePdf} />
                 </p>
                 <a
-                  href={`http://${userFile.resume.resume}`}
+                  href={`https://greenjobgo.kr/${userFile.resume.resume}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

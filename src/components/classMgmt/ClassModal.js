@@ -165,9 +165,9 @@ export const ClassAcceptModal = ({
                             선택
                           </option>
                           {categoryData &&
-                            categoryData.map((item, index) => (
+                            categoryData.map((item) => (
                               <option
-                                key={item.index}
+                                key={item.iclassification}
                                 name="category-state"
                                 value={item.iclassification}
                               >
