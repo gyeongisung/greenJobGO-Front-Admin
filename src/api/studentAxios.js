@@ -9,6 +9,7 @@ export const getStudentList = async (
   setNothing,
   setErrorApiInfo,
 ) => {
+  console.log("api", category);
   try {
     let res;
     if (category) {

@@ -4,20 +4,22 @@ export const getBulkStudentList = async (
   setListData,
   page,
   setCount,
-  category,
-  searchsubj,
+  clickCate,
+  clickSubj,
   setErrorInfo,
   setNothing,
 ) => {
+  console.log("clickCate", clickCate);
+  console.log("clickSubj", clickSubj);
   try {
     let apiUrl = `/admin/student/sub-category-list?page=${page}&size=10&sort=icourseSubject%2CDESC`;
 
-    if (category) {
-      apiUrl += `&iclassification=${category}`;
+    if (clickCate) {
+      apiUrl += `&iclassification=${clickCate}`;
     }
 
-    if (searchsubj) {
-      apiUrl += `&icourseSubject=${searchsubj}`;
+    if (clickSubj) {
+      apiUrl += `&icourseSubject=${clickSubj}`;
     }
     const res = await client.get(apiUrl);
     setListData(res.data.subject);

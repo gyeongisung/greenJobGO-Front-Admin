@@ -34,6 +34,8 @@ const ClassMgmt = () => {
   const [count, setCount] = useState(0);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(0);
+  const [searchCate, setSearchCate] = useState(0);
+
   const [categoryValue, setCategoryValue] = useState("");
   const [isAdd, setIsAdd] = useState(false);
 
@@ -108,7 +110,7 @@ const ClassMgmt = () => {
       setCount,
       page,
       search,
-      category,
+      searchCate,
       setErrorApiInfo,
       setNothing,
     );
@@ -117,7 +119,7 @@ const ClassMgmt = () => {
   useEffect(() => {
     fetchData();
     getCategory(setCategoryData, setErrorApiInfo);
-  }, [page]);
+  }, [page, searchCate]);
 
   useEffect(() => {
     document.querySelector(".all-checkbox-btn").checked = false;
@@ -134,13 +136,12 @@ const ClassMgmt = () => {
   }, [listData, errorApiInfo]);
 
   const handleSearch = () => {
+    setSearchCate(category);
     setPage(1);
-    fetchData();
   };
 
   const handleCategoryFiiter = e => {
     setCategory(e.target.value);
-    setPage(1);
   };
 
   const handleModalOpen = () => {

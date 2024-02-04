@@ -24,6 +24,7 @@ const PermanentlyDelete = () => {
   const [searchsubj, setSearchsubj] = useState("");
   const [searchname, setSearchname] = useState("");
   const [selectCate, setSelectCate] = useState(0);
+  const [searchCate, setSearchCate] = useState("");
 
   // 체크박스 state
   const [clickItems, setClickItems] = useState([]);
@@ -39,8 +40,8 @@ const PermanentlyDelete = () => {
   const makeUrl = () => {
     let query = "";
 
-    if (selectCate !== "" && selectCate !== 0) {
-      query += `iclassification=${selectCate}&`;
+    if (searchCate !== "" && searchCate !== 0) {
+      query += `iclassification=${searchCate}&`;
     }
     if (searchsubj !== "") {
       query += `subjectName=${searchsubj}&`;
@@ -60,19 +61,15 @@ const PermanentlyDelete = () => {
       page,
       resultUrl,
       setNothing,
-      setErrorInfo
+      setErrorInfo,
     });
   };
 
   console.log("listData", listData);
   // 수강생 검색
   const handleSearch = async () => {
-    try {
-      setPage(1);
-      await fetchData();
-    } catch (error) {
-      console.error("데이터 가져오기 실패:", error);
-    }
+    setSearchCate(selectCate);
+    setPage(1);
   };
 
   // 삭제버튼 클릭
@@ -110,7 +107,7 @@ const PermanentlyDelete = () => {
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, [page, searchCate]);
 
   return (
     <PermanentlyWrap>

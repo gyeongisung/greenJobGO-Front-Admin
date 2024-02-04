@@ -11,6 +11,7 @@ const StudentSearch = ({
   handleCategoryFiiter,
   search,
   handleSearch,
+  cateValue,
   // categoryData,
   // setCategoryData,
 }) => {
@@ -35,7 +36,7 @@ const StudentSearch = ({
     <ul className="student-search">
       <li className="select-wrap">
         <select
-          value={category}
+          value={cateValue}
           name="category-state"
           onChange={e => handleCategoryFiiter(e)}
         >
@@ -76,7 +77,7 @@ const StudentSearch = ({
         </form>
       </li>
       <li>
-        <button onClick={handleSearch}>검색</button>
+        <button onClick={handleSearch} className="searchbtn">검색</button>
       </li>
       {/* api 에러 확인모달 */}
       {apiErrorModalOpen && (

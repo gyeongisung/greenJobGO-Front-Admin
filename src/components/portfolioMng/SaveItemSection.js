@@ -22,6 +22,7 @@ const SaveItemSection = () => {
   const [searchsubj, setSearchSubj] = useState("");
   const [searchname, setSearchname] = useState("");
   const [selectCate, setSelectCate] = useState("");
+  const [searchCate, setSearchCate] = useState("");
 
   // 보관함 리스트 recoil
   const [savedPFList, setSavedPFList] = useRecoilState(savedListRecoil);
@@ -36,8 +37,8 @@ const SaveItemSection = () => {
   const makeUrl = () => {
     let query = "";
 
-    if (selectCate !== "") {
-      query += `&iclassfication=${selectCate}`;
+    if (searchCate !== "") {
+      query += `&iclassfication=${searchCate}`;
     }
     if (searchsubj !== "") {
       query += `&subjectName=${searchsubj}`;
@@ -63,17 +64,13 @@ const SaveItemSection = () => {
 
   // 검색버튼 클릭
   const handleSearchClick = async () => {
-    try {
-      setPage(1);
-      await fetchData();
-    } catch (error) {
-      console.error("데이터 가져오기 실패:", error);
-    }
+    setSearchCate(selectCate);
+    setPage(1);
   };
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, [page, searchCate]);
 
   useEffect(() => {
     if (errorApiInfo) {

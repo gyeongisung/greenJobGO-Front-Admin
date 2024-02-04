@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PFsearch from "./PFsearch";
 import { getPortFolioList } from "../../api/portfolioAxios";
 import PortfolioContent from "./PortfolioContent";
@@ -25,7 +25,7 @@ const PortfolioSection = () => {
   const makeUrl = () => {
     let query = "";
 
-    if (selectCate !== "") {
+    if (searchCate !== "") {
       query += `iclassfication=${searchCate}&`;
     }
     if (searchsubj !== "") {
@@ -40,43 +40,29 @@ const PortfolioSection = () => {
 
   const fetchData = async () => {
     const resultUrl = makeUrl();
-    await getPortFolioList({
-      setStudentPFList,
-      page,
-      setCount,
-      resultUrl,
-      setNothing,
-      setErrorApiInfo,
-    });
-  };
-
-  // 검색버튼 클릭
-  const handleSearchClick = async () => {
-    setSearchCate(selectCate);
     try {
-      setPage(1);
-      await fetchData();
+      await getPortFolioList({
+        setStudentPFList,
+        page,
+        setCount,
+        resultUrl,
+        setNothing,
+        setErrorApiInfo,
+      });
     } catch (error) {
       console.error("데이터 가져오기 실패:", error);
     }
   };
 
+  // 검색버튼 클릭
+  const handleSearchClick = async () => {
+    setSearchCate(selectCate);
+    setPage(1);
+  };
+
   useEffect(() => {
-    const fetchDataAndSearch = async () => {
-      try {
-        await fetchData();
-      } catch (error) {
-        console.error("데이터 가져오기 실패:", error);
-      }
-    };
-  
-    if (page === 1) {
-      fetchDataAndSearch();
-    }
-  }, [page]);
-  // useEffect(() => {
-  //   fetchData();
-  // }, [page]);
+    fetchData();
+  }, [page, searchCate]);
 
   useEffect(() => {
     if (errorApiInfo) {

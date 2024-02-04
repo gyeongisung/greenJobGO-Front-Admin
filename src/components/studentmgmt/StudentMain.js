@@ -125,14 +125,6 @@ const StudentMain = ({ handleInfoClick }) => {
     );
   };
 
-  // useEffect(() => {
-  //   document.querySelector(".all-checkbox-btn").checked = false;
-  //   document
-  //     .querySelectorAll(".student-checkbox")
-  //     .forEach(item => (item.checked = false));
-  //   setSaveCheckBox([]);
-  // }, [listData]);
-
   // 검색 버튼
   const handleSearch = async () => {
     setPageState(prev => ({
