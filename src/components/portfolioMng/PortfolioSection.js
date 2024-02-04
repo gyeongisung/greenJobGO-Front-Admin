@@ -16,6 +16,7 @@ const PortfolioSection = () => {
   const [searchsubj, setSearchSubj] = useState("");
   const [searchname, setSearchname] = useState("");
   const [selectCate, setSelectCate] = useState("");
+  const [searchCate, setSearchCate] = useState("");
   // api 오류 메세지 받아오는 state.
   const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
   const [errorApiInfo, setErrorApiInfo] = useState("");
@@ -25,7 +26,7 @@ const PortfolioSection = () => {
     let query = "";
 
     if (selectCate !== "") {
-      query += `iclassfication=${selectCate}&`;
+      query += `iclassfication=${searchCate}&`;
     }
     if (searchsubj !== "") {
       query += `subjectName=${searchsubj}&`;
@@ -51,6 +52,7 @@ const PortfolioSection = () => {
 
   // 검색버튼 클릭
   const handleSearchClick = async () => {
+    setSearchCate(selectCate);
     try {
       setPage(1);
       await fetchData();
@@ -60,8 +62,21 @@ const PortfolioSection = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    const fetchDataAndSearch = async () => {
+      try {
+        await fetchData();
+      } catch (error) {
+        console.error("데이터 가져오기 실패:", error);
+      }
+    };
+  
+    if (page === 1) {
+      fetchDataAndSearch();
+    }
   }, [page]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [page]);
 
   useEffect(() => {
     if (errorApiInfo) {

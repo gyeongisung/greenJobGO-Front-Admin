@@ -28,7 +28,33 @@ export const getStudentList = async (
       setNothing(true);
     }
   } catch (error) {
-    setErrorApiInfo(`Student List : ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        case 437:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 438:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 445:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -88,7 +114,33 @@ export const getStudenListDownload = async setErrorApiInfo => {
     URL.revokeObjectURL(blobUrl);
     setErrorApiInfo("다운로드 됩니다.");
   } catch (error) {
-    setErrorApiInfo(`다운로드 실패: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        case 437:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 438:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 445:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -105,9 +157,18 @@ export const postExcelSign = async (formData, setErrorApiInfo) => {
       return { success: false };
     }
   } catch (error) {
-    const { status } = error.response;
-    if (error.response) {
+    const { response } = error;
+    const { status } = response;
+    if (response) {
       switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
         case 437:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
@@ -118,10 +179,10 @@ export const postExcelSign = async (formData, setErrorApiInfo) => {
           setErrorApiInfo(`${error.response.data.message}`);
           break;
         default:
-          setErrorApiInfo("업로드에 실패했습니다.");
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
       }
     } else {
-      setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      throw new Error("Network Error");
     }
   }
 };
@@ -149,20 +210,38 @@ export const postStudentResumeUpload = async (
       return { success: false };
     }
   } catch (error) {
-    const { status } = error.response;
-    if (error.response) {
+    const { response } = error;
+    const { status } = response;
+    if (response) {
       switch (status) {
-        case 458:
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        case 437:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 438:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 445:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 457:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
         case 453:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
         default:
-          setErrorApiInfo("업로드에 실패했습니다.");
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
       }
     } else {
-      setErrorApiInfo(`Resume Upload: ${error.message}`);
+      throw new Error("Network Error");
     }
   }
 };
@@ -232,18 +311,35 @@ export const deleteFile = async (fileId, setErrorApiInfo) => {
       return { success: false };
     }
   } catch (error) {
-    const { status } = error.response;
-    if (error.response) {
+    const { response } = error;
+    const { status } = response;
+    if (response) {
       switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        case 437:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 438:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 445:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
         case 454:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
-
         default:
-          setErrorApiInfo("삭제에 실패했습니다.");
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
       }
     } else {
-      setErrorApiInfo(`File Delete: ${error.message}`);
+      throw new Error("Network Error");
     }
   }
 };
@@ -277,7 +373,33 @@ export const putStudentInfo = async (istudent, userInfo, setErrorApiInfo) => {
       return { success: false };
     }
   } catch (error) {
-    setErrorApiInfo(`Student Info Edit: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        case 437:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 438:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 445:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -315,6 +437,23 @@ export const patchMainPofolSelected = async (
       return { success: false };
     }
   } catch (error) {
-    setErrorApiInfo(`Main Portfolio Select: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };

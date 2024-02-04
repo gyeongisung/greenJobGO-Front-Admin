@@ -5,7 +5,24 @@ export const getCategory = async (setCategoryData, setErrorApiInfo) => {
     const res = await client.get(`/admin/category`);
     setCategoryData(res.data);
   } catch (error) {
-    setErrorApiInfo(`Category Data: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -37,8 +54,24 @@ export const getClassSubject = async (
       setNothing(true);
     }
   } catch (error) {
-    setErrorApiInfo(`Subject List: ${error.message}`);
-  }
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }  }
 };
 
 export const postCategory = async (postData, setErrorApiInfo) => {
@@ -48,8 +81,24 @@ export const postCategory = async (postData, setErrorApiInfo) => {
       setErrorApiInfo(`카테고리 추가가 완료 되었습니다.`);
     }
   } catch (error) {
-    setErrorApiInfo(`Category add: ${error.message}`);
-  }
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }  }
 };
 
 export const postClassSubject = async (payload, setErrorApiInfo) => {
@@ -61,8 +110,24 @@ export const postClassSubject = async (payload, setErrorApiInfo) => {
     }
     return res;
   } catch (error) {
-    setErrorApiInfo(`New subject add : ${error.message}`);
-  }
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }  }
 };
 
 export const deleteCategory = async (data, setErrorApiInfo) => {
@@ -70,8 +135,24 @@ export const deleteCategory = async (data, setErrorApiInfo) => {
     const res = await client.delete(`/admin/category?iclassification=${data}`);
     setErrorApiInfo(`삭제가 완료 되었습니다.`);
   } catch (error) {
-    setErrorApiInfo(`Category Delete: ${error.message}`);
-  }
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }  }
 };
 
 export const deleteClassSubject = async (icourseSubject, setErrorApiInfo) => {
@@ -81,8 +162,24 @@ export const deleteClassSubject = async (icourseSubject, setErrorApiInfo) => {
     );
     setErrorApiInfo(`삭제가 완료 되었습니다.`);
   } catch (error) {
-    setErrorApiInfo(`Subject Delete: ${error.message}`);
-  }
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }  }
 };
 
 export const putClassSubject = async (payload, setErrorApiInfo) => {
@@ -94,6 +191,22 @@ export const putClassSubject = async (payload, setErrorApiInfo) => {
       setErrorApiInfo(`수정이 완료 되었습니다.`);
     }
   } catch (error) {
-    setErrorApiInfo(`Subject Edit: ${error.message}`);
-  }
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }  }
 };

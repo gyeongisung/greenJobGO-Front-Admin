@@ -75,7 +75,7 @@ export const StudentMgmtInner = styled.div`
         border-radius: 3px;
       }
     }
-    button {
+    & > button {
       width: 140px;
       height: 40px;
       cursor: pointer;

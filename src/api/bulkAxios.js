@@ -27,7 +27,25 @@ export const getBulkStudentList = async (
       setNothing(true);
     }
   } catch (error) {
-    setErrorInfo(`Bulk Delete List: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+
+        default:
+          setErrorInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -43,7 +61,25 @@ export const getClassificationList = async (
     console.log(res.data.res);
     setSubjData(res.data.res);
   } catch (error) {
-    setErrorInfo(`Bulk Delete Cate List: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+
+        default:
+          setErrorInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -71,7 +107,24 @@ export const deleteStudent = async (
       setErrorInfo("삭제가 완료되었습니다.");
     }
   } catch (error) {
-    console.log("삭제실패", error);
-    setErrorInfo("삭제가 정상적으로 처리되지 않았습니다.");
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+
+        default:
+          setErrorInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };

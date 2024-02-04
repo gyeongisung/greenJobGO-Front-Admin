@@ -115,7 +115,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   };
 
   useEffect(() => {
-    getBigcate(setCategory, setErrorApiInfo);
+    // getBigcate(setCategory, setErrorApiInfo);
   }, []);
   useEffect(() => {
     getStudentSubject({ selectCate, setSubjectList, setErrorApiInfo });
@@ -196,7 +196,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
       )}
       {/* 빈값 에러 확인모달 */}
       {errorModalOpen && (
-        <OkModal
+        <ErrorModal
           header={""}
           open={errorModalOpen}
           close={() => setErrorModalOpen(false)}
@@ -205,7 +205,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
           <span>
             {cateError || subjectError || startDateError || endDateError}
           </span>
-        </OkModal>
+        </ErrorModal>
       )}
       {/* api 에러 확인모달 */}
       {apiErrorModalOpen && (

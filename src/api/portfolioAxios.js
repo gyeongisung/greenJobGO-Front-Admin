@@ -10,7 +10,24 @@ export const getBigcate = async (setCategory, setErrorApiInfo) => {
     setCategory(result);
     return result;
   } catch (error) {
-    setErrorApiInfo(`Category: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -39,7 +56,24 @@ export const getPortFolioList = async ({
     }
     return result;
   } catch (error) {
-    setErrorApiInfo(`Category: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -64,7 +98,24 @@ export const patchSendSaved = async ({
         : null;
     return result;
   } catch (error) {
-    setErrorApiInfo(`Saved: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -93,7 +144,24 @@ export const getSavedPFList = async ({
     }
     return result;
   } catch (error) {
-    setErrorApiInfo(`Saved List: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -108,7 +176,24 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
     setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
     return result;
   } catch (error) {
-    setErrorInfo(error.response.data.message);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 // 메인 취소
@@ -126,8 +211,23 @@ export const patchCancelMain = async ({
     setErrorCancelInfo("메인 포트폴리오 설정이 취소되었습니다.");
     return result;
   } catch (error) {
-    console.log(error.response.data.message);
-    setErrorCancelInfo(error.response.data.message);
-    return;
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorCancelInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorCancelInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorCancelInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };

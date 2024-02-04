@@ -4,6 +4,7 @@ import CompanyGetAuthData from "./CompanyGetAuthData";
 import { MainRightSty } from "../../styles/HomeStyle";
 import { getCompanyAuthData } from "../../api/homeAxios";
 import OkModal from "../OkModal";
+import ErrorModal from "../ErrorModal";
 
 const CompanyAuth = () => {
   const [authInfo, setAuthInfo] = useState([]);
@@ -42,7 +43,7 @@ const CompanyAuth = () => {
       </div>
       {/* api 에러 확인모달 */}
       {apiErrorModalOpen && (
-        <OkModal
+        <ErrorModal
           header={""}
           open={apiErrorModalOpen}
           close={() => {
@@ -53,7 +54,7 @@ const CompanyAuth = () => {
           }}
         >
           <span>{errorApiInfo}</span>
-        </OkModal>
+        </ErrorModal>
       )}
     </MainRightSty>
   );
