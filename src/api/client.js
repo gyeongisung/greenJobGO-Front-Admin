@@ -32,7 +32,8 @@ client.interceptors.response.use(
   },
   async error => {
     const { config, response } = error;
-    if (response && response.status === 401) {
+    const status = response ? response.status : null;
+    if (status === 401) {
       try {
         removeCookie("refreshToken");
 
