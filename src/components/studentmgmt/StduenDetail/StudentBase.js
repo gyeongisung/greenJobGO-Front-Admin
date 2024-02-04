@@ -135,7 +135,7 @@ const StudentBase = ({
             <span>{userInfo.userDetail.email}</span>
           )}
         </div>
-        <div>
+        <div className="certificate">
           <span>자격증</span>
           {isEditMode ? (
             <HashTag
