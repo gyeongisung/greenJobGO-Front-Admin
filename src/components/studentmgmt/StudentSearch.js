@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 import { StudentPageAtom } from "./StudentMain";
 import { getCategory } from "../../api/classAxios";
 import OkModal from "../../components/OkModal";
+import ErrorModal from "../ErrorModal";
 
 const StudentSearch = ({
   category,
@@ -79,7 +80,7 @@ const StudentSearch = ({
       </li>
       {/* api 에러 확인모달 */}
       {apiErrorModalOpen && (
-        <OkModal
+        <ErrorModal
           header={""}
           open={apiErrorModalOpen}
           close={() => {
@@ -92,7 +93,7 @@ const StudentSearch = ({
           }}
         >
           <span>{errorApiInfo}</span>
-        </OkModal>
+        </ErrorModal>
       )}
     </ul>
   );

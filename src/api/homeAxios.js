@@ -1,7 +1,11 @@
 import { client } from "./client";
 
 // 수강과목 불러오기
-export const getStudentSubject = async ({ selectCate, setSubjectList, setErrorApiInfo }) => {
+export const getStudentSubject = async ({
+  selectCate,
+  setSubjectList,
+  setErrorApiInfo,
+}) => {
   try {
     const res = await client.get(
       // `/admin/subject?page=1&size=100&sort=icourseSubject%2CASC&iclassification=${selectCate}&condition=0&delYn=0`,
@@ -11,7 +15,7 @@ export const getStudentSubject = async ({ selectCate, setSubjectList, setErrorAp
     setSubjectList(result.res);
     return result;
   } catch (error) {
-    // setErrorApiInfo(`Subject: ${error.message}`);
+    console.log(error);
   }
 };
 
@@ -25,10 +29,27 @@ export const getStudentAuthData = async (setAuthInfo, setErrorApiInfo) => {
     setAuthInfo(result.res);
     return result;
   } catch (error) {
-    setErrorApiInfo(`[${error.message}]`);
-    return error;
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
+
 // 학생권한 수정
 export const patchStudentAuthData = async ({
   subjectPk,
@@ -45,7 +66,24 @@ export const patchStudentAuthData = async ({
     setErrorApiInfo("수강생 권한이 정상적으로 변경 되었습니다");
     return result;
   } catch (error) {
-    setErrorApiInfo(`[${error.message}]`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -59,7 +97,24 @@ export const getCompanyAuthData = async (setAuthInfo, setErrorApiInfo) => {
     setAuthInfo(result);
     return result;
   } catch (error) {
-    setErrorApiInfo(`[${error.message}]`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -79,6 +134,23 @@ export const patchCompanyAuthData = async ({
     setErrorApiInfo("기업 권한이 정상적으로 변경 되었습니다.");
     return result;
   } catch (error) {
-    setErrorApiInfo(`[${error.message}]`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };

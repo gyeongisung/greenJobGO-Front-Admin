@@ -7,11 +7,6 @@ export const getSubjectInfo = async ({
   setErrorInfo,
 }) => {
   try {
-    // const res = await client.get(
-    //   `/admin/student/dropbox-category?${
-    //     selectCate ? `iclassification=${selectCate}` : ""
-    //   }`,
-    // );
     const res = await client.get(
       `/admin/student/dropbox-category?iclassification=${selectCate}`,
     );
@@ -19,7 +14,25 @@ export const getSubjectInfo = async ({
     setSubjectList(result.res);
     return result;
   } catch (error) {
-    setErrorInfo(`Subject List: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+
+        default:
+          setErrorInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -47,7 +60,25 @@ export const getCompleteDeleteList = async ({
     }
     return result;
   } catch (error) {
-    setErrorInfo(`Permanent Delete List: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+
+        default:
+          setErrorInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -65,8 +96,25 @@ export const deleteCompleteStudent = async ({
     setErrorInfo("영구 삭제가 완료되었습니다.");
     return result;
   } catch (error) {
-    console.log("완전DELETE 실패", error);
-    setErrorInfo("영구 삭제가 처리되지 않았습니다.", error);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+
+        default:
+          setErrorInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
     return;
   }
 };

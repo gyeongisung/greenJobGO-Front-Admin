@@ -4,8 +4,11 @@ import StudentGetAuthData from "./StudentGetAuthData";
 import { MainLeftSty } from "../../styles/HomeStyle";
 import { getStudentAuthData } from "../../api/homeAxios";
 import ErrorModal from "../ErrorModal";
+import { useNavigate } from "react-router";
+import { postLogout } from "../../api/client";
 
 const StudentAuth = () => {
+  const navigate = useNavigate();
   const [authInfo, setAuthInfo] = useState([]);
 
   // api 오류 메세지 받아오는 state.
@@ -17,23 +20,20 @@ const StudentAuth = () => {
       try {
         await getStudentAuthData(setAuthInfo, setErrorApiInfo);
       } catch (error) {
-        // console.error("API 호출 중 에러 발생:", error);
-        setErrorApiInfo(
-          `[${error.message}] 수강생 권한 정보가 정상적으로 Load 되지 않았습니다.`,
-        );
+        console.log(error);
       }
     };
 
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   if (errorApiInfo) {
-  //     setApiErrorModalOpen(true);
-  //   } else {
-  //     setApiErrorModalOpen(false);
-  //   }
-  // }, [errorApiInfo]);
+  useEffect(() => {
+    if (errorApiInfo) {
+      setApiErrorModalOpen(true);
+    } else {
+      setApiErrorModalOpen(false);
+    }
+  }, [errorApiInfo]);
   return (
     <MainLeftSty>
       <div className="main-title-div">

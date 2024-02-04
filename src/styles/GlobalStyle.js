@@ -383,7 +383,7 @@ export const ErrorModalWarp = styled.div`
   .modalError-content {
     position: relative;
     height: 70px;
-    padding: 0px 20px 0px 30px;
+    padding: 0px 30px 0px 30px;
     font-size: 14px;
     color: ${Maincolor.black};
     font-weight: 400;

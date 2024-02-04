@@ -8,8 +8,24 @@ export const getJobManagerInfo = async (setmngProflieData, setErrorApiInfo) => {
     setmngProflieData(result);
     return result;
   } catch (error) {
-    setErrorApiInfo(`Job Manager: ${error.message}`);
-    // return error
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -26,8 +42,27 @@ export const postManagerInfo = async (formData, setErrorApiInfo) => {
 
     return result;
   } catch (error) {
-    setErrorApiInfo(`Job manager upload: ${error.message}`);
-    // return error
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 446:
+          setErrorApiInfo(`[${status}Error] 이미 등록되어있는 담당자 입니다.`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -53,7 +88,27 @@ export const patchManagerEdit = async ({
 
     return result;
   } catch (error) {
-    setErrorApiInfo(`Job manager edit: ${error.message}`);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 446:
+          setErrorApiInfo(`[${status}Error] 이미 등록되어있는 담당자 입니다.`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -66,7 +121,24 @@ export const deleteJobManagerInfo = async (iemply, setErrorApiInfo) => {
     setErrorApiInfo(`성공적으로 처리되었습니다`);
 
     return result;
-  } catch (err) {
-    setErrorApiInfo(`Job manager delete: ${err.message}`);
+  } catch (error) {
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };

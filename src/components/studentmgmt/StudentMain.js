@@ -25,7 +25,7 @@ import {
   selector,
   useRecoilState,
   useRecoilValue,
-  // RecoilEnv,
+  RecoilEnv,
 } from "recoil";
 import { useNavigate } from "react-router";
 import { recoilPersist } from "recoil-persist";
@@ -33,7 +33,7 @@ import { v4 } from "uuid";
 import NoListItem from "../NoListItem";
 import ErrorModal from "../ErrorModal";
 
-// RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 const { persistAtom } = recoilPersist();
 
@@ -45,7 +45,6 @@ export const StudentPageAtom = atom({
     count: 0,
     search: "",
     category: "",
-    render: true,
   },
   effects_UNSTABLE: [persistAtom],
 });
@@ -141,7 +140,6 @@ const StudentMain = ({ handleInfoClick }) => {
       page: 1,
       category,
       search,
-      render: false,
     }));
 
     // setPage(1);
@@ -205,7 +203,7 @@ const StudentMain = ({ handleInfoClick }) => {
   useEffect(() => {
     fetchData();
     // getCategory(setCategoryData);
-  }, [page, render]);
+  }, [page, count]);
 
   return (
     <StudentMgmtWrap>
