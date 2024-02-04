@@ -115,7 +115,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   };
 
   useEffect(() => {
-    // getBigcate(setCategory, setErrorApiInfo);
+    getBigcate(setCategory, setErrorApiInfo);
   }, []);
   useEffect(() => {
     getStudentSubject({ selectCate, setSubjectList, setErrorApiInfo });
