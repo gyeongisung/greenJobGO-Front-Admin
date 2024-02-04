@@ -8,6 +8,7 @@ import { ConfigProvider, DatePicker, Space } from "antd";
 import locale from "antd/lib/locale/ko_KR";
 import { Maincolor } from "../../styles/GlobalStyle";
 import dayjs from "dayjs";
+import UploadLoading from "../UploadLoading";
 
 export const ExcelUploadModal = ({
   excelModalOpen,
@@ -15,6 +16,7 @@ export const ExcelUploadModal = ({
   handleExcelUpload,
   selectedFile,
   setSelectedFile,
+  isLoading,
 }) => {
   const handleFileChange = e => {
     const file = e.target.files[0];
@@ -72,6 +74,7 @@ export const ExcelUploadModal = ({
                 />
               </div>
               <div className="btn">
+                {isLoading && <UploadLoading />}
                 <button onClick={e => handleExcelUpload(e.target.files)}>
                   확인
                 </button>

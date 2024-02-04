@@ -22,27 +22,26 @@ import {
 import { useLocation, useNavigate } from "react-router";
 import ErrorModal from "../ErrorModal";
 import ConfirmModal from "../ConfirmModal";
+import UploadLoading from "../UploadLoading";
 
 const StudentPortF = () => {
   // api 오류 메세지 받아오는 state.
   const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
   const [errorApiInfo, setErrorApiInfo] = useState("");
 
-  const navigate = useNavigate();
-
   const [uploadResult, setUpLoadResult] = useState(false);
-
   const [selectedFile, setSelectedFile] = useState(null);
   const [description, setDescription] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [iFile, setIFile] = useState(2);
   const [fileId, setFileId] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [deleteOkModal, setDeleteOkModal] = useState(false);
+  const [mainYnModal, setMainYnModal] = useState(false);
   const [mainYn, setMainYn] = useState(0);
   const [mainCheck, setMainCheck] = useState("");
-  const [mainYnModal, setMainYnModal] = useState(false);
   const [userInfo, setUserInfo] = useState({
     userDetail: "",
     birth: "",
@@ -55,6 +54,8 @@ const StudentPortF = () => {
     portFolio: [],
     fileLinks: [],
   });
+
+  const navigate = useNavigate();
   const location = useLocation();
   const userSendInfo = location.state;
 
@@ -65,6 +66,7 @@ const StudentPortF = () => {
   }, [userInfo.istudent]);
 
   const handleFileUpload = async () => {
+    setIsLoading(true);
     if (iFile && (iFile === 2 || iFile === 3)) {
       let formData = new FormData();
       formData.append("file", selectedFile);
@@ -77,6 +79,7 @@ const StudentPortF = () => {
           linkUrl,
           setErrorApiInfo,
         );
+        setIsLoading(false);
         setUpLoadResult(result);
         if (result.success === true) {
           setModalOpen(false);
@@ -165,6 +168,7 @@ const StudentPortF = () => {
 
   return (
     <StudentPFeditSty>
+      {isLoading && <UploadLoading />}
       {deleteOkModal && (
         <DeleteOkModal
           deleteOkModal={deleteOkModal}

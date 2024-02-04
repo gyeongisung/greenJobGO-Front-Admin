@@ -19,6 +19,7 @@ import StudentResume from "./StduenDetail/StudentResume";
 import StudentPofol from "./StduenDetail/StudentPofol";
 import { StudentPageAtom } from "./StudentMain";
 import ErrorModal from "../ErrorModal";
+import UploadLoading from "../UploadLoading";
 
 const StudentInfo = () => {
   // api 오류 메세지 받아오는 state.
@@ -52,6 +53,7 @@ const StudentInfo = () => {
   const [deleteOkModal, setDeleteOkModal] = useState(false);
   const [uploadResult, setUpLoadResult] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [resumeFile, setResumeFile] = useState("");
   const [resumeOneWord, setResumeOneWord] = useState("");
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
@@ -72,6 +74,7 @@ const StudentInfo = () => {
 
   // 이력서 등록 버튼
   const handleResumeUpload = async () => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("file", resumeFile);
     try {
@@ -81,6 +84,9 @@ const StudentInfo = () => {
         formData,
         setErrorApiInfo,
       );
+
+      setIsLoading(false);
+
       setUpLoadResult(result);
       if (result.success === true) {
         setAcceptOkModal(true);
@@ -273,6 +279,7 @@ const StudentInfo = () => {
 
   return (
     <StudentInfoWrap>
+      {isLoading && <UploadLoading />}
       {deleteOkModal && (
         <DeleteOkModal
           deleteOkModal={deleteOkModal}

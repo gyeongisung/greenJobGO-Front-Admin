@@ -39,6 +39,7 @@ const CompanyMgmt = () => {
   const [acceptOkModal, setAcceptOkModal] = useState(false);
   const [uploadResult, setUpLoadResult] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 예외처리하기
   const [areaError, setAreaError] = useState("");
@@ -143,6 +144,7 @@ const CompanyMgmt = () => {
   };
 
   const handleExcelUpload = async () => {
+    setIsLoading(true);
     if (selectedFile) {
       let formData = new FormData();
       formData.append("companyfile", selectedFile);
@@ -150,6 +152,8 @@ const CompanyMgmt = () => {
       try {
         const result = await postCompanyExcel(formData, setErrorApiInfo);
 
+        setIsLoading(false);
+        
         setUpLoadResult(result);
 
         if (result.success) {
@@ -302,6 +306,7 @@ const CompanyMgmt = () => {
             setSelectedFile={setSelectedFile}
             excelOkModal={excelOkModal}
             setExcelOkModal={setExcelOkModal}
+            isLoading={isLoading}
           />
         )}
         {/* 기업삭제모달 */}

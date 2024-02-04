@@ -8,6 +8,7 @@ import { ko } from "date-fns/locale";
 import ReactDatePicker from "react-datepicker";
 import { deleteStudent } from "../../api/studentAxios";
 import { ExcelUploadModalWrap } from "../../styles/ExcelUploadStyle";
+import UploadLoading from "../UploadLoading";
 
 export const DeleteStudnetModal = ({
   deleteModalOpen,
@@ -240,6 +241,7 @@ export const StudentExcelUploadModal = ({
   handleExcelUpload,
   selectedFile,
   setSelectedFile,
+  isLoading,
 }) => {
   const handleFileChange = e => {
     const file = e.target.files[0];
@@ -297,6 +299,7 @@ export const StudentExcelUploadModal = ({
                 />
               </div>
               <div className="btn">
+                {isLoading && <UploadLoading />}
                 <button onClick={e => handleExcelUpload(e.target.files)}>
                   확인
                 </button>
