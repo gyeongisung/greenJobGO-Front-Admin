@@ -2,6 +2,7 @@ import { faCircleXmark, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { InfoResumeWrap } from "../../../styles/StudentInfoStyle";
+import { useParams } from "react-router";
 
 const StudentResume = ({
   userFile,
@@ -14,6 +15,8 @@ const StudentResume = ({
   handleResumeUpload,
   userInfo,
 }) => {
+  const { istudent }= useParams();
+  console.log("istudent", istudent);
   return (
     <InfoResumeWrap>
       <ul>
@@ -52,7 +55,7 @@ const StudentResume = ({
                   <FontAwesomeIcon icon={faFilePdf} />
                 </p>
                 <a
-                  href={`https://greenjobgo.kr/${userFile.resume.resume}`}
+                  href={`https://greenjobgo.kr/img/student/${istudent}/${userFile.resume.resume}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

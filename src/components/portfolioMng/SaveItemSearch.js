@@ -99,7 +99,7 @@ const SaveItemSearch = ({
               onChange={e => handleCategoryFilter(e)}
             >
               <option value="" defaultValue>
-                전체
+                선택
               </option>
               {category?.map(item => (
                 <option

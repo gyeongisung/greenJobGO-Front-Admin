@@ -37,7 +37,7 @@ const PFsearch = ({
             onChange={e => handleCategoryFilter(e)}
           >
             <option value="" defaultValue>
-              전체
+              선택
             </option>
             {category.length && category.map(item => (
               <option
