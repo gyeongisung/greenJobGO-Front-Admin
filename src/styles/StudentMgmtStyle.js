@@ -75,7 +75,7 @@ export const StudentMgmtInner = styled.div`
         border-radius: 3px;
       }
     }
-    & > button {
+    .searchbtn {
       width: 140px;
       height: 40px;
       cursor: pointer;

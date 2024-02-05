@@ -40,7 +40,7 @@ export const getPortFolioList = async ({
   setNothing,
   setErrorApiInfo,
 }) => {
-  // console.log("query들어오냐 ㅋ ", resultUrl);
+  console.log("query들어오냐 ㅋ ", resultUrl);
 
   try {
     const res = await client.get(

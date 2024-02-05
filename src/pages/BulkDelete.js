@@ -26,6 +26,8 @@ const BulkDelete = () => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [category, setCategory] = useState(0);
+  const [clickCate, setClickCate] = useState(0);
+  const [clickSubj, setClickSubj] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorInfo, setErrorInfo] = useState("");
@@ -36,31 +38,25 @@ const BulkDelete = () => {
       setListData,
       page,
       setCount,
-      category,
-      searchsubj,
+      clickCate,
+      clickSubj,
       setErrorInfo,
       setNothing,
     );
   };
 
-  useEffect(() => {
-    fetchData();
-    getCategory(setCategoryData, setErrorInfo);
-  }, [page]);
-
   const handleSearch = () => {
+    setClickCate(category);
+    setClickSubj(searchsubj);
     setPage(1);
-    fetchData();
   };
   const handleCategoryFiiter = async e => {
     const newCtegory = e.target.value;
     setCategory(newCtegory);
     await getClassificationList(newCtegory, setSubjData, setErrorInfo);
-    setPage(1);
   };
   const handleSubjectFilter = e => {
     setSearchsubj(e.target.value);
-    setPage(1);
   };
 
   const handleDeleteClick = (icourseSubject, iclassification) => {
@@ -79,6 +75,10 @@ const BulkDelete = () => {
       }
     }
   };
+  useEffect(() => {
+    fetchData();
+    getCategory(setCategoryData, setErrorInfo);
+  }, [page, clickCate, clickSubj]);
   // useEffect(() => {
   //   setErrorModalOpen(true);
   // }, [errorInfo]);

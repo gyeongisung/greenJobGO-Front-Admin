@@ -17,7 +17,6 @@ const PFsearch = ({
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
-    console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
     setSearchSubj("");
     setSearchname("");
