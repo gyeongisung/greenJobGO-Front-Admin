@@ -49,6 +49,7 @@ export const ModalWarp = styled.div`
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
+    overflow: "unset";
   }
   .modal-wrapper {
     width: 684px;
@@ -129,6 +130,7 @@ export const ConfirmModalWarp = styled.div`
     z-index: 200;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
+    overflow: "unset";
   }
   .modalConfirm-wrapper {
     position: relative;
@@ -240,6 +242,7 @@ export const OkModalWarp = styled.div`
     z-index: 201;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
+    overflow: "unset";
   }
   .modalOk-wrapper {
     position: relative;
@@ -338,6 +341,7 @@ export const ErrorModalWarp = styled.div`
     z-index: 202;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
+    overflow: "unset";
   }
   .modalError-wrapper {
     position: relative;
