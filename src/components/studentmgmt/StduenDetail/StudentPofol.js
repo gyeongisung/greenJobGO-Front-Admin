@@ -3,8 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { v4 } from "uuid";
 import { InfoPofolWrap } from "../../../styles/StudentInfoStyle";
+import { useParams } from "react-router";
 
 const StudentPofol = ({ userFile }) => {
+  const { istudent } = useParams();
+
   return (
     <InfoPofolWrap>
       <li>
@@ -21,7 +24,7 @@ const StudentPofol = ({ userFile }) => {
                       <FontAwesomeIcon icon={faFilePdf} />
                     </p>
                     <a
-                      href={`https://greenjobgo.kr/${item.file}`}
+                      href={`https://greenjobgo.kr/img/student/${istudent}/${item.file}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

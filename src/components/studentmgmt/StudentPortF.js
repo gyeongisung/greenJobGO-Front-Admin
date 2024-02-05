@@ -206,7 +206,7 @@ const StudentPortF = () => {
                           <FontAwesomeIcon icon={faFilePdf} />
                         </p>
                         <a
-                          href={`https://greenjobgo.kr/${item.file}`}
+                          href={`https://greenjobgo.kr/img/student/${userSendInfo.istudent}/${item.file}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
