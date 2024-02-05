@@ -176,12 +176,16 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
     setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
     return result;
   } catch (error) {
+    console.log(error);
     const { response } = error;
     const { status } = response;
     if (response) {
       switch (status) {
         case 500:
           setErrorInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 455:
+          setErrorInfo(`${error.response.data.message}`);
           break;
         case 401:
           setErrorInfo(
@@ -217,6 +221,9 @@ export const patchCancelMain = async ({
       switch (status) {
         case 500:
           setErrorCancelInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 455:
+          setErrorCancelInfo(`${error.response.data.message}`);
           break;
         case 401:
           setErrorCancelInfo(
