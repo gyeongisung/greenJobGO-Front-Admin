@@ -56,7 +56,39 @@ export const getStudentList = async (
     }
   }
 };
+export const getStudentPofolEdit = async (
+  istudent,
+  setUserFile,
+  setErrorApiInfo,
+) => {
+  try {
+    const res = await client.get(`${process.env.REACT_APP_SD_URL}=${istudent}`);
 
+    setUserFile({
+      portFolio: res.data.file?.portfolio,
+      fileLinks: res.data.file?.fileLinks,
+    });
+  } catch (error) {
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
+  }
+};
 export const getStudentDetail = async (
   istudent,
   setUserInfo,
@@ -70,7 +102,7 @@ export const getStudentDetail = async (
     const { certificates, birthday, subject, ...userInfoDetail } = res.data.res;
 
     const birthYear = birthday.split("-", 1);
-
+    console.log(certificates);
     setUserFile({
       thumbNail: res.data.file.img?.img,
       resume: res.data.file?.resume,
@@ -461,13 +493,13 @@ export const postStudentCertificate = async (studentId, newHashTag) => {
 };
 
 export const patchMainPofolSelected = async (
-  istudent,
+  studentId,
   mainCheck,
   setErrorApiInfo,
 ) => {
   try {
     const res = await client.patch(
-      `${process.env.REACT_APP_SPM_URL}=${istudent}&ifile=${mainCheck}`,
+      `${process.env.REACT_APP_SPM_URL}=${studentId}&ifile=${mainCheck}`,
     );
     return res;
   } catch (error) {

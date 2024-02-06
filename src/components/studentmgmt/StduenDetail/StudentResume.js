@@ -54,7 +54,7 @@ const StudentResume = ({
                 <p>
                   <FontAwesomeIcon
                     icon={faFilePdf}
-                    // color={`${Maincolor.grayDeep}`}
+                    color={Maincolor.grayDeep}
                   />
                 </p>
                 <a
