@@ -225,7 +225,7 @@ const StudentMgmt = () => {
           <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
         </div>
         <div className="total-count">
-          <span>[총 {count}개]</span>
+          <span>총 {count}명</span>
         </div>
         <StudentTable>
           {nothing && <NoListItem />}

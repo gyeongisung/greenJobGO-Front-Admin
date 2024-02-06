@@ -265,6 +265,16 @@ const StudentInfo = () => {
 
   const formatPhoneNumber = phoneFormatter(userInfo.userDetail.mobileNumber);
 
+  const handleHuntJob = e => {
+    const newValue = e.target.value === "1" ? 1 : 0;
+    setUserInfo(userInfo => ({
+      ...userInfo,
+      userDetail: {
+        ...userInfo.userDetail,
+        huntJobYn: newValue,
+      },
+    }));
+  };
   useEffect(() => {
     getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
   }, [istudent, isEditMode]);
@@ -318,6 +328,7 @@ const StudentInfo = () => {
           handleRemoveHashTag={handleRemoveHashTag}
           handleHashChange={handleHashChange}
           handleKeyDown={handleKeyDown}
+          handleHuntJob={handleHuntJob}
         />
         <StudentResume
           userFile={userFile}

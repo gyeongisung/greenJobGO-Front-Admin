@@ -16,6 +16,7 @@ const StudentBase = ({
   handleRemoveHashTag,
   handleHashChange,
   handleKeyDown,
+  handleHuntJob,
 }) => {
   return (
     <InfoBaseWrap>
@@ -163,27 +164,30 @@ const StudentBase = ({
           {isEditMode ? (
             <select
               name="employment-status"
-              onChange={e => {
-                setUserInfo(userInfo => ({
-                  ...userInfo,
-                  userDetail: {
-                    ...userInfo.userDetail,
-                    huntJobYn: e.target.value,
-                  },
-                }));
-              }}
+              onChange={handleHuntJob}
+              // onChange={e => {
+              //   setUserInfo(userInfo => ({
+              //     ...userInfo,
+              //     userDetail: {
+              //       ...userInfo.userDetail,
+              //       huntJobYn: e.target.value,
+              //     },
+              //   }));
+              // }}
             >
               <option
                 name="employment-status"
-                value={userInfo?.userDetail?.huntJobYn === 1 ? 1 : 0}
+                value={1}
+                selected={userInfo?.userDetail?.huntJobYn === 1}
               >
-                {userInfo?.userDetail?.huntJobYn === 1 ? "취업" : "미취업"}
+                취업
               </option>
               <option
                 name="employment-status"
-                value={userInfo?.userDetail?.huntJobYn === 0 ? 1 : 0}
+                value={0}
+                selected={userInfo?.userDetail?.huntJobYn === 0}
               >
-                {userInfo?.userDetail?.huntJobYn === 0 ? "취업" : "미취업"}
+                미취업
               </option>
             </select>
           ) : (

@@ -63,7 +63,7 @@ const StudentPortF = () => {
 
   useEffect(() => {
     getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
-  }, [userInfo.istudent]);
+  }, [userInfo.istudent, mainYn]);
 
   const handleFileUpload = async () => {
     setIsLoading(true);
@@ -156,6 +156,7 @@ const StudentPortF = () => {
       setErrorApiInfo,
     );
     setMainYnModal(false);
+    getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
   };
 
   useEffect(() => {
@@ -184,7 +185,13 @@ const StudentPortF = () => {
           onConfirm={handleMainPofolOk}
           onCancel={() => setMainYnModal(false)}
         >
-          <span>대표 포트폴리오로 등록 하시겠습니까?</span>
+          {mainYn === 1 ? (
+            <span>대표 포트폴리오 등록을 취소 하시겠습니까?</span>
+          ) : mainCheck.length === 1 ? (
+            <span>이미 선택 대표 포트폴리오가 있습니다.</span>
+          ) : (
+            <span>대표 포트폴리오로 등록 하시겠습니까?</span>
+          )}
         </ConfirmModal>
       )}
       <ul className="portfolio-list">

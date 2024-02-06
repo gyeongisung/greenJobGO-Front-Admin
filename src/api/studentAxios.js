@@ -80,9 +80,6 @@ export const getStudentDetail = async (
     });
 
     console.log(res.data.file.img);
-    // const certificateResult = certificates
-    //   .map(item => item.certificate)
-    //   .join(", ");
     setHashSave(certificates);
     setUserInfo({
       userDetail: userInfoDetail,

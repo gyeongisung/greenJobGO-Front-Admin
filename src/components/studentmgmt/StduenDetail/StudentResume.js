@@ -4,6 +4,9 @@ import React from "react";
 import { InfoResumeWrap } from "../../../styles/StudentInfoStyle";
 import { useParams } from "react-router";
 
+const encodeToBase64 = str => {
+  return btoa(decodeURIComponent(encodeURIComponent(str)));
+};
 const StudentResume = ({
   userFile,
   isEditMode,
@@ -15,8 +18,7 @@ const StudentResume = ({
   handleResumeUpload,
   userInfo,
 }) => {
-  const { istudent }= useParams();
-  console.log("istudent", istudent);
+  const { istudent } = useParams();
   return (
     <InfoResumeWrap>
       <ul>
@@ -60,7 +62,9 @@ const StudentResume = ({
                   rel="noopener noreferrer"
                 >
                   &nbsp;
-                  {userFile.resume.resume}
+                  {userFile.resume.resume
+                    ? "이력서 및 자소서.pdf"
+                    : "파일을 불러오지 못했습니다."}
                 </a>
               </div>
               {isEditMode ? (
@@ -95,7 +99,7 @@ const StudentResume = ({
                   />
                   <div>
                     <button onClick={handleResumeUpload}>저장</button>
-                    <button onClick={handleDeleteClick}>삭제</button>
+                    {/* <button onClick={handleDeleteClick}>삭제</button> */}
                   </div>
                 </div>
               ) : (

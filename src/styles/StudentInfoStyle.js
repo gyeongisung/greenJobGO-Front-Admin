@@ -3,7 +3,7 @@ import { Maincolor } from "./GlobalStyle";
 
 export const StudentInfoWrap = styled.div`
   /* padding: 30px 25px 0px 92px; */
-  height: 100%;
+  height: auto;
   .title > h2 {
     font-size: 24px;
     font-weight: 700;
@@ -47,9 +47,10 @@ export const InfoBaseWrap = styled.ul`
   padding-bottom: 40px;
   border-bottom: 1px solid ${Maincolor.header};
   color: #222;
+  height: auto;
   li:first-of-type {
     max-width: 300px;
-    height: 240px;
+    height: auto;
     img {
       width: 100%;
     }
@@ -57,6 +58,7 @@ export const InfoBaseWrap = styled.ul`
   .info-content-left {
     font-size: 16px;
     width: 450px;
+    height: auto;
     div {
       :not(:last-of-type) {
         margin-bottom: 20px;
@@ -219,7 +221,7 @@ export const InfoBaseWrap = styled.ul`
   }
   .info-content-right {
     width: 50%;
-    height: 22%;
+    height: auto;
     div {
       font-size: 16px;
       > input {
@@ -361,7 +363,7 @@ export const InfoResumeWrap = styled.div`
           > div {
             display: flex;
             gap: 5px;
-            padding-left: 10px;
+            padding-left: 5px;
             button {
               width: 85px;
               height: 40px;
@@ -372,11 +374,11 @@ export const InfoResumeWrap = styled.div`
                 color: ${Maincolor.white};
                 background: ${Maincolor.sectiontitle};
               }
-              :last-of-type {
+              /* :last-of-type {
                 color: ${Maincolor.sectiontitle};
                 background: ${Maincolor.white};
                 border: 1px solid ${Maincolor.sectiontitle};
-              }
+              } */
             }
           }
         }

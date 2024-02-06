@@ -310,7 +310,7 @@ const ClassMgmt = () => {
           <button onClick={handleModalOpen}>과정등록</button>
         </div>
         <div className="total-count">
-          <span>[총 {count}개]</span>
+          <span>총 {count}개</span>
         </div>
         <ClassTable>
           {nothing && <NoListItem />}
