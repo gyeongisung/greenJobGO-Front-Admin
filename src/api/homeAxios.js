@@ -8,8 +8,7 @@ export const getStudentSubject = async ({
 }) => {
   try {
     const res = await client.get(
-      // `/admin/subject?page=1&size=100&sort=icourseSubject%2CASC&iclassification=${selectCate}&condition=0&delYn=0`,
-      `/student/dropbox-category?iclassification=${selectCate}`,
+      `${process.env.REACT_APP_DBC_URL}=${selectCate}`,
     );
     const result = await res.data;
     setSubjectList(result.res);
@@ -21,10 +20,8 @@ export const getStudentSubject = async ({
 
 // 학생 권한 리스트 get
 export const getStudentAuthData = async (setAuthInfo, setErrorApiInfo) => {
-  console.log("학생권한정보 불러옵니다");
-
   try {
-    const res = await client.get(`/student/role-list`);
+    const res = await client.get(`${process.env.REACT_APP_SAD_URL}`);
     const result = await res.data;
     setAuthInfo(result.res);
     return result;
@@ -59,10 +56,9 @@ export const patchStudentAuthData = async ({
 }) => {
   try {
     const res = await client.patch(
-      `/student/editable-yn?icourseSubject=${subjectPk}&startedAt=${startDate}&endedAt=${endDate}`,
+      `${process.env.REACT_APP_SEY_URL}=${subjectPk}&startedAt=${startDate}&endedAt=${endDate}`,
     );
     const result = res.data;
-    console.log("학생권한정보 수정 성공", result);
     setErrorApiInfo("수강생 권한이 정상적으로 변경 되었습니다");
     return result;
   } catch (error) {
@@ -89,10 +85,8 @@ export const patchStudentAuthData = async ({
 
 // 기업권한 리스트 get
 export const getCompanyAuthData = async (setAuthInfo, setErrorApiInfo) => {
-  console.log("기업권한정보 불러옵니다");
-
   try {
-    const res = await client.get(`/company`);
+    const res = await client.get(`${process.env.REACT_APP_CAD_URL}`);
     const result = await res.data;
     setAuthInfo(result);
     return result;
@@ -127,7 +121,7 @@ export const patchCompanyAuthData = async ({
 }) => {
   try {
     const res = await client.patch(
-      `/company?icompany=${icompany}&startedAt=${startDate}&endedAt=${endDate}`,
+      `${process.env.REACT_APP_CADP_URL}=${icompany}&startedAt=${startDate}&endedAt=${endDate}`,
     );
     const result = res.data;
     console.log("기업권한수정 성공", result);

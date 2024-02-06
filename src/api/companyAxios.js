@@ -10,7 +10,7 @@ export const getCompanyList = async (
 ) => {
   try {
     const res = await client.get(
-      `/companylist?page=${page}&size=10&companyName=${search}`,
+      `${process.env.REACT_APP_CL_URL}=${page}&size=10&companyName=${search}`,
     );
     setListData(res.data.list);
     setCount(res.data.totalcount);
@@ -44,9 +44,12 @@ export const getCompanyList = async (
 
 export const getCompanyListDownload = async () => {
   try {
-    const { data, headers } = await client.get(`/companylist/download`, {
-      responseType: "blob",
-    });
+    const { data, headers } = await client.get(
+      `${process.env.REACT_APP_CED_URL}`,
+      {
+        responseType: "blob",
+      },
+    );
     const blob = new Blob([data], {
       type: headers["content-type"],
     });
@@ -67,9 +70,13 @@ export const getCompanyListDownload = async () => {
 
 export const postCompanyExcel = async (companyfile, setErrorApiInfo) => {
   try {
-    const res = await client.post("/companylist/excel", companyfile, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const res = await client.post(
+      `${process.env.REACT_APP_CEU_URL}`,
+      companyfile,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      },
+    );
     if (res.data === 1) {
       return { success: true };
     } else {
@@ -103,7 +110,7 @@ export const postCompanyExcel = async (companyfile, setErrorApiInfo) => {
 
 export const postCompanyAccept = async (payload, setErrorApiInfo) => {
   try {
-    const res = await client.post("/companylist", payload);
+    const res = await client.post(`${process.env.REACT_APP_CLP_URL}`, payload);
     if (res.data.companyCode) {
       return { success: true };
     } else {
@@ -136,7 +143,9 @@ export const postCompanyAccept = async (payload, setErrorApiInfo) => {
 
 export const deleteCompany = async (checkedCompanyCode, setErrorApiInfo) => {
   try {
-    const res = await client.delete(`/companylist/${checkedCompanyCode}`);
+    const res = await client.delete(
+      `${process.env.REACT_APP_CLP_URL}/${checkedCompanyCode}`,
+    );
     setErrorApiInfo("삭제가 정상적으로 처리되었습니다.");
   } catch (error) {
     const { response } = error;
@@ -164,7 +173,7 @@ export const deleteCompany = async (checkedCompanyCode, setErrorApiInfo) => {
 export const patchCompany = async (companyData, setErrorApiInfo) => {
   try {
     const res = await client.patch(
-      `/companylist?companyCode=${companyData.companyCode}&area=${companyData.area}&companyName=${companyData.companyName}&manager=${companyData.manager}&leaderName=${companyData.leaderName}&homepage=${companyData.homepage}&phoneNumber=${companyData.phoneNumber}&dateConslusion=${companyData.dateConslusion}`,
+      `${process.env.REACT_APP_CP_URL}=${companyData.companyCode}&area=${companyData.area}&companyName=${companyData.companyName}&manager=${companyData.manager}&leaderName=${companyData.leaderName}&homepage=${companyData.homepage}&phoneNumber=${companyData.phoneNumber}&dateConslusion=${companyData.dateConslusion}`,
     );
     if (res.data.companyCode) {
       return { success: true };

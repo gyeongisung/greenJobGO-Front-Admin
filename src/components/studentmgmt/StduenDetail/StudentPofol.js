@@ -33,7 +33,7 @@ const StudentPofol = ({ userFile }) => {
                       rel="noopener noreferrer"
                     >
                       &nbsp;
-                      {item.originalName}
+                      {item.originFileName}
                     </a>
                   </div>
                   <div className="portfolio-icons">

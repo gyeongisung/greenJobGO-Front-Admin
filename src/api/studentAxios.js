@@ -9,7 +9,6 @@ export const getStudentList = async (
   setNothing,
   setErrorApiInfo,
 ) => {
-  console.log("api", category);
   try {
     let res;
     if (category) {
@@ -21,7 +20,6 @@ export const getStudentList = async (
         `${process.env.REACT_APP_SL_URL}page=${page}&size=10&sort=istudent%2CASC&subjectName=${search}`,
       );
     }
-    console.log("res.data.res", res.data.res);
     setListData(res.data.res);
     setPageState(prev => ({ ...prev, count: res.data.page.idx }));
     setNothing(false);
@@ -154,7 +152,6 @@ export const postExcelSign = async (formData, setErrorApiInfo) => {
         headers: { "Content-Type": "multipart/form-data" },
       },
     );
-    console.log("res", res);
     if (res.data === 1) {
       setErrorApiInfo("업로드 성공했습니다.");
       return { success: true };
@@ -205,8 +202,6 @@ export const postStudentResumeUpload = async (
         headers: { "Content-Type": "multipart/form-data" },
       },
     );
-    console.log("이력서 전송 성공", res.data);
-    console.log("이력서 전송 성공", res.status);
     const result = res.status;
 
     if (result === 200) {
@@ -215,7 +210,6 @@ export const postStudentResumeUpload = async (
       return { success: false };
     }
   } catch (error) {
-    console.log("error", error);
     const { response } = error;
     const { status } = response;
     if (response) {
@@ -335,7 +329,6 @@ export const deleteFile = async (fileId, setErrorApiInfo) => {
       `${process.env.REACT_APP_SFD_URL}=${fileId}`,
     );
     const result = res;
-    console.log(result.status);
     if (result.status === 200) {
       return { success: true };
     } else {

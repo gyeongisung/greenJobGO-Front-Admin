@@ -8,7 +8,7 @@ export const getSubjectInfo = async ({
 }) => {
   try {
     const res = await client.get(
-      `/student/dropbox-category?iclassification=${selectCate}`,
+      `${process.env.REACT_APP_DBC_URL}=${selectCate}`,
     );
     const result = await res.data;
     setSubjectList(result.res);
@@ -48,7 +48,7 @@ export const getCompleteDeleteList = async ({
   console.log("resultUrl", resultUrl);
   try {
     const res = await client.get(
-      `/student/oneyearago?page=${page}&size=10&sort=istudent%2CASC&${resultUrl}`,
+      `${process.env.REACT_APP_PDL_URL}=${page}&size=10&sort=istudent%2CASC&${resultUrl}`,
     );
 
     const result = await res.data;
@@ -57,7 +57,6 @@ export const getCompleteDeleteList = async ({
     setNothing(false);
     if (result.vo.length === 0) {
       setNothing(true);
-      // console.log("결과 없어요");
     }
     return result;
   } catch (error) {
@@ -84,16 +83,13 @@ export const getCompleteDeleteList = async ({
 };
 
 // DELETE
-export const deleteCompleteStudent = async ({
-  clickItems,
-  setErrorInfo,
-  setClickItems,
-}) => {
+export const deleteCompleteStudent = async ({ clickItems, setErrorInfo }) => {
   try {
     const queryString = clickItems.map(item => `istudent=${item}`).join("&");
-    const res = await client.delete(`/student/oneyearago?${queryString}`);
+    const res = await client.delete(
+      `${process.env.REACT_APP_PDC_URL}${queryString}`,
+    );
     const result = res.data;
-    console.log("완전 삭제성공", result);
     setErrorInfo("영구 삭제가 완료되었습니다.");
     return result;
   } catch (error) {
