@@ -7,6 +7,7 @@ import { selector, useRecoilState, useRecoilValue } from "recoil";
 import { clickMainRecoil } from "./SaveItemCheckbox";
 import OkModal from "../OkModal";
 import { readsavedListItems } from "./SaveItemContent";
+import ErrorModal from "../ErrorModal";
 
 const SaveItemSearch = ({
   setPage,
@@ -171,13 +172,13 @@ const SaveItemSearch = ({
       )}
       {/* api 에러 확인모달 */}
       {errorModalOpen && (
-        <OkModal
+        <ErrorModal
           open={errorModalOpen}
           close={handleErrorOK}
           onConfirm={handleErrorOK}
         >
           <span>{errorInfo}</span>
-        </OkModal>
+        </ErrorModal>
       )}
     </div>
   );

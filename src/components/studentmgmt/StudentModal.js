@@ -455,7 +455,7 @@ export const PortFolioAdd = ({
                     <textarea
                       cols="30"
                       rows="5"
-                      placeholder="포트폴리오 소개 내용을 작성해주세요.(최대 150자)"
+                      placeholder="포트폴리오 소개 내용을 작성해주세요.(최대 100자)"
                       value={description}
                       onChange={handleDescriptionChange}
                     />

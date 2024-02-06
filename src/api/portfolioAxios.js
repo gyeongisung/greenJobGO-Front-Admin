@@ -184,6 +184,11 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
         case 500:
           setErrorInfo(`[${status}Error] 서버 내부 오류`);
           break;
+        case 461:
+          setErrorInfo(
+            `취업한 학생의 포트폴리오는 적용 할 수 없습니다. 다시 선택해 주세요.`,
+          );
+          break;
         case 455:
           setErrorInfo(`${error.response.data.message}`);
           break;
