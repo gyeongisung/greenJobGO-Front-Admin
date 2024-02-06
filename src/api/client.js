@@ -3,7 +3,7 @@ import { getCookie, removeCookie, setCookie } from "./cookie";
 
 // axios 인스턴스 생성
 export const client = axios.create({
-  baseURL: "/api",
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     "Content-Type": "application/json",
   },

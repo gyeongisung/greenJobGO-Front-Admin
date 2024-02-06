@@ -14,11 +14,11 @@ export const getStudentList = async (
     let res;
     if (category) {
       res = await client.get(
-        `/admin/student?page=${page}&size=10&sort=istudent%2CASC&icategory=${category}&subjectName=${search}`,
+        `${process.env.REACT_APP_SL_URL}page=${page}&size=10&sort=istudent%2CASC&icategory=${category}&subjectName=${search}`,
       );
     } else {
       res = await client.get(
-        `/admin/student?page=${page}&size=10&sort=istudent%2CASC&subjectName=${search}`,
+        `${process.env.REACT_APP_SL_URL}page=${page}&size=10&sort=istudent%2CASC&subjectName=${search}`,
       );
     }
     console.log("res.data.res", res.data.res);
@@ -66,7 +66,7 @@ export const getStudentDetail = async (
   setHashSave,
 ) => {
   try {
-    const res = await client.get(`/admin/student/detail?istudent=${istudent}`);
+    const res = await client.get(`${process.env.REACT_APP_SD_URL}${istudent}`);
 
     const { certificates, birthday, subject, ...userInfoDetail } = res.data.res;
 
@@ -94,9 +94,12 @@ export const getStudentDetail = async (
 
 export const getStudenListDownload = async setErrorApiInfo => {
   try {
-    const { data, headers } = await client.get(`/admin/sign/student-download`, {
-      responseType: "blob",
-    });
+    const { data, headers } = await client.get(
+      `${process.env.REACT_APP_SED_URL}`,
+      {
+        responseType: "blob",
+      },
+    );
     const blob = new Blob([data], {
       type: headers["content-type"],
     });
@@ -144,9 +147,13 @@ export const getStudenListDownload = async setErrorApiInfo => {
 
 export const postExcelSign = async (formData, setErrorApiInfo) => {
   try {
-    const res = await client.post(`/admin/sign/excel`, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const res = await client.post(
+      `${process.env.REACT_APP_SEU_URL}`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      },
+    );
     console.log("res", res);
     if (res.data === 1) {
       setErrorApiInfo("업로드 성공했습니다.");
@@ -192,7 +199,7 @@ export const postStudentResumeUpload = async (
 ) => {
   try {
     const res = await client.post(
-      `/admin/student/file?istudent=${istudent}&iFileCategory=1&introducedLine=${resumeOneWord}`,
+      `${process.env.REACT_APP_SF_URL}${istudent}&iFileCategory=1&introducedLine=${resumeOneWord}`,
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
@@ -256,7 +263,7 @@ export const postStudentPofolUpload = async (
   setErrorApiInfo,
 ) => {
   try {
-    const baseUrl = `/admin/student/file?istudent=${studentId}&iFileCategory=${iFile}&oneWord=${description}`;
+    const baseUrl = `${process.env.REACT_APP_SF_URL}${studentId}&iFileCategory=${iFile}&oneWord=${description}`;
     let apiUrl;
     switch (iFile) {
       case 2:
@@ -322,7 +329,9 @@ export const deleteStudent = async istudent => {
 
 export const deleteFile = async (fileId, setErrorApiInfo) => {
   try {
-    const res = await client.delete(`/admin/student/file?ifile=${fileId}`);
+    const res = await client.delete(
+      `${process.env.REACT_APP_SFD_URL}${fileId}`,
+    );
     const result = res;
     console.log(result.status);
     if (result.status === 200) {
@@ -367,7 +376,7 @@ export const deleteFile = async (fileId, setErrorApiInfo) => {
 export const deleteCertificate = async (istudent, icertificate) => {
   try {
     const res = await client.delete(
-      `/admin/student/certificate?istudent=${istudent}&icertificate=${icertificate}`,
+      `${process.env.REACT_APP_SCD_URL}${istudent}&icertificate=${icertificate}`,
     );
     const result = res;
     if (result.status === 200) {
@@ -383,7 +392,7 @@ export const deleteCertificate = async (istudent, icertificate) => {
 export const putStudentInfo = async (istudent, userInfo, setErrorApiInfo) => {
   try {
     const res = await client.put(
-      `/admin/student?istudent=${istudent}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&age=${userInfo.age}&gender=${userInfo.gender}`,
+      `${process.env.REACT_APP_SI_URL}${istudent}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&age=${userInfo.age}&gender=${userInfo.gender}`,
     );
 
     const result = res;
@@ -426,7 +435,7 @@ export const putStudentInfo = async (istudent, userInfo, setErrorApiInfo) => {
 export const postStudentCertificate = async (studentId, newHashTag) => {
   try {
     const res = await client.post(
-      `/admin/student/certificate?istudent=${studentId}&certificates=${newHashTag}`,
+      `${process.env.REACT_APP_SCD_URL}${studentId}&certificates=${newHashTag}`,
     );
 
     const result = res;
@@ -447,7 +456,7 @@ export const patchMainPofolSelected = async (
 ) => {
   try {
     const res = await client.patch(
-      `/admin/student/portfolio-main?istudent=${istudent}&ifile=${mainCheck}`,
+      `${process.env.REACT_APP_SPM_URL}${istudent}&ifile=${mainCheck}`,
     );
     // const result = res;
     // if (result.status === 200) {
