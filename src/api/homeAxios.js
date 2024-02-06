@@ -9,7 +9,7 @@ export const getStudentSubject = async ({
   try {
     const res = await client.get(
       // `/admin/subject?page=1&size=100&sort=icourseSubject%2CASC&iclassification=${selectCate}&condition=0&delYn=0`,
-      `/admin/student/dropbox-category?iclassification=${selectCate}`,
+      `/student/dropbox-category?iclassification=${selectCate}`,
     );
     const result = await res.data;
     setSubjectList(result.res);
@@ -24,7 +24,7 @@ export const getStudentAuthData = async (setAuthInfo, setErrorApiInfo) => {
   console.log("학생권한정보 불러옵니다");
 
   try {
-    const res = await client.get(`/admin/student/role-list`);
+    const res = await client.get(`/student/role-list`);
     const result = await res.data;
     setAuthInfo(result.res);
     return result;
@@ -59,7 +59,7 @@ export const patchStudentAuthData = async ({
 }) => {
   try {
     const res = await client.patch(
-      `/admin/student/editable-yn?icourseSubject=${subjectPk}&startedAt=${startDate}&endedAt=${endDate}`,
+      `/student/editable-yn?icourseSubject=${subjectPk}&startedAt=${startDate}&endedAt=${endDate}`,
     );
     const result = res.data;
     console.log("학생권한정보 수정 성공", result);
@@ -92,7 +92,7 @@ export const getCompanyAuthData = async (setAuthInfo, setErrorApiInfo) => {
   console.log("기업권한정보 불러옵니다");
 
   try {
-    const res = await client.get(`/admin/company`);
+    const res = await client.get(`/company`);
     const result = await res.data;
     setAuthInfo(result);
     return result;
@@ -127,7 +127,7 @@ export const patchCompanyAuthData = async ({
 }) => {
   try {
     const res = await client.patch(
-      `/admin/company?icompany=${icompany}&startedAt=${startDate}&endedAt=${endDate}`,
+      `/company?icompany=${icompany}&startedAt=${startDate}&endedAt=${endDate}`,
     );
     const result = res.data;
     console.log("기업권한수정 성공", result);

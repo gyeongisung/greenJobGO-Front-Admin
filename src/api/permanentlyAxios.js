@@ -8,7 +8,7 @@ export const getSubjectInfo = async ({
 }) => {
   try {
     const res = await client.get(
-      `/admin/student/dropbox-category?iclassification=${selectCate}`,
+      `/student/dropbox-category?iclassification=${selectCate}`,
     );
     const result = await res.data;
     setSubjectList(result.res);
@@ -48,7 +48,7 @@ export const getCompleteDeleteList = async ({
   console.log("resultUrl", resultUrl);
   try {
     const res = await client.get(
-      `/admin/student/oneyearago?page=${page}&size=10&sort=istudent%2CASC&${resultUrl}`,
+      `/student/oneyearago?page=${page}&size=10&sort=istudent%2CASC&${resultUrl}`,
     );
 
     const result = await res.data;
@@ -91,7 +91,7 @@ export const deleteCompleteStudent = async ({
 }) => {
   try {
     const queryString = clickItems.map(item => `istudent=${item}`).join("&");
-    const res = await client.delete(`/admin/student/oneyearago?${queryString}`);
+    const res = await client.delete(`/student/oneyearago?${queryString}`);
     const result = res.data;
     console.log("완전 삭제성공", result);
     setErrorInfo("영구 삭제가 완료되었습니다.");

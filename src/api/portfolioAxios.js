@@ -5,7 +5,7 @@ export const getBigcate = async (setCategory, setErrorApiInfo) => {
   console.log("카테정보 불러옵니다");
 
   try {
-    const res = await client.get(`/admin/category`);
+    const res = await client.get(`/category`);
     const result = await res.data;
     setCategory(result);
     return result;
@@ -44,7 +44,7 @@ export const getPortFolioList = async ({
 
   try {
     const res = await client.get(
-      `/admin/student/portfolio?page=${page}&size=10&${resultUrl}`,
+      `/student/portfolio?page=${page}&size=10&${resultUrl}`,
     );
 
     const result = await res.data;
@@ -86,7 +86,7 @@ export const patchSendSaved = async ({
 }) => {
   try {
     const res = await client.patch(
-      `/admin/student/storage?istudent=${savedItemNum}&storageYn=${isSaved}`,
+      `/student/storage?istudent=${savedItemNum}&storageYn=${isSaved}`,
     );
     const result = res.data;
     console.log("보관함 patchㅋ", result);
@@ -130,7 +130,7 @@ export const getSavedPFList = async ({
 }) => {
   try {
     const res = await client.get(
-      `/admin/student/storage?page=${page}&size=10&sort=istudent%2CASC${resultUrl}`,
+      `/student/storage?page=${page}&size=10&sort=istudent%2CASC${resultUrl}`,
     );
 
     const result = await res.data;
@@ -170,7 +170,7 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
   try {
     const queryString = clickItems.map(item => `istudent=${item}`).join("&");
     const res = await client.patch(
-      `/admin/student/main?${queryString}&companyMainYn=${mainYn}`,
+      `/student/main?${queryString}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
     setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
@@ -213,7 +213,7 @@ export const patchCancelMain = async ({
 }) => {
   try {
     const res = await client.patch(
-      `/admin/student/main?${query}&companyMainYn=${mainYn}`,
+      `/student/main?${query}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
     console.log("메인취소patch성공", result.url);

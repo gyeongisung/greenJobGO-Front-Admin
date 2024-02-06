@@ -10,7 +10,7 @@ export const getCompanyList = async (
 ) => {
   try {
     const res = await client.get(
-      `/admin/companylist?page=${page}&size=10&companyName=${search}`,
+      `/companylist?page=${page}&size=10&companyName=${search}`,
     );
     setListData(res.data.list);
     setCount(res.data.totalcount);
@@ -44,7 +44,7 @@ export const getCompanyList = async (
 
 export const getCompanyListDownload = async () => {
   try {
-    const { data, headers } = await client.get(`/admin/companylist/download`, {
+    const { data, headers } = await client.get(`/companylist/download`, {
       responseType: "blob",
     });
     const blob = new Blob([data], {
@@ -67,7 +67,7 @@ export const getCompanyListDownload = async () => {
 
 export const postCompanyExcel = async (companyfile, setErrorApiInfo) => {
   try {
-    const res = await client.post("/admin/companylist/excel", companyfile, {
+    const res = await client.post("/companylist/excel", companyfile, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     if (res.data === 1) {
@@ -103,7 +103,7 @@ export const postCompanyExcel = async (companyfile, setErrorApiInfo) => {
 
 export const postCompanyAccept = async (payload, setErrorApiInfo) => {
   try {
-    const res = await client.post("/admin/companylist", payload);
+    const res = await client.post("/companylist", payload);
     if (res.data.companyCode) {
       return { success: true };
     } else {
@@ -136,7 +136,7 @@ export const postCompanyAccept = async (payload, setErrorApiInfo) => {
 
 export const deleteCompany = async (checkedCompanyCode, setErrorApiInfo) => {
   try {
-    const res = await client.delete(`/admin/companylist/${checkedCompanyCode}`);
+    const res = await client.delete(`/companylist/${checkedCompanyCode}`);
     setErrorApiInfo("삭제가 정상적으로 처리되었습니다.");
   } catch (error) {
     const { response } = error;
@@ -164,7 +164,7 @@ export const deleteCompany = async (checkedCompanyCode, setErrorApiInfo) => {
 export const patchCompany = async (companyData, setErrorApiInfo) => {
   try {
     const res = await client.patch(
-      `/admin/companylist?companyCode=${companyData.companyCode}&area=${companyData.area}&companyName=${companyData.companyName}&manager=${companyData.manager}&leaderName=${companyData.leaderName}&homepage=${companyData.homepage}&phoneNumber=${companyData.phoneNumber}&dateConslusion=${companyData.dateConslusion}`,
+      `/companylist?companyCode=${companyData.companyCode}&area=${companyData.area}&companyName=${companyData.companyName}&manager=${companyData.manager}&leaderName=${companyData.leaderName}&homepage=${companyData.homepage}&phoneNumber=${companyData.phoneNumber}&dateConslusion=${companyData.dateConslusion}`,
     );
     if (res.data.companyCode) {
       return { success: true };

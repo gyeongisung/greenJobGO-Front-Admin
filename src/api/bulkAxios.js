@@ -12,7 +12,7 @@ export const getBulkStudentList = async (
   console.log("clickCate", clickCate);
   console.log("clickSubj", clickSubj);
   try {
-    let apiUrl = `/admin/student/sub-category-list?page=${page}&size=10&sort=icourseSubject%2CDESC`;
+    let apiUrl = `/student/sub-category-list?page=${page}&size=10&sort=icourseSubject%2CDESC`;
 
     if (clickCate) {
       apiUrl += `&iclassification=${clickCate}`;
@@ -58,7 +58,7 @@ export const getClassificationList = async (
 ) => {
   try {
     const res = await client.get(
-      `/admin/student/dropbox-category?iclassification=${category}`,
+      `/student/dropbox-category?iclassification=${category}`,
     );
     console.log(res.data.res);
     setSubjData(res.data.res);
@@ -87,7 +87,7 @@ export const getClassificationList = async (
 
 export const getCategory = async (setCategoryData, setErrorInfo) => {
   try {
-    const res = await client.get(`/admin/category`);
+    const res = await client.get(`/category`);
     setCategoryData(res.data);
   } catch (error) {
     setErrorInfo(`Category: ${error.message}`);
@@ -101,7 +101,7 @@ export const deleteStudent = async (
 ) => {
   try {
     const res = await client.delete(
-      `/admin/student/student-list?iclassification=${iclassification}&icourseSubject=${icourseSubject}`,
+      `/student/student-list?iclassification=${iclassification}&icourseSubject=${icourseSubject}`,
     );
     const result = res.data;
     console.log("삭제성공", res);

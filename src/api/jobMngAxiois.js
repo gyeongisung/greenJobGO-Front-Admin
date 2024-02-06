@@ -3,7 +3,7 @@ import { client } from "./client";
 //  취업담당자 리스트 불러오기
 export const getJobManagerInfo = async (setmngProflieData, setErrorApiInfo) => {
   try {
-    const res = await client.get(`/admin/profile`);
+    const res = await client.get(`/profile`);
     const result = await res.data;
     setmngProflieData(result);
     return result;
@@ -32,7 +32,7 @@ export const getJobManagerInfo = async (setmngProflieData, setErrorApiInfo) => {
 // post
 export const postManagerInfo = async (formData, setErrorApiInfo) => {
   try {
-    const res = await client.post(`/admin/profile`, formData, {
+    const res = await client.post(`/profile`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -75,7 +75,7 @@ export const patchManagerEdit = async ({
 }) => {
   try {
     const res = await client.patch(
-      `/admin/profile?iemply=${editManager.iemply}&${query}`,
+      `/profile?iemply=${editManager.iemply}&${query}`,
       formData,
       {
         headers: {
@@ -115,7 +115,7 @@ export const patchManagerEdit = async ({
 // DELETE
 export const deleteJobManagerInfo = async (iemply, setErrorApiInfo) => {
   try {
-    const res = await client.delete(`/admin/profile/${iemply}`);
+    const res = await client.delete(`/profile/${iemply}`);
     const result = res.data;
     console.log("삭제성공", result);
     setErrorApiInfo(`성공적으로 처리되었습니다`);

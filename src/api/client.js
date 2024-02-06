@@ -85,7 +85,7 @@ client.interceptors.response.use(
 // 로그인 함수
 export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
   try {
-    const res = await client.post(`/admin/sign/sign-in`, {
+    const res = await client.post(`${process.env.REACT_APP_LG_URL}`, {
       id: adminId,
       pw: password,
     });
@@ -140,7 +140,7 @@ export const postLogout = async (accessToken, refreshToken) => {
 
 export const getLoginPic = async setLoginPic => {
   try {
-    const res = await client.get(`/admin/sign/loginpic`);
+    const res = await client.get(`${process.env.REACT_APP_LGp_URL}`);
     setLoginPic(res.data);
   } catch (error) {
     console.log("깜짝놀랬찌?");

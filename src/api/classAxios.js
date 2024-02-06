@@ -2,7 +2,7 @@ import { client } from "./client";
 
 export const getCategory = async (setCategoryData, setErrorApiInfo) => {
   try {
-    const res = await client.get(`/admin/category`);
+    const res = await client.get(`/category`);
     setCategoryData(res.data);
   } catch (error) {
     const { response } = error;
@@ -39,11 +39,11 @@ export const getClassSubject = async (
     let res;
     if (category) {
       res = await client.get(
-        `/admin/subject?page=${page}&size=10&sort=icourseSubject%2CASC&subjectName=${search}&iclassification=${category}&condition=0&delYn=0`,
+        `/subject?page=${page}&size=10&sort=icourseSubject%2CASC&subjectName=${search}&iclassification=${category}&condition=0&delYn=0`,
       );
     } else {
       res = await client.get(
-        `/admin/subject?page=${page}&size=10&sort=icourseSubject%2CASC&subjectName=${search}&condition=0&delYn=0`,
+        `/subject?page=${page}&size=10&sort=icourseSubject%2CASC&subjectName=${search}&condition=0&delYn=0`,
       );
     }
     setListData(res.data.res);
@@ -76,7 +76,7 @@ export const getClassSubject = async (
 
 export const postCategory = async (postData, setErrorApiInfo) => {
   try {
-    const res = await client.post(`/admin/category`, postData);
+    const res = await client.post(`/category`, postData);
     if (res.data.iclassification) {
       setErrorApiInfo(`카테고리 추가가 완료 되었습니다.`);
     }
@@ -103,7 +103,7 @@ export const postCategory = async (postData, setErrorApiInfo) => {
 
 export const postClassSubject = async (payload, setErrorApiInfo) => {
   try {
-    const res = await client.post("/admin/subject", payload);
+    const res = await client.post("/subject", payload);
 
     if (res.data.icourseSubject) {
       setErrorApiInfo(`과정 추가가 완료 되었습니다.`);
@@ -132,7 +132,7 @@ export const postClassSubject = async (payload, setErrorApiInfo) => {
 
 export const deleteCategory = async (data, setErrorApiInfo) => {
   try {
-    const res = await client.delete(`/admin/category?iclassification=${data}`);
+    const res = await client.delete(`/category?iclassification=${data}`);
     setErrorApiInfo(`삭제가 완료 되었습니다.`);
   } catch (error) {
     const { response } = error;
@@ -158,7 +158,7 @@ export const deleteCategory = async (data, setErrorApiInfo) => {
 export const deleteClassSubject = async (icourseSubject, setErrorApiInfo) => {
   try {
     const res = await client.delete(
-      `/admin/subject?icourseSubject=${icourseSubject}`,
+      `/subject?icourseSubject=${icourseSubject}`,
     );
     setErrorApiInfo(`삭제가 완료 되었습니다.`);
   } catch (error) {
@@ -185,7 +185,7 @@ export const deleteClassSubject = async (icourseSubject, setErrorApiInfo) => {
 export const putClassSubject = async (payload, setErrorApiInfo) => {
   try {
     const res = await client.put(
-      `/admin/subject?icourseSubject=${payload.icourseSubject}&iclassification=${payload.iclassification}&courseSubjectName=${payload.courseSubjectName}&startedAt=${payload.startedAt}&endedAt=${payload.endedAt}&instructor=${payload.instructor}&lectureRoom=${payload.lectureRoom}&round=${payload.round}&classTime=${payload.classTime}`,
+      `/subject?icourseSubject=${payload.icourseSubject}&iclassification=${payload.iclassification}&courseSubjectName=${payload.courseSubjectName}&startedAt=${payload.startedAt}&endedAt=${payload.endedAt}&instructor=${payload.instructor}&lectureRoom=${payload.lectureRoom}&round=${payload.round}&classTime=${payload.classTime}`,
     );
     if (res.data.icourseSubject) {
       setErrorApiInfo(`수정이 완료 되었습니다.`);
