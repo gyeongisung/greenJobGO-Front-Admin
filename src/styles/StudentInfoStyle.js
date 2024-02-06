@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { Maincolor } from "./GlobalStyle";
 
 export const StudentInfoWrap = styled.div`
-  /* padding: 30px 25px 0px 92px; */
   height: auto;
   .title > h2 {
     font-size: 24px;

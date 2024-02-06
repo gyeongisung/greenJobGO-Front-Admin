@@ -130,7 +130,7 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
 // 로그아웃 함수
 export const postLogout = async (accessToken, refreshToken) => {
   try {
-    const res = await client.post("/admin/sign/logout");
+    const res = await client.post(`${process.env.REACT_APP_LOGOUT_URL}`);
     removeCookie(accessToken);
     removeCookie(refreshToken);
   } catch (error) {

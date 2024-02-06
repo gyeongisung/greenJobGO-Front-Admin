@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StudentInfoWrap,
-  StudentPFeditSty,
-} from "../../styles/StudentInfoStyle";
+import { StudentPFeditSty } from "../../styles/StudentInfoStyle";
 import { v4 } from "uuid";
 import { PortFolioAdd } from "./StudentModal";
 import { AcceptModal, DeleteOkModal } from "../AcceptModals";
@@ -26,7 +23,6 @@ import UploadLoading from "../UploadLoading";
 import { Maincolor } from "../../styles/GlobalStyle";
 
 const StudentPortF = () => {
-  // api 오류 메세지 받아오는 state.
   const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
   const [errorApiInfo, setErrorApiInfo] = useState("");
 
@@ -210,7 +206,7 @@ const StudentPortF = () => {
                           />
                         </p>
                         <a
-                          href={`https://greenjobgo.kr/img/student/${userSendInfo.istudent}/${item.file}`}
+                          href={`${process.env.REACT_APP_BASE_FILE_URL}/${userSendInfo.istudent}/${item.file}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >

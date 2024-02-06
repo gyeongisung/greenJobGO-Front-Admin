@@ -28,12 +28,12 @@ const StudentPofol = ({ userFile }) => {
                       />
                     </p>
                     <a
-                      href={`https://greenjobgo.kr/img/student/${istudent}/${item.file}`}
+                      href={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${item.file}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       &nbsp;
-                      {item.file}
+                      {item.originalName}
                     </a>
                   </div>
                   <div className="portfolio-icons">

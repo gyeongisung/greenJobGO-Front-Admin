@@ -3,14 +3,11 @@ import { GoMainBtnSty, PfSearchWrap } from "../../styles/PortfolioStyle";
 import { BtnGlobal } from "../../styles/GlobalStyle";
 import { getBigcate, patchSendMain } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
-import { selector, useRecoilState, useRecoilValue } from "recoil";
-import { clickMainRecoil } from "./SaveItemCheckbox";
-import OkModal from "../OkModal";
+import {  useRecoilValue } from "recoil";
 import { readsavedListItems } from "./SaveItemContent";
 import ErrorModal from "../ErrorModal";
 
 const SaveItemSearch = ({
-  setPage,
   selectCate,
   setSelectCate,
   searchsubj,
@@ -33,9 +30,7 @@ const SaveItemSearch = ({
   const [errorInfo, setErrorInfo] = useState("");
   const savedListRead = useRecoilValue(readsavedListItems);
 
-  // 카테변경값 저장
   const handleCategoryFilter = e => {
-    // setPage(1);
     console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
     setSearchSubj("");

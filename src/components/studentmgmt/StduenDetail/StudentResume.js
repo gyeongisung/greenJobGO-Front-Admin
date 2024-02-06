@@ -5,9 +5,6 @@ import { InfoResumeWrap } from "../../../styles/StudentInfoStyle";
 import { useParams } from "react-router";
 import { Maincolor } from "../../../styles/GlobalStyle";
 
-const encodeToBase64 = str => {
-  return btoa(decodeURIComponent(encodeURIComponent(str)));
-};
 const StudentResume = ({
   userFile,
   isEditMode,
@@ -61,7 +58,7 @@ const StudentResume = ({
                   />
                 </p>
                 <a
-                  href={`https://greenjobgo.kr/img/student/${istudent}/${userFile.resume.resume}`}
+                  href={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${userFile.resume.resume}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -101,7 +98,6 @@ const StudentResume = ({
                   />
                   <div>
                     <button onClick={handleResumeUpload}>저장</button>
-                    {/* <button onClick={handleDeleteClick}>삭제</button> */}
                   </div>
                 </div>
               ) : (

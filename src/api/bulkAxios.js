@@ -12,7 +12,7 @@ export const getBulkStudentList = async (
   console.log("clickCate", clickCate);
   console.log("clickSubj", clickSubj);
   try {
-    let apiUrl = `/student/sub-category-list?page=${page}&size=10&sort=icourseSubject%2CDESC`;
+    let apiUrl = `${process.env.REACT_APP_BS_URL}=${page}&size=10&sort=icourseSubject%2CDESC`;
 
     if (clickCate) {
       apiUrl += `&iclassification=${clickCate}`;
@@ -57,9 +57,7 @@ export const getClassificationList = async (
   setErrorInfo,
 ) => {
   try {
-    const res = await client.get(
-      `/student/dropbox-category?iclassification=${category}`,
-    );
+    const res = await client.get(`${process.env.REACT_APP_DBC_URL}=${category}`);
     console.log(res.data.res);
     setSubjData(res.data.res);
   } catch (error) {
@@ -87,7 +85,7 @@ export const getClassificationList = async (
 
 export const getCategory = async (setCategoryData, setErrorInfo) => {
   try {
-    const res = await client.get(`/category`);
+    const res = await client.get(`${process.env.REACT_APP_CT_URL}`);
     setCategoryData(res.data);
   } catch (error) {
     setErrorInfo(`Category: ${error.message}`);
@@ -101,7 +99,7 @@ export const deleteStudent = async (
 ) => {
   try {
     const res = await client.delete(
-      `/student/student-list?iclassification=${iclassification}&icourseSubject=${icourseSubject}`,
+      `${process.env.REACT_APP_DSC_URL}=${iclassification}&icourseSubject=${icourseSubject}`,
     );
     const result = res.data;
     console.log("삭제성공", res);

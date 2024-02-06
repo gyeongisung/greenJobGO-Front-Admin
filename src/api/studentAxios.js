@@ -66,7 +66,7 @@ export const getStudentDetail = async (
   setHashSave,
 ) => {
   try {
-    const res = await client.get(`${process.env.REACT_APP_SD_URL}${istudent}`);
+    const res = await client.get(`${process.env.REACT_APP_SD_URL}=${istudent}`);
 
     const { certificates, birthday, subject, ...userInfoDetail } = res.data.res;
 
@@ -199,7 +199,7 @@ export const postStudentResumeUpload = async (
 ) => {
   try {
     const res = await client.post(
-      `${process.env.REACT_APP_SF_URL}${istudent}&iFileCategory=1&introducedLine=${resumeOneWord}`,
+      `${process.env.REACT_APP_SF_URL}=${istudent}&iFileCategory=1&introducedLine=${resumeOneWord}`,
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
@@ -263,7 +263,7 @@ export const postStudentPofolUpload = async (
   setErrorApiInfo,
 ) => {
   try {
-    const baseUrl = `${process.env.REACT_APP_SF_URL}${studentId}&iFileCategory=${iFile}&oneWord=${description}`;
+    const baseUrl = `${process.env.REACT_APP_SF_URL}=${studentId}&iFileCategory=${iFile}&oneWord=${description}`;
     let apiUrl;
     switch (iFile) {
       case 2:
@@ -321,7 +321,9 @@ export const postStudentPofolUpload = async (
 
 export const deleteStudent = async istudent => {
   try {
-    const res = await client.delete(`/admin/student?istudent=${istudent}`);
+    const res = await client.delete(
+      `${process.env.REACT_APP_SI_URL}=${istudent}`,
+    );
   } catch (error) {
     console.log(error);
   }
@@ -330,7 +332,7 @@ export const deleteStudent = async istudent => {
 export const deleteFile = async (fileId, setErrorApiInfo) => {
   try {
     const res = await client.delete(
-      `${process.env.REACT_APP_SFD_URL}${fileId}`,
+      `${process.env.REACT_APP_SFD_URL}=${fileId}`,
     );
     const result = res;
     console.log(result.status);
@@ -376,7 +378,7 @@ export const deleteFile = async (fileId, setErrorApiInfo) => {
 export const deleteCertificate = async (istudent, icertificate) => {
   try {
     const res = await client.delete(
-      `${process.env.REACT_APP_SCD_URL}${istudent}&icertificate=${icertificate}`,
+      `${process.env.REACT_APP_SCD_URL}=${istudent}&icertificate=${icertificate}`,
     );
     const result = res;
     if (result.status === 200) {
@@ -392,7 +394,7 @@ export const deleteCertificate = async (istudent, icertificate) => {
 export const putStudentInfo = async (istudent, userInfo, setErrorApiInfo) => {
   try {
     const res = await client.put(
-      `${process.env.REACT_APP_SI_URL}${istudent}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&age=${userInfo.age}&gender=${userInfo.gender}`,
+      `${process.env.REACT_APP_SI_URL}=${istudent}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&age=${userInfo.age}&gender=${userInfo.gender}`,
     );
 
     const result = res;
@@ -435,7 +437,7 @@ export const putStudentInfo = async (istudent, userInfo, setErrorApiInfo) => {
 export const postStudentCertificate = async (studentId, newHashTag) => {
   try {
     const res = await client.post(
-      `${process.env.REACT_APP_SCD_URL}${studentId}&certificates=${newHashTag}`,
+      `${process.env.REACT_APP_SCD_URL}=${studentId}&certificates=${newHashTag}`,
     );
 
     const result = res;
@@ -456,7 +458,7 @@ export const patchMainPofolSelected = async (
 ) => {
   try {
     const res = await client.patch(
-      `${process.env.REACT_APP_SPM_URL}${istudent}&ifile=${mainCheck}`,
+      `${process.env.REACT_APP_SPM_URL}=${istudent}&ifile=${mainCheck}`,
     );
     // const result = res;
     // if (result.status === 200) {
