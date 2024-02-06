@@ -164,6 +164,7 @@ export const InfoBaseWrap = styled.ul`
         margin-right: 21px;
       }
       > .hash-tag-wrap {
+        z-index: 3;
         .hash-tag-inner {
           display: flex;
           flex-wrap: wrap;
@@ -519,7 +520,7 @@ export const StudentPFeditSty = styled.div`
         justify-content: space-between;
         padding-top: 40px;
         > button {
-          margin-top: 70px;
+          margin-top: 60px;
           margin-bottom: 20px;
           width: 225px;
           height: 40px;
@@ -585,6 +586,7 @@ export const StudentPFeditSty = styled.div`
                     .delete-icon {
                       font-size: 18px;
                       color: ${Maincolor.btn};
+                      cursor: pointer;
                     }
                   }
                   .main-pofol {
@@ -605,9 +607,10 @@ export const StudentPFeditSty = styled.div`
                 }
               }
               .portfolio-btm {
-                width: 690px;
-                height: 60px;
-                padding: 10px;
+                width: 650px;
+                word-wrap: break-word;
+                height: 50px;
+                padding: 8px;
               }
             }
             .main-check {
