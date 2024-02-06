@@ -185,12 +185,20 @@ const StudentPortF = () => {
           onConfirm={handleMainPofolOk}
           onCancel={() => setMainYnModal(false)}
         >
-          {mainYn === 1 ? (
-            <span>대표 포트폴리오 등록을 취소 하시겠습니까?</span>
-          ) : mainCheck.length === 1 ? (
-            <span>이미 선택 대표 포트폴리오가 있습니다.</span>
-          ) : (
-            <span>대표 포트폴리오로 등록 하시겠습니까?</span>
+          {mainYn === 0 && mainCheck.length === 0 && (
+            <div className="content">
+              <span>대표 포트폴리오로 등록 하시겠습니까?</span>
+            </div>
+          )}
+          {mainYn === 1 && mainCheck.length === 1 && (
+            <div className="content">
+              <span>대표 포트폴리오 등록을 취소 하시겠습니까?</span>
+            </div>
+          )}
+          {mainYn === 0 && mainCheck.length === 1 && (
+            <div className="content">
+              <span>이미 대표 포트폴리오가 등록 되어있습니다.</span>
+            </div>
           )}
         </ConfirmModal>
       )}
