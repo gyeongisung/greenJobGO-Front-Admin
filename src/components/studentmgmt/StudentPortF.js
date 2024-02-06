@@ -6,6 +6,7 @@ import { AcceptModal, DeleteOkModal } from "../AcceptModals";
 import {
   deleteFile,
   getStudentDetail,
+  getStudentPofolEdit,
   patchMainPofolSelected,
   postStudentPofolUpload,
 } from "../../api/studentAxios";
@@ -25,7 +26,6 @@ import { Maincolor } from "../../styles/GlobalStyle";
 const StudentPortF = () => {
   const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
   const [errorApiInfo, setErrorApiInfo] = useState("");
-
   const [uploadResult, setUpLoadResult] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [description, setDescription] = useState("");
@@ -39,15 +39,7 @@ const StudentPortF = () => {
   const [mainYnModal, setMainYnModal] = useState(false);
   const [mainYn, setMainYn] = useState(0);
   const [mainCheck, setMainCheck] = useState("");
-  const [userInfo, setUserInfo] = useState({
-    userDetail: "",
-    birth: "",
-    certificateValue: "",
-    subject: "",
-  });
   const [userFile, setUserFile] = useState({
-    thumbNail: "",
-    resume: "",
     portFolio: [],
     fileLinks: [],
   });
@@ -55,19 +47,15 @@ const StudentPortF = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userSendInfo = location.state;
+  const studentId = userSendInfo?.istudent;
 
   const fetchData = () => {
-    getStudentDetail(
-      userSendInfo.istudent,
-      setUserInfo,
-      setUserFile,
-      setErrorApiInfo,
-    );
+    getStudentPofolEdit(studentId, setUserFile, setErrorApiInfo);
   };
 
   useEffect(() => {
     fetchData();
-  }, [userInfo.istudent, mainYn]);
+  }, [studentId, mainYn]);
 
   const handleFileUpload = async () => {
     setIsLoading(true);
@@ -76,7 +64,7 @@ const StudentPortF = () => {
       formData.append("file", selectedFile);
       try {
         const result = await postStudentPofolUpload(
-          userSendInfo.istudent,
+          studentId,
           iFile,
           formData,
           description,
@@ -113,7 +101,7 @@ const StudentPortF = () => {
   };
 
   const handleUpdate = () => {
-    navigate(`/admin/student/${userSendInfo.istudent}`);
+    navigate(`/admin/student/${studentId}`);
   };
 
   const handleDeleteFile = async fileId => {
@@ -151,11 +139,7 @@ const StudentPortF = () => {
   };
 
   const handleMainPofolOk = async () => {
-    await patchMainPofolSelected(
-      userSendInfo.istudent,
-      mainCheck,
-      setErrorApiInfo,
-    );
+    await patchMainPofolSelected(studentId, mainCheck, setErrorApiInfo);
     await setMainYnModal(false);
     fetchData();
   };
@@ -211,7 +195,7 @@ const StudentPortF = () => {
                         <p>
                           <FontAwesomeIcon
                             icon={faFilePdf}
-                            color={`${Maincolor.grayDeep}`}
+                            color={Maincolor.grayDeep}
                           />
                         </p>
                         <a
@@ -277,7 +261,7 @@ const StudentPortF = () => {
                         <p>
                           <FontAwesomeIcon
                             icon={faLink}
-                            color={`${Maincolor.grayDeep}`}
+                            color={Maincolor.grayDeep}
                           />
                         </p>
                         <a

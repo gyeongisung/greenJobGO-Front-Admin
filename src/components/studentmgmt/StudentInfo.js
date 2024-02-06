@@ -48,6 +48,20 @@ const StudentInfo = () => {
   const [resumeOneWord, setResumeOneWord] = useState("");
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
 
+  const fetchData = () => {
+    getStudentDetail(
+      istudent,
+      setUserInfo,
+      setUserFile,
+      setHashSave,
+      setErrorApiInfo,
+    );
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [istudent, isEditMode]);
+
   // 수정모드 변경 버튼
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -81,7 +95,7 @@ const StudentInfo = () => {
       if (result.success === true) {
         setAcceptOkModal(true);
       }
-      getStudentDetail(istudent, setUserInfo, setUserFile, setErrorApiInfo);
+      fetchData();
     } catch (error) {
       setAcceptOkModal(true);
     }
@@ -108,7 +122,8 @@ const StudentInfo = () => {
           },
         });
       }
-      getStudentDetail(istudent, setUserInfo, setUserFile, setErrorApiInfo);
+
+      fetchData();
     } catch (error) {
       // setAcceptOkModal(true);
       // setIsEditMode(false);
@@ -132,7 +147,7 @@ const StudentInfo = () => {
         setDeleteOkModal(false);
         setResumeFile("");
         setResumeOneWord("");
-        getStudentDetail(istudent, setUserInfo, setUserFile, setErrorApiInfo);
+        fetchData();
       }
     } catch (error) {
       setDeleteOkModal(false);
@@ -204,13 +219,7 @@ const StudentInfo = () => {
       try {
         setHashSave(prevHashTags => [...prevHashTags, newHashTag]);
         await postStudentCertificate(istudent, newHashTag);
-        getStudentDetail(
-          istudent,
-          setUserInfo,
-          setUserFile,
-          setHashSave,
-          setErrorApiInfo,
-        );
+        fetchData();
       } catch (error) {
         console.log(error);
       }
@@ -234,13 +243,7 @@ const StudentInfo = () => {
 
   const handleRemoveHashTag = async icertificate => {
     await deleteCertificate(istudent, icertificate);
-    getStudentDetail(
-      istudent,
-      setUserInfo,
-      setUserFile,
-      setHashSave,
-      setErrorApiInfo,
-    );
+    fetchData();
   };
 
   const formatPhoneNumber = phoneFormatter(userInfo.userDetail.mobileNumber);
@@ -255,15 +258,6 @@ const StudentInfo = () => {
       },
     }));
   };
-  useEffect(() => {
-    getStudentDetail(
-      istudent,
-      setUserInfo,
-      setUserFile,
-      setHashSave,
-      setErrorApiInfo,
-    );
-  }, [istudent, isEditMode]);
 
   useEffect(() => {
     if (errorApiInfo) {
