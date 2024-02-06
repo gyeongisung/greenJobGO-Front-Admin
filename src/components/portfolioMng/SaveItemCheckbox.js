@@ -46,6 +46,7 @@ const SaveItemCheckbox = ({
         setErrorCancelInfo,
       });
       await setMainCancelModalOpen(false);
+      fetchData();
       setErrorModalOpen(true);
     } catch (error) {
       console.log(error);
