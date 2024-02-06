@@ -208,6 +208,7 @@ export const postStudentResumeUpload = async (
       return { success: false };
     }
   } catch (error) {
+    console.log("error", error);
     const { response } = error;
     const { status } = response;
     if (response) {
@@ -220,19 +221,22 @@ export const postStudentResumeUpload = async (
             `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
           );
           break;
-        case 437:
+        case 453:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
-        case 438:
+        case 454:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
-        case 445:
+        case 455:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 456:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
         case 457:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
-        case 453:
+        case 458:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
         default:
@@ -272,14 +276,32 @@ export const postStudentPofolUpload = async (
       return { success: false };
     }
   } catch (error) {
-    const { status } = error.response;
-    if (error.response) {
+    const { response } = error;
+    const { status } = response;
+    if (response) {
       switch (status) {
+        case 453:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 454:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 455:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 456:
+          setErrorApiInfo(`${error.response.data.message}`);
+          break;
         case 457:
           setErrorApiInfo(`${error.response.data.message}`);
           break;
-        case 453:
+        case 458:
           setErrorApiInfo(`${error.response.data.message}`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
           break;
         default:
           setErrorApiInfo("업로드에 실패했습니다.");
