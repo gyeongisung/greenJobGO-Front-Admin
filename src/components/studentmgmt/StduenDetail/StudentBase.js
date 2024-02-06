@@ -99,7 +99,7 @@ const StudentBase = ({
           {isEditMode ? (
             <input
               type="text"
-              name="address"
+              name="stdaddress"
               value={userInfo.userDetail.address}
               onChange={e => {
                 setUserInfo(userInfo => ({
@@ -120,7 +120,7 @@ const StudentBase = ({
           {isEditMode ? (
             <input
               type="text"
-              name="email"
+              name="stdemail"
               value={userInfo.userDetail.email}
               onChange={e => {
                 setUserInfo(userInfo => ({
