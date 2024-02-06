@@ -66,6 +66,7 @@ const SaveItemSection = () => {
   const handleSearchClick = async () => {
     setSearchCate(selectCate);
     setPage(1);
+    fetchData();
   };
 
   useEffect(() => {

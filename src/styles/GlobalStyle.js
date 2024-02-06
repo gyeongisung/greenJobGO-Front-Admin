@@ -120,6 +120,7 @@ export const ModalWarp = styled.div`
 
 //공통) 확인 모달스타일
 export const ConfirmModalWarp = styled.div`
+  position: absolute;
   .Confimmodal {
     display: none;
     position: fixed;

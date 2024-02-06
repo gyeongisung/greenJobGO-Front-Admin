@@ -138,6 +138,7 @@ const ClassMgmt = () => {
   const handleSearch = () => {
     setSearchCate(category);
     setPage(1);
+    fetchData();
   };
 
   const handleCategoryFiiter = e => {

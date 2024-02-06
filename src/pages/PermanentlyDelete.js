@@ -44,7 +44,7 @@ const PermanentlyDelete = () => {
       query += `iclassification=${searchCate}&`;
     }
     if (searchsubj !== "") {
-      query += `subjectName=${searchsubj}&`;
+      query += `icourseSubject=${searchsubj}&`;
     }
     if (searchname !== "") {
       query += `studentName=${searchname}&`;
@@ -70,6 +70,8 @@ const PermanentlyDelete = () => {
   const handleSearch = async () => {
     setSearchCate(selectCate);
     setPage(1);
+    fetchData();
+    console.log("searchClick");
   };
 
   // 삭제버튼 클릭
