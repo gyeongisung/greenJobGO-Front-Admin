@@ -65,21 +65,21 @@ const JobManager = () => {
           <div className="maganer-add">
             <BtnGlobal onClick={openModal}>등록</BtnGlobal>
           </div>
-          {modalOpen && (
-            <InputModal
-              open={modalOpen}
-              close={closeModal}
-              header="취업 담당자 등록"
-            >
-              <ManagerAdd
-                setAddModalOpen={setAddModalOpen}
-                updateData={updateData}
-                setErrorApiInfo={setErrorApiInfo}
-              />
-            </InputModal>
-          )}
         </div>
       </div>
+      {modalOpen && (
+        <InputModal
+          open={modalOpen}
+          close={closeModal}
+          header="취업 담당자 등록"
+        >
+          <ManagerAdd
+            setAddModalOpen={setAddModalOpen}
+            updateData={updateData}
+            setErrorApiInfo={setErrorApiInfo}
+          />
+        </InputModal>
+      )}
       {/* api 에러 확인모달 */}
       {apiErrorModalOpen && (
         <ErrorModal
