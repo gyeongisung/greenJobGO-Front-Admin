@@ -23,7 +23,7 @@ const StudentBase = ({
       <li>
         {userFile && userFile.thumbNail ? (
           <img
-            src={`https://greenjobgo.kr/img/student/${istudent}/${userFile?.thumbNail}`}
+            src={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${userFile?.thumbNail}`}
             alt="썸네일"
           />
         ) : (

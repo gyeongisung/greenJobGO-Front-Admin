@@ -7,8 +7,8 @@ import { AuthStateAtom } from "../recoil/atoms/AuthState";
 import OkModal from "../components/OkModal";
 
 const Login = () => {
-  const [adminId, setAdmminId] = useState("greendg01");
-  const [password, setPassword] = useState("green1234");
+  const [adminId, setAdmminId] = useState("");
+  const [password, setPassword] = useState("");
   const [loginPic, setLoginPic] = useState("");
   const [errmsg, setErrMsg] = useState(false);
 
@@ -85,7 +85,10 @@ const Login = () => {
     <LoginWrap>
       <LoginInner>
         <li>
-          <img src={`https://greenjobgo.kr${loginPic}`} alt="LoginImage" />
+          <img
+            src={`${process.env.REACT_APP_BASE_URL}${loginPic}`}
+            alt="LoginImage"
+          />
         </li>
         <li>
           <div className="login-title">
