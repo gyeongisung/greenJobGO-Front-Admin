@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { InfoResumeWrap } from "../../../styles/StudentInfoStyle";
 import { useParams } from "react-router";
+import { Maincolor } from "../../../styles/GlobalStyle";
 
 const encodeToBase64 = str => {
   return btoa(decodeURIComponent(encodeURIComponent(str)));
@@ -54,7 +55,10 @@ const StudentResume = ({
             <div className="file-box">
               <div>
                 <p>
-                  <FontAwesomeIcon icon={faFilePdf} />
+                  <FontAwesomeIcon
+                    icon={faFilePdf}
+                    color={`${Maincolor.grayDeep}`}
+                  />
                 </p>
                 <a
                   href={`https://greenjobgo.kr/img/student/${istudent}/${userFile.resume.resume}`}
@@ -62,9 +66,7 @@ const StudentResume = ({
                   rel="noopener noreferrer"
                 >
                   &nbsp;
-                  {userFile.resume.resume
-                    ? "이력서 및 자소서.pdf"
-                    : "파일을 불러오지 못했습니다."}
+                  {userFile.resume.originFileName}
                 </a>
               </div>
               {isEditMode ? (

@@ -23,6 +23,7 @@ import { useLocation, useNavigate } from "react-router";
 import ErrorModal from "../ErrorModal";
 import ConfirmModal from "../ConfirmModal";
 import UploadLoading from "../UploadLoading";
+import { Maincolor } from "../../styles/GlobalStyle";
 
 const StudentPortF = () => {
   // api 오류 메세지 받아오는 state.
@@ -59,10 +60,12 @@ const StudentPortF = () => {
   const location = useLocation();
   const userSendInfo = location.state;
 
-  console.log("edit", userSendInfo);
+  const fetchData = () => {
+    getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
+  };
 
   useEffect(() => {
-    getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
+    fetchData();
   }, [userInfo.istudent, mainYn]);
 
   const handleFileUpload = async () => {
@@ -88,7 +91,7 @@ const StudentPortF = () => {
           setSelectedFile(null);
           setLinkUrl("");
           setDescription("");
-          getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
+          fetchData();
         }
       } catch (error) {
         setModalOpen(false);
@@ -97,7 +100,7 @@ const StudentPortF = () => {
         setSelectedFile(null);
         setLinkUrl("");
         setDescription("");
-        getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
+        fetchData();
       }
     }
   };
@@ -122,7 +125,7 @@ const StudentPortF = () => {
       const result = await deleteFile(fileId);
       if (result.success === true) {
         setDeleteOkModal(false);
-        getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
+        fetchData();
       }
     } catch (error) {
       setDeleteOkModal(false);
@@ -139,24 +142,17 @@ const StudentPortF = () => {
       setMainCheck([ifile]);
       setMainYn(0);
       setMainYnModal(true);
-      console.log(mainCheck);
     } else {
       setMainCheck([ifile]);
       setMainYn(1);
       setMainYnModal(true);
-      console.log(mainCheck);
     }
   };
 
   const handleMainPofolOk = () => {
-    patchMainPofolSelected(
-      userSendInfo.istudent,
-      mainCheck,
-      mainYn,
-      setErrorApiInfo,
-    );
+    patchMainPofolSelected(userSendInfo.istudent, mainCheck, setErrorApiInfo);
     setMainYnModal(false);
-    getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
+    fetchData();
   };
 
   useEffect(() => {
@@ -165,7 +161,7 @@ const StudentPortF = () => {
     } else {
       setApiErrorModalOpen(false);
     }
-  }, [errorApiInfo]);
+  }, [errorApiInfo, mainYn]);
 
   return (
     <StudentPFeditSty>
@@ -185,20 +181,10 @@ const StudentPortF = () => {
           onConfirm={handleMainPofolOk}
           onCancel={() => setMainYnModal(false)}
         >
-          {mainYn === 0 && mainCheck.length === 0 && (
-            <div className="content">
-              <span>대표 포트폴리오로 등록 하시겠습니까?</span>
-            </div>
-          )}
-          {mainYn === 1 && mainCheck.length === 1 && (
-            <div className="content">
-              <span>대표 포트폴리오 등록을 취소 하시겠습니까?</span>
-            </div>
-          )}
-          {mainYn === 0 && mainCheck.length === 1 && (
-            <div className="content">
-              <span>이미 대표 포트폴리오가 등록 되어있습니다.</span>
-            </div>
+          {mainYn === 0 ? (
+            <span>대표 포트폴리오로 등록 하시겠습니까?</span>
+          ) : (
+            <span>대표 포트폴리오를 등록 취소 하시겠습니까?</span>
           )}
         </ConfirmModal>
       )}
@@ -218,7 +204,10 @@ const StudentPortF = () => {
                     <div className="portfolio-top">
                       <div>
                         <p>
-                          <FontAwesomeIcon icon={faFilePdf} />
+                          <FontAwesomeIcon
+                            icon={faFilePdf}
+                            color={`${Maincolor.grayDeep}`}
+                          />
                         </p>
                         <a
                           href={`https://greenjobgo.kr/img/student/${userSendInfo.istudent}/${item.file}`}
@@ -226,7 +215,7 @@ const StudentPortF = () => {
                           rel="noopener noreferrer"
                         >
                           &nbsp;
-                          {item.file}
+                          {item.originFileName}
                         </a>
                       </div>
                       <div className="portfolio-icons">
@@ -281,7 +270,10 @@ const StudentPortF = () => {
                     <div className="portfolio-top">
                       <div>
                         <p>
-                          <FontAwesomeIcon icon={faLink} />
+                          <FontAwesomeIcon
+                            icon={faLink}
+                            color={`${Maincolor.grayDeep}`}
+                          />
                         </p>
                         <a
                           href={`https://${item.fileLink}`}

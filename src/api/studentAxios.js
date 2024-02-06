@@ -421,19 +421,19 @@ export const postStudentCertificate = async (studentId, newHashTag) => {
 export const patchMainPofolSelected = async (
   istudent,
   mainCheck,
-  mainYn,
   setErrorApiInfo,
 ) => {
   try {
     const res = await client.patch(
-      `/admin/student/portfolio-main?istudent=${istudent}&ifile=${mainCheck}&mainYn=${mainYn}`,
+      `/admin/student/portfolio-main?istudent=${istudent}&ifile=${mainCheck}`,
     );
-    const result = res;
-    if (result.status === 200) {
-      return { success: true };
-    } else {
-      return { success: false };
-    }
+    // const result = res;
+    // if (result.status === 200) {
+    //   return { success: true };
+    // } else {
+    //   return { success: false };
+    // }
+    return res;
   } catch (error) {
     const { response } = error;
     const { status } = response;
@@ -446,6 +446,9 @@ export const patchMainPofolSelected = async (
           setErrorApiInfo(
             `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
           );
+          break;
+        case 456:
+          setErrorApiInfo(`${error.response.data.message}`);
           break;
         default:
           setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");

@@ -4,6 +4,7 @@ import React from "react";
 import { v4 } from "uuid";
 import { InfoPofolWrap } from "../../../styles/StudentInfoStyle";
 import { useParams } from "react-router";
+import { Maincolor } from "../../../styles/GlobalStyle";
 
 const StudentPofol = ({ userFile }) => {
   const { istudent } = useParams();
@@ -21,7 +22,10 @@ const StudentPofol = ({ userFile }) => {
                 <div>
                   <div>
                     <p>
-                      <FontAwesomeIcon icon={faFilePdf} />
+                      <FontAwesomeIcon
+                        icon={faFilePdf}
+                        color={`${Maincolor.grayDeep}`}
+                      />
                     </p>
                     <a
                       href={`https://greenjobgo.kr/img/student/${istudent}/${item.file}`}
@@ -66,7 +70,10 @@ const StudentPofol = ({ userFile }) => {
                 <div>
                   <div>
                     <p>
-                      <FontAwesomeIcon icon={faLink} />
+                      <FontAwesomeIcon
+                        icon={faLink}
+                        color={`${Maincolor.grayDeep}`}
+                      />
                     </p>
                     <a
                       href={`http://${item.fileLink}`}
