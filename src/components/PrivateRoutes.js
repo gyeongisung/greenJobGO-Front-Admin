@@ -14,7 +14,5 @@ export const PrivateRoutes = ({ element }) => {
     }
   }, [isLogin, navigate]);
 
-  console.log("isLogin 잘동하니", isLogin);
-
   return isLogin ? element : null;
 };

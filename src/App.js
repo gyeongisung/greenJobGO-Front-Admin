@@ -28,8 +28,6 @@ const App = () => {
   useEffect(() => {
     const accessToken = getCookie("accessToken");
     const refreshToken = getCookie("refreshToken");
-    console.log("refreshToken", refreshToken);
-    console.log("accessToken", accessToken);
     if (pathname === "/" && (accessToken || refreshToken)) {
       removeCookie("accessToken");
       removeCookie("refreshToken");

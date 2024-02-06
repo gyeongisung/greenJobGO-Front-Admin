@@ -13,17 +13,12 @@ const ConfirmModal = ({
   onCancel,
   children,
 }) => {
-  console.log("컨펌모달 작동됩니다");
-  const stopPropagation = e => {
-    e.stopPropagation();
-  };
   return (
     <ConfirmModalWarp>
       <div className={open ? "openConfirmModal Confimmodal" : "Confirmmodal"}>
         {open ? (
           <div
             className="modalConfirm-wrapper"
-            // onClick={e => stopPropagation(e)}
           >
             {/* 헤더내용 */}
             <div className="confirm-modal-header">

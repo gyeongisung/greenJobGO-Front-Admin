@@ -2,17 +2,12 @@ import React from "react";
 import { ErrorModalWarp, ModalOkBtn } from "../styles/GlobalStyle";
 
 const ErrorModal = ({ header, open, close, onConfirm, children }) => {
-  // const stopPropagation = e => {
-  //   e.stopPropagation();
-  // };
-  console.log("error-modal");
   return (
     <ErrorModalWarp>
       <div className={open ? "openErrorModal error-modal" : "error-modal"}>
         {open && (
           <div
             className="modalError-wrapper"
-            // onClick={e => stopPropagation(e)}
           >
             {/* 헤더내용 */}
             <div className="error-modal-header">

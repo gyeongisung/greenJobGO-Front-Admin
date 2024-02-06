@@ -87,7 +87,6 @@ export const StudentModal = ({ modalOpen, setModalOpen }) => {
   const handleModalAccept = () => {
     setModalOpen(false);
   };
-  console.log(payload);
   return (
     <>
       {modalOpen && (

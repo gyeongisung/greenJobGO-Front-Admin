@@ -2,8 +2,6 @@ import { client } from "./client";
 
 //  대분류 카테고리 불러오기
 export const getBigcate = async (setCategory, setErrorApiInfo) => {
-  console.log("카테정보 불러옵니다");
-
   try {
     const res = await client.get(`/category`);
     const result = await res.data;
@@ -40,8 +38,6 @@ export const getPortFolioList = async ({
   setNothing,
   setErrorApiInfo,
 }) => {
-  console.log("query들어오냐 ㅋ ", resultUrl);
-
   try {
     const res = await client.get(
       `/student/portfolio?page=${page}&size=10&${resultUrl}`,
@@ -89,8 +85,6 @@ export const patchSendSaved = async ({
       `/student/storage?istudent=${savedItemNum}&storageYn=${isSaved}`,
     );
     const result = res.data;
-    console.log("보관함 patchㅋ", result);
-
     isSaved === 1
       ? setErrorInfo("보관함 이동이 완료되었습니다.")
       : isSaved === 0
@@ -134,13 +128,11 @@ export const getSavedPFList = async ({
     );
 
     const result = await res.data;
-    console.log("보관함 리스트", res.config.url);
     setSavedPFList(result);
     setCount(result.page.idx);
     setNothing(false);
     if (result.res.length === 0) {
       setNothing(true);
-      // console.log("결과 없어요");
     }
     return result;
   } catch (error) {
@@ -176,7 +168,6 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
     setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
     return result;
   } catch (error) {
-    console.log(error);
     const { response } = error;
     const { status } = response;
     if (response) {
@@ -216,7 +207,6 @@ export const patchCancelMain = async ({
       `/student/main?${query}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
-    console.log("메인취소patch성공", result.url);
     setErrorCancelInfo("메인 포트폴리오 설정이 취소되었습니다.");
     return result;
   } catch (error) {

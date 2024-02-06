@@ -94,7 +94,6 @@ const ManagerAdd = ({
     e.preventDefault();
     const file = e.target.files[0];
     setSelectImg(file);
-    console.log("img_ref", img_ref);
     if (img_ref.current.value !== "") {
       const fileName = img_ref.current.value;
       setPlaceholder(fileName);

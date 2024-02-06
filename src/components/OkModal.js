@@ -1,13 +1,10 @@
 import React from "react";
 import {
-  ConfirmModalWarp,
   ModalOkBtn,
   OkModalWarp,
 } from "../styles/GlobalStyle";
 
 const OkModal = ({ header, open, close, onConfirm, children }) => {
-
-  console.log("okmodal");
   return (
     <OkModalWarp>
       <div className={open ? "openOkModal ok-modal" : "ok-modal"}>

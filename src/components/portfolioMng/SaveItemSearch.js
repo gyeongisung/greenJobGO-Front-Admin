@@ -31,7 +31,6 @@ const SaveItemSearch = ({
   const savedListRead = useRecoilValue(readsavedListItems);
 
   const handleCategoryFilter = e => {
-    console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
     setSearchSubj("");
     setSearchname("");
@@ -55,7 +54,6 @@ const SaveItemSearch = ({
         setErrorInfo,
       });
       await setMainGoModalOpen(false);
-      // setPage(1);
     } catch (error) {
       console.log("보관실패", error);
     }

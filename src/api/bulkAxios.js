@@ -9,8 +9,6 @@ export const getBulkStudentList = async (
   setErrorInfo,
   setNothing,
 ) => {
-  console.log("clickCate", clickCate);
-  console.log("clickSubj", clickSubj);
   try {
     let apiUrl = `${process.env.REACT_APP_BS_URL}=${page}&size=10&sort=icourseSubject%2CDESC`;
 
@@ -58,7 +56,6 @@ export const getClassificationList = async (
 ) => {
   try {
     const res = await client.get(`${process.env.REACT_APP_DBC_URL}=${category}`);
-    console.log(res.data.res);
     setSubjData(res.data.res);
   } catch (error) {
     const { response } = error;
@@ -102,7 +99,6 @@ export const deleteStudent = async (
       `${process.env.REACT_APP_DSC_URL}=${iclassification}&icourseSubject=${icourseSubject}`,
     );
     const result = res.data;
-    console.log("삭제성공", res);
     if (res.status === 200) {
       setErrorInfo("삭제가 완료되었습니다.");
     }

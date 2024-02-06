@@ -63,7 +63,6 @@ const Login = () => {
               navigate("/admin/");
             }
           }, accessTokenTime);
-          console.log(accessTokenTime / 1000);
         } else {
           navigate("/admin/");
         }

@@ -19,7 +19,6 @@ client.interceptors.request.use(
     return config;
   },
   error => {
-    console.log(error);
     return Promise.reject(error);
   },
 );
@@ -43,43 +42,12 @@ client.interceptors.response.use(
 
         this.props.history.push("/admin/");
       } catch (error) {
-        console.log("토큰 삭제 실패:", error);
+        this.props.history.push("/admin/");
       }
     }
-    console.error("요청 실패:", error);
     return Promise.reject(error);
   },
 );
-
-// client.interceptors.response.use(
-//   response => {
-//     return response;
-//   },
-//   async error => {
-//     const { config, response } = error;
-//     const refreshToken = getCookie("refreshToken");
-//     if (response && response.status === 401 && refreshToken) {
-//       try {
-//         const { data } = await client.post(`/admin/sign/refresh-token`, {
-//           refreshToken,
-//         });
-
-//         const accessToken = data;
-//         setCookie("accessToken", accessToken);
-
-//         if (config && config.headers && config.headers.Authorization) {
-//           config.headers.Authorization = `Bearer ${accessToken}`;
-//           const retryResponse = await client(config);
-//           return retryResponse;
-//         }
-//       } catch (error) {
-//         console.log("토큰 갱신 실패:", error);
-//       }
-//     }
-//     console.error("요청 실패:", error);
-//     return Promise.reject(error);
-//   },
-// );
 
 // 로그인 함수
 export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
@@ -90,7 +58,6 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
     });
 
     const { data } = res;
-    console.log(data);
 
     const { role, refreshToken, accessToken, id, name, accessTokenTime } = data;
 
@@ -133,7 +100,7 @@ export const postLogout = async (accessToken, refreshToken) => {
     removeCookie(accessToken);
     removeCookie(refreshToken);
   } catch (error) {
-    console.log(error);
+    this.props.history.push("/admin/");
   }
 };
 

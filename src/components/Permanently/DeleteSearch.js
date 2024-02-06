@@ -24,14 +24,12 @@ const DeleteSearch = ({
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
-    console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
     setSearchsubj("");
     setSearchname("");
   };
   // 과목변경값 저장
   const handleSubjectFilter = e => {
-    console.log("과목선택e", e.target.value);
     setSearchsubj(e.target.value);
     setSearchname("");
   };
@@ -51,7 +49,6 @@ const DeleteSearch = ({
     getSubjectInfo({ selectCate, setSubjectList, setErrorInfo });
   }, [selectCate]);
 
-  console.log("subjectList", subjectList);
   return (
     <ul className="delete-search">
       <li>

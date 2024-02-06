@@ -62,11 +62,9 @@ const ManagerEdit = ({
   // 이미지업로드
   const handleImageUpload = e => {
     e.preventDefault();
-    console.log("e.", e);
     const file = e.target.files[0];
     setSelectImg(file);
     setIsImg(e.target.value);
-    console.log("img_ref", img_ref);
     if (img_ref.current.value !== "") {
       const fileName = img_ref.current.value;
       setPlaceholder(fileName);
@@ -74,8 +72,6 @@ const ManagerEdit = ({
       console.log("데이터가 없다는디");
     }
   };
-
-  console.log("ConfirmModalOpen", confirmModalOpen);
 
   const handleInfoEdit = (e, fieldName) => {
     setEditManager({ ...editManager, [fieldName]: e.target.value });

@@ -65,13 +65,11 @@ const PermanentlyDelete = () => {
     });
   };
 
-  console.log("listData", listData);
   // 수강생 검색
   const handleSearch = async () => {
     setSearchCate(selectCate);
     setPage(1);
     fetchData();
-    console.log("searchClick");
   };
 
   // 삭제버튼 클릭
@@ -87,13 +85,10 @@ const PermanentlyDelete = () => {
   // 삭제컨펌
   const handleDelConfirm = async () => {
     try {
-      // await setPage(1);
       await deleteCompleteStudent({ clickItems, setErrorInfo });
-      // await fetchData();
       await setModalOpen(false);
       setErrorModalOpen(true);
     } catch (error) {
-      console.log("삭제실패", error);
       setErrorModalOpen(true);
     }
   };
@@ -101,7 +96,6 @@ const PermanentlyDelete = () => {
   useEffect(() => {
     if (errorInfo) {
       setErrorModalOpen(true);
-      // fetchData();
     } else {
       setErrorModalOpen(false);
     }

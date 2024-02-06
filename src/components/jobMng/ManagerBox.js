@@ -33,7 +33,6 @@ const ManagerBox = ({
 
   // 수정하기
   const handleEdit = async item => {
-    console.log("수정모달열림", item);
     setSelectedItem(item);
     setModalOpen(true);
   };
@@ -49,7 +48,6 @@ const ManagerBox = ({
     }
   };
   const handleDelete = item => {
-    console.log("삭제할래?", item);
     setDeleteNum(item);
     setConfirmModalOpen(true);
   };

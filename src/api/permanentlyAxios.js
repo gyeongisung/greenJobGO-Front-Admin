@@ -45,7 +45,6 @@ export const getCompleteDeleteList = async ({
   setNothing,
   setErrorInfo,
 }) => {
-  console.log("resultUrl", resultUrl);
   try {
     const res = await client.get(
       `${process.env.REACT_APP_PDL_URL}=${page}&size=10&sort=istudent%2CASC&${resultUrl}`,

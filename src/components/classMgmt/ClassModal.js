@@ -793,16 +793,6 @@ export const EnrollCategoryModal = ({
     document.body.style.overflow = "unset";
   };
 
-  // const handleEditClick = data => {
-  //   // console.log("data", data);
-  //   if (data === ) {
-  //     setIsEdit(true);
-  //   } else {
-  //     setIsEdit(false);
-  //   }
-
-  // };
-
   return (
     <>
       {enrollModalOpen && (

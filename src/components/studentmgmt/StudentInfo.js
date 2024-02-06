@@ -3,12 +3,9 @@ import { StudentInfoWrap } from "../../styles/StudentInfoStyle";
 import {
   deleteCertificate,
   deleteFile,
-  deleteStudent,
   getStudentDetail,
   postStudentCertificate,
-  postStudentFileUpload,
   postStudentResumeUpload,
-  putStudentCertificate,
   putStudentInfo,
 } from "../../api/studentAxios";
 import { useRecoilState } from "recoil";
@@ -25,11 +22,8 @@ const StudentInfo = () => {
   // api 오류 메세지 받아오는 state.
   const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
   const [errorApiInfo, setErrorApiInfo] = useState("");
-
   const navigate = useNavigate();
   const { istudent } = useParams();
-
-  // const [studentId, setIstudentId] = useState(studentInfo.istudent);
   const [userInfo, setUserInfo] = useState({
     userDetail: "",
     birth: "",
@@ -42,10 +36,6 @@ const StudentInfo = () => {
     portFolio: [],
     fileLinks: [],
   });
-
-  console.log(userInfo);
-  console.log(userFile);
-
   const [hashTag, setHashTag] = useState("");
   const [hashSave, setHashSave] = useState([]);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
@@ -91,7 +81,7 @@ const StudentInfo = () => {
       if (result.success === true) {
         setAcceptOkModal(true);
       }
-      getStudentDetail(istudent, setUserInfo, setUserFile);
+      getStudentDetail(istudent, setUserInfo, setUserFile, setErrorApiInfo);
     } catch (error) {
       setAcceptOkModal(true);
     }
@@ -101,13 +91,11 @@ const StudentInfo = () => {
   const handleUpdate = async () => {
     try {
       let result;
-      console.log("result", result);
       result = await putStudentInfo(
         istudent,
         userInfo.userDetail,
         setErrorApiInfo,
       );
-      // result = await putStudentCertificate(istudent, userInfo.certificateValue);
       setUpLoadResult(result);
 
       if (result.success) {
@@ -116,13 +104,11 @@ const StudentInfo = () => {
         navigate("/admin/student/portfolioEdit", {
           state: {
             istudent,
-            // setUserInfo,
             userFile,
-            // setUserFile,
           },
         });
       }
-      getStudentDetail(istudent, setUserInfo, setUserFile);
+      getStudentDetail(istudent, setUserInfo, setUserFile, setErrorApiInfo);
     } catch (error) {
       // setAcceptOkModal(true);
       // setIsEditMode(false);
@@ -131,24 +117,13 @@ const StudentInfo = () => {
 
   // 돌아가기 버튼
   const handleBack = () => {
-    // if (isEditMode) {
-    //   setIsEditMode(!isEditMode);
-    // } else {
-    //   setIsTrue(true);
-    // }
     navigate("/admin/student");
-    // navigate(-1);
   };
 
   // 수정 취소 버튼
   const handleCancel = () => {
     setIsEditMode(false);
   };
-  // const handleDelete = () => {
-  //   deleteStudent(istudent);
-  //   // setIsTrue(true);
-  // };
-
   // 파일 삭제 확인 버튼
   const handleOkClick = async () => {
     try {
@@ -157,7 +132,7 @@ const StudentInfo = () => {
         setDeleteOkModal(false);
         setResumeFile("");
         setResumeOneWord("");
-        getStudentDetail(istudent, setUserInfo, setUserFile);
+        getStudentDetail(istudent, setUserInfo, setUserFile, setErrorApiInfo);
       }
     } catch (error) {
       setDeleteOkModal(false);
@@ -195,10 +170,6 @@ const StudentInfo = () => {
     }
   };
 
-  // const handlePofolModalCancel = () => {
-  //   setModalOpen(false);
-  // };
-
   const handleAddHashTag = async e => {
     const command = ["Comma", "Enter", "NumpadEnter"];
     if (!command.includes(e.code)) return;
@@ -233,14 +204,17 @@ const StudentInfo = () => {
       try {
         setHashSave(prevHashTags => [...prevHashTags, newHashTag]);
         await postStudentCertificate(istudent, newHashTag);
-        getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
+        getStudentDetail(
+          istudent,
+          setUserInfo,
+          setUserFile,
+          setHashSave,
+          setErrorApiInfo,
+        );
       } catch (error) {
         console.log(error);
       }
     }
-
-    console.log(hashSave);
-
     setHashTag("");
   };
 
@@ -260,7 +234,13 @@ const StudentInfo = () => {
 
   const handleRemoveHashTag = async icertificate => {
     await deleteCertificate(istudent, icertificate);
-    getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
+    getStudentDetail(
+      istudent,
+      setUserInfo,
+      setUserFile,
+      setHashSave,
+      setErrorApiInfo,
+    );
   };
 
   const formatPhoneNumber = phoneFormatter(userInfo.userDetail.mobileNumber);
@@ -276,7 +256,13 @@ const StudentInfo = () => {
     }));
   };
   useEffect(() => {
-    getStudentDetail(istudent, setUserInfo, setUserFile, setHashSave);
+    getStudentDetail(
+      istudent,
+      setUserInfo,
+      setUserFile,
+      setHashSave,
+      setErrorApiInfo,
+    );
   }, [istudent, isEditMode]);
 
   useEffect(() => {

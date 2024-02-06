@@ -77,43 +77,8 @@ const StudentMain = ({ handleInfoClick }) => {
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
   const { page, count, search, category, render } = pageState;
 
-  // console.log("pageState", pageState);
-  // let resultIdArray = saveCheckBox;
-
-  // 체크박스 전체 선택
-  // const handleAllCheck = e => {
-  //   const allCheckBox = document.querySelectorAll(".student-checkbox");
-  //   resultIdArray = [];
-  //   if (e.target.checked === true) {
-  //     allCheckBox.forEach(item => {
-  //       item.checked = true;
-  //       resultIdArray.push(parseInt(item.classList[1].slice(6)));
-  //     });
-  //   } else {
-  //     allCheckBox.forEach(item => {
-  //       item.checked = false;
-  //     });
-  //     resultIdArray = [];
-  //   }
-  //   setSaveCheckBox(resultIdArray);
-  // };
-
-  // 체크박스 개별 선택
-  // const handleCheckBox = e => {
-  //   const clickList = e.currentTarget;
-  //   const companyCode = parseInt(clickList.classList[1].slice(6));
-  //   if (e.target.checked === true) {
-  //     resultIdArray.push(companyCode);
-  //   } else {
-  //     resultIdArray = resultIdArray.filter(item => item !== companyCode);
-  //   }
-  //   setSaveCheckBox(resultIdArray);
-  //   console.log(saveCheckBox);
-  // };
-
   // GET API
   const fetchData = () => {
-    // getStudentList(setListData, setCount, page, search, category);
     getStudentList(
       setListData,
       setPageState,
@@ -134,18 +99,13 @@ const StudentMain = ({ handleInfoClick }) => {
       search,
     }));
 
-    // setPage(1);
     await fetchData();
   };
 
   // 대분류 선택
   const handleCategoryFiiter = e => {
-    // setCategory(e.target.value);
-    // setCateValue(e.target.value);
-    // setSearchValue("");
     setPageState(prev => ({
       ...prev,
-      // page: 1,
       category: e.target.value,
       search: "",
     }));
@@ -169,7 +129,6 @@ const StudentMain = ({ handleInfoClick }) => {
 
         if (result.success) {
           setExcelModalOpen(false);
-          // setExcelOkModal(true);
           setSelectedFile(null);
         }
         fetchData();
@@ -194,7 +153,6 @@ const StudentMain = ({ handleInfoClick }) => {
 
   useEffect(() => {
     fetchData();
-    // getCategory(setCategoryData);
   }, [page, count]);
 
   return (
@@ -205,14 +163,9 @@ const StudentMain = ({ handleInfoClick }) => {
       <StudentMgmtInner>
         <StudentSearch
           category={category}
-          // cateValue={cateValue}
-          // setSearchValue={setSearchValue}
           handleCategoryFiiter={handleCategoryFiiter}
           search={search}
-          // setSearch={setSearch}
           handleSearch={handleSearch}
-          // categoryData={categoryData}
-          // setCategoryData={setCategoryData}
         />
         {modalOpen && (
           <StudentModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
@@ -242,16 +195,6 @@ const StudentMain = ({ handleInfoClick }) => {
             uploadResult={uploadResult}
           />
         )}
-        {/* {deleteModalOpen && (
-          <DeleteStudnetModal
-            deleteModalOpen={deleteModalOpen}
-            setDeleteModalOpen={setDeleteModalOpen}
-            saveCheckBox={saveCheckBox}
-            setSaveCheckBox={setSaveCheckBox}
-            setListData={setListData}
-            fetchData={fetchData}
-          />
-        )} */}
         <div className="student-buttons">
           <button onClick={handleExcelDownLoad}>엑셀 다운로드</button>
           <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
@@ -263,15 +206,11 @@ const StudentMain = ({ handleInfoClick }) => {
           {nothing && <NoListItem />}
           <StudentList
             listData={listData}
-            // handleAllCheck={handleAllCheck}
-            // handleCheckBox={handleCheckBox}
             page={page}
-            // handleInfoClick={handleInfoClick}
           />
         </StudentTable>
         <StudentPaging
           page={page}
-          // setPage={setPage}
           count={count}
           pgge={page}
         />

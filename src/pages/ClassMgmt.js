@@ -101,7 +101,6 @@ const ClassMgmt = () => {
       resultIdArray = resultIdArray.filter(item => item !== icourseSubject);
     }
     setSaveCheckBox(resultIdArray);
-    console.log(saveCheckBox);
   };
 
   const fetchData = () => {

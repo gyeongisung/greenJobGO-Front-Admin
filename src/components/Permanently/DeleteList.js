@@ -20,7 +20,6 @@ const DeleteList = ({
       allCheckBox.checked = clickItems.length === listData.length;
     }
   };
-  console.log("clickItems", clickItems);
 
   // 전체선택
   const handleSelectAll = isChecked => {

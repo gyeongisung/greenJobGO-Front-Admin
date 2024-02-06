@@ -57,7 +57,12 @@ const StudentPortF = () => {
   const userSendInfo = location.state;
 
   const fetchData = () => {
-    getStudentDetail(userSendInfo.istudent, setUserInfo, setUserFile);
+    getStudentDetail(
+      userSendInfo.istudent,
+      setUserInfo,
+      setUserFile,
+      setErrorApiInfo,
+    );
   };
 
   useEffect(() => {

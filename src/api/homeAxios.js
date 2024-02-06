@@ -14,7 +14,19 @@ export const getStudentSubject = async ({
     setSubjectList(result.res);
     return result;
   } catch (error) {
-    console.log(error);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -124,7 +136,6 @@ export const patchCompanyAuthData = async ({
       `${process.env.REACT_APP_CADP_URL}=${icompany}&startedAt=${startDate}&endedAt=${endDate}`,
     );
     const result = res.data;
-    console.log("기업권한수정 성공", result);
     setErrorApiInfo("기업 권한이 정상적으로 변경 되었습니다.");
     return result;
   } catch (error) {

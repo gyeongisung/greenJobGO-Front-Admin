@@ -79,9 +79,6 @@ const BulkDelete = () => {
     fetchData();
     getCategory(setCategoryData, setErrorInfo);
   }, [page, clickCate, clickSubj]);
-  // useEffect(() => {
-  //   setErrorModalOpen(true);
-  // }, [errorInfo]);
 
   return (
     <BulkWrap>

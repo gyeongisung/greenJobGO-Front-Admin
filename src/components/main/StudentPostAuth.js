@@ -42,13 +42,11 @@ const StudentPostAuth = ({ setAuthInfo }) => {
 
   // 카테변경값 저장
   const handleCategoryFilter = e => {
-    console.log("필터변경e", e.target.value);
     setSelectCate(e.target.value);
   };
 
   // 과목변경값 저장
   const handleSubjectFilter = e => {
-    console.log("과목선택e", e.target.value);
     setSubjectPk(Number(e.target.value));
   };
 
@@ -59,7 +57,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const Today = dayjs().format("YYYY-MM-DD");
 
   const onRangeChange = (dates, dateStrings) => {
-    console.log("dateStrings", dateStrings);
     setStartDate(Today);
     setEndDate(dateStrings[1]);
   };
@@ -68,11 +65,7 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   const handleSummit = () => {
     setCateError(!selectCate ? "카테고리를 선택 해 주세요." : "");
     setSubjectError(!subjectPk ? "과정명을 선택 해 주세요." : "");
-    // setStartDateError(
-    //   startDate === Today ? "권한 시작날짜는 오늘 날짜만 선택 가능 합니다" : "",
-    // );
     setEndDateError(!endDate ? "권한 종료날짜를 선택 해 주세요." : "");
-    console.log("startDate", startDate);
 
     const isError = !selectCate || !subjectPk || !endDate;
 
@@ -93,11 +86,6 @@ const StudentPostAuth = ({ setAuthInfo }) => {
       });
       setModalOpen(false);
       await updateData();
-      // if (errorApiInfo) {
-      //   setApiErrorModalOpen(true);
-      // } else {
-      //   setApiErrorModalOpen(false);
-      // }
     } catch (error) {
       setErrorApiInfo("수강생 권한 변경이 정상처리되지 않았습니다.");
     }

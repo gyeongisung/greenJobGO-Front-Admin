@@ -62,6 +62,7 @@ export const getStudentDetail = async (
   setUserInfo,
   setUserFile,
   setHashSave,
+  setErrorApiInfo,
 ) => {
   try {
     const res = await client.get(`${process.env.REACT_APP_SD_URL}=${istudent}`);
@@ -76,8 +77,6 @@ export const getStudentDetail = async (
       portFolio: res.data.file?.portfolio,
       fileLinks: res.data.file?.fileLinks,
     });
-
-    console.log(res.data.file.img);
     setHashSave(certificates);
     setUserInfo({
       userDetail: userInfoDetail,
@@ -86,7 +85,24 @@ export const getStudentDetail = async (
       subject: subject,
     });
   } catch (error) {
-    console.log(error);
+    const { response } = error;
+    const { status } = response;
+    if (response) {
+      switch (status) {
+        case 500:
+          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+          break;
+        case 401:
+          setErrorApiInfo(
+            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+          );
+          break;
+        default:
+          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+      }
+    } else {
+      throw new Error("Network Error");
+    }
   }
 };
 
@@ -319,7 +335,7 @@ export const deleteStudent = async istudent => {
       `${process.env.REACT_APP_SI_URL}=${istudent}`,
     );
   } catch (error) {
-    console.log(error);
+    console.log("관리자에게 문의 바랍니다.");
   }
 };
 
@@ -380,7 +396,7 @@ export const deleteCertificate = async (istudent, icertificate) => {
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    console.log("관리자에게 문의 바랍니다.");
   }
 };
 
@@ -440,7 +456,7 @@ export const postStudentCertificate = async (studentId, newHashTag) => {
       return { success: false };
     }
   } catch (error) {
-    console.log(error);
+    console.log("관리자에게 문의 바랍니다.");
   }
 };
 
@@ -453,12 +469,6 @@ export const patchMainPofolSelected = async (
     const res = await client.patch(
       `${process.env.REACT_APP_SPM_URL}=${istudent}&ifile=${mainCheck}`,
     );
-    // const result = res;
-    // if (result.status === 200) {
-    //   return { success: true };
-    // } else {
-    //   return { success: false };
-    // }
     return res;
   } catch (error) {
     const { response } = error;
