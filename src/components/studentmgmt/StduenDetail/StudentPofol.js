@@ -34,12 +34,15 @@ const StudentPofol = ({ userFile }) => {
                   </div>
                   <div className="portfolio-icons">
                     {item.mainYn === 1 ? (
-                      <p>
-                        <FontAwesomeIcon
-                          icon={faCrown}
-                          style={{ color: "#228FCF" }}
-                        />
-                      </p>
+                      <div className="main-pofol">
+                        <span>
+                          <FontAwesomeIcon
+                            icon={faCrown}
+                            style={{ color: "#fff" }}
+                          />
+                          대표
+                        </span>
+                      </div>
                     ) : (
                       ""
                     )}

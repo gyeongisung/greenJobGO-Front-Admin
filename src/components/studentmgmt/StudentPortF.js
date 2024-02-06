@@ -223,9 +223,15 @@ const StudentPortF = () => {
                       </div>
                       <div className="portfolio-icons">
                         {item.mainYn === 1 ? (
-                          <p className="main-pofol-icon">
-                            <FontAwesomeIcon icon={faCrown} />
-                          </p>
+                          <div className="main-pofol">
+                            <span>
+                              <FontAwesomeIcon
+                                icon={faCrown}
+                                style={{ color: "#fff" }}
+                              />
+                              대표
+                            </span>
+                          </div>
                         ) : (
                           ""
                         )}

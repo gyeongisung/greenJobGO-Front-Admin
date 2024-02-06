@@ -460,6 +460,20 @@ export const InfoPofolWrap = styled.ul`
             gap: 15px;
             font-size: 21px;
             line-height: 21px;
+            .main-pofol {
+              font-size: 14px;
+              background: ${Maincolor.admintxt};
+              border-radius: 4px;
+              > span {
+                width: 70px;
+                height: 28px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+                color: ${Maincolor.white};
+              }
+            }
           }
           .delete-icon {
             font-size: 21px;
@@ -571,6 +585,21 @@ export const StudentPFeditSty = styled.div`
                     .delete-icon {
                       font-size: 18px;
                       color: ${Maincolor.btn};
+                    }
+                  }
+                  .main-pofol {
+                    font-size: 14px;
+                    background: ${Maincolor.admintxt};
+                    border-radius: 4px;
+                    padding: 0;
+                    > span {
+                      width: 70px;
+                      height: 28px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      gap: 5px;
+                      color: ${Maincolor.white};
                     }
                   }
                 }
