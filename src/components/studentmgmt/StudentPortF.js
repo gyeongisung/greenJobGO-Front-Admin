@@ -145,9 +145,13 @@ const StudentPortF = () => {
     }
   };
 
-  const handleMainPofolOk = () => {
-    patchMainPofolSelected(userSendInfo.istudent, mainCheck, setErrorApiInfo);
-    setMainYnModal(false);
+  const handleMainPofolOk = async () => {
+    await patchMainPofolSelected(
+      userSendInfo.istudent,
+      mainCheck,
+      setErrorApiInfo,
+    );
+    await setMainYnModal(false);
     fetchData();
   };
 
@@ -279,14 +283,29 @@ const StudentPortF = () => {
                           &nbsp;{item.fileLink}
                         </a>
                       </div>
-                      <div>
-                        <p className="delete-icon">
-                          <FontAwesomeIcon
-                            onClick={() => handleDeleteFile(item.ifile)}
-                            icon={faCircleXmark}
-                            style={{ color: "#6d6d6d" }}
-                          />
-                        </p>
+                      <div className="portfolio-icons">
+                        {item.mainYn === 1 ? (
+                          <div className="main-pofol">
+                            <span>
+                              <FontAwesomeIcon
+                                icon={faCrown}
+                                style={{ color: "#fff" }}
+                              />
+                              대표
+                            </span>
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                        <div>
+                          <p className="delete-icon">
+                            <FontAwesomeIcon
+                              onClick={() => handleDeleteFile(item.ifile)}
+                              icon={faCircleXmark}
+                              style={{ color: "#6d6d6d" }}
+                            />
+                          </p>
+                        </div>
                       </div>
                     </div>
                     <div className="portfolio-btm">
@@ -349,9 +368,11 @@ const StudentPortF = () => {
           open={apiErrorModalOpen}
           close={() => {
             setApiErrorModalOpen(false);
+            setErrorApiInfo("");
           }}
           onConfirm={() => {
             setApiErrorModalOpen(false);
+            setErrorApiInfo("");
           }}
         >
           <span>{errorApiInfo}</span>
