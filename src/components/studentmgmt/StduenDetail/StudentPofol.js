@@ -24,7 +24,7 @@ const StudentPofol = ({ userFile }) => {
                     <p>
                       <FontAwesomeIcon
                         icon={faFilePdf}
-                        color={`${Maincolor.grayDeep}`}
+                        // color={`${Maincolor.grayDeep}`}
                       />
                     </p>
                     <a
@@ -72,7 +72,7 @@ const StudentPofol = ({ userFile }) => {
                     <p>
                       <FontAwesomeIcon
                         icon={faLink}
-                        color={`${Maincolor.grayDeep}`}
+                        // color={`${Maincolor.grayDeep}`}
                       />
                     </p>
                     <a

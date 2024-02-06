@@ -63,14 +63,7 @@ const PortfolioContent = ({ item, setPage, fetchData, setErrorApiInfo }) => {
       setErrorModalOpen(true);
     }
   };
-  // api 요청 성공할 때 화면 리랜더링
-  // const updateData = async () => {
-  //   try {
-  //     const newData = await getPortFolioList({ setStudentPFList });
-  //   } catch (error) {
-  //     console.error("데이터 업데이트 에러:", error);
-  //   }
-  // };
+ 
   useEffect(() => {
     if (errorInfo) {
       setErrorModalOpen(true);

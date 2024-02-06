@@ -5,7 +5,6 @@ import { MainLeftSty } from "../../styles/HomeStyle";
 import { getStudentAuthData } from "../../api/homeAxios";
 import ErrorModal from "../ErrorModal";
 import { useNavigate } from "react-router";
-import { postLogout } from "../../api/client";
 
 const StudentAuth = () => {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ const StudentAuth = () => {
       try {
         await getStudentAuthData(setAuthInfo, setErrorApiInfo);
       } catch (error) {
-        console.log(error);
+        // console.log(데이터가 처리되지 않았습니다);
       }
     };
 

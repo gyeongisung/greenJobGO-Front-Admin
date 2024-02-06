@@ -63,7 +63,7 @@ const CompanyPostAuth = ({ setAuthInfo }) => {
       setStartDate("");
       setEndDate("");
     } catch (error) {
-      console.log("변경실패", error);
+      // console.log("변경실패", error);
     }
   };
   // api 요청 성공할 때 화면 리랜더링

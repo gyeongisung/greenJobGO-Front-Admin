@@ -10,7 +10,6 @@ import OkModal from "../OkModal";
 const ManagerEdit = ({
   item,
   setEditModalOpen,
-  setmngProflieData,
   updateData,
   setErrorApiInfo,
 }) => {
@@ -27,10 +26,6 @@ const ManagerEdit = ({
   const [addEmailError, setAddEmailError] = useState("");
   const [addImgError, setAddImgError] = useState("");
   const [placeholder, setPlaceholder] = useState("JPG,PNG,JPEG,GIF 파일 첨부");
-
-  // // api 오류 메세지 받아오는 state.
-  // const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
-  // const [errorApiInfo, setErrorApiInfo] = useState("");
 
   const img_ref = useRef(null);
 
@@ -69,7 +64,7 @@ const ManagerEdit = ({
       const fileName = img_ref.current.value;
       setPlaceholder(fileName);
     } else {
-      console.log("데이터가 없다는디");
+      // console.log("데이터가 처리되지 않았습니다");
     }
   };
 
@@ -224,7 +219,6 @@ const ManagerEdit = ({
             <input
               className="file-place-hold"
               value={isImg}
-              // onChange={handleImg}
               disabled
             />
             <input
@@ -259,23 +253,6 @@ const ManagerEdit = ({
           <span>수정 하시겠습니까?</span>
         </ConfirmModal>
       )}
-      {/* api 에러 확인모달
-      {apiErrorModalOpen && (
-        <OkModal
-          header={""}
-          open={apiErrorModalOpen}
-          close={() => {
-            setApiErrorModalOpen(false);
-            setErrorApiInfo("");
-          }}
-          onConfirm={() => {
-            setApiErrorModalOpen(false);
-            setErrorApiInfo("");
-          }}
-        >
-          <span>{errorApiInfo}</span>
-        </OkModal>
-      )} */}
     </JobManagerAddSty>
   );
 };

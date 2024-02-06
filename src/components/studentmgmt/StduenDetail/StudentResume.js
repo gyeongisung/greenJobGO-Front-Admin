@@ -93,6 +93,7 @@ const StudentResume = ({
                   <label htmlFor="resumefile">파일첨부</label>
                   <input
                     className="upload-name"
+                    id="upload_resume"
                     value={resumeFile ? resumeFile.name : "첨부파일"}
                     readOnly
                   />

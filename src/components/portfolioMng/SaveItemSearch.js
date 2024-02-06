@@ -55,7 +55,7 @@ const SaveItemSearch = ({
       });
       await setMainGoModalOpen(false);
     } catch (error) {
-      console.log("보관실패", error);
+      // console.log("보관실패", error);
     }
   };
 

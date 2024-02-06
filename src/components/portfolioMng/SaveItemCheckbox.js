@@ -49,7 +49,7 @@ const SaveItemCheckbox = ({
       fetchData();
       setErrorModalOpen(true);
     } catch (error) {
-      console.log(error);
+      // console.log("데이터가 처리되지 않았습니다", error);
     }
   };
 
@@ -67,9 +67,9 @@ const SaveItemCheckbox = ({
     }
   }, [errorCancelInfo]);
 
-  useEffect(() => {
-    setClickItems(prev => []);
-  }, []);
+  // useEffect(() => {
+  //   setClickItems(prev => []);
+  // }, []);
 
   return (
     <div className="Saved-infoWrap">
