@@ -211,7 +211,7 @@ const StudentPortF = () => {
                         <p>
                           <FontAwesomeIcon
                             icon={faFilePdf}
-                            color={`${Maincolor.grayDeep}`}
+                            // color={`${Maincolor.grayDeep}`}
                           />
                         </p>
                         <a
@@ -277,7 +277,7 @@ const StudentPortF = () => {
                         <p>
                           <FontAwesomeIcon
                             icon={faLink}
-                            color={`${Maincolor.grayDeep}`}
+                            // color={`${Maincolor.grayDeep}`}
                           />
                         </p>
                         <a

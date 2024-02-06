@@ -98,7 +98,7 @@ const ManagerAdd = ({
       const fileName = img_ref.current.value;
       setPlaceholder(fileName);
     } else {
-      console.log("데이터가 없다는디");
+      // console.log("데이터가 처리되지 않았습니다");
     }
   };
 

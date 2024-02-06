@@ -34,7 +34,6 @@ const SaveItemBox = ({ item, fetchData, clickItems, setClickItems }) => {
       });
       setCancelModalOpen(false);
     } catch (error) {
-      console.log("보관실패", error);
       setErrorModalOpen(true);
     }
   };

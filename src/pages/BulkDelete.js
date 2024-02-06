@@ -71,7 +71,7 @@ const BulkDelete = () => {
         deleteStudent(icourseSubject, iclassification, setErrorInfo);
         setErrorModalOpen(true);
       } catch (error) {
-        console.log("error", error);
+        // console.log("error", error);
       }
     }
   };

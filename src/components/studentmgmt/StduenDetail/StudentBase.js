@@ -165,27 +165,18 @@ const StudentBase = ({
             <select
               name="employment-status"
               onChange={handleHuntJob}
-              // onChange={e => {
-              //   setUserInfo(userInfo => ({
-              //     ...userInfo,
-              //     userDetail: {
-              //       ...userInfo.userDetail,
-              //       huntJobYn: e.target.value,
-              //     },
-              //   }));
-              // }}
             >
               <option
                 name="employment-status"
                 value={1}
-                selected={userInfo?.userDetail?.huntJobYn === 1}
+                defaultValue={userInfo?.userDetail?.huntJobYn === 1}
               >
                 취업
               </option>
               <option
                 name="employment-status"
                 value={0}
-                selected={userInfo?.userDetail?.huntJobYn === 0}
+                defaultValue={userInfo?.userDetail?.huntJobYn === 0}
               >
                 미취업
               </option>

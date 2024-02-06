@@ -20,7 +20,7 @@ const StudentAuth = () => {
       try {
         await getStudentAuthData(setAuthInfo, setErrorApiInfo);
       } catch (error) {
-        console.log(error);
+        // console.log(데이터가 처리되지 않았습니다);
       }
     };
 
