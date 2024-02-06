@@ -33,6 +33,7 @@ const DeleteSearch = ({
   const handleSubjectFilter = e => {
     console.log("과목선택e", e.target.value);
     setSearchsubj(e.target.value);
+    setSearchname("");
   };
 
   useEffect(() => {
@@ -49,6 +50,8 @@ const DeleteSearch = ({
   useEffect(() => {
     getSubjectInfo({ selectCate, setSubjectList, setErrorInfo });
   }, [selectCate]);
+
+  console.log("subjectList", subjectList);
   return (
     <ul className="delete-search">
       <li>
@@ -79,7 +82,7 @@ const DeleteSearch = ({
             과정명 선택
           </option>
           {subjectList?.map(item => (
-            <option key={v4()} value={item.subjectName}>
+            <option key={v4()} value={item.icourseSubject}>
               {item.round !== null && `(${item.round}기)`}
               {item.subjectName}
             </option>

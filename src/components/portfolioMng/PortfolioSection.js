@@ -21,6 +21,10 @@ const PortfolioSection = () => {
   const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
   const [errorApiInfo, setErrorApiInfo] = useState("");
 
+  console.log("searchCate", searchCate);
+  console.log("searchsubj", searchsubj);
+  console.log("searchname", searchname);
+
   // url을 만들자
   const makeUrl = () => {
     let query = "";
@@ -58,6 +62,7 @@ const PortfolioSection = () => {
   const handleSearchClick = async () => {
     setSearchCate(selectCate);
     setPage(1);
+    fetchData();
   };
 
   useEffect(() => {

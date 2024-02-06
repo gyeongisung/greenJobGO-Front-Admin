@@ -45,6 +45,7 @@ export const getCompleteDeleteList = async ({
   setNothing,
   setErrorInfo,
 }) => {
+  console.log("resultUrl", resultUrl);
   try {
     const res = await client.get(
       `/admin/student/oneyearago?page=${page}&size=10&sort=istudent%2CASC&${resultUrl}`,

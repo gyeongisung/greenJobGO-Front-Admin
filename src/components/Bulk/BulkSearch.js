@@ -46,6 +46,7 @@ const BulkSearch = ({
           {subjData &&
             subjData.map(item => (
               <option key={item.icourseSubject} value={item.icourseSubject}>
+                {item.round !== null && `(${item.round}기)`}
                 {item.subjectName}
               </option>
             ))}
