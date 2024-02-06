@@ -279,28 +279,13 @@ export const CompanyMgmtModal = ({
                               height: "39px",
                               borderRadius: "4px",
 
-                              // marginRight: "5px",
                             }}
                             format={dateFormat}
                             onChange={onDateChange}
                           />
                         </Space>
                       </ConfigProvider>{" "}
-                      {/* {dateConslusionError ? (
-                        <p className="error-class">{dateConslusionError}</p>
-                      ) : (
-                        <p className="error-class"></p>
-                      )} */}
-                      {/* <input
-                        type="text"
-                        value={payload.dateConslusion}
-                        onChange={e => {
-                          setPayload(payload => ({
-                            ...payload,
-                            dateConslusion: e.target.value,
-                          }));
-                        }}
-                      /> */}
+                    
                     </div>
                   </li>
                   <li>
@@ -357,11 +342,7 @@ export const CompanyMgmtModal = ({
                       }));
                     }}
                   />{" "}
-                  {/* {homepageError ? (
-                    <p className="error-class">{homepageError}</p>
-                  ) : (
-                    <p className="error-class"></p>
-                  )} */}
+                 
                 </div>
               </div>
               <div className="modal-ok">
@@ -402,7 +383,6 @@ export const EdeitCompanyModal = ({
   const [areaError, setAreaError] = useState("");
   const [companyNameError, setCompanyNameError] = useState("");
   const [leaderNameError, setLeaderNameError] = useState("");
-  // const [homepageError, setHomepageError] = useState("");
   const [managerError, setManagerError] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [dateConslusionError, setDateConslusionError] = useState("");
@@ -425,7 +405,6 @@ export const EdeitCompanyModal = ({
       setLeaderNameError(
         !companyData.leaderName ? "대표명을 입력 해 주세요." : "",
       );
-      // setHomepageError(!companyData.homepage ? "홈페이지를 입력 해 주세요." : "");
       setManagerError(
         !companyData.manager ? "담당자 이름을 입력 해 주세요." : "",
       );
@@ -456,7 +435,6 @@ export const EdeitCompanyModal = ({
       }
     } catch (error) {
       setEditModalOpen(false);
-      // setAcceptOkModal(true);
     }
   };
 
@@ -565,16 +543,7 @@ export const EdeitCompanyModal = ({
                           />
                         </Space>
                       </ConfigProvider>
-                      {/* <input
-                        type="text"
-                        defaultValue={companyData.dateConslusion}
-                        onChange={e => {
-                          setCompanyData(companyData => ({
-                            ...companyData,
-                            dateConslusion: e.target.value,
-                          }));
-                        }}
-                      />{" "} */}
+                    
                       {dateConslusionError ? (
                         <p className="error-class">{dateConslusionError}</p>
                       ) : (

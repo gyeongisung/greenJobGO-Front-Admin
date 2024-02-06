@@ -12,7 +12,6 @@ const PortfolioSection = () => {
   const [count, setCount] = useState(0);
   const [studentPFList, setStudentPFList] = useState("");
   const [nothing, setNothing] = useState(false);
-  // const [queryAdd, setQueryAdd] = useState();
   const [searchsubj, setSearchSubj] = useState("");
   const [searchname, setSearchname] = useState("");
   const [selectCate, setSelectCate] = useState("");

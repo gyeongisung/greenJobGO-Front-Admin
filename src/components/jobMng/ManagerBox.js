@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { JobManagerBoxWrap } from "../../styles/JobmanagerStyle";
 import NoImage from "../../assets/NoImage.jpg";
 import ManagerEdit from "./ManagerEdit";
 import InputModal from "../InputModal";
 import {
   deleteJobManagerInfo,
-  getJobManagerInfo,
 } from "../../api/jobMngAxiois";
 import ConfirmModal from "../ConfirmModal";
-import { Link } from "react-router-dom";
-import OkModal from "../OkModal";
 
 const ManagerBox = ({
   mngProflieData,
@@ -21,10 +18,6 @@ const ManagerBox = ({
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [deleteNum, setDeleteNum] = useState("");
-
-  // // api 오류 메세지 받아오는 state.
-  // const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
-  // const [errorApiInfo, setErrorApiInfo] = useState("");
 
   // 이미지 없을 때 error처리
   const onImgError = e => {
@@ -52,20 +45,12 @@ const ManagerBox = ({
     setConfirmModalOpen(true);
   };
 
-  // useEffect(() => {
-  //   if (errorApiInfo) {
-  //     setApiErrorModalOpen(true);
-  //   } else {
-  //     setApiErrorModalOpen(false);
-  //   }
-  // }, [errorApiInfo]);
   return (
     <JobManagerBoxWrap>
       {mngProflieData &&
         mngProflieData?.map(item => (
           <div className="manager-profile" key={item.iemply}>
             <img
-              // src={`/home/download/Employee/${item.iemply}/${item.profilePic}`}
               src={`${item.profilePic}`}
               alt="job manager"
               onError={onImgError}
@@ -138,23 +123,7 @@ const ManagerBox = ({
       {mngProflieData && mngProflieData.length === 0 && (
         <div>취업담당자의 정보를 등록해주세요</div>
       )}
-      {/* api 에러 확인모달
-      {apiErrorModalOpen && (
-        <OkModal
-          header={""}
-          open={apiErrorModalOpen}
-          close={() => {
-            setApiErrorModalOpen(false);
-            setErrorApiInfo("");
-          }}
-          onConfirm={() => {
-            setApiErrorModalOpen(false);
-            setErrorApiInfo("");
-          }}
-        >
-          <span>{errorApiInfo}</span>
-        </OkModal>
-      )} */}
+
     </JobManagerBoxWrap>
   );
 };

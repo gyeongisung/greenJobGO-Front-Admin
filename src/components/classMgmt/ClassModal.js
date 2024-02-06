@@ -106,10 +106,7 @@ export const ClassAcceptModal = ({
   const disabledDate = current => {
     return current < dayjs(payload.startedAt).startOf("day");
   };
-  // // 등록 여부 확인 모달
-  // const handleSummitConfirm = () => {
-  //     setConfirmModalOpen(true);
-  // };
+
   const handleModalCancel = () => {
     setModalOpen(false);
     document.body.style.overflow = "unset";

@@ -5,7 +5,6 @@ import { MainLeftSty } from "../../styles/HomeStyle";
 import { getStudentAuthData } from "../../api/homeAxios";
 import ErrorModal from "../ErrorModal";
 import { useNavigate } from "react-router";
-import { postLogout } from "../../api/client";
 
 const StudentAuth = () => {
   const navigate = useNavigate();

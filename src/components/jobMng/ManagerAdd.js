@@ -2,12 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { JobManagerAddSty } from "../../styles/JobmanagerStyle";
 import {
   BtnGlobal,
-  ModalCancelBtn,
-  ModalOkBtn,
 } from "../../styles/GlobalStyle";
 import ConfirmModal from "../ConfirmModal";
-import { getJobManagerInfo, postManagerInfo } from "../../api/jobMngAxiois";
-import OkModal from "../OkModal";
+import {  postManagerInfo } from "../../api/jobMngAxiois";
 
 const ManagerAdd = ({
   setAddModalOpen,
@@ -23,10 +20,6 @@ const ManagerAdd = ({
     phoneNumber: "",
     email: "",
   });
-
-  // // api 오류 메세지 받아오는 state.
-  // const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
-  // const [errorApiInfo, setErrorApiInfo] = useState("");
 
   // 입력 에러 처리
   const [addNameError, setAddNameError] = useState("");
@@ -123,15 +116,6 @@ const ManagerAdd = ({
       setErrorApiInfo(`Job manager upload: ${error.message}`);
     }
   };
-
-  // useEffect(() => {
-  //   if (errorApiInfo) {
-  //     setApiErrorModalOpen(true);
-  //   } else {
-  //     setApiErrorModalOpen(false);
-  //   }
-  // }, [errorApiInfo]);
-
   return (
     <JobManagerAddSty>
       <ul>
@@ -248,23 +232,7 @@ const ManagerAdd = ({
             <span>등록 하시겠습니까?</span>
           </ConfirmModal>
         )}
-        {/* api 에러 확인모달
-        {apiErrorModalOpen && (
-          <OkModal
-            header={""}
-            open={apiErrorModalOpen}
-            close={() => {
-              setApiErrorModalOpen(false);
-              setErrorApiInfo("");
-            }}
-            onConfirm={() => {
-              setApiErrorModalOpen(false);
-              setErrorApiInfo("");
-            }}
-          >
-            <span>{errorApiInfo}</span>
-          </OkModal>
-        )} */}
+       
       </div>
     </JobManagerAddSty>
   );
