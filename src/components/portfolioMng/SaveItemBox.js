@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NoImage from "../../assets/NoImage.jpg";
+import NoImage from "../../assets/DefaultImg.png";
 import { patchSendSaved } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
 import { CheckToMainSt } from "../../styles/PortfolioStyle";

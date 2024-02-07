@@ -67,7 +67,8 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
       setErrorCancelInfo("");
 
       return { role, accessToken, refreshToken, id, name, accessTokenTime };
-    } else {
+    } 
+    else {
       throw new Error("잘못된 응답 형식");
     }
   } catch (error) {
@@ -89,7 +90,7 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
     } else {
       setErrorCancelInfo("네트워크 오류 또는 서버 응답이 없습니다.");
     }
-    throw new Error("로그인에 실패했습니다.");
+    // throw new Error("로그인에 실패했습니다.");
   }
 };
 

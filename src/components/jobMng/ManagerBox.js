@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { JobManagerBoxWrap } from "../../styles/JobmanagerStyle";
-import NoImage from "../../assets/NoImage.jpg";
+import NoImage from "../../assets/DefaultImg.png";
 import ManagerEdit from "./ManagerEdit";
 import InputModal from "../InputModal";
 import {

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { patchSendSaved } from "../../api/portfolioAxios";
-import NoImage from "../../assets/NoImage.jpg";
+import NoImage from "../../assets/DefaultImg.png";
 import ConfirmModal from "../ConfirmModal";
 import OkModal from "../OkModal";
 

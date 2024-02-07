@@ -1,5 +1,5 @@
 import React from "react";
-import NoImage from "../../../assets/NoImage.jpg";
+import NoImage from "../../../assets/DefaultImg.png";
 import { InfoBaseWrap } from "../../../styles/StudentInfoStyle";
 import HashTag from "./HashTag";
 

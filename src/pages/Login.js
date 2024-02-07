@@ -67,7 +67,7 @@ const Login = () => {
           navigate("/admin/");
         }
       } catch (error) {
-        setErrorCancelInfo(error);
+        // setErrorCancelInfo(error.message);
       }
     }
   };

@@ -119,6 +119,11 @@ const ClassMgmt = () => {
     fetchData();
     getCategory(setCategoryData, setErrorApiInfo);
   }, [page, searchCate]);
+  
+  useEffect(() => {
+    getCategory(setCategoryData, setErrorApiInfo);
+  }, []);
+
 
   useEffect(() => {
     document.querySelector(".all-checkbox-btn").checked = false;
@@ -182,7 +187,6 @@ const ClassMgmt = () => {
   const handleEnrollModalOpen = () => {
     setEnrollModalOpen(true);
   };
-
   // 과정추가
   const handleModalAccept = async () => {
     const result = await postClassSubject(payload, setErrorApiInfo);
