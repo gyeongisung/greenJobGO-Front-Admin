@@ -24,7 +24,6 @@ export const CompanyMgmtWrap = styled.div`
 `;
 
 export const CompanyMgmtInner = styled.div`
-  /* width: 100%; */
   .company-search {
     display: flex;
     align-items: center;
@@ -62,7 +61,6 @@ export const CompanyMgmtInner = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    /* height: 80px; */
     gap: 5px;
     margin-top: 40px;
     margin-bottom: 0;
@@ -108,12 +106,8 @@ export const CompanyTable = styled.div`
   width: 1400px;
   height: 54vh;
   text-align: center;
-  /* border: 1px solid ${Maincolor.sectiontitle}; */
-  /* border-radius: 5px; */
   overflow: hidden;
   background: #fff;
-  /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
-  /* box-sizing: border-box; */
   > ul {
     display: grid;
     grid-template-columns: 1fr;
@@ -121,7 +115,6 @@ export const CompanyTable = styled.div`
     border-top: 1px solid ${Maincolor.sectiontitle};
     > li {
       line-height: 42px;
-      /* border-top: 1px solid ${Maincolor.sectiontitle}; */
       border: 1px solid ${Maincolor.sectiontitle};
       border-bottom: none;
       :first-of-type {
@@ -135,7 +128,7 @@ export const CompanyTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.25fr 0.6fr 1fr 0.4fr 0.4fr 0.45fr 0.55fr 1fr;
+        grid-template-columns: 0.15fr 0.2fr 0.5fr 1.2fr 0.4fr 0.4fr 0.45fr 0.55fr 0.9fr;
         > li {
           > a {
             color: ${Maincolor.black};
@@ -152,6 +145,10 @@ export const CompanyTable = styled.div`
             border-bottom: none;
             border-right: 1px solid ${Maincolor.sectiontitle};
           }
+        }
+        .check-box-li,
+        .company-table-th {
+          cursor: default;
         }
       }
     }

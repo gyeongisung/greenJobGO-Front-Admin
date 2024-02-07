@@ -33,18 +33,7 @@ export const StudentMgmtInner = styled.div`
     border-radius: 5px;
     background: ${Maincolor.maingray};
     gap: 10px;
-    /* > li {
-      line-height: 1;
-      > select {
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        width: 150px;
-        height: 40px;
-        text-align: center;
-        cursor: pointer;
-      } */
     .select-wrap {
-      /* border-radius: 6px; */
       background: ${Maincolor.white};
 
       select {
@@ -90,7 +79,6 @@ export const StudentMgmtInner = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    /* height: 80px; */
     gap: 5px;
     margin-top: 40px;
     margin-bottom: 0;
@@ -114,10 +102,6 @@ export const StudentMgmtInner = styled.div`
         width: 143px;
         height: 40px;
       }
-      /* :not(:first-of-type) {
-        width: 100px;
-        height: 40px;
-      } */
     }
   }
   .total-count {
@@ -133,12 +117,8 @@ export const StudentTable = styled.div`
   width: 1500px;
   height: 54vh;
   text-align: center;
-  /* border: 1px solid ${Maincolor.sectiontitle}; */
-  /* border-radius: 5px; */
   overflow: hidden;
   background: #fff;
-  /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
-  /* box-sizing: border-box; */
   > ul {
     display: grid;
     grid-template-columns: 1fr;
@@ -146,7 +126,6 @@ export const StudentTable = styled.div`
     border-top: 1px solid ${Maincolor.sectiontitle};
     > li {
       line-height: 42px;
-      /* border-top: 1px solid ${Maincolor.sectiontitle}; */
       border: 1px solid ${Maincolor.sectiontitle};
       border-bottom: none;
       :first-of-type {
@@ -170,6 +149,9 @@ export const StudentTable = styled.div`
             border-bottom: none;
             border-right: 1px solid ${Maincolor.sectiontitle};
           }
+        }
+        .student-table-th {
+          cursor: default;
         }
       }
     }

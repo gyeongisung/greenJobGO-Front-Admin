@@ -34,19 +34,7 @@ export const ClassMgmtInner = styled.div`
     border-radius: 5px;
     background: ${Maincolor.maingray};
     gap: 10px;
-    /* > li {
-      line-height: 1; */
-    /* > select {
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        width: 150px;
-        height: 40px;
-        text-align: center;
-        cursor: pointer;
-      } */
-
     .select-wrap {
-      /* border-radius: 6px; */
       background: ${Maincolor.white};
 
       select {
@@ -95,7 +83,6 @@ export const ClassMgmtInner = styled.div`
     align-items: center;
     margin-top: 40px;
     margin-bottom: 0;
-    /* height: 90px; */
     gap: 5px;
     button {
       color: #fff;
@@ -120,7 +107,6 @@ export const ClassMgmtInner = styled.div`
     }
   }
   .total-count {
-    /* padding-left: 10px; */
     font-size: 14px;
     color: #888888;
     height: 14px;
@@ -133,13 +119,8 @@ export const ClassTable = styled.div`
   width: 100%;
   height: 54vh;
   text-align: center;
-  /* border: 1px solid #ccc; */
-  /* border: 1px solid ${Maincolor.sectiontitle}; */
-  /* border-radius: 5px; */
   overflow: hidden;
   background: #fff;
-  /* box-shadow: 0px 0.5px 5px 0px rgba(0, 0, 0, 0.2); */
-  /* box-sizing: border-box; */
   > ul {
     width: 1450px;
     height: 100%;
@@ -149,7 +130,6 @@ export const ClassTable = styled.div`
     border-top: 1px solid ${Maincolor.sectiontitle};
     > li {
       line-height: 42px;
-      /* border-top: 1px solid ${Maincolor.sectiontitle}; */
       border: 1px solid ${Maincolor.sectiontitle};
       border-bottom: none;
       :first-of-type {
@@ -163,7 +143,7 @@ export const ClassTable = styled.div`
       > ul {
         height: 100%;
         display: grid;
-        grid-template-columns: 0.15fr 0.2fr 0.4fr 1.5fr 0.4fr 0.8fr 0.7fr 0.4fr 0.4fr;
+        grid-template-columns: 0.15fr 0.2fr 0.5fr 1.7fr 0.3fr 0.7fr 0.3fr 0.3fr 0.3fr;
         > li {
           cursor: pointer;
           padding: 0 5px;
@@ -172,6 +152,10 @@ export const ClassTable = styled.div`
             border-bottom: none;
             border-right: 1px solid ${Maincolor.sectiontitle};
           }
+        }
+        .check-box-li,
+        .class-table-th {
+          cursor: default;
         }
       }
     }
