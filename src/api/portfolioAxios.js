@@ -3,7 +3,7 @@ import { client } from "./client";
 //  대분류 카테고리 불러오기
 export const getBigcate = async (setCategory, setErrorApiInfo) => {
   try {
-    const res = await client.get(`/category`);
+    const res = await client.get(`${process.env.REACT_APP_CT_URL}`);
     const result = await res.data;
     setCategory(result);
     return result;
@@ -40,7 +40,7 @@ export const getPortFolioList = async ({
 }) => {
   try {
     const res = await client.get(
-      `/student/portfolio?page=${page}&size=10&${resultUrl}`,
+      `${process.env.REACT_APP_PFL_URL}=${page}&size=10&${resultUrl}`,
     );
 
     const result = await res.data;
@@ -82,7 +82,7 @@ export const patchSendSaved = async ({
 }) => {
   try {
     const res = await client.patch(
-      `/student/storage?istudent=${savedItemNum}&storageYn=${isSaved}`,
+      `${process.env.REACT_APP_PSS_URL}=${savedItemNum}&storageYn=${isSaved}`,
     );
     const result = res.data;
     isSaved === 1
@@ -124,7 +124,7 @@ export const getSavedPFList = async ({
 }) => {
   try {
     const res = await client.get(
-      `/student/storage?page=${page}&size=10&sort=istudent%2CASC${resultUrl}`,
+      `${process.env.REACT_APP_SPFL_URL}=${page}&size=10&sort=istudent%2CASC${resultUrl}`,
     );
 
     const result = await res.data;
@@ -162,7 +162,7 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
   try {
     const queryString = clickItems.map(item => `istudent=${item}`).join("&");
     const res = await client.patch(
-      `/student/main?${queryString}&companyMainYn=${mainYn}`,
+      `${process.env.REACT_APP_PSM_URL}${queryString}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
     setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
@@ -204,7 +204,7 @@ export const patchCancelMain = async ({
 }) => {
   try {
     const res = await client.patch(
-      `/student/main?${query}&companyMainYn=${mainYn}`,
+      `${process.env.REACT_APP_PSM_URL}${query}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
     setErrorCancelInfo("메인 포트폴리오 설정이 취소되었습니다.");
