@@ -164,20 +164,13 @@ const StudentBase = ({
           {isEditMode ? (
             <select
               name="employment-status"
+              value={userInfo?.userDetail?.huntJobYn}
               onChange={handleHuntJob}
             >
-              <option
-                name="employment-status"
-                value={1}
-                defaultValue={userInfo?.userDetail?.huntJobYn === 1}
-              >
+              <option name="employment-status" value={1}>
                 취업
               </option>
-              <option
-                name="employment-status"
-                value={0}
-                defaultValue={userInfo?.userDetail?.huntJobYn === 0}
-              >
+              <option name="employment-status" value={0}>
                 미취업
               </option>
             </select>
