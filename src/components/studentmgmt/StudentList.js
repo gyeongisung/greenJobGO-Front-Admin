@@ -42,32 +42,17 @@ const StudentList = ({
       </li>
       {listData?.length > 0 &&
         listData.map((item, index) => (
-          <li
-            key={item.istudent}
-            //  key={item.istudent}
-            // onClick={e =>
-            //   !e.target.classList.contains("check-box-li") &&
-            //   handleInfoClick(item)
-            // }
-          >
-            {/* <Link to={`/student/${item.istudent}`}> */}
+          <li key={item.istudent}>
             <ul
               className="student-list-content"
               onClick={() => handleClickList(item.istudent)}
             >
-              {/* <li className="check-box-li">
-                  <input
-                    type="checkbox"
-                    name="check-box"
-                    defaultChecked={false}
-                    className={`student-checkbox userId${item.istudent}`}
-                    onChange={e => handleCheckBox(e)}
-                    onClick={e => e.stopPropagation()}
-                  />
-                </li> */}
               <li>{(page - 1) * 10 + index + 1}</li>
               <li>{item.classification}</li>
-              <li>{item.subjectName}</li>
+              <li>
+                {item.round && `(${item.round}기)`}
+                {item.subjectName}
+              </li>
               <li>
                 {item.startedAt} ~ {item.endedAt}
               </li>

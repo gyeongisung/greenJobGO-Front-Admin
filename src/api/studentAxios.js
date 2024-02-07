@@ -102,7 +102,6 @@ export const getStudentDetail = async (
     const { certificates, birthday, subject, ...userInfoDetail } = res.data.res;
 
     const birthYear = birthday.split("-", 1);
-    console.log(certificates);
     setUserFile({
       thumbNail: res.data.file.img?.img,
       resume: res.data.file?.resume,
