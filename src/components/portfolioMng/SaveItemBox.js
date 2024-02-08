@@ -30,9 +30,10 @@ const SaveItemBox = ({ item, fetchData, clickItems, setClickItems }) => {
       await patchSendSaved({
         savedItemNum,
         isSaved: 0,
-        setErrorInfo
+        setErrorInfo,
       });
       setCancelModalOpen(false);
+      fetchData();
     } catch (error) {
       setErrorModalOpen(true);
     }
@@ -44,7 +45,7 @@ const SaveItemBox = ({ item, fetchData, clickItems, setClickItems }) => {
       setErrorModalOpen(false);
     }
   }, [errorInfo]);
-
+  
   return (
     <div className="pf-box">
       <div className="saved-img">
