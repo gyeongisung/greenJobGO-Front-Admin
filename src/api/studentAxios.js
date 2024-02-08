@@ -304,15 +304,17 @@ export const postStudentPofolUpload = async (
   setErrorApiInfo,
 ) => {
   try {
-    const baseUrl = `${process.env.REACT_APP_SF_URL}=${studentId}&iFileCategory=${iFile}&oneWord=${description}`;
+    const baseUrl = `${process.env.REACT_APP_SF_URL}=${studentId}&iFileCategory=${iFile}`;
     let apiUrl;
     switch (iFile) {
       case 2:
-        apiUrl = `${baseUrl}`;
+        apiUrl = `${baseUrl}&oneWord=${description}`;
         break;
       case 3:
-        apiUrl = `${baseUrl}&fileLink=${linkUrl}`;
+        apiUrl = `${baseUrl}&oneWord=${description}&fileLink=${linkUrl}`;
         break;
+      case 4:
+        apiUrl = `${baseUrl}`;
     }
     const res = await client.post(apiUrl, formData, {
       headers: { "Content-Type": "multipart/form-data" },

@@ -5,6 +5,7 @@ import {
   deleteFile,
   getStudentDetail,
   postStudentCertificate,
+  postStudentPofolUpload,
   postStudentResumeUpload,
   putStudentInfo,
 } from "../../api/studentAxios";
@@ -17,6 +18,7 @@ import StudentPofol from "./StduenDetail/StudentPofol";
 import { StudentPageAtom } from "./StudentMain";
 import ErrorModal from "../ErrorModal";
 import UploadLoading from "../UploadLoading";
+import ConfirmModal from "../ConfirmModal";
 
 const StudentInfo = () => {
   // api 오류 메세지 받아오는 state.
@@ -47,6 +49,7 @@ const StudentInfo = () => {
   const [resumeFile, setResumeFile] = useState("");
   const [resumeOneWord, setResumeOneWord] = useState("");
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
+  const [imageOkModal, setImageOkModal] = useState(false);
 
   const fetchData = () => {
     getStudentDetail(
@@ -74,6 +77,17 @@ const StudentInfo = () => {
     if (file) {
       setResumeFile(file);
     }
+  };
+  // 이미지 등록
+  const handleImageUpeload = async () => {
+    postStudentPofolUpload();
+  };
+
+  const handleImageUploadModal = () => {
+    setImageOkModal(true);
+  };
+  const handleImageModalClose = () => {
+    setImageOkModal(false);
   };
 
   // 이력서 등록 버튼
@@ -167,6 +181,7 @@ const StudentInfo = () => {
     setDeleteOkModal(true);
   };
 
+  // 연락처 대시 추가
   const phoneFormatter = num => {
     try {
       num = num.replace(/\s/gi, "");
@@ -185,6 +200,14 @@ const StudentInfo = () => {
     }
   };
 
+  const formatPhoneNumber = phoneFormatter(userInfo.userDetail.mobileNumber);
+
+  // 해시태그
+  const handleHashChange = e => {
+    setHashTag(e.target.value);
+  };
+
+  // 해시태그 추가
   const handleAddHashTag = async e => {
     const command = ["Comma", "Enter", "NumpadEnter"];
     if (!command.includes(e.code)) return;
@@ -237,16 +260,11 @@ const StudentInfo = () => {
     }
   };
 
-  const handleHashChange = e => {
-    setHashTag(e.target.value);
-  };
-
+  // 해시태그 삭제
   const handleRemoveHashTag = async icertificate => {
     await deleteCertificate(istudent, icertificate);
     fetchData();
   };
-
-  const formatPhoneNumber = phoneFormatter(userInfo.userDetail.mobileNumber);
 
   const handleHuntJob = e => {
     const newValue = e.target.value === "1" ? 1 : 0;
@@ -270,6 +288,16 @@ const StudentInfo = () => {
   return (
     <StudentInfoWrap>
       {isLoading && <UploadLoading />}
+      {imageOkModal && (
+        <ConfirmModal
+          open={imageOkModal}
+          close={handleImageModalClose}
+          // onConfirm={handleMainCancelConfirm}
+          onCancel={handleImageModalClose}
+        >
+          <span>대표 포트폴리오 이미지를 삭제 하시겠습니까?</span>
+        </ConfirmModal>
+      )}
       {deleteOkModal && (
         <DeleteOkModal
           deleteOkModal={deleteOkModal}
@@ -309,6 +337,7 @@ const StudentInfo = () => {
           handleHashChange={handleHashChange}
           handleKeyDown={handleKeyDown}
           handleHuntJob={handleHuntJob}
+          handleImageUploadModal={handleImageUploadModal}
         />
         <StudentResume
           userFile={userFile}

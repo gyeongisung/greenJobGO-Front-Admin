@@ -2,6 +2,8 @@ import React from "react";
 import NoImage from "../../../assets/DefaultImg.png";
 import { InfoBaseWrap } from "../../../styles/StudentInfoStyle";
 import HashTag from "./HashTag";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileImage, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const StudentBase = ({
   userFile,
@@ -17,17 +19,41 @@ const StudentBase = ({
   handleHashChange,
   handleKeyDown,
   handleHuntJob,
+  handleImageUploadModal,
 }) => {
   return (
     <InfoBaseWrap>
       <li>
-        {userFile && userFile.thumbNail ? (
-          <img
-            src={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${userFile?.thumbNail}`}
-            alt="썸네일"
-          />
+        {isEditMode ? (
+          <div className="edit-image">
+            <div className="edit-image-icons">
+              <p onClick={handleImageUploadModal}>
+                <FontAwesomeIcon icon={faFileImage} />
+              </p>
+              <p>
+                <FontAwesomeIcon icon={faTrashCan} />
+              </p>
+            </div>
+            {userFile?.thumbNail ? (
+              <img
+                src={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${userFile?.thumbNail}`}
+                alt="썸네일"
+              />
+            ) : (
+              <img src={NoImage} alt="썸네일" />
+            )}
+          </div>
         ) : (
-          <img src={NoImage} alt="썸네일" />
+          <div>
+            {userFile?.thumbNail ? (
+              <img
+                src={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${userFile?.thumbNail}`}
+                alt="썸네일"
+              />
+            ) : (
+              <img src={NoImage} alt="썸네일" />
+            )}
+          </div>
         )}
       </li>
       <li className="info-content-left">
