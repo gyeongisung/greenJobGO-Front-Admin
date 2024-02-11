@@ -51,7 +51,8 @@ export const InfoBaseWrap = styled.ul`
     max-width: 300px;
     height: auto;
     img {
-      width: 100%;
+      width: 250px;
+      height: 200px;
     }
     .edit-image {
       position: relative;
@@ -69,51 +70,37 @@ export const InfoBaseWrap = styled.ul`
         > p {
           position: absolute;
           bottom: 25%;
+          right: 21%;
           cursor: pointer;
-          :first-of-type {
-            left: 25%;
+          :hover {
+            color: ${Maincolor.white};
           }
-          :last-of-type {
-            right: 25%;
+        }
+        > input {
+          display: none;
+        }
+        > label {
+          position: absolute;
+          left: 21%;
+          bottom: 25%;
+          cursor: pointer;
+          :hover {
+            color: ${Maincolor.white};
           }
         }
       }
     }
     .edit-image:hover {
       .edit-image-icons {
-        transition: all 0.2s ease-in-out;
-        transition-duration: 0.3s;
-        width: 100%;
-        height: 40%;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        opacity: 0.7;
         background: rgba(0, 0, 0, 0.1);
-        font-size: 25px;
-        color: ${Maincolor.btn};
         opacity: 1;
-        ::after {
+        ::before {
           content: "";
           position: absolute;
           bottom: 12%;
           right: 50%;
           height: 70%;
           border-right: 1px solid ${Maincolor.btn};
-        }
-        > p {
-          position: absolute;
-          bottom: 25%;
-          cursor: pointer;
-          :first-of-type {
-            left: 25%;
-          }
-          :last-of-type {
-            right: 25%;
-          }
-          :hover {
-            color: ${Maincolor.white};
-          }
         }
       }
     }

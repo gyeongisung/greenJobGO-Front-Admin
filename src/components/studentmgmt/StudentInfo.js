@@ -49,7 +49,7 @@ const StudentInfo = () => {
   const [resumeFile, setResumeFile] = useState("");
   const [resumeOneWord, setResumeOneWord] = useState("");
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
-  const [imageOkModal, setImageOkModal] = useState(false);
+  const [imageDeleteModal, setImageDeleteModal] = useState(false);
 
   const fetchData = () => {
     getStudentDetail(
@@ -78,16 +78,51 @@ const StudentInfo = () => {
       setResumeFile(file);
     }
   };
+  
   // 이미지 등록
-  const handleImageUpeload = async () => {
-    postStudentPofolUpload();
+  const handleImgChange = e => {
+    const selectImg = e.target.files[0];
+    handleImgUpload(selectImg);
   };
 
-  const handleImageUploadModal = () => {
-    setImageOkModal(true);
+  const handleImgUpload = async selectImg => {
+    const iFile = 4;
+    const formData = new FormData();
+
+    formData.append("file", selectImg);
+
+    try {
+      await postStudentPofolUpload(istudent, iFile, formData, setErrorApiInfo);
+      fetchData();
+    } catch (error) {
+      setErrorApiInfo("이미지가 업로드 되지 않았습니다.");
+    }
   };
-  const handleImageModalClose = () => {
-    setImageOkModal(false);
+
+  // 이미지 삭제
+
+  const handleImageDelete = async () => {
+    try {
+      const result = await deleteFile(
+        userFile?.thumbNail.ifile,
+        setErrorApiInfo,
+      );
+      if (result.success === true) {
+        setImageDeleteModal(false);
+        fetchData();
+      }
+    } catch (error) {
+      setImageDeleteModal(false);
+      setErrorApiInfo("파일삭제가 제대로 되지 않았습니다.");
+    }
+  };
+
+  const handleImgDeleteModalOpen = () => {
+    setImageDeleteModal(true);
+  };
+
+  const handleImgDeleteModalClose = () => {
+    setImageDeleteModal(false);
   };
 
   // 이력서 등록 버튼
@@ -153,7 +188,7 @@ const StudentInfo = () => {
   const handleCancel = () => {
     setIsEditMode(false);
   };
-  // 파일 삭제 확인 버튼
+  // 이력서 파일 삭제 확인 버튼
   const handleOkClick = async () => {
     try {
       const result = await deleteFile(userFile?.resume?.ifile, setErrorApiInfo);
@@ -266,6 +301,7 @@ const StudentInfo = () => {
     fetchData();
   };
 
+  // 취업유무
   const handleHuntJob = e => {
     const newValue = e.target.value === "1" ? 1 : 0;
     setUserInfo(userInfo => ({
@@ -288,12 +324,12 @@ const StudentInfo = () => {
   return (
     <StudentInfoWrap>
       {isLoading && <UploadLoading />}
-      {imageOkModal && (
+      {imageDeleteModal && (
         <ConfirmModal
-          open={imageOkModal}
-          close={handleImageModalClose}
-          // onConfirm={handleMainCancelConfirm}
-          onCancel={handleImageModalClose}
+          open={imageDeleteModal}
+          close={handleImgDeleteModalClose}
+          onConfirm={handleImageDelete}
+          onCancel={handleImgDeleteModalClose}
         >
           <span>대표 포트폴리오 이미지를 삭제 하시겠습니까?</span>
         </ConfirmModal>
@@ -337,7 +373,8 @@ const StudentInfo = () => {
           handleHashChange={handleHashChange}
           handleKeyDown={handleKeyDown}
           handleHuntJob={handleHuntJob}
-          handleImageUploadModal={handleImageUploadModal}
+          handleImgDeleteModalOpen={handleImgDeleteModalOpen}
+          handleImgChange={handleImgChange}
         />
         <StudentResume
           userFile={userFile}

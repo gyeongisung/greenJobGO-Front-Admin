@@ -103,7 +103,7 @@ export const getStudentDetail = async (
 
     const birthYear = birthday.split("-", 1);
     setUserFile({
-      thumbNail: res.data.file.img?.img,
+      thumbNail: res.data.file?.img,
       resume: res.data.file?.resume,
       portFolio: res.data.file?.portfolio,
       fileLinks: res.data.file?.fileLinks,

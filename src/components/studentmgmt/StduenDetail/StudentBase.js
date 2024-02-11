@@ -19,7 +19,8 @@ const StudentBase = ({
   handleHashChange,
   handleKeyDown,
   handleHuntJob,
-  handleImageUploadModal,
+  handleImgDeleteModalOpen,
+  handleImgChange,
 }) => {
   return (
     <InfoBaseWrap>
@@ -27,16 +28,26 @@ const StudentBase = ({
         {isEditMode ? (
           <div className="edit-image">
             <div className="edit-image-icons">
-              <p onClick={handleImageUploadModal}>
-                <FontAwesomeIcon icon={faFileImage} />
-              </p>
               <p>
-                <FontAwesomeIcon icon={faTrashCan} />
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  onClick={handleImgDeleteModalOpen}
+                />
               </p>
+              <input
+                id="image-file"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImgChange}
+              />
+              <label htmlFor="image-file">
+                <FontAwesomeIcon icon={faFileImage} />
+              </label>
             </div>
-            {userFile?.thumbNail ? (
+            {userFile?.thumbNail?.img ? (
               <img
-                src={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${userFile?.thumbNail}`}
+                src={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${userFile?.thumbNail.img}`}
                 alt="썸네일"
               />
             ) : (
@@ -45,9 +56,9 @@ const StudentBase = ({
           </div>
         ) : (
           <div>
-            {userFile?.thumbNail ? (
+            {userFile?.thumbNail?.img ? (
               <img
-                src={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${userFile?.thumbNail}`}
+                src={`${process.env.REACT_APP_BASE_FILE_URL}/${istudent}/${userFile?.thumbNail.img}`}
                 alt="썸네일"
               />
             ) : (
