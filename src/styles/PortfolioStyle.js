@@ -189,6 +189,7 @@ export const PortFolioContentWrap = styled.div`
         letter-spacing: -0.24px;
         margin-bottom: 5px;
         ${ellipsis.one}
+        cursor: pointer;
       }
       .pf-subject {
         width: 290px;
@@ -197,6 +198,7 @@ export const PortFolioContentWrap = styled.div`
         font-weight: 400;
         letter-spacing: -0.24px;
         ${ellipsis.one}
+        cursor: pointer;
       }
       /* 보관함에 있는 포트폴리오 하트 */
       .isSaved-name-right {
