@@ -125,7 +125,6 @@ export const InfoBaseWrap = styled.ul`
         display: flex;
         align-items: end;
         gap: 8px;
-        /* margin-bottom: 40px; */
         > input {
           border: 1px solid ${Maincolor.input};
           border-radius: 4px;
@@ -151,10 +150,17 @@ export const InfoBaseWrap = styled.ul`
             border: 1px solid ${Maincolor.input};
             border-radius: 4px;
             padding: 2px 8px;
-            width: 40px;
-            height: 25px;
-            padding-left: 3px;
-            line-height: 20px;
+            :first-of-type {
+              padding-left: 3px;
+              width: 40px;
+              height: 25px;
+            }
+            :last-of-type {
+              width: 110px;
+              height: 25px;
+              text-align: center;
+              vertical-align: middle;
+            }
           }
         }
       }

@@ -22,6 +22,15 @@ const StudentBase = ({
   handleImgDeleteModalOpen,
   handleImgChange,
 }) => {
+  const formattedDate = e => {
+    const formattedValue = e.target.value
+      .replace(/[^0-9]/g, "")
+      .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+    setUserInfo(userInfo => ({
+      ...userInfo,
+      birth: formattedValue,
+    }));
+  };
   return (
     <InfoBaseWrap>
       <li>
@@ -73,7 +82,7 @@ const StudentBase = ({
             <input
               type="text"
               name="studentName"
-              value={userInfo.userDetail.name}
+              value={userInfo?.userDetail.name}
               onChange={e => {
                 setUserInfo(userInfo => ({
                   ...userInfo,
@@ -85,14 +94,14 @@ const StudentBase = ({
               }}
             />
           ) : (
-            <p className="student-name">{userInfo.userDetail.name}</p>
+            <p className="student-name">{userInfo?.userDetail.name}</p>
           )}
           <div className="student-age">
             {isEditMode ? (
               <input
                 type="text"
                 name="gender"
-                value={userInfo.userDetail.gender}
+                value={userInfo?.userDetail.gender}
                 onChange={e => {
                   setUserInfo(userInfo => ({
                     ...userInfo,
@@ -104,32 +113,24 @@ const StudentBase = ({
                 }}
               />
             ) : (
-              <p>{userInfo.userDetail.gender}</p>
+              <p>{userInfo?.userDetail.gender}</p>
             )}
-            <p>{userInfo.birth}년생</p>
             {isEditMode ? (
               <input
                 type="text"
                 name="age"
-                value={userInfo.userDetail.age}
-                onChange={e => {
-                  setUserInfo(userInfo => ({
-                    ...userInfo,
-                    userDetail: {
-                      ...userInfo.userDetail,
-                      age: e.target.value,
-                    },
-                  }));
-                }}
+                value={userInfo?.birth || ""}
+                onChange={formattedDate}
               />
             ) : (
-              <p>만 {userInfo.userDetail.age}세</p>
+              <p>{userInfo?.birth}</p>
             )}
+            <p>만 {userInfo?.userDetail.age}세</p>
           </div>
         </div>
         <div>
           <span>과정명</span>
-          <span>{userInfo.subject.subjectName}</span>
+          <span>{userInfo?.subject.subjectName}</span>
         </div>
         <div>
           <span>주소</span>
@@ -137,7 +138,7 @@ const StudentBase = ({
             <input
               type="text"
               name="stdaddress"
-              value={userInfo.userDetail.address}
+              value={userInfo?.userDetail.address}
               onChange={e => {
                 setUserInfo(userInfo => ({
                   ...userInfo,
@@ -149,7 +150,7 @@ const StudentBase = ({
               }}
             />
           ) : (
-            <span>{userInfo.userDetail.address}</span>
+            <span>{userInfo?.userDetail.address}</span>
           )}
         </div>
         <div>
@@ -158,7 +159,7 @@ const StudentBase = ({
             <input
               type="text"
               name="stdemail"
-              value={userInfo.userDetail.email}
+              value={userInfo?.userDetail.email}
               onChange={e => {
                 setUserInfo(userInfo => ({
                   ...userInfo,
@@ -170,7 +171,7 @@ const StudentBase = ({
               }}
             />
           ) : (
-            <span>{userInfo.userDetail.email}</span>
+            <span>{userInfo?.userDetail.email}</span>
           )}
         </div>
         <div className="certificate">
@@ -188,7 +189,7 @@ const StudentBase = ({
             <div className="read-hashtag">
               {hashSave?.map(item => (
                 <div key={item.icertificate}>
-                  <span>{item.certificate}</span>
+                  <span>{item?.certificate}</span>
                 </div>
               ))}
             </div>
@@ -220,7 +221,7 @@ const StudentBase = ({
         <div>
           <span>수료기간</span>
           <span>
-            {userInfo.userDetail.startedAt} ~ {userInfo.userDetail.endedAt}
+            {userInfo?.userDetail.startedAt} ~ {userInfo?.userDetail.endedAt}
           </span>
         </div>
         <div>
@@ -242,7 +243,7 @@ const StudentBase = ({
               }}
             />
           ) : (
-            <span>{userInfo.userDetail.mobileNumber}</span>
+            <span>{userInfo?.userDetail.mobileNumber}</span>
           )}
         </div>
         <div>
@@ -251,7 +252,7 @@ const StudentBase = ({
             <input
               type="text"
               name="education"
-              value={userInfo.userDetail.education}
+              value={userInfo?.userDetail.education}
               onChange={e => {
                 setUserInfo(userInfo => ({
                   ...userInfo,
@@ -263,7 +264,7 @@ const StudentBase = ({
               }}
             />
           ) : (
-            <span>{userInfo.userDetail.education}</span>
+            <span>{userInfo?.userDetail.education}</span>
           )}
         </div>
       </li>

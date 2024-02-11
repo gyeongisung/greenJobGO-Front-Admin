@@ -112,7 +112,7 @@ export const getStudentDetail = async (
     setUserInfo({
       userDetail: userInfoDetail,
       certificateValue: certificates,
-      birth: birthYear,
+      birth: birthday,
       subject: subject,
     });
   } catch (error) {
