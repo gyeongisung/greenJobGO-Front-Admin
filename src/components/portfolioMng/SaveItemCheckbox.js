@@ -32,7 +32,7 @@ const SaveItemCheckbox = ({
   // 메인적용취소 모달 취소버튼 클릭
   const handleCancelReject = async () => {
     // await setClickItems(prev => []);
-    await setCancelMakeQuery("");
+    setCancelMakeQuery("");
     setMainCancelModalOpen(false);
   };
 
@@ -46,7 +46,7 @@ const SaveItemCheckbox = ({
       });
       await setMainCancelModalOpen(false);
       fetchData();
-      setErrorModalOpen(true);
+      // setErrorModalOpen(true);
     } catch (error) {
       // console.log("데이터가 처리되지 않았습니다", error);
     }
@@ -56,6 +56,7 @@ const SaveItemCheckbox = ({
   const openMainCancelModal = () => {
     setMainCancelModalOpen(true);
   };
+  
   useEffect(() => {
     if (cancelMakeQuery) {
       openMainCancelModal();

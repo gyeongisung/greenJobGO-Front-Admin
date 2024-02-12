@@ -17,7 +17,7 @@ export const readsavedListItems = selector({
 });
 const SaveItemContent = ({ fetchData, nothing,
   clickItems,
-  setClickItems, }) => {
+  setClickItems }) => {
   // 보관함 리스트 recoil을 읽어오자
   const savedListRead = useRecoilValue(readsavedListItems);
 

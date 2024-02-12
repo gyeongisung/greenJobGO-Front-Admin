@@ -88,11 +88,13 @@ export const patchSendSaved = async ({
       `${process.env.REACT_APP_PSS_URL}=${savedItemNum}&storageYn=${isSaved}`,
     );
     const result = res.data;
-    isSaved === 1
-      ? setErrorInfo("보관함 이동이 완료되었습니다.")
-      : isSaved === 0
-        ? setErrorInfo("보관함 취소가 완료되었습니다.")
-        : null;
+    if (res.status === 200) {
+      isSaved === 1
+        ? setErrorInfo("보관함 이동이 완료되었습니다.")
+        : isSaved === 0
+          ? setErrorInfo("보관함 취소가 완료되었습니다.")
+          : null;
+    }
     return result;
   } catch (error) {
     const { response } = error;
@@ -172,7 +174,9 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
       `${process.env.REACT_APP_PSM_URL}${queryString}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
-    setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
+    if (res.status === 200) {
+      setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
+    }
     return result;
   } catch (error) {
     if (error.response) {
@@ -213,9 +217,11 @@ export const patchCancelMain = async ({
     const res = await client.patch(
       `${process.env.REACT_APP_PSM_URL}${query}&companyMainYn=${mainYn}`,
     );
-    const result = await res.data;
-    setErrorCancelInfo("메인 포트폴리오 설정이 취소되었습니다.");
-    return result;
+    // const result = await res.data;
+    if (res.status === 200) {
+      setErrorCancelInfo("메인 포트폴리오 설정이 취소되었습니다.");
+    }
+    // return result;
   } catch (error) {
     const { response } = error;
     const { status } = response;
