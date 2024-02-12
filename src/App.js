@@ -12,7 +12,6 @@ const ClassMgmt = lazy(() => import("./pages/ClassMgmt"));
 const StudentMgmt = lazy(() => import("./pages/StudentMgmt"));
 const CompanyMgmt = lazy(() => import("./pages/CompanyMgmt"));
 const PortfolioMgmt = lazy(() => import("./pages/PortfolioMgmt"));
-const Register = lazy(() => import("./pages/Register"));
 const JobManager = lazy(() => import("./pages/JobManager"));
 const PermanentlyDelete = lazy(() => import("./pages/PermanentlyDelete"));
 const BulkDelete = lazy(() => import("./pages/BulkDelete"));
@@ -47,8 +46,6 @@ const App = () => {
             <Route path="/admin/class" element={<ClassMgmt />} />
             {/* 취업담당자 관리 */}
             <Route path="/admin/jobmanager" element={<JobManager />} />
-            {/* 수강생 등록 */}
-            <Route path="/admin/register" element={<Register />} />
             {/* 수강생 관리 */}
             <Route path="/admin/student" element={<StudentMgmt />} />
             <Route path="/admin/student/:istudent" element={<StudentInfo />} />

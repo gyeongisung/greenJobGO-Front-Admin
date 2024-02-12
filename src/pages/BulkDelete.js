@@ -11,8 +11,6 @@ import {
 import { getCategory } from "../api/bulkAxios";
 import { BulkDeletetModal } from "../components/AcceptModals";
 import OkModal from "../components/OkModal";
-import { StudentPageAtom } from "../components/studentmgmt/StudentMain";
-import { useResetRecoilState } from "recoil";
 import NoListItem from "../components/NoListItem";
 
 const BulkDelete = () => {

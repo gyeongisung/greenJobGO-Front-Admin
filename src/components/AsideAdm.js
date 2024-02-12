@@ -9,7 +9,7 @@ import { postLogout } from "../api/client";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { AuthStateAtom } from "../recoil/atoms/AuthState";
 import ConfirmModal from "./ConfirmModal";
-import { StudentPageAtom } from "./studentmgmt/StudentMain";
+import { StudentPageAtom } from "../pages/StudentMgmt";
 
 const AsideAdm = () => {
   // 수강생페이지 리코일정보 reset하기
@@ -36,13 +36,6 @@ const AsideAdm = () => {
   // 클릭할 때 수강생등록페이지 리코일정보를 reset
   const handleIsTrue = () => {
     ResetStudentPageRecoil();
-    // setPageState({
-    //   page: 1,
-    //   count: 0,
-    //   search: "",
-    //   category: "",
-    //   render: true,
-    // });
   };
 
   const handleLogoutClick = () => {
@@ -65,7 +58,6 @@ const AsideAdm = () => {
       category: "",
       render: true,
     });
-    // ResetStudentPageRecoil();
     setLogoutModalOpen(false);
     navigate("/admin/");
   };

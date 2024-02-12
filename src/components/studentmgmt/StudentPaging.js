@@ -1,13 +1,12 @@
 import React from "react";
 import Pagination from "react-js-pagination";
-import { PagiWrap } from "../../styles/PagingStyle";
 import { PortfolioPagingSty } from "../../styles/portfoliopagingstyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { StudentPageAtom } from "./StudentMain";
+import { StudentPageAtom } from "../../pages/StudentMgmt";
 import { useRecoilState } from "recoil";
 
 const StudentPaging = ({ page, setPage, count }) => {

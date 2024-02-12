@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { v4 } from "uuid";
-import { StudentPageAtom } from "./StudentMain";
+import { StudentPageAtom } from "../../pages/StudentMgmt";
 import { getCategory } from "../../api/classAxios";
-import OkModal from "../../components/OkModal";
 import ErrorModal from "../ErrorModal";
 
 const StudentSearch = ({
-  category,
   handleCategoryFiiter,
   search,
   handleSearch,
   cateValue,
-  // categoryData,
-  // setCategoryData,
 }) => {
   // api 오류 메세지 받아오는 state.
   const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
@@ -77,7 +72,9 @@ const StudentSearch = ({
         </form>
       </li>
       <li>
-        <button onClick={handleSearch} className="searchbtn">검색</button>
+        <button onClick={handleSearch} className="searchbtn">
+          검색
+        </button>
       </li>
       {/* api 에러 확인모달 */}
       {apiErrorModalOpen && (

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { atom, RecoilEnv, useRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import StudentSearch from "../components/studentmgmt/StudentSearch";
@@ -16,7 +15,6 @@ import {
   StudentTable,
 } from "../styles/StudentMgmtStyle";
 import {
-  DeleteStudnetModal,
   StudentExcelUploadModal,
   StudentModal,
 } from "../components/studentmgmt/StudentModal";
@@ -29,7 +27,6 @@ RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 const { persistAtom } = recoilPersist();
 
 export const StudentPageAtom = atom({
-  // key: `StudentPageAtom`,
   key: `StudentPageAtom`,
   default: {
     page: 1,
@@ -40,21 +37,13 @@ export const StudentPageAtom = atom({
   effects_UNSTABLE: [persistAtom],
 });
 const StudentMgmt = () => {
-  const navigate = useNavigate();
-
   // api 오류 메세지 받아오는 state.
   const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
   const [errorApiInfo, setErrorApiInfo] = useState("");
 
   const [nothing, setNothing] = useState(false);
   const [listData, setListData] = useState([]);
-  // const [saveCheckBox, setSaveCheckBox] = useState([]);
-  // const [page, setPage] = useState(1);
-  // const [count, setCount] = useState(0);
-  // const [search, setSearch] = useState("");
-  // const [category, setCategory] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [excelModalOpen, setExcelModalOpen] = useState(false);
   const [excelOkModal, setExcelOkModal] = useState(false);
   const [acceptOkModal, setAcceptOkModal] = useState(false);
@@ -62,14 +51,11 @@ const StudentMgmt = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [excelDownload, setExcelDownload] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [cateValue, setCateValue] = useState("");
-  const [searchValue, setSearchValue] = useState("");
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
   const { page, count, search, category, render } = pageState;
 
   // GET API
   const fetchData = () => {
-    // getStudentList(setListData, setCount, page, search, category);
     getStudentList(
       setListData,
       setPageState,
@@ -81,14 +67,6 @@ const StudentMgmt = () => {
     );
   };
 
-  // useEffect(() => {
-  //   document.querySelector(".all-checkbox-btn").checked = false;
-  //   document
-  //     .querySelectorAll(".student-checkbox")
-  //     .forEach(item => (item.checked = false));
-  //   setSaveCheckBox([]);
-  // }, [listData]);
-
   // 검색 버튼
   const handleSearch = async () => {
     setPageState(prev => ({
@@ -98,18 +76,13 @@ const StudentMgmt = () => {
       search,
     }));
 
-    // setPage(1);
-    await fetchData();
+    fetchData();
   };
 
   // 대분류 선택
   const handleCategoryFiiter = e => {
-    // setCategory(e.target.value);
-    // setCateValue(e.target.value);
-    // setSearchValue("");
     setPageState(prev => ({
       ...prev,
-      // page: 1,
       category: e.target.value,
       search: "",
     }));
@@ -136,7 +109,6 @@ const StudentMgmt = () => {
 
         if (result.success) {
           setExcelModalOpen(false);
-          // setExcelOkModal(true);
           setSelectedFile(null);
         }
         fetchData();
@@ -161,7 +133,6 @@ const StudentMgmt = () => {
 
   useEffect(() => {
     fetchData();
-    // getCategory(setCategoryData);
   }, [page, count]);
 
   return (
@@ -172,14 +143,9 @@ const StudentMgmt = () => {
       <StudentMgmtInner>
         <StudentSearch
           category={category}
-          // cateValue={cateValue}
-          // setSearchValue={setSearchValue}
           handleCategoryFiiter={handleCategoryFiiter}
           search={search}
-          // setSearch={setSearch}
           handleSearch={handleSearch}
-          // categoryData={categoryData}
-          // setCategoryData={setCategoryData}
         />
         {modalOpen && (
           <StudentModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
@@ -210,16 +176,6 @@ const StudentMgmt = () => {
             uploadResult={uploadResult}
           />
         )}
-        {/* {deleteModalOpen && (
-          <DeleteStudnetModal
-            deleteModalOpen={deleteModalOpen}
-            setDeleteModalOpen={setDeleteModalOpen}
-            saveCheckBox={saveCheckBox}
-            setSaveCheckBox={setSaveCheckBox}
-            setListData={setListData}
-            fetchData={fetchData}
-          />
-        )} */}
         <div className="student-buttons">
           <button onClick={handleExcelDownLoad}>엑셀 다운로드</button>
           <button onClick={handleExcelModalOpen}>엑셀 업로드</button>
@@ -229,20 +185,9 @@ const StudentMgmt = () => {
         </div>
         <StudentTable>
           {nothing && <NoListItem />}
-          <StudentList
-            listData={listData}
-            // handleAllCheck={handleAllCheck}
-            // handleCheckBox={handleCheckBox}
-            page={page}
-            // handleInfoClick={handleInfoClick}
-          />
+          <StudentList listData={listData} page={page} />
         </StudentTable>
-        <StudentPaging
-          page={page}
-          // setPage={setPage}
-          count={count}
-          pgge={page}
-        />
+        <StudentPaging page={page} count={count} pgge={page} />
       </StudentMgmtInner>
       {/* api 에러 확인모달 */}
       {apiErrorModalOpen && (

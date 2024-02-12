@@ -1,12 +1,7 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
 import { ModalWarp } from "../styles/GlobalStyle";
 
 const InputModal = ({ open, close, header, children }) => {
-  const stopPropagation = e => {
-    e.stopPropagation();
-  };
   return (
     <ModalWarp>
       <div className={open ? "openModal modal" : "modal"}>

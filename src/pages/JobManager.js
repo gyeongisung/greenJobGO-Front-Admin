@@ -5,7 +5,6 @@ import ManagerAdd from "../components/jobMng/ManagerAdd";
 import InputModal from "../components/InputModal";
 import { getJobManagerInfo } from "../api/jobMngAxiois";
 import { BtnGlobal } from "../styles/GlobalStyle";
-import OkModal from "../components/OkModal";
 import ErrorModal from "../components/ErrorModal";
 
 const JobManager = () => {

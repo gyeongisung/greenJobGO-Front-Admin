@@ -12,10 +12,10 @@ import {
 import { useRecoilState } from "recoil";
 import { AcceptModal, DeleteOkModal, EditAceeptModal } from "../AcceptModals";
 import { useNavigate, useParams } from "react-router";
-import StudentBase from "./StduenDetail/StudentBase";
-import StudentResume from "./StduenDetail/StudentResume";
-import StudentPofol from "./StduenDetail/StudentPofol";
-import { StudentPageAtom } from "./StudentMain";
+import StudentBase from "./StudentDetail/StudentBase";
+import StudentResume from "./StudentDetail/StudentResume";
+import StudentPofol from "./StudentDetail/StudentPofol";
+import { StudentPageAtom } from "../../pages/StudentMgmt";
 import ErrorModal from "../ErrorModal";
 import UploadLoading from "../UploadLoading";
 import ConfirmModal from "../ConfirmModal";
@@ -78,7 +78,7 @@ const StudentInfo = () => {
       setResumeFile(file);
     }
   };
-  
+
   // 이미지 등록
   const handleImgChange = e => {
     const selectImg = e.target.files[0];
