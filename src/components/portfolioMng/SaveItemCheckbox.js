@@ -24,16 +24,15 @@ const SaveItemCheckbox = ({
         const query = `istudent=${istudent}`;
         setCancelMakeQuery(query);
       }
-
       return checked
         ? [...prev, istudent]
         : prev.filter(item => item !== istudent);
     });
   };
-  // 메인적용하기 모달 취소버튼 클릭
+  // 메인적용취소 모달 취소버튼 클릭
   const handleCancelReject = async () => {
-    setClickItems(prev => []);
-    // await fetchData();
+    // await setClickItems(prev => []);
+    await setCancelMakeQuery("");
     setMainCancelModalOpen(false);
   };
 
@@ -53,9 +52,13 @@ const SaveItemCheckbox = ({
     }
   };
 
+  // 메인취소모달
+  const openMainCancelModal = () => {
+    setMainCancelModalOpen(true);
+  };
   useEffect(() => {
     if (cancelMakeQuery) {
-      setMainCancelModalOpen(true);
+      openMainCancelModal();
     }
   }, [cancelMakeQuery]);
 

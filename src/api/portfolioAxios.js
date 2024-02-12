@@ -47,28 +47,31 @@ export const getPortFolioList = async ({
     setStudentPFList(result);
     setCount(result.page.idx);
     setNothing(false);
+    console.log(result);
     if (result.res.length === 0) {
       setNothing(true);
     }
     return result;
   } catch (error) {
-    const { response } = error;
-    const { status } = response;
-    if (response) {
-      switch (status) {
-        case 500:
-          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
-          break;
-        case 401:
-          setErrorApiInfo(
-            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
-          );
-          break;
-        default:
-          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+    if (error.response) {
+      const { response } = error;
+      const { status } = response;
+      if (response) {
+        switch (status) {
+          case 500:
+            setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+            break;
+          case 401:
+            setErrorApiInfo(
+              `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+            );
+            break;
+          default:
+            setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+        }
+      } else {
+        throw new Error("Network Error");
       }
-    } else {
-      throw new Error("Network Error");
     }
   }
 };
@@ -128,31 +131,35 @@ export const getSavedPFList = async ({
     );
 
     const result = await res.data;
-    setSavedPFList(result);
-    setCount(result.page.idx);
-    setNothing(false);
+    if (result.res.length !== 0) {
+      setSavedPFList(result);
+      setCount(result.page.idx);
+      setNothing(false);
+    }
     if (result.res.length === 0) {
       setNothing(true);
     }
     return result;
   } catch (error) {
-    const { response } = error;
-    const { status } = response;
-    if (response) {
-      switch (status) {
-        case 500:
-          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
-          break;
-        case 401:
-          setErrorApiInfo(
-            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
-          );
-          break;
-        default:
-          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+    if (error) {
+      const { response } = error;
+      const { status } = response;
+      if (response) {
+        switch (status) {
+          case 500:
+            setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+            break;
+          case 401:
+            setErrorApiInfo(
+              `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+            );
+            break;
+          default:
+            setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+        }
+      } else {
+        throw new Error("Network Error");
       }
-    } else {
-      throw new Error("Network Error");
     }
   }
 };
@@ -168,9 +175,9 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
     setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
     return result;
   } catch (error) {
-    const { response } = error;
-    const { status } = response;
-    if (response) {
+    if (error.response) {
+      const { response } = error;
+      const { status } = response;
       switch (status) {
         case 500:
           setErrorInfo(`[${status}Error] 서버 내부 오류`);
