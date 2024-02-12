@@ -100,7 +100,6 @@ const StudentInfo = () => {
   };
 
   // 이미지 삭제
-
   const handleImageDelete = async () => {
     try {
       const result = await deleteFile(
@@ -157,6 +156,7 @@ const StudentInfo = () => {
       result = await putStudentInfo(
         istudent,
         userInfo.userDetail,
+        userInfo.birth,
         setErrorApiInfo,
       );
       setUpLoadResult(result);
@@ -188,6 +188,7 @@ const StudentInfo = () => {
   const handleCancel = () => {
     setIsEditMode(false);
   };
+
   // 이력서 파일 삭제 확인 버튼
   const handleOkClick = async () => {
     try {

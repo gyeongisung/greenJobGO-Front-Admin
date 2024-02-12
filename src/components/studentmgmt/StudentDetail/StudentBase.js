@@ -23,7 +23,12 @@ const StudentBase = ({
   handleImgChange,
 }) => {
   const formattedDate = e => {
-    const formattedValue = e.target.value
+    let inputText = e.target.value;
+
+    if (inputText.length > 10) {
+      inputText = inputText.substring(0, 10);
+    }
+    const formattedValue = inputText
       .replace(/[^0-9]/g, "")
       .replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
     setUserInfo(userInfo => ({

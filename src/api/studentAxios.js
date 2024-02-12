@@ -433,10 +433,15 @@ export const deleteCertificate = async (istudent, icertificate) => {
   }
 };
 
-export const putStudentInfo = async (istudent, userInfo, setErrorApiInfo) => {
+export const putStudentInfo = async (
+  istudent,
+  userInfo,
+  birth,
+  setErrorApiInfo,
+) => {
   try {
     const res = await client.put(
-      `${process.env.REACT_APP_SI_URL}=${istudent}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&age=${userInfo.age}&gender=${userInfo.gender}`,
+      `${process.env.REACT_APP_SI_URL}=${istudent}&studentName=${userInfo.name}&address=${userInfo.address}&email=${userInfo.email}&education=${userInfo.education}&mobileNumber=${userInfo.mobileNumber}&huntJobYn=${userInfo.huntJobYn}&birthday=${birth}&gender=${userInfo.gender}`,
     );
 
     const result = res;
