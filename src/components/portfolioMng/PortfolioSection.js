@@ -87,7 +87,6 @@ const PortfolioSection = () => {
       {/* 포트폴리오 리스트 화면 */}
       <PortFolioContentWrap>
         {nothing && <NoListItem />}
-
         {studentPFList?.res?.map(item => (
           <PortfolioContent
             key={`pk${item.istudent}`}

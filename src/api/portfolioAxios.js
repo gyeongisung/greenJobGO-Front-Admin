@@ -47,28 +47,31 @@ export const getPortFolioList = async ({
     setStudentPFList(result);
     setCount(result.page.idx);
     setNothing(false);
+    console.log(result);
     if (result.res.length === 0) {
       setNothing(true);
     }
     return result;
   } catch (error) {
-    const { response } = error;
-    const { status } = response;
-    if (response) {
-      switch (status) {
-        case 500:
-          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
-          break;
-        case 401:
-          setErrorApiInfo(
-            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
-          );
-          break;
-        default:
-          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+    if (error.response) {
+      const { response } = error;
+      const { status } = response;
+      if (response) {
+        switch (status) {
+          case 500:
+            setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+            break;
+          case 401:
+            setErrorApiInfo(
+              `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+            );
+            break;
+          default:
+            setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+        }
+      } else {
+        throw new Error("Network Error");
       }
-    } else {
-      throw new Error("Network Error");
     }
   }
 };
@@ -85,11 +88,13 @@ export const patchSendSaved = async ({
       `${process.env.REACT_APP_PSS_URL}=${savedItemNum}&storageYn=${isSaved}`,
     );
     const result = res.data;
-    isSaved === 1
-      ? setErrorInfo("보관함 이동이 완료되었습니다.")
-      : isSaved === 0
-        ? setErrorInfo("보관함 취소가 완료되었습니다.")
-        : null;
+    if (res.status === 200) {
+      isSaved === 1
+        ? setErrorInfo("보관함 이동이 완료되었습니다.")
+        : isSaved === 0
+          ? setErrorInfo("보관함 취소가 완료되었습니다.")
+          : null;
+    }
     return result;
   } catch (error) {
     const { response } = error;
@@ -128,31 +133,35 @@ export const getSavedPFList = async ({
     );
 
     const result = await res.data;
-    setSavedPFList(result);
-    setCount(result.page.idx);
-    setNothing(false);
+    if (result.res.length !== 0) {
+      setSavedPFList(result);
+      setCount(result.page.idx);
+      setNothing(false);
+    }
     if (result.res.length === 0) {
       setNothing(true);
     }
     return result;
   } catch (error) {
-    const { response } = error;
-    const { status } = response;
-    if (response) {
-      switch (status) {
-        case 500:
-          setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
-          break;
-        case 401:
-          setErrorApiInfo(
-            `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
-          );
-          break;
-        default:
-          setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+    if (error) {
+      const { response } = error;
+      const { status } = response;
+      if (response) {
+        switch (status) {
+          case 500:
+            setErrorApiInfo(`[${status}Error] 서버 내부 오류`);
+            break;
+          case 401:
+            setErrorApiInfo(
+              `[${status}Error] 로그인 시간이 만료되었습니다. 로그아웃 후 재접속 해주세요.`,
+            );
+            break;
+          default:
+            setErrorApiInfo("네트워크 오류 또는 서버 응답이 없습니다.");
+        }
+      } else {
+        throw new Error("Network Error");
       }
-    } else {
-      throw new Error("Network Error");
     }
   }
 };
@@ -165,12 +174,14 @@ export const patchSendMain = async ({ clickItems, mainYn, setErrorInfo }) => {
       `${process.env.REACT_APP_PSM_URL}${queryString}&companyMainYn=${mainYn}`,
     );
     const result = await res.data;
-    setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
+    if (res.status === 200) {
+      setErrorInfo("메인 포트폴리오 설정이 완료되었습니다.");
+    }
     return result;
   } catch (error) {
-    const { response } = error;
-    const { status } = response;
-    if (response) {
+    if (error.response) {
+      const { response } = error;
+      const { status } = response;
       switch (status) {
         case 500:
           setErrorInfo(`[${status}Error] 서버 내부 오류`);
@@ -206,9 +217,11 @@ export const patchCancelMain = async ({
     const res = await client.patch(
       `${process.env.REACT_APP_PSM_URL}${query}&companyMainYn=${mainYn}`,
     );
-    const result = await res.data;
-    setErrorCancelInfo("메인 포트폴리오 설정이 취소되었습니다.");
-    return result;
+    // const result = await res.data;
+    if (res.status === 200) {
+      setErrorCancelInfo("메인 포트폴리오 설정이 취소되었습니다.");
+    }
+    // return result;
   } catch (error) {
     const { response } = error;
     const { status } = response;

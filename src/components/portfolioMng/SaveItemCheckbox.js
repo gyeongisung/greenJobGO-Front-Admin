@@ -24,16 +24,15 @@ const SaveItemCheckbox = ({
         const query = `istudent=${istudent}`;
         setCancelMakeQuery(query);
       }
-
       return checked
         ? [...prev, istudent]
         : prev.filter(item => item !== istudent);
     });
   };
-  // 메인적용하기 모달 취소버튼 클릭
+  // 메인적용취소 모달 취소버튼 클릭
   const handleCancelReject = async () => {
-    setClickItems(prev => []);
-    // await fetchData();
+    // await setClickItems(prev => []);
+    setCancelMakeQuery("");
     setMainCancelModalOpen(false);
   };
 
@@ -47,15 +46,20 @@ const SaveItemCheckbox = ({
       });
       await setMainCancelModalOpen(false);
       fetchData();
-      setErrorModalOpen(true);
+      // setErrorModalOpen(true);
     } catch (error) {
       // console.log("데이터가 처리되지 않았습니다", error);
     }
   };
 
+  // 메인취소모달
+  const openMainCancelModal = () => {
+    setMainCancelModalOpen(true);
+  };
+  
   useEffect(() => {
     if (cancelMakeQuery) {
-      setMainCancelModalOpen(true);
+      openMainCancelModal();
     }
   }, [cancelMakeQuery]);
 
