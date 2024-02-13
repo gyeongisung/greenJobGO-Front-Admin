@@ -7,7 +7,7 @@ export const setCookie = (name, value) => {
     path: "/",
     secure: true,
     sameSite: "none",
-    httpOnly: true,
+    httpOnly: false,
     maxAge: 3600,
   });
 };

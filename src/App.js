@@ -22,16 +22,16 @@ const StudentPortF = lazy(
 );
 
 const App = () => {
-  // const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
-  // useEffect(() => {
-  //   const accessToken = getCookie("accessToken");
-  //   const refreshToken = getCookie("refreshToken");
-  //   if (pathname === "/" && (accessToken || refreshToken)) {
-  //     removeCookie("accessToken");
-  //     removeCookie("refreshToken");
-  //   }
-  // }, []);
+  useEffect(() => {
+    const accessToken = getCookie("accessToken");
+    const refreshToken = getCookie("refreshToken");
+    if (pathname === "/" && (accessToken || refreshToken)) {
+      removeCookie("accessToken");
+      removeCookie("refreshToken");
+    }
+  }, []);
 
   return (
     <>

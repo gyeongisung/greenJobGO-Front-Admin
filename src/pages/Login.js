@@ -51,9 +51,6 @@ const Login = () => {
           });
           navigate("/admin/home");
 
-          console.log("액세스토큰", accessToken);
-          console.log("리프레시토큰", refreshToken);
-
           setTimeout(() => {
             if (refreshToken) {
               postLogout(accessToken, refreshToken);
