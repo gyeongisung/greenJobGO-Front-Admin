@@ -44,11 +44,15 @@ const Login = () => {
           setAuthState({
             isLogin: true,
             accessToken: accessToken,
+            refreshToken: refreshToken,
             role: role,
             id: id,
             name: name,
           });
           navigate("/admin/home");
+
+          console.log("액세스토큰", accessToken);
+          console.log("리프레시토큰", refreshToken);
 
           setTimeout(() => {
             if (refreshToken) {
@@ -56,6 +60,7 @@ const Login = () => {
               setAuthState({
                 isLogin: false,
                 accessToken: null,
+                refreshToken: null,
                 role: "",
                 id: "",
                 name: "",
@@ -79,7 +84,6 @@ const Login = () => {
       setErrorModalOpen(false);
     }
   }, [errorCancelInfo]);
-
   return (
     <LoginWrap>
       <LoginInner>

@@ -8,6 +8,7 @@ export const AuthStateAtom = atom({
   default: {
     isLogin: false,
     accessToken: null,
+    refreshToken: null,
     role: "",
     id: "",
     name: "",
