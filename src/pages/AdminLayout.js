@@ -5,8 +5,11 @@ import { Breadcrumb, Layout } from "antd";
 import { Link } from "react-router-dom";
 import HeaderAdm from "../components/HeaderAdm";
 import AsideAdm from "../components/AsideAdm";
+import { useRecoilValue } from "recoil";
+import { AuthStateAtom } from "../recoil/atoms/AuthState";
 
 const AdminLayout = () => {
+  const { accessToken, refreshToken } = useRecoilValue(AuthStateAtom);
   const { Header, Content } = Layout;
 
   const { pathname } = useLocation();
@@ -94,6 +97,8 @@ const AdminLayout = () => {
       setBreadCrumbLnbTitle("");
     }
   }, [pathname]);
+  console.log("액세스", accessToken);
+  console.log("리프레시", refreshToken);
   return (
     <LayoutWrapSty>
       <Layout>

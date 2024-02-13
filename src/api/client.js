@@ -13,6 +13,7 @@ export const client = axios.create({
 client.interceptors.request.use(
   async config => {
     const token = getCookie("accessToken");
+    console.log("액세스", token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -67,8 +68,7 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
       setErrorCancelInfo("");
 
       return { role, accessToken, refreshToken, id, name, accessTokenTime };
-    } 
-    else {
+    } else {
       throw new Error("잘못된 응답 형식");
     }
   } catch (error) {

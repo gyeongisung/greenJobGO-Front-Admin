@@ -7,10 +7,10 @@ export const PrivateRoutes = ({ element }) => {
   const navigate = useNavigate();
   const { isLogin, accessToken } = useRecoilValue(AuthStateAtom);
 
+  console.log("프라빗토큰", accessToken);
   useEffect(() => {
     if (!isLogin && accessToken) {
       navigate("/admin/");
-      console.log("프라빗토큰", accessToken);
     }
   }, [isLogin, navigate]);
 

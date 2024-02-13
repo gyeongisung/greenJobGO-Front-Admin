@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { atom, RecoilEnv, useRecoilState } from "recoil";
+import { atom, RecoilEnv, useRecoilState, useRecoilValue } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import StudentSearch from "../components/studentmgmt/StudentSearch";
 import StudentList from "../components/studentmgmt/StudentList";
@@ -21,6 +21,7 @@ import {
 import { AcceptModal, ExcelAcceptModal } from "../components/AcceptModals";
 import NoListItem from "../components/NoListItem";
 import ErrorModal from "../components/ErrorModal";
+import { AuthStateAtom } from "../recoil/atoms/AuthState";
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
@@ -37,6 +38,7 @@ export const StudentPageAtom = atom({
   effects_UNSTABLE: [persistAtom],
 });
 const StudentMgmt = () => {
+  const { accessToken, refreshToken } = useRecoilValue(AuthStateAtom);
   // api 오류 메세지 받아오는 state.
   const [apiErrorModalOpen, setApiErrorModalOpen] = useState(false);
   const [errorApiInfo, setErrorApiInfo] = useState("");
@@ -135,6 +137,8 @@ const StudentMgmt = () => {
     fetchData();
   }, [page, count]);
 
+  console.log("액세스", accessToken);
+  console.log("리프레시", refreshToken);
   return (
     <StudentMgmtWrap>
       <div className="student-title">
