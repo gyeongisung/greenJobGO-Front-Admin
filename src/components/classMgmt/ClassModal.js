@@ -183,6 +183,7 @@ export const ClassAcceptModal = ({
                       <h3>과정명</h3>
                       <input
                         type="text"
+                        name="class-subjectname"
                         maxLength={70}
                         value={payload.courseSubjectName}
                         onChange={e => {
@@ -289,6 +290,7 @@ export const ClassAcceptModal = ({
                       <h3>수강시간</h3>
                       <input
                         type="number"
+                        name="class-time"
                         maxLength={10}
                         value={payload.classTime}
                         onChange={e => {
@@ -308,6 +310,7 @@ export const ClassAcceptModal = ({
                       <h3>회차</h3>
                       <input
                         type="number"
+                        name="class-round"
                         maxLength={10}
                         value={payload.round}
                         onChange={e => {
@@ -329,6 +332,7 @@ export const ClassAcceptModal = ({
                       <h3>강사명</h3>
                       <input
                         type="text"
+                        name="class-teacher"
                         maxLength={20}
                         value={payload.instructor}
                         onChange={e => {
@@ -348,6 +352,7 @@ export const ClassAcceptModal = ({
                       <h3>강의실</h3>
                       <input
                         type="text"
+                        className="class-room"
                         maxLength={10}
                         value={payload.lectureRoom}
                         onChange={e => {
@@ -548,6 +553,7 @@ export const ClassEditModal = ({
                       <h3>과정명</h3>
                       <input
                         type="text"
+                        name="class-subjectname"
                         maxLength={70}
                         value={payload.courseSubjectName}
                         onChange={e => {
@@ -658,6 +664,7 @@ export const ClassEditModal = ({
                       <h3>수강시간</h3>
                       <input
                         type="number"
+                        name="class-time"
                         maxLength={10}
                         value={payload.classTime}
                         onChange={e => {
@@ -677,6 +684,7 @@ export const ClassEditModal = ({
                       <h3>회차</h3>
                       <input
                         type="number"
+                        name="class-round"
                         maxLength={10}
                         value={payload.round}
                         onChange={e => {
@@ -698,6 +706,7 @@ export const ClassEditModal = ({
                       <h3>강사명</h3>
                       <input
                         type="text"
+                        className="class-teacher"
                         maxLength={20}
                         value={payload.instructor}
                         onChange={e => {
@@ -717,6 +726,7 @@ export const ClassEditModal = ({
                       <h3>강의실</h3>
                       <input
                         type="text"
+                        name="class-room"
                         maxLength={10}
                         value={payload.lectureRoom}
                         onChange={e => {
@@ -821,6 +831,7 @@ export const EnrollCategoryModal = ({
                   <li>
                     <div className="new-add">
                       <input
+                      name="class-big-category"
                         type="text"
                         value={categoryValue}
                         onChange={e => setCategoryValue(e.target.value)}
@@ -849,7 +860,7 @@ export const EnrollCategoryModal = ({
                       {isEdit ? (
                         <>
                           <div>
-                            <input type="text" value={item.classification} />
+                            <input type="text" name="class-category" value={item.classification} />
                           </div>
                           <div>
                             <button
@@ -872,15 +883,13 @@ export const EnrollCategoryModal = ({
                         <>
                           <div>
                             <input
+                            name="class-icategory"
                               type="text"
                               value={item.classification}
                               readOnly
                             />
                           </div>
                           <div>
-                            {/* <button onClick={() => handleEditClick(item.classification)}>
-                              <FontAwesomeIcon icon={faPencil} />
-                            </button> */}
                             <button onClick={() => handleDeleteButton(item)}>
                               <FontAwesomeIcon icon={faCircleXmark} />
                             </button>

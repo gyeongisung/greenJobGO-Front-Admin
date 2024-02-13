@@ -68,6 +68,7 @@ export const ExcelUploadModal = ({
                 <label htmlFor="file">파일첨부</label>
                 <input
                   className="upload-name"
+                  name="company-file-name"
                   value={selectedFile ? selectedFile.name : "첨부파일"}
                   placeholder="xlsx 파일 첨부"
                   readOnly
@@ -206,6 +207,7 @@ export const CompanyMgmtModal = ({
                       <h3>기업명</h3>
                       <input
                         type="text"
+                        name="company-name"
                         maxLength={20}
                         value={payload.companyName}
                         onChange={e => {

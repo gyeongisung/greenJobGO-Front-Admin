@@ -47,7 +47,6 @@ export const getPortFolioList = async ({
     setStudentPFList(result);
     setCount(result.page.idx);
     setNothing(false);
-    console.log(result);
     if (result.res.length === 0) {
       setNothing(true);
     }

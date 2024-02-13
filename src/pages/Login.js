@@ -102,6 +102,7 @@ const Login = () => {
                 placeholder="아이디를 입력해주세요."
                 value={adminId}
                 onChange={e => handleLoginId(e)}
+                autoComplete="current-password"
               />
             </div>
             <div>
@@ -112,6 +113,7 @@ const Login = () => {
                 placeholder="비밀번호를 입력해주세요."
                 value={password}
                 onChange={e => handleLoginPass(e)}
+                autoComplete="current-password"
               />
             </div>
             <div>
