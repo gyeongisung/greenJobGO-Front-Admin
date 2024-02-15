@@ -65,7 +65,7 @@ export const InfoBaseWrap = styled.ul`
         left: 0;
         bottom: 0;
         font-size: 25px;
-        color: ${Maincolor.grayDeep};
+        color: ${Maincolor.white};
         opacity: 0;
         > p {
           position: absolute;
@@ -73,7 +73,7 @@ export const InfoBaseWrap = styled.ul`
           right: 21%;
           cursor: pointer;
           :hover {
-            color: ${Maincolor.white};
+            color: ${Maincolor.admintxt};
           }
         }
         > input {
@@ -85,14 +85,14 @@ export const InfoBaseWrap = styled.ul`
           bottom: 25%;
           cursor: pointer;
           :hover {
-            color: ${Maincolor.white};
+            color: ${Maincolor.admintxt};
           }
         }
       }
     }
     .edit-image:hover {
       .edit-image-icons {
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.3);
         opacity: 1;
         ::before {
           content: "";
@@ -100,7 +100,7 @@ export const InfoBaseWrap = styled.ul`
           bottom: 12%;
           right: 50%;
           height: 70%;
-          border-right: 1px solid ${Maincolor.btn};
+          border-right: 1px solid ${Maincolor.white};
         }
       }
     }
@@ -327,7 +327,6 @@ export const InfoBaseWrap = styled.ul`
 `;
 export const InfoResumeWrap = styled.div`
   height: 310px;
-  /* border-bottom: 1px solid ${Maincolor.header}; */
   padding: 40px 0;
   > ul {
     > li {
@@ -431,11 +430,6 @@ export const InfoResumeWrap = styled.div`
                 color: ${Maincolor.white};
                 background: ${Maincolor.sectiontitle};
               }
-              /* :last-of-type {
-                color: ${Maincolor.sectiontitle};
-                background: ${Maincolor.white};
-                border: 1px solid ${Maincolor.sectiontitle};
-              } */
             }
           }
         }
