@@ -59,7 +59,7 @@ const AsideAdm = () => {
       render: true,
     });
     setLogoutModalOpen(false);
-    navigate("/admin/");
+    navigate("/admin");
   };
   const handleLogo = () => {
     setDefaultSelectedKeys("/admin/home");

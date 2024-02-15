@@ -62,11 +62,11 @@ const Login = () => {
                 id: "",
                 name: "",
               });
-              navigate("/admin/");
+              navigate("/admin");
             }
           }, accessTokenTime);
         } else {
-          navigate("/admin/");
+          navigate("/admin");
         }
       } catch (error) {
         // setErrorCancelInfo(error.message);
