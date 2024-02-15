@@ -550,19 +550,15 @@ export const InfoPofolWrap = styled.ul`
   }
 `;
 export const StudentPFeditSty = styled.div`
-  /* padding: 30px 25px 0px 92px; */
   height: 100%;
   overflow-y: hidden;
-  width: 1651px;
+  width: 1650px;
   padding-left: 92px;
   padding-right: 100px;
-
   .portfolio-list {
     width: 100%;
     height: 695px;
-
     padding-bottom: 30px;
-
     > li {
       h2 {
         font-size: 24px;
@@ -575,6 +571,7 @@ export const StudentPFeditSty = styled.div`
         display: flex;
         justify-content: space-between;
         padding-top: 40px;
+        padding-right: 25px;
         > button {
           margin-top: 60px;
           margin-bottom: 20px;

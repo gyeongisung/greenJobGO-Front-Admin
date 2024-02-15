@@ -178,7 +178,7 @@ const StudentPortF = () => {
       )}
       <ul className="portfolio-list">
         <li>
-          <h2>포트폴리오</h2>
+          <h2>포트폴리오 수정</h2>
           <button onClick={handleAddButton} className="upload-btn">
             + 포트폴리오 파일 또는 링크 추가
           </button>
