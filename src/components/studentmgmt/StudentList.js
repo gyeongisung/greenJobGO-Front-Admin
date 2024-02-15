@@ -3,10 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const StudentList = ({
   listData,
-  // handleAllCheck,
-  // handleCheckBox,
   page,
-  // handleInfoClick,
 }) => {
   const navigate = useNavigate();
 
@@ -18,14 +15,6 @@ const StudentList = ({
     <ul>
       <li className="student-list">
         <ul>
-          {/* <li className="student-table-th">
-            <input
-              type="checkbox"
-              name="all-check-box"
-              onChange={e => handleAllCheck(e)}
-              className="all-checkbox-btn"
-            />
-          </li> */}
           <li className="student-table-th">번호</li>
           <li className="student-table-th">대분류</li>
           <li className="student-table-th">과정명</li>
@@ -65,7 +54,6 @@ const StudentList = ({
               <li>{item.file}개</li>
               <li>{item.huntJobYn === 1 ? "취업" : "미취업"}</li>
             </ul>
-            {/* </Link> */}
           </li>
         ))}
     </ul>

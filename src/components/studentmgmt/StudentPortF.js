@@ -5,7 +5,6 @@ import { PortFolioAdd } from "./StudentModal";
 import { AcceptModal, DeleteOkModal } from "../AcceptModals";
 import {
   deleteFile,
-  getStudentDetail,
   getStudentPofolEdit,
   patchMainPofolSelected,
   postStudentPofolUpload,

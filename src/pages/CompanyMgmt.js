@@ -45,7 +45,6 @@ const CompanyMgmt = () => {
   const [areaError, setAreaError] = useState("");
   const [companyNameError, setCompanyNameError] = useState("");
   const [leaderNameError, setLeaderNameError] = useState("");
-  // const [homepageError, setHomepageError] = useState("");
   const [managerError, setManagerError] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [dateConslusionError, setDateConslusionError] = useState("");
