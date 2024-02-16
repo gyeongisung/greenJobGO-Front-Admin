@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getCookie, removeCookie, setCookie } from "./cookie";
+import { useNavigate } from "react-router";
 
 // axios 인스턴스 생성
 export const client = axios.create({
@@ -32,17 +33,16 @@ client.interceptors.response.use(
     const { config } = error;
     const response = error.response || {};
     const status = response.status || null;
+    const navigate = useNavigate();
     if (status === 401) {
       try {
         removeCookie("refreshToken");
-
         if (config && config.headers && config.headers.Authorization) {
           removeCookie("accessToken");
         }
-
-        this.props.history.push("/admin/");
+        navigate("/admin");
       } catch (error) {
-        this.props.history.push("/admin/");
+        console.error(error);
       }
     }
     return Promise.reject(error);

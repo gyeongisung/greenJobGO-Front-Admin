@@ -8,10 +8,11 @@ export const PrivateRoutes = ({ element }) => {
   const { isLogin, accessToken } = useRecoilValue(AuthStateAtom);
 
   useEffect(() => {
-    if (!isLogin && accessToken) {
+    if (!isLogin || !accessToken) {
       navigate("/admin");
     }
-  }, [isLogin, navigate]);
+  }, [isLogin, accessToken, navigate]);
 
-  return isLogin ? element : null;
+
+  return isLogin && accessToken ? element : null;
 };
