@@ -78,7 +78,7 @@ const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
 
       return { role, accessToken, refreshToken, id, name, accessTokenTime };
     } else {
-      setErrorCancelInfo("로그인을 다시 시도해주세요.");
+      setErrorCancelInfo("로그인을 다시 시도해 주세요.");
     }
   } catch (error) {
     const { status } = error.response;
@@ -109,7 +109,7 @@ const postLogout = async () => {
     removeCookie("accessToken");
     removeCookie("refreshToken");
   } catch (error) {
-    this.props.history.push("/admin/");
+    alert("다시 시도해 주세요.");
   }
 };
 
