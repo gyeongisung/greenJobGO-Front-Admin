@@ -26,14 +26,10 @@ const App = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const accessToken = getCookie("accessToken");
-    const refreshToken = getCookie("refreshToken");
-    if (pathname === "/admin" && (accessToken || refreshToken)) {
+    if (pathname === "/admin") {
       removeCookie("accessToken");
       removeCookie("refreshToken");
-      console.log(accessToken);
     }
-    console.log(accessToken);
   }, []);
 
   return (
