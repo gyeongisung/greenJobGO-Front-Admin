@@ -14,13 +14,10 @@ import { StudentPageAtom } from "../pages/StudentMgmt";
 const AsideAdm = () => {
   // 수강생페이지 리코일정보 reset하기
   const ResetStudentPageRecoil = useResetRecoilState(StudentPageAtom);
-
-  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
-
   const [authState, setAuthState] = useRecoilState(AuthStateAtom);
-
-  const { isLogin, role, id, name } = authState;
   const [pageState, setPageState] = useRecoilState(StudentPageAtom);
+  const { isLogin, role, id, name } = authState;
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
   const navigate = useNavigate();
 

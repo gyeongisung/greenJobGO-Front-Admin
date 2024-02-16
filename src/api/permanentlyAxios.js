@@ -1,4 +1,4 @@
-import { client } from "../api/client";
+import client from "./client";
 
 // 수강과목 불러오기
 export const getSubjectInfo = async ({

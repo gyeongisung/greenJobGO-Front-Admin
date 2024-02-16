@@ -1,57 +1,67 @@
 import axios from "axios";
 import { getCookie, removeCookie, setCookie } from "./cookie";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 // axios 인스턴스 생성
-export const client = axios.create({
+const client = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// 요청 인터셉터 설정
-client.interceptors.request.use(
-  async config => {
-    const token = getCookie("accessToken");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  },
-);
+// Interceptor 컴포넌트
+const Interceptor = ({ children }) => {
+  const navigate = useNavigate();
 
-// 응답 인터셉터 설정
-client.interceptors.response.use(
-  response => {
-    return response;
-  },
-  async error => {
-    const { config } = error;
-    const response = error.response || {};
-    const status = response.status || null;
-    // const navigate = useNavigate();
-    if (status === 401) {
-      try {
-        removeCookie("refreshToken");
-        if (config && config.headers && config.headers.Authorization) {
-          removeCookie("accessToken");
-        }
-        this.props.history.push("/admin");
-        // navigate("/admin");
-      } catch (error) {
-        console.error(error);
+  const requestInterceptor = client.interceptors.request.use(
+    async config => {
+      const token = getCookie("accessToken");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
       }
-    }
-    return Promise.reject(error);
-  },
-);
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    },
+  );
+  const responseInterceptor = client.interceptors.response.use(
+    response => {
+      return response;
+    },
+    async error => {
+      const { config } = error;
+      const response = error.response || {};
+      const status = response.status || null;
+      if (status === 401) {
+        try {
+          removeCookie("refreshToken");
+          if (config && config.headers && config.headers.Authorization) {
+            removeCookie("accessToken");
+          }
+          navigate("/admin");
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      return Promise.reject(error);
+    },
+  );
+
+  useEffect(() => {
+    return () => {
+      client.interceptors.request.eject(requestInterceptor);
+      client.interceptors.response.eject(responseInterceptor);
+    };
+  }, [responseInterceptor, requestInterceptor]);
+
+  return children;
+};
 
 // 로그인 함수
-export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
+const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
   try {
     const res = await client.post(`${process.env.REACT_APP_LG_URL}`, {
       id: adminId,
@@ -65,11 +75,10 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
     if (role === "ROLE_ADMIN" && refreshToken && accessToken) {
       setCookie("refreshToken", refreshToken);
       setCookie("accessToken", accessToken);
-      setErrorCancelInfo("");
 
       return { role, accessToken, refreshToken, id, name, accessTokenTime };
     } else {
-      throw new Error("잘못된 응답 형식");
+      setErrorCancelInfo("로그인을 다시 시도해주세요.");
     }
   } catch (error) {
     const { status } = error.response;
@@ -90,26 +99,29 @@ export const fetchLogin = async (adminId, password, setErrorCancelInfo) => {
     } else {
       setErrorCancelInfo("네트워크 오류 또는 서버 응답이 없습니다.");
     }
-    // throw new Error("로그인에 실패했습니다.");
   }
 };
 
 // 로그아웃 함수
-export const postLogout = async (accessToken, refreshToken) => {
+const postLogout = async () => {
   try {
     const res = await client.post(`${process.env.REACT_APP_LOGOUT_URL}`);
-    removeCookie(accessToken);
-    removeCookie(refreshToken);
+    removeCookie("accessToken");
+    removeCookie("refreshToken");
   } catch (error) {
     this.props.history.push("/admin/");
   }
 };
 
-export const getLoginPic = async setLoginPic => {
+// 로그인 사진 get
+const getLoginPic = async (setLoginPic, setErrorCancelInfo) => {
   try {
     const res = await client.get(`${process.env.REACT_APP_LGp_URL}`);
     setLoginPic(res.data);
   } catch (error) {
-    console.log("깜짝놀랬찌?");
+    setErrorCancelInfo("관리자에게 문의 해주세요.");
   }
 };
+
+export default client;
+export { Interceptor, fetchLogin, postLogout, getLoginPic };

@@ -1,4 +1,4 @@
-import { client } from "./client";
+import client from "./client";
 
 //  취업담당자 리스트 불러오기
 export const getJobManagerInfo = async (setmngProflieData, setErrorApiInfo) => {

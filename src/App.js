@@ -4,6 +4,7 @@ import Loading from "./components/Loading";
 import { Suspense, lazy, useEffect } from "react";
 import { PrivateRoutes } from "./components/PrivateRoutes";
 import { getCookie, removeCookie } from "./api/cookie";
+import { Interceptor } from "./api/client";
 
 const Login = lazy(() => import("./pages/Login"));
 const AdminLayout = lazy(() => import("./pages/AdminLayout"));
@@ -27,43 +28,53 @@ const App = () => {
   useEffect(() => {
     const accessToken = getCookie("accessToken");
     const refreshToken = getCookie("refreshToken");
-    if (pathname === "/" && (accessToken || refreshToken)) {
+    if (pathname === "/admin" && (accessToken || refreshToken)) {
       removeCookie("accessToken");
       removeCookie("refreshToken");
+      console.log(accessToken);
     }
+    console.log(accessToken);
   }, []);
 
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Routes>
-          {/* 로그인 페이지 */}
-          <Route path="/admin" element={<Login />} />
-          <Route element={<PrivateRoutes element={<AdminLayout />} />}>
-            {/* 관리자 인트로 */}
-            <Route path="/admin/home" element={<Home />} />
-            {/* 수업 과정 관리 */}
-            <Route path="/admin/class" element={<ClassMgmt />} />
-            {/* 취업담당자 관리 */}
-            <Route path="/admin/jobmanager" element={<JobManager />} />
-            {/* 수강생 관리 */}
-            <Route path="/admin/student" element={<StudentMgmt />} />
-            <Route path="/admin/student/:istudent" element={<StudentInfo />} />
-            <Route
-              path="/admin/student/portfolioEdit"
-              element={<StudentPortF />}
-            />
-            {/* 수강생 포트폴리오 관리 */}
-            <Route path="/admin/portfolio" element={<PortfolioMgmt />} />
-            {/* 기업 관리 */}
-            <Route path="/admin/company" element={<CompanyMgmt />} />
-            {/* 일괄 삭제 */}
-            <Route path="/admin/bulk" element={<BulkDelete />} />
-            {/* 영구 삭제 */}
-            <Route path="/admin/permanently" element={<PermanentlyDelete />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Interceptor>
+          <Routes>
+            {/* 로그인 페이지 */}
+            <Route path="/admin" element={<Login />} />
+            <Route element={<PrivateRoutes element={<AdminLayout />} />}>
+              {/* 관리자 인트로 */}
+              <Route path="/admin/home" element={<Home />} />
+              {/* 수업 과정 관리 */}
+              <Route path="/admin/class" element={<ClassMgmt />} />
+              {/* 취업담당자 관리 */}
+              <Route path="/admin/jobmanager" element={<JobManager />} />
+              {/* 수강생 관리 */}
+              <Route path="/admin/student" element={<StudentMgmt />} />
+              <Route
+                path="/admin/student/:istudent"
+                element={<StudentInfo />}
+              />
+              <Route
+                path="/admin/student/portfolioEdit"
+                element={<StudentPortF />}
+              />
+              {/* 수강생 포트폴리오 관리 */}
+              <Route path="/admin/portfolio" element={<PortfolioMgmt />} />
+              {/* 기업 관리 */}
+              <Route path="/admin/company" element={<CompanyMgmt />} />
+              {/* 일괄 삭제 */}
+              <Route path="/admin/bulk" element={<BulkDelete />} />
+              {/* 영구 삭제 */}
+              <Route
+                path="/admin/permanently"
+                element={<PermanentlyDelete />}
+              />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Interceptor>
       </Suspense>
     </>
   );

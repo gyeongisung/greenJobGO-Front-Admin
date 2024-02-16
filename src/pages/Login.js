@@ -74,7 +74,7 @@ const Login = () => {
     }
   };
   useEffect(() => {
-    getLoginPic(setLoginPic);
+    getLoginPic(setLoginPic, setErrorCancelInfo);
     if (errorCancelInfo) {
       setErrorModalOpen(true);
     } else {
