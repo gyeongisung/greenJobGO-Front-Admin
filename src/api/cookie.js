@@ -8,7 +8,7 @@ export const setCookie = (name, value) => {
     secure: true,
     sameSite: "none",
     httpOnly: false,
-    maxAge: 3600,
+    maxAge: 10800,
   });
 };
 
