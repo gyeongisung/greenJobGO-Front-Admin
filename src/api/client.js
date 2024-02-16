@@ -33,14 +33,15 @@ client.interceptors.response.use(
     const { config } = error;
     const response = error.response || {};
     const status = response.status || null;
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     if (status === 401) {
       try {
         removeCookie("refreshToken");
         if (config && config.headers && config.headers.Authorization) {
           removeCookie("accessToken");
         }
-        navigate("/admin");
+        this.props.history.push("/admin");
+        // navigate("/admin");
       } catch (error) {
         console.error(error);
       }

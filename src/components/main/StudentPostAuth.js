@@ -107,12 +107,14 @@ const StudentPostAuth = ({ setAuthInfo }) => {
   }, []);
   useEffect(() => {
     getStudentSubject({ selectCate, setSubjectList, setErrorApiInfo });
+  }, [selectCate]);
+  useEffect(() => {
     if (errorApiInfo) {
       setApiErrorModalOpen(true);
     } else {
       setApiErrorModalOpen(false);
     }
-  }, [selectCate, errorApiInfo]);
+  }, [errorApiInfo]);
   return (
     <StudentAuthPostSty>
       <ul className="click-content">
