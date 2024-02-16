@@ -154,14 +154,14 @@ const ClassMgmt = () => {
     document.body.style.overflow = "hidden";
   };
 
-  const handleDeleteModalOpen = () => {
-    if (saveCheckBox.length >= 1) {
-      setDeleteModalOpen(true);
-    } else {
-      setCheckModalOpen(true);
-    }
-    document.body.style.overflow = "hidden";
-  };
+  // const handleDeleteModalOpen = () => {
+  //   if (saveCheckBox.length >= 1) {
+  //     setDeleteModalOpen(true);
+  //   } else {
+  //     setCheckModalOpen(true);
+  //   }
+  //   document.body.style.overflow = "hidden";
+  // };
 
   // 카테고리 추가
   const handlePostCategory = async () => {
@@ -310,7 +310,7 @@ const ClassMgmt = () => {
         )}
         <div className="class-buttons">
           <button onClick={handleEnrollModalOpen}>대분류 설정</button>
-          <button onClick={handleDeleteModalOpen}>삭제</button>
+          {/* <button onClick={handleDeleteModalOpen}>삭제</button> */}
           <button onClick={handleModalOpen}>과정등록</button>
         </div>
         <div className="total-count">
