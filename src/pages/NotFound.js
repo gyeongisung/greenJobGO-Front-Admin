@@ -5,7 +5,7 @@ import { NotFoundWrap } from "../styles/NotFoundStyle";
 const NotFound = () => {
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate(-1);
+    navigate("/admin/home");
   };
   return (
     <NotFoundWrap>
