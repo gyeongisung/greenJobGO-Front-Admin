@@ -1,11 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { NotFoundWrap } from "../styles/NotFoundStyle";
+import { useRecoilValue } from "recoil";
+import { AuthStateAtom } from "../recoil/atoms/AuthState";
 
 const NotFound = () => {
+  const authState = useRecoilValue(AuthStateAtom);
+  const { role } = authState;
   const navigate = useNavigate();
+
   const handleBack = () => {
-    navigate("/admin/home");
+    if (role === "ROLE_ADMIN") {
+      navigate("/admin/home");
+    } else {
+      navigate("/admin");
+    }
   };
   return (
     <NotFoundWrap>
