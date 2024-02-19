@@ -14,9 +14,7 @@ export const getStudentSubject = async ({
     setSubjectList(result.res);
     return result;
   } catch (error) {
-    console.log(error);
     const { response } = error;
-    console.log(response);
     const { status } = response;
     if (response) {
       switch (status) {

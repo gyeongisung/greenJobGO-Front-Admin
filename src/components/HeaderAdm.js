@@ -1,14 +1,9 @@
 import React from "react";
 import { HeaderWrap } from "../styles/HeaderStyle";
 import { Breadcrumb, Layout } from "antd";
-import { Link } from "react-router-dom";
 
 const HeaderAdm = ({ breadCrumbLnbTitle, breadcrumbItems }) => {
   const { Header } = Layout;
-
-  const handleClick = () => {
-    return;
-  };
   return (
     <>
       <Layout>

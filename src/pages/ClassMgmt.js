@@ -193,8 +193,7 @@ const ClassMgmt = () => {
     setUpLoadResult(result);
     setModalOpen(false);
     setConfirmModalOpen(false);
-    // if (result.success) {
-    // setAcceptOkModal(true);
+
     setPayload({
       courseSubjectName: "",
       iclassification: 0,
@@ -207,7 +206,6 @@ const ClassMgmt = () => {
       classTime: "",
     });
     fetchData();
-    // }
   };
 
   // 등록 여부 확인 모달

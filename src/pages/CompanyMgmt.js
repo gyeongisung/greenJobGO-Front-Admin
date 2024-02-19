@@ -193,14 +193,10 @@ const CompanyMgmt = () => {
       );
       setAreaError(!payload.area ? "지역을 입력 해 주세요." : "");
       setLeaderNameError(!payload.leaderName ? "대표명을 입력 해 주세요." : "");
-      // setHomepageError(!payload.homepage ? "홈페이지를 입력 해 주세요." : "");
       setManagerError(!payload.manager ? "담당자 이름을 입력 해 주세요." : "");
       setPhoneNumberError(
         !payload.phoneNumber ? "연락처를 입력 해 주세요." : "",
       );
-      // setDateConslusionError(
-      //   !payload.dateConslusion ? "체결일자를 선택 해 주세요." : "",
-      // );
 
       const isError =
         !payload.companyName ||
@@ -208,7 +204,6 @@ const CompanyMgmt = () => {
         !payload.leaderName ||
         !payload.manager ||
         !payload.phoneNumber;
-      // !payload.dateConslusion;
 
       if (!isError) {
         const result = await postCompanyAccept(payload, setErrorApiInfo);
@@ -217,7 +212,6 @@ const CompanyMgmt = () => {
 
         if (result.success) {
           setModalOpen(false);
-          // setAcceptOkModal(true);
           setPayload({
             area: "",
             companyName: "",
@@ -232,7 +226,6 @@ const CompanyMgmt = () => {
       }
     } catch (error) {
       setModalOpen(false);
-      // setAcceptOkModal(true);
       setPayload({
         area: "",
         companyName: "",
@@ -280,7 +273,6 @@ const CompanyMgmt = () => {
             areaError={areaError}
             companyNameError={companyNameError}
             leaderNameError={leaderNameError}
-            // homepageError={homepageError}
             managerError={managerError}
             phoneNumberError={phoneNumberError}
             dateConslusionError={dateConslusionError}

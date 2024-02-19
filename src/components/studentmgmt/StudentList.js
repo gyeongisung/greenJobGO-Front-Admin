@@ -1,10 +1,7 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const StudentList = ({
-  listData,
-  page,
-}) => {
+const StudentList = ({ listData, page }) => {
   const navigate = useNavigate();
 
   const handleClickList = istudent => {

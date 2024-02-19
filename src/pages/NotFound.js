@@ -41,7 +41,7 @@ const NotFound = () => {
           </span>
           <div className="info">
             <span>관련 문의사항은</span>
-            <span> 053-572-1005</span>
+            <span> 교육운영팀</span>
             <span>으로 연락바랍니다.</span>
           </div>
         </div>

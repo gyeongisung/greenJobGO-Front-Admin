@@ -4,7 +4,6 @@ import React from "react";
 import { v4 } from "uuid";
 import { InfoPofolWrap } from "../../../styles/StudentInfoStyle";
 import { useParams } from "react-router";
-import { Maincolor } from "../../../styles/GlobalStyle";
 
 const StudentPofol = ({ userFile }) => {
   const { istudent } = useParams();
@@ -24,7 +23,6 @@ const StudentPofol = ({ userFile }) => {
                     <p>
                       <FontAwesomeIcon
                         icon={faFilePdf}
-                        // color={`${Maincolor.grayDeep}`}
                       />
                     </p>
                     <a
@@ -72,7 +70,6 @@ const StudentPofol = ({ userFile }) => {
                     <p>
                       <FontAwesomeIcon
                         icon={faLink}
-                        // color={`${Maincolor.grayDeep}`}
                       />
                     </p>
                     <a

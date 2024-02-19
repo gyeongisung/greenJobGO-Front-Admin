@@ -40,7 +40,6 @@ const StudentSearch = ({
           </option>
           {categoryData.map(item => (
             <option
-              // key={v4()}
               key={`cate${item.iclassification}`}
               name="category-state"
               value={item.iclassification}
@@ -57,11 +56,8 @@ const StudentSearch = ({
             placeholder="훈련 과정명을 검색하세요."
             name="category-state"
             value={search}
-            onChange={
-              e =>
-                // setSearch(e.target.value)
-                setPageState(prev => ({ ...prev, search: e.target.value }))
-              // setSearchValue(e.target.value)
+            onChange={e =>
+              setPageState(prev => ({ ...prev, search: e.target.value }))
             }
             onKeyDown={e => {
               if (e.key === "Enter") {

@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from "react-router";
 import Loading from "./components/Loading";
 import { Suspense, lazy, useEffect } from "react";
 import { PrivateRoutes } from "./components/PrivateRoutes";
-import { getCookie, removeCookie } from "./api/cookie";
+import { removeCookie } from "./api/cookie";
 import { Interceptor } from "./api/client";
 
 const Login = lazy(() => import("./pages/Login"));

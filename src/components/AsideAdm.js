@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SideMenuWrap } from "../styles/AsideStyle";
 import Sider from "antd/es/layout/Sider";
 import { Menu } from "antd";
@@ -128,7 +128,6 @@ const AsideAdm = () => {
               background: "#ffffff",
             }}
             defaultOpenKeys={["sub1", "sub2"]}
-            // defaultSelectedKeys={[defaultSelectedKeys]}
             selectedKeys={[defaultSelectedKeys]}
             mode={"inline"}
             theme={"light"}
