@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { patchCancelMain, patchSendMain } from "../../api/portfolioAxios";
 import ConfirmModal from "../ConfirmModal";
 import OkModal from "../OkModal";
+import { useNavigate } from "react-router";
 
 const SaveItemCheckbox = ({
   item,
@@ -16,6 +17,7 @@ const SaveItemCheckbox = ({
   const [cancelMakeQuery, setCancelMakeQuery] = useState("");
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorCancelInfo, setErrorCancelInfo] = useState("");
+  const navigate = useNavigate();
 
   // 체크박스 변경 이벤트 핸들러
   const handleCheckBox = (checked, istudent) => {
@@ -56,7 +58,11 @@ const SaveItemCheckbox = ({
   const openMainCancelModal = () => {
     setMainCancelModalOpen(true);
   };
-  
+
+  const handleUserDetailMove = () => {
+    navigate(`/admin/student/${item.istudent}`);
+  };
+
   useEffect(() => {
     if (cancelMakeQuery) {
       openMainCancelModal();
@@ -93,8 +99,12 @@ const SaveItemCheckbox = ({
         </li>
       </ul>
       <ul className="side-info">
-        <li className="pf-name">{item.studentName} 수강생</li>
-        <li className="pf-subject">{item.subjectName}</li>
+        <li className="pf-name" onClick={handleUserDetailMove}>
+          {item.studentName} 수강생
+        </li>
+        <li className="pf-subject" onClick={handleUserDetailMove}>
+          {item.subjectName}
+        </li>
         {item.storageYn === 1 ? (
           <li
             className="isSaved-name-right"
