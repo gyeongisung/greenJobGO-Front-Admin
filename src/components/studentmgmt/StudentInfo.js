@@ -181,7 +181,7 @@ const StudentInfo = () => {
 
   // 돌아가기 버튼
   const handleBack = () => {
-    navigate("/admin/student");
+    navigate(-1);
   };
 
   // 수정 취소 버튼
