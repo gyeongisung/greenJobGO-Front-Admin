@@ -368,7 +368,7 @@ export const deleteStudent = async istudent => {
       `${process.env.REACT_APP_SI_URL}=${istudent}`,
     );
   } catch (error) {
-    console.log("관리자에게 문의 바랍니다.");
+    alert("관리자에게 문의 바랍니다.");
   }
 };
 

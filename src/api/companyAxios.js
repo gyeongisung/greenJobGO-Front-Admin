@@ -64,7 +64,7 @@ export const getCompanyListDownload = async () => {
     link.click();
     URL.revokeObjectURL(blobUrl);
   } catch (error) {
-    console.log("엑셀다운로드 실패. 관리자에게 문의하세요.");
+    alert("엑셀다운로드 실패. 관리자에게 문의하세요.");
   }
 };
 

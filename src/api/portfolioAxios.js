@@ -216,11 +216,9 @@ export const patchCancelMain = async ({
     const res = await client.patch(
       `${process.env.REACT_APP_PSM_URL}${query}&companyMainYn=${mainYn}`,
     );
-    // const result = await res.data;
     if (res.status === 200) {
       setErrorCancelInfo("메인 포트폴리오 설정이 취소되었습니다.");
     }
-    // return result;
   } catch (error) {
     const { response } = error;
     const { status } = response;
